@@ -23,6 +23,9 @@
 \newcommand{\reporef}{arxiv-v1}
 \newcommand{\repo}[1]{\href{\repourl/blob/\reporef/#1}{\nolinkurl{#1}}}
 \newcommand{\codelink}[1]{\href{\repourl/blob/\reporef/#1}{code}}
+% The memory continuation postdates the original release tag; bind its receipts to their audited commit.
+\newcommand{\memoryrepo}[1]{\href{\repourl/blob/d2a15964bdae9358ad2dbc363980a10294b2cb2e/#1}{\nolinkurl{#1}}}
+\newcommand{\memoryscanrepo}[1]{\href{\repourl/blob/b87a9e74ab364801ce8bb3ee86cc585c2bc2e338/#1}{\nolinkurl{#1}}}
 \usepackage{microtype}
 \hypersetup{pdftitle={Chaos and bifurcations in continuous language-model feedback},
   pdfsubject={Supplementary material to the article of the same title}}
@@ -77,7 +80,10 @@ floor of the computation), periodic windows accumulate on folds with distances c
 predicted in advance from fold normal forms came within one iterate of the return map in 42 of 48 cases at four new folds, over two frozen stages (24 and 18 of
 24) (the six
 misses, at a period-6 fold, 3.1 to 5.2\,\% short), and interval arithmetic proves an attracting period-8 orbit and, at one parameter cell, two coexisting
-attracting orbits of periods 2 and 3. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled
+attracting orbits of periods 2 and 3. In a smaller period-18 window, retaining about 0.645\,\% of the previous feedback
+state as a third control numerically reconnects the selected return pair's trace-zero contours as its saddle is
+followed in steering and temperature. The sampled centers keep their state period and six-token readout, and the
+multipliers remain nonzero. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled
 generation. These results show that bifurcation theory can make quantitative predictions about continuous language-model
 feedback, with rigorous guarantees for selected periodic orbits of the full transformer.
 \end{abstract}
@@ -204,6 +210,7 @@ Fold normal forms predict passage times (42 of 48; both all-row criteria failed)
 Late doubling ratios approach Feigenbaum's $\delta$, at the float64 floor & numerical & Sec.~\ref{sec:cascade} \\
 13 of the 17 tangent reversals of the continued fold curves are located cusps (four found on 18 October are not located); local unfoldings match Newton solves & numerical; unfoldings frozen & Sec.~\ref{sec:organization} \\
 A period-5 window is a shrimp in a two-parameter plane (boundary organization) & numerical; found by search & Sec.~\ref{sec:organization} \\
+Retained feedback reconnects a period-18 family's pair-trace contours while the sampled centers keep their period and readout & exploratory; numerical & Sec.~\ref{sec:memoryunfolding} \\
 An attracting period-8 orbit exists & proof & App.~\ref{sec:evidence} \\
 Attracting orbits of periods 2 and 3 coexist at one parameter cell, with certified token loops and basin neighborhoods & proof & App.~\ref{sec:evidence} \\
 No accuracy information beyond first-token uncertainty; no edge-of-chaos advantage & frozen; bounded nulls & Sec.~\ref{sec:consequences} \\
@@ -3040,6 +3047,298 @@ each at the phase continuous with the fold curve. One orbit with another token l
 \end{figure}
 
 
+\FloatBarrier
+\subsection{Retained feedback as a third control: reconnecting the child's trace contours}
+\label{sec:memoryunfolding}
+The separation of the period-6 body's lines raises a question that a finer picture alone cannot answer: is the
+separation removable by changing the map? We tested this in the smaller period-18 window below that body, called
+the child to distinguish it from the period-6 mother. These are different full-state orbit families. The child
+retains a primitive 18-step state cycle while writing a six-token cycle three times; equality of the text after six
+steps is not closure of its 896-dimensional feedback state. In this exploratory intervention, retaining a small
+fraction of the previous feedback state changes the connections of the selected pair's trace-zero contours, while
+the sampled centers keep that period and readout. The result is a controlled change of spectral geometry within
+one periodic family, rather than a transition to different text or a demonstration of exact superstability.
+
+\paragraph{What memory means here.} Write $F_p$ for the original one-token soft-feedback map at
+$p=(\alpha,\log_{10}T)$. We replace its state update by
+\begin{equation}
+ x_{n+1}=F_{p,\beta}(x_n)=(1-\beta)F_p(x_n)+\beta x_n.
+ \label{eq:retainedfeedback}
+\end{equation}
+The fresh expected embedding is mixed with the current feedback embedding, with the same coefficient at every
+step. At $\beta=0$ this is exactly the original map; at $\beta=0.00645$, for example, the next state contains
+99.355\,\% fresh output and 0.645\,\% retained state. This adds inertia to the state update, not a longer sequence
+of visible tokens. The context window remains $K=1$, the prompt and token position remain fixed, and neither
+weights nor steering direction are retrained. The readout is still the model's next-token distribution evaluated
+at $x_n$; it is the embedding fed back to the next step that is mixed. The longer-context experiments of
+Section~\ref{sec:beyond} change a different object.
+
+\paragraph{Following the saddle, rather than taking a fixed slice.} Let $M(p,\beta)$ be the Jacobian of the
+18-step return along the continued child orbit, and let
+\begin{equation}
+ \tau(p,\beta)=\mu_1+\mu_2,\qquad \Delta(p,\beta)=\mu_1\mu_2
+ \label{eq:memorypair}
+\end{equation}
+be the sum and product of the selected real or complex-conjugate pair. These are pair invariants, not the trace
+and determinant of the full return matrix. Selecting an isolated pair keeps $\tau$ smooth when the two multipliers
+exchange order by modulus. At each $\beta$ we correct the two original controls to locate the same trace saddle,
+\begin{equation}
+ \nabla_p\tau(c(\beta),\beta)=0,\qquad
+ h(\beta)=\tau(c(\beta),\beta),\qquad
+ H(\beta)=\partial_p^2\tau(c(\beta),\beta).
+ \label{eq:memorysaddle}
+\end{equation}
+The saddle is selected by its stationarity and indefinite Hessian; its height is then measured, not forced to
+zero by that two-control solve. Holding $\alpha$ and $T$ at their original values would confound a change of height
+with motion of the saddle. Only after a sign bracket was found did a third scalar solve adjust $\beta$ to reduce
+the height. Thus the reported crossing estimate concerns three adjusted controls, not addition of memory at fixed
+steering and temperature.
+
+The same full-state primitive-period, closure, pair-residual and cyclic-phase gates were applied throughout.
+The first continuation accepted eleven saddle centers through $\beta=0.003$, lowering $h$ from
+$4.647042445\times10^{-4}$ to $2.753879880\times10^{-4}$. Its next step, to $\beta=0.005$, failed because the
+proposed corrector displacement, 2.19189 in the declared scaled coordinates, exceeded the unchanged trust radius
+of 2. That partial attempt remains in the record; its failed point was not accepted. A disclosed local extension
+freshly replayed the accepted $\beta=0.001$ and 0.003 centers, then used smaller continuation steps. This extension
+completed 273 qualified evaluations and seven new saddle centers. Its saved final-return states allow independent
+closure replay at every point; the largest relative closure residual is below $4.34\times10^{-13}$ and the
+smallest tested lower-lag return exceeds 0.01494. The historical attempt did not save its final-return arrays, so
+its closure check retains the recorded-summary limitation. Source commits, plans, every attempt and both audits
+are bound by \memoryrepo{docs/baby-shrimp-zoom/memory-continuation-receipt.json} and
+\memoryrepo{docs/baby-shrimp-zoom/memory-local-extension-receipt.json}.
+
+\paragraph{A resolved sign change and a residual-qualified crossing estimate.} Table~\ref{tab:memorysaddle}
+reports the accepted saddle heights. The values at $\beta=0.006$ and 0.007 have opposite signs, separated from zero
+by much more than the observed changes under stencil scale, center transport and cyclic phase
+(Figure~\ref{fig:memorycontinuation}). The root search
+then satisfied its declared $|h|\le10^{-8}$ stopping rule at
+\begin{equation}
+ \begin{split}
+ \beta_*&=0.006448531026086656,\\
+ (\alpha_*,\log_{10}T_*)&=(0.07331776448598727,-0.15804614858293237),\\
+ \tau_*&=1.6365300102\times10^{-10}.
+ \end{split}
+ \label{eq:memorycandidate}
+\end{equation}
+The memory fraction is approximately 0.64485\,\%. The digits in Eq.~\eqref{eq:memorycandidate} identify the
+computed point; they are not a parameter error bar. Its trace remains positive across the recorded estimates, and
+the solver's retained sign bracket is $[0.0064484162589609016,0.007]$, not a narrow certified interval around the
+candidate. The distinction matters: a well-resolved sign change establishes numerical evidence for a zero in a
+smooth continuation, while a small residual specifies how accurately this particular candidate solves the
+equations. Neither is an interval proof of an exact root or its uniqueness.
+
+\begin{table}[tbp]
+\centering\small
+\caption{The moving trace saddle of the period-18 child under retained feedback (BSC3). Entries give the
+accepted center's trace and the maximum observed height sensitivity from the saved comparisons, which is an
+empirical diagnostic, not a rigorous uncertainty bound. The two final stencil centers differ, so the audit uses
+quadratic transport and does not apply direct Richardson extrapolation. The intermediate root estimate at
+$\beta=0.0064484163$ still exceeds the $10^{-8}$ stopping tolerance and was not declared the root.}
+\label{tab:memorysaddle}
+\begin{tabular}{rrr}
+\toprule
+Retained fraction $\beta$ & Saddle trace $\tau$ & Empirical height sensitivity \\
+\midrule
+0.004 & $+2.021777295\times10^{-4}$ & $3.19\times10^{-12}$ \\
+0.005 & $+1.235568710\times10^{-4}$ & $3.18\times10^{-12}$ \\
+0.006 & $+3.947197443\times10^{-5}$ & $2.87\times10^{-12}$ \\
+0.007 & $-4.998741727\times10^{-5}$ & $2.60\times10^{-12}$ \\
+0.0064412278 & $+6.514520363\times10^{-7}$ & $2.73\times10^{-12}$ \\
+0.0064484163 & $+1.040296458\times10^{-8}$ & $2.73\times10^{-12}$ \\
+0.0064485310 & $+1.636530010\times10^{-10}$ & $8.78\times10^{-12}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-memory-continuation.pdf}
+\caption{Following the period-18 child's trace saddle as retained feedback increases (BSC3; native float64).
+Left: the selected pair's trace at all 18 accepted saddle centers; the sign changes between 0.6\,\% and
+0.7\,\% retained feedback. The star marks the residual-qualified estimate at approximately 0.64485\,\%, whose
+remaining trace is $1.64\times10^{-10}$. Right: motion of those centers in steering and log-temperature,
+measured from the original saved anchor in units of $2.5\times10^{-6}$ and $7.5\times10^{-6}$, respectively.
+Lines join the measured centers and do not extrapolate or certify uninterrupted continuation between them.
+The earlier partial attempt contributes only its accepted centers; the failed trust-region step remains in its
+receipt. This is numerical evidence for a trace-contour reconnection under a changed map, not an exact-root,
+superstability or strongest-contraction-ridge certificate. Data and figure provenance:
+\memoryrepo{docs/baby-shrimp-zoom/memory-local-extension-receipt.json}.}
+\label{fig:memorycontinuation}
+\end{figure}
+
+The continuation uses scaled coordinates
+$u=(p-p_0)/(2.5\times10^{-6},7.5\times10^{-6})$, componentwise, about the saved anchor
+$p_0=(0.07309363265341377,-0.1544023817786725)$. At the final candidate the finite-difference trace-gradient
+norm is $8.22\times10^{-11}$ in these coordinates, and the Hessian eigenvalues are $-0.0426123$ and $+0.0133081$.
+The Hessian remains indefinite. The transported coarse-to-fine gradient discrepancy is about
+$2.60\times10^{-7}$, so the much smaller solver residual alone is not a derivative-accuracy estimate. The empirical
+height sensitivity is $8.78\times10^{-12}$ or less; it does not bound unmeasured higher derivatives or operator
+errors. The corrected-height secant over $\beta=0.006$ to 0.007 is $-0.0894594$. The last two positive root iterates
+give $-0.0892008$, with an empirical endpoint-sensitivity scale of about $1.01\times10^{-4}$ after division by
+their separation. These finite secants support a transverse unfolding numerically; they do not certify
+$h'(\beta_*)$ at an exact root.
+
+Full-state alignment provides an additional check that the continuation stays with the child. Across all 18
+accepted historical and local centers, all 17 neighboring comparisons prefer the same cyclic alignment and retain
+the same six-token readout. The largest relative change between neighboring full 18-by-896 state arrays is below
+0.00560, whereas the smallest mismatch for a second-best cyclic alignment exceeds 0.10712. This is evidence beyond
+token equality, which would not distinguish the child from a six-step orbit. It supports the sampled branch
+continuity, but does not certify uninterrupted branch or basin identity between samples. The spectral separation
+checks likewise concern the computed six-column Ritz subspace, not a certified full spectrum.
+
+\paragraph{A matched image of the changed center.} A fresh scan tests whether this change is visible in the
+same measured quantity as the original close-up. Figure~\ref{fig:memoryjunction} compares the original child
+center with a window translated to the retained-feedback candidate, using identical physical spans, grid sizes,
+integration lengths and gray scale. The original image has separated dark contraction tracks; the translated
+image displays an X-like junction near its center. Every pixel comes from a network trajectory; no fitted
+trace contour or quadratic saddle is drawn over the data. The figure therefore shows an observed change in
+finite-time contraction geometry that accompanies the independently measured trace-contour reconnection.
+
+All 16,384 cells in each window yield period-18 recurrence candidates, with the same canonical six-token readout
+repeated three times. These fixed-opener trajectories do not supply full-state primitive-orbit verification at
+every pixel, nor do they by themselves establish identity with the separately continued root orbit. Moreover,
+the even $128\times128$ endpoint grids omit each window's exact center: the closest sampled coordinate is
+$1.1811\times10^{-8}$ away in steering and $3.5433\times10^{-8}$ in log-temperature. No pixel therefore measures
+the exact residual-qualified candidate. The X-like image is not an exact crossing certificate, a demonstration of
+superstability, or proof that the strongest-contraction ridges intersect. Its numerical evidence is complementary
+to the orbit continuation, with those limits retained.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-memory-junction-pair.pdf}
+\caption{Measured close-ups of the child before and after retained feedback (BSZ2 and BSMZ1; native float64).
+(a) Original window, $\beta=0$, centered at
+$(\alpha,\log_{10}T)=(0.07309363265341377,-0.1544023817786725)$.
+(b) Translated window, $\beta_*=0.006448531026086656$, centered at the residual-qualified trace-root estimate
+$(0.07331776448598727,-0.15804614858293237)$.
+Each panel spans $3\times10^{-6}$ in steering and $9\times10^{-6}$ in log-temperature; displayed coordinates
+are offsets from that panel's own center. Both use $128\times128$ fixed-opener cells, 300 settling and 300
+measurement steps, nearest-cell rendering and the same gray scale (darker means stronger contraction).
+The separated tracks in (a) form an X-like junction in (b), without a fitted crossing overlay. All cells have
+period-18 recurrence candidates and a period-6 token readout; these labels do not certify every orbit or its
+identity with the continued root orbit. Neither even grid includes its exact center. Trace-contour reconnection
+has separate orbit evidence; this finite-time image alone does not establish exact superstability or intersection
+of the strongest-contraction ridges. Source, array and image hashes:
+\memoryscanrepo{docs/baby-shrimp-zoom/memory-junction-scan-receipt.json}.}
+\label{fig:memoryjunction}
+\end{figure}
+
+\paragraph{Why a third control can reconnect the contours.} Suppose the orbit is smooth and primitive,
+$1\notin\sigma(M)$, the selected pair is isolated, and the saddle Hessian is nonsingular and indefinite. The
+implicit function theorem continues $c(\beta)$; the Morse lemma with parameters
+\cite[Appendix B, Proposition 16]{plantinga2007certified} gives smooth local coordinates $(U,V)$, depending on
+$\beta$, in which
+\begin{equation}
+ \tau(p,\beta)=h(\beta)-U^2+V^2.
+ \label{eq:memorymorse}
+\end{equation}
+Under these assumptions this is an exact local form, not just a quadratic fit. For $h>0$ the trace-zero curves
+satisfy $U^2-V^2=h$; for $h<0$ they open in the other direction. At $h=0$ the zero set is the pair of transverse
+lines $V=\pm U$. A sign change with $h'\ne0$ therefore reconnects the arms. In the original coordinates the
+crossing requires three scalar conditions, $\tau=0$ and the two components of $\nabla_p\tau=0$. If independent,
+two controls generically do not meet all three, while a third can. Symmetry or an exact factorization can make
+them dependent, so avoidance is not a universal rule for every two-parameter family. Nor does this argument
+guarantee that an arbitrary third intervention reaches zero. The measured continuation tests that last point for
+retained feedback in this particular child.
+
+Differentiating Eq.~\eqref{eq:memorysaddle} separates center motion from height change:
+\begin{equation}
+ c'=-H^{-1}\tau_{p\beta},\qquad h'=\tau_\beta,\qquad
+ h''=\tau_{\beta\beta}-\tau_{\beta p}H^{-1}\tau_{p\beta}.
+ \label{eq:memoryheightderivative}
+\end{equation}
+These identities hold at an exact stationary center, with consistent coordinate scales. If memory merely
+relabeled the parameter plane, $\tau(p,\beta)=\tau_0(\psi_\beta(p))$ for a local diffeomorphism
+$\psi_\beta$, the distinguished saddle height would stay constant. Its resolved change rules out such a
+relabeling of the trace field. It does not establish equivalence or inequivalence of every feature of the full
+nonlinear maps.
+
+\paragraph{What connects, and what does not follow.} At the numerical candidate,
+$\Delta=-6.759154047\times10^{-9}$ and the pair is approximately
+\begin{equation}
+ \mu_+=+8.221415633\times10^{-5},\qquad
+ \mu_-=-8.221399268\times10^{-5}.
+ \label{eq:memorymultipliers}
+\end{equation}
+Thus the trace is small because two nonzero multipliers nearly cancel. At an exact trace zero with $\Delta<0$,
+they would be $\pm\sqrt{-\Delta}$: equal contraction in magnitude, with opposite signs. This pair's trace
+cancellation is neither a zero-multiplier nor a unit-circle condition; it does not establish exact superstability
+or a fold, flip or Neimark--Sacker bifurcation. In the opposite-sign region their spectral radius is
+\begin{equation}
+ \rho_{\rm pair}=\frac{\sqrt{\tau^2-4\Delta}+|\tau|}{2}.
+ \label{eq:memorypairradius}
+\end{equation}
+At fixed negative $\Delta$, $\tau=0$ minimizes this radius. In the neural map $\Delta$ also varies, so
+trace-zero contours need not be the exact strongest-contraction ridges seen in a finite-time image.
+
+At a regular trace-zero point, along a declared unit direction $n$, put
+$a=\partial_n\tau\ne0$, $b=\partial_n\Delta$ and $r=\sqrt{-\Delta}$. Expansion of
+Eq.~\eqref{eq:memorypairradius} gives
+$\rho_{\rm pair}(t)=r-bt/(2r)+|a||t|/2+O(t^2)$.
+The strict condition $|b|<r|a|$ suffices for a transverse cusp minimum; $|b|>r|a|$ rules one out in that
+direction, and equality needs higher orders. At an exact trace-saddle crossing, where both $\tau$ and its
+gradient vanish, the absolute-trace contribution instead starts quadratically:
+\begin{equation}
+ \rho_{\rm pair}(q)=\sqrt{-\Delta_0}
+ -\frac{\nabla\Delta_0\cdot q}{2\sqrt{-\Delta_0}}+O(\|q\|^2).
+ \label{eq:memoryradiustilt}
+\end{equation}
+A nonzero determinant gradient would tilt the radius and preclude a local minimum at that crossing. The saved
+fine stencil at our candidate gives
+$\nabla_u\Delta=(-4.54809\times10^{-10},8.75243\times10^{-10})$, with a transported coarse-to-fine
+discrepancy of norm $2.63\times10^{-16}$ or less. If that gradient persists at an exact trace-saddle crossing,
+Eq.~\eqref{eq:memoryradiustilt} gives a radius tilt approximately
+$(2.7660\times10^{-6},-5.3230\times10^{-6})$ in the same scaled coordinates. At the actual finite-residual
+candidate this is a conditional determinant contribution, not automatically the gradient of its actual radius.
+It provides numerical reason to distinguish the reconnection of the traced contours from that of exact
+strongest-contraction ridges. Neither statement alone fixes the brightness geometry of a finite-time scan.
+
+\paragraph{An intervention mechanism, not an identified native coupling.} Retained feedback changes both the
+one-step derivative and the orbit on which that derivative is evaluated. At $\beta=0$, write $J_i=DF_p(x_i)$,
+$\eta_i=\partial_\beta x_i$ at fixed $p$, and $m=18$. Then
+\begin{equation}
+ \eta_{i+1}=J_i\eta_i+x_i-x_{i+1},\quad \eta_m=\eta_0,\qquad
+ \dot J_i=(I-J_i)+D^2F_p(x_i)[\eta_i,\,\cdot\,].
+ \label{eq:memoryresponse}
+\end{equation}
+The periodic tangent equation can be solved through $(I-M)\eta_0=b$, with $b$ obtained by propagating the
+forcing. Applying the product rule to $M=J_{m-1}\cdots J_0$ and tracing against the pair's spectral projector
+separates the explicit retained-state path from the orbit-mediated response. At the original saved child anchor,
+their contributions to $\partial_\beta\tau$ are approximately $-0.032696$ and $-0.106638$, totaling
+$-0.139334$ (\memoryrepo{docs/baby-shrimp-zoom/memory-sensitivity-receipt.json}). The total was evaluated at one cyclic
+phase and checked against three-phase finite-offset orbit controls; the primary phase's finest central slope
+differs by less than 0.008\,\%, with approximately quadratic convergence. These are fixed-location derivatives.
+The original anchor was only an approximate saddle, so they must not be substituted for the moving-height
+derivative in Eq.~\eqref{eq:memoryheightderivative} without correcting stationarity.
+
+This decomposition identifies how the specified intervention acts; it does not identify an internal pathway
+whose native coupling causes avoidance. Off-diagonal entries of one return matrix depend on its basis; where the
+matrix is diagonalizable, a change to its eigenbasis removes them without changing its trace. Even in a fixed set of state channels,
+nonzero coupling alone does not force avoidance. For an exact counterexample, the autonomous polynomial map
+\begin{equation}
+ \begin{split}
+ q(x)&=1+ux+(-3-2u-v)x^2+(2+u+v)x^3,\\
+ G_1(x,y)&=q(x)+k[1+(r-1)x]y,\qquad G_2(x,y)=k(x^2-x)
+ \end{split}
+ \label{eq:memorycounterexample}
+\end{equation}
+has the primitive orbit $(0,0)\mapsto(1,0)\mapsto(0,0)$. Its one-step Jacobians there are
+$A=\bigl(\begin{smallmatrix}u&k\\-k&0\end{smallmatrix}\bigr)$ and
+$B=\bigl(\begin{smallmatrix}v&rk\\k&0\end{smallmatrix}\bigr)$, so direct multiplication gives
+$\operatorname{tr}(BA)=uv+(1-r)k^2$ and $\det(BA)=-rk^4$. The saddle height is $(1-r)k^2$.
+At $r=1$ the trace-zero lines cross even for $k\ne0$, although all four cross-channel one-step entries remain
+nonzero: two return-path contributions cancel. For $r>0$ and $k^2\max(1,r)<1$, the cycle at the saddle is
+attracting. This is an analytic counterexample, not a model fitted to the network. To identify a native neural
+mechanism would require independently defined pathways, measured projection and nonnormality errors, predictions
+of the full trace and determinant at additional points, and interventions continuing the same primitive orbit.
+
+The supported claim is therefore specific: adding retained feedback produces a numerically resolved reconnection
+of the selected pair's trace-zero contours on the continued period-18 child family. The local normal form explains
+how the sign of a saddle height controls avoidance. The experiment does not uncover a hidden crossing in the
+original $\beta=0$ map, establish an exact two-dimensional nonlinear reduction, or show that the period-6 mother
+or other windows reconnect under the same intervention. The earlier mother's unsuccessful determinant-saddle
+test and subsequent trace amendment remain distinct evidence (Figure~\ref{fig:delta2d}).
+
 \section{From greedy loops to chaos: one picture}
 \label{sec:picture}
 The preceding sections establish the pieces: a factorized derivative, folds, cascades and windows. This section
@@ -3244,7 +3543,8 @@ changes when the loop keeps more context, when tokens are sampled and in other m
 Appendices~\ref{sec:bridge} and~\ref{sec:scale}); Sections~\ref{sec:sizemain} and~\ref{sec:huginn} then follow model
 size and a second system.
 
-\paragraph{Memory and sampling.} As $T\to0$ the soft-token map tends to a map with finitely many values that agrees,
+\paragraph{Memory and sampling.} Here memory means the number of fed-back tokens; it differs from the retained
+fraction of one state in Eq.~\eqref{eq:retainedfeedback}. As $T\to0$ the soft-token map tends to a map with finitely many values that agrees,
 away from ties, with greedy decoding with the same finite memory, so every orbit of the limit ends in a cycle
 (Appendix~\ref{sec:bridge}). Fed back the last 8 or 16 soft tokens instead of one,
 Qwen2.5-7B is chaotic at 21 and 20 of 24 temperatures, against 8 with one. In Soft Thinking's growing context, where
@@ -3901,6 +4201,7 @@ object & requires & we show & status \tabularnewline
 \raggedright \textbf{flip} & \raggedright one multiplier at $-1$; nonzero crossing speed and cubic coefficient & \raggedright multiplier at $-1$ and the doubled orbit at every level of the cascade; cubic coefficient only at two other flips & \raggedright partly shown \tabularnewline
 \raggedright \textbf{cusp} & \raggedright $+1$ with $b=0$, $c\neq0$ and a regular unfolding & \raggedright the three conditions hold at the kite's cusp C and at five more located cusps & \raggedright shown \tabularnewline
 \raggedright \textbf{pseudo-superstable line} & \raggedright the leading multiplier changes sign without vanishing & \raggedright the tracked two-dimensional block's trace-zero curves and fitted saddle support a local explanation of the ditches' separation on the sampled patch & \raggedright supported numerically on the patch \tabularnewline
+\raggedright \textbf{trace reconnection} & \raggedright a trace saddle reaches zero; for a generic crossing its height changes transversely with a third control & \raggedright a height sign bracket and residual-qualified candidate under retained feedback on the period-18 family; nonzero multipliers & \raggedright numerical; not certified \tabularnewline
 \raggedright \textbf{fold--flip point} & \raggedright one orbit with $+1$ and $-1$ at once & \raggedright none at A or B & \raggedright none found \tabularnewline
 \raggedright \textbf{pseudo-crossing} & \raggedright curves of two different orbits cross & \raggedright two distinct orbits at R; different spectra at A and B & \raggedright shown \tabularnewline
 \raggedright \textbf{Feigenbaum ratio} & \raggedright ratios approach the constant of a universality class & \raggedright ratios reach 4.6688, against $\delta=4.6692$ & \raggedright consistent \tabularnewline
@@ -3936,7 +4237,10 @@ multiplier) avoid each other where a head would be. Symbolic
 sequences are determined for the period-6 window only (paragraph ``Symbolic dynamics''); we have not traced tails,
 tested for a periodicity hub \cite{vitolo2011hubs,jones2012rossler}, or shown that a two-dimensional map reproduces the
 windows' nonlinear dynamics. The cusps are float64
-computations validated by step-size checks, not proofs (Appendix~\ref{sec:curves}).
+computations validated by step-size checks, not proofs (Appendix~\ref{sec:curves}). The period-18 child's trace
+reconnection under retained feedback (Section~\ref{sec:memoryunfolding}) changes the map and follows the moving
+saddle in steering and temperature. It is not an exact superstable crossing of the original map, does not establish
+reconnection of the exact strongest-contraction ridges, and does not identify a native modal-coupling mechanism.
 
 \paragraph{Limitations.} The detailed orbit studies cover Qwen2.5 at 0.5B and 1.5B, with three float64 orbits at 7B;
 OLMo-2 7B and Llama-3.1 8B have maps but no continued orbits. The size comparison rests on regular temperature grids and mostly one twin
@@ -4075,7 +4379,9 @@ step by step, and it behaves as one. Temperature and steering carry it from repe
 Lyapunov exponent. Its periodic windows open and close in folds and flips whose normal forms, computed from the
 network's own derivatives, forecast how long trajectories linger near a vanished orbit; its cascades approach
 Feigenbaum's constant; and its parameter plane holds shrimp-shaped windows organized as in the low-dimensional maps
-where such windows were first found. Two coupled copies drift apart at approximately the rate the loop's Lyapunov exponent predicts.
+where such windows were first found. A small retained-feedback term provides a third control that numerically
+reconnects trace-zero contours in a period-18 window without changing the sampled centers' state period or token
+cycle, as a moving saddle's height changes sign. Two coupled copies drift apart at approximately the rate the loop's Lyapunov exponent predicts.
 None of this rests on a simplified model of the network: the orbits, multipliers and normal forms are those of the full
 transformer in float64, and three of its periodic orbits are proved to exist with interval arithmetic. For the expected-embedding
 feedback studied here with a fixed prompt, the derivative factorization applies to smooth networks with a linear output
@@ -5798,6 +6104,19 @@ language model (Ouro-1.4B) was explored and is not reported; its apparent chaos 
 was chosen after the maps were inspected. In the census of Table~\ref{tab:search}, only the passage forecasts, the
 cusp-unfolding offsets and Huginn's relaxation test were fixed before the computations that test them; tests frozen
 later, up to the fixed-shape control of 18 October, are identified as such where they are reported.
+The child-window memory intervention of 21 October is an additional exploratory study, outside that census. Its
+273-point local extension, source commit \texttt{cf2726b3a61bce0e933ba71b93ae992d529977f0}, completed seven new
+saddles after fresh replay of two prior centers; the immutable parent supplied eleven accepted centers and a failed
+trust-region step. Independent analysis at \texttt{7a885cc641f5ce13115a3dd0ec755b3704dd5d61} checked the source and
+plan bindings, every raw array, saved endpoint closure, primitive-period and cyclic gates, finite-difference
+stencils, root iterations, full-orbit alignments and determinant gradients. The compact receipt in
+Section~\ref{sec:memoryunfolding} binds the full audits by SHA-256. These are saved-data and numerical-precision
+checks; no interval inclusion proves the saddle, exact crossing or full-spectrum isolation.
+The subsequent BSMZ1 scan compares 16,384 fresh fixed-opener cells at the retained-feedback candidate with the
+original BSZ2 close-up. Its independent audit binds the unchanged execution source, every saved array, the
+effective float64 checks, the root-state and reference-image evidence, and the matched figure
+(\memoryscanrepo{docs/baby-shrimp-zoom/memory-junction-scan-receipt.json}). Its recurrence labels remain
+finite-horizon candidates rather than primitive-orbit verification at every pixel.
 \begin{table}[H]
 \centering\small
 \begin{tabular}{lrrl}

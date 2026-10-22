@@ -1,0 +1,64 @@
+{
+  "figure_id": "fig-memory-continuation",
+  "title": "Following the child's trace saddle",
+  "description": "Accepted moving trace-saddle centers versus retained feedback, with the translated center path in scaled steering and log-temperature coordinates.",
+  "alt_text": "Left: selected-pair trace at corrected saddles decreases from positive at zero retained feedback to negative at 0.7 percent; a star near 0.645 percent marks the residual-qualified crossing estimate. Right: the saddle moves toward greater steering and lower log-temperature. Lines connect 18 accepted samples without extrapolation.",
+  "data_source": {
+    "public_receipt": "docs/baby-shrimp-zoom/memory-local-extension-receipt.json",
+    "sha256": "49e349b712ca713e555b354a1cad4b28fbdfce26c3d48e865f380fb359b85923",
+    "git_commit": "d2a15964bdae9358ad2dbc363980a10294b2cb2e",
+    "external_figure": {
+      "path": "audits/baby-shrimp-zoom/20261021-memory-combined-figure-01/memory-continuation-combined.pdf",
+      "sha256": "ae7a033868543e6adb01f65666ec3949f40085472383693e3d80343f3ace2fb6",
+      "bytes": 32171
+    },
+    "external_plot_receipt": {
+      "path": "audits/baby-shrimp-zoom/20261021-memory-combined-figure-01/receipt.json",
+      "sha256": "5f506705f97be09f01ec9ad1e6876a7de4305724296948a90ec224bbb75f57a2",
+      "bytes": 2740
+    }
+  },
+  "provenance": {
+    "generator": "tools/plot_baby_shrimp_memory_continuation.py",
+    "source_commit": "7a885cc641f5ce13115a3dd0ec755b3704dd5d61",
+    "source_sha256": "feb08a47cedb003f63d35f4fbca79afac2ab82efb8c2b132a01e885dd5f5b98a",
+    "copy": "byte-identical copy of audited external PDF",
+    "output": {
+      "path": "paper/llm/figures/fig-memory-continuation.pdf",
+      "sha256": "ae7a033868543e6adb01f65666ec3949f40085472383693e3d80343f3ace2fb6",
+      "bytes": 32171
+    }
+  },
+  "accepted_samples": 18,
+  "numerical_root_beta": 0.006448531026086656,
+  "numerical_root_trace_residual": 1.6365300102214302e-10,
+  "coordinate_origin": [
+    0.07309363265341377,
+    -0.1544023817786725
+  ],
+  "coordinate_scales": [
+    2.5e-06,
+    7.5e-06
+  ],
+  "visual_review": {
+    "status": "passed",
+    "receipt": {
+      "path": "audits/baby-shrimp-zoom/20261021-memory-combined-figure-01/visual-review.json",
+      "sha256": "024b3f24f6a8a64f5f88e88af6dd1d605f08359079ec97a3d41916c29de9145b",
+      "bytes": 1965
+    },
+    "reviewer": "root assistant visual inspection",
+    "scope": "Visual QA of PNGs; PDF hash bound to the same plotting run. Original immutable receipt retains its pending field; this separate review supersedes that review status only."
+  },
+  "uncertainty_semantics": "Observed numerical sensitivity only, not an interval certificate or parameter error bar.",
+  "limits": [
+    "The partial parent attempt contributes only its accepted centers; its rejected trust step remains preserved.",
+    "The root is residual-qualified, not exactly zero.",
+    "A trace reconnection is not exact superstability or a demonstrated reconnection of strongest-contraction ridges."
+  ],
+  "accessibility": {
+    "marker_shape_distinguishes_candidate": true,
+    "left_panel_does_not_depend_on_color": true,
+    "alt_text_supplied": true
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "figure_id": "fig-memory-junction-pair",
+  "title": "Measured child centers with and without retained feedback",
+  "description": "Matched original BSZ2 and translated BSMZ1 finite-time scans, displayed relative to their own centers.",
+  "alt_text": "Two gray parameter maps share a contraction scale. At zero retained feedback the dark tracks remain separated. At beta 0.006448531 the translated center shows an X-like dark junction. This measured visual pattern is distinct from the independently continued pair-trace contours.",
+  "data_source": {
+    "external_audit": {
+      "path": "audits/baby-shrimp-zoom/20261022-memory-junction-audit-02/receipt.json",
+      "sha256": "7f93d568700bb75583f03e37d8811c2033c2b959eeba43436284a28c074266e8",
+      "bytes": 12682
+    },
+    "reference": {
+      "path": "explore/llm-soft-loop/pod64/bands/bsz2-junction-01/scan.npz",
+      "sha256": "50a9c64ea2577d8437bbee2de58be7572dd599d789c9c063d2b709f09a29b4a5"
+    },
+    "new_scan": {
+      "path": "explore/llm-soft-loop/pod64/bsmz1/connection-01/scan.npz",
+      "sha256": "9003cc4df91a2c8a5d78f14c12a6c9f6347b31b36cdfc2133860aa4623c243b6",
+      "bytes": 226537
+    },
+    "source_execution_commit": "f7dbf58bb8b0f712a04d43d037df50bef1e95bbd",
+    "plan": {
+      "path": "docs/baby-shrimp-zoom/memory-junction-scan-plan.json",
+      "sha256": "33ec6c3fcb18048b81ab9c3fcbebd8df7b3220958c40e47e1cdc64c81c7630d7"
+    },
+    "root_evidence": {
+      "receipt": {
+        "path": "docs/baby-shrimp-zoom/memory-local-extension-receipt.json",
+        "sha256": "49e349b712ca713e555b354a1cad4b28fbdfce26c3d48e865f380fb359b85923",
+        "git_commit": "f7dbf58bb8b0f712a04d43d037df50bef1e95bbd"
+      },
+      "audit": {
+        "path": "audits/baby-shrimp-zoom/20261021-memory-local-extension-audit-01/receipt.json",
+        "sha256": "141b333d2a70fdac4037a3268768f16be57f75c338a46c84d8eb886bdf236b5b",
+        "bytes": 438337
+      },
+      "state": {
+        "path": "explore/llm-soft-loop/bsc3-memory/20261021-local-extension-01/point-0272/points.npy",
+        "sha256": "b72d69f426114c639c1084636845b828bc0606b131343ffd69adcb593830fc06",
+        "bytes": 129152
+      },
+      "beta": 0.006448531026086656,
+      "center": [
+        0.07331776448598727,
+        -0.15804614858293237
+      ],
+      "trace_residual": 1.6365300102214302e-10,
+      "height_tolerance": 1e-08,
+      "recomputed_saved_endpoint_closure": 5.832262309545296e-14,
+      "minimum_saved_lower_lag": 0.004138816330183159,
+      "replay_normalization": "Euclidean state difference divided by max(1, norm of first saved orbit state)",
+      "scope": "Saved root-state replay only; scan pixels do not inherit its orbit or exact-root status."
+    },
+    "public_receipt": {
+      "path": "docs/baby-shrimp-zoom/memory-junction-scan-receipt.json",
+      "sha256": "b9867638bf6dfac461e5f42dee3f75ef01a156ff918d9356296cf6bb49f72d3a",
+      "git_commit": "b87a9e74ab364801ce8bb3ee86cc585c2bc2e338"
+    }
+  },
+  "provenance": {
+    "generator": "tools/baby_shrimp_memory_scan_finish.py",
+    "analysis_commit": "210c8746a751529da88ffdcb603c3a69e19bd936",
+    "source_sha256": "93d4d45e2b7c6aec700e69b8568db12b08564e3ae8cd76b5ee2739ad7df24302",
+    "external_figure": {
+      "path": "audits/baby-shrimp-zoom/20261022-memory-junction-audit-02/fig-memory-junction-pair-publication.pdf",
+      "sha256": "5b89ce6c9e229e2294689dcd3519c067e9b677cc503cbde9acf98bc9f085588a",
+      "bytes": 56278
+    },
+    "copy": "Byte-identical copy of the audited compact publication PDF.",
+    "output": {
+      "path": "paper/llm/figures/fig-memory-junction-pair.pdf",
+      "sha256": "5b89ce6c9e229e2294689dcd3519c067e9b677cc503cbde9acf98bc9f085588a",
+      "bytes": 56278
+    }
+  },
+  "plot": {
+    "centers": [
+      [
+        0.07309363265341377,
+        -0.1544023817786725
+      ],
+      [
+        0.07331776448598727,
+        -0.15804614858293237
+      ]
+    ],
+    "beta_values": [
+      0.0,
+      0.006448531026086656
+    ],
+    "spans": [
+      3.0000000000030003e-06,
+      8.999999999981245e-06
+    ],
+    "coordinate_display": "offsets from each window center, multiplied by 1e6",
+    "interpolation": "nearest",
+    "color_scale": {
+      "shared_positive_vmax": 0.447582659945393,
+      "shared_gray_contraction_cap": 0.6115837120708131,
+      "scale_reference": "union of original HR10 and complete BSZ1 cells",
+      "gray_definition": "all cells outside exponent > 0.001 AND period == 0; not all gray cells are verified periodic",
+      "display_window": [
+        0.07295,
+        0.07316,
+        -0.15485,
+        -0.15425
+      ],
+      "interpolation": "nearest",
+      "probe_receipt_sha256": "43cf07c05e736eabb249b0a88a1a7566b0a8c5a04f3457175b3309cc6c52d8c4"
+    },
+    "center_sampling": [
+      {
+        "axes": [
+          {
+            "axis": "alpha",
+            "nodes": 128,
+            "contains_exact_center": false,
+            "nearest_node_distance": 1.1811023617469552e-08
+          },
+          {
+            "axis": "log10_temperature",
+            "nodes": 128,
+            "contains_exact_center": false,
+            "nearest_node_distance": 3.543307086628644e-08
+          }
+        ],
+        "center_is_measured_cell": false
+      },
+      {
+        "axes": [
+          {
+            "axis": "alpha",
+            "nodes": 128,
+            "contains_exact_center": false,
+            "nearest_node_distance": 1.1811023617469552e-08
+          },
+          {
+            "axis": "log10_temperature",
+            "nodes": 128,
+            "contains_exact_center": false,
+            "nearest_node_distance": 3.543307086628644e-08
+          }
+        ],
+        "center_is_measured_cell": false
+      }
+    ],
+    "overlaid_fitted_curves": false
+  },
+  "sampled_recurrence": {
+    "cells_per_panel": 16384,
+    "all_cell_state_recurrence_candidate": 18,
+    "all_cell_token_period": 6,
+    "common_canonical_token_ids": [
+      271,
+      785,
+      3405,
+      271,
+      785,
+      13885
+    ],
+    "scope": "Independently read both scan arrays and JSON summaries; these are recurrence candidates, not full-state orbit certificates."
+  },
+  "visual_review": {
+    "status": "passed",
+    "reviewer": "big-paper assistant",
+    "method": "Rendered the actual compact publication PDF with Poppler at 130 dpi and inspected the resulting pixels.",
+    "result": "Both panels, axes, beta labels and shared gray scale are legible and unclipped; the translated image shows an X-like junction.",
+    "immutable_audit_status": "The source audit retains its original pending field; this separate review records subsequent visual inspection.",
+    "independent_review": {
+      "path": "audits/baby-shrimp-zoom/20261022-memory-junction-audit-02/visual-review.json",
+      "sha256": "fbee4fdf39c6a16269e2bf307dc4aecdd47be3292cce3778722b48a1df5c032b",
+      "bytes": 3004
+    }
+  },
+  "limits": [
+    "Finite-horizon fixed-start measurements; period labels are recurrence candidates, not verified primitive orbits.",
+    "Every pixel is measured. No fitted crossing or interpolated saddle field replaces data.",
+    "The right panel is at a residual-qualified trace-root estimate, not an exact certified crossing.",
+    "Trace-zero contours, exact contraction ridges and finite-time image tracks are distinct.",
+    "The original panel is centered on the saved anchor; the translated panel uses the continued candidate.",
+    "Even endpoint grids omit the exact window centers; the candidate is not an actual measured pixel.",
+    "Fixed-opener recurrence does not certify orbit identity with the separately continued root orbit.",
+    "Root-state replay is independent of scan recurrence candidates; no full orbit was retained for every pixel."
+  ]
+}
