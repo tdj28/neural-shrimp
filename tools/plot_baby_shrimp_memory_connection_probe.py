@@ -223,6 +223,95 @@ def render(receipt, points, out):
     plt.close(fig)
 
 
+def render_mobile(receipt, points, out):
+    """A narrow layout of the identical audited observations; no new curves."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.ticker import MaxNLocator
+    with plt.rc_context({"font.size": 11.5, "axes.titlesize": 13, "axes.labelsize": 11.5,
+                         "xtick.labelsize": 11, "ytick.labelsize": 11,
+                         "savefig.facecolor": "white"}):
+        fig, axes = plt.subplots(4, 1, figsize=(4.8, 18.3))
+        plot = receipt["plot_data"]
+        blue, orange = "#206b9e", "#c6602d"
+        def empty(ax, text):
+            ax.text(.5, .5, text, ha="center", va="center", transform=ax.transAxes, color=".45")
+        ax = axes[0]; tilt = plot["candidate_tilt"]
+        ax.set_title("Candidate: contraction changes", loc="left")
+        if tilt:
+            samples = sorted([(0., 0.), *[(s["offset"], s["radius_difference"]) for s in tilt["samples"]]])
+            x, y = np.array(samples).T
+            ax.plot(x*1e4, y*1e9, "o--", color=blue, lw=1, ms=6,
+                    label="Observed points\nDashed guide only")
+            ax.set_xticks(x*1e4)
+            ax.legend(frameon=False, fontsize=10.5)
+            ax.set_title(f"Candidate: contraction changes\nMemory = {100*tilt['beta']:.6f}%", loc="left")
+        else:
+            empty(ax, "Candidate tilt\nnot yet tested")
+        ax.set(xlabel="Displacement along −∇Δ / ‖∇Δ‖\nScaled coordinates (×10⁻⁴)",
+               ylabel="Pair radius − center\n(×10⁻⁹)")
+        for ax, label, case in zip(axes[1:3], ("Before", "After"),
+                                   [*plot["axes"], *([None]*(2-len(plot["axes"])))]):
+            ax.set_title(label+": trace along saddle axes", loc="left")
+            if case:
+                for axis, color in zip(case["axes"], (blue, orange)):
+                    ax.plot([s["offset"] for s in axis["samples"]],
+                            [points[s["point_index"]]["tau"]*1e5 for s in axis["samples"]],
+                            "o--", color=color, lw=1, ms=6, label=axis["label"])
+                ax.legend(frameon=False, fontsize=10.5)
+                ax.set_title(f"{label}: trace along saddle axes\nMemory = {100*case['beta']:.3f}%", loc="left")
+                measured = sorted({s["offset"] for axis in case["axes"] for s in axis["samples"]})
+                ax.set_xticks([measured[0], 0., measured[-1]])
+            else:
+                empty(ax, "Axis case\nnot yet tested")
+            ax.set(xlabel="Signed displacement along\neach scaled eigenaxis", ylabel="Leading-pair trace\n(×10⁻⁵)")
+        heights = [points[s["point_index"]]["tau"]*1e5 for case in plot["axes"]
+                   for axis in case["axes"] for s in axis["samples"]]
+        if heights:
+            low, high = min(0., *heights), max(0., *heights)
+            margin = max(.08*(high-low), 1e-8)
+            for ax in axes[1:3]:
+                ax.set_ylim(low-margin, high+margin)
+        ax = axes[3]
+        ax.set_title("Higher memory:\nevaluated trace-zero points", loc="left")
+        for cyclic, marker, label in ((False, "o", "Primary phase only"),
+                                      (True, "s", "Three cyclic phases checked")):
+            rows = [r for r in plot["roots"] if (r["cyclic_point_index"] is not None) == cyclic]
+            if rows:
+                ax.scatter([r["along"] for r in rows], [r["transverse"] for r in rows], marker=marker,
+                           facecolor=orange if cyclic else "none", edgecolor=orange, s=65, label=label)
+        if plot["roots"]:
+            ax.scatter([0], [0], color=".35", marker="+", s=60, label="Continued center")
+            ax.set_yticks(sorted({0., *[r["transverse"] for r in plot["roots"]]}))
+            ax.legend(frameon=False, fontsize=10.5, loc="upper center", bbox_to_anchor=(.5, -.40))
+        else:
+            empty(ax, "Trace-zero searches\nnot yet completed")
+        ax.set(xlabel="Positive-curvature coordinate\n(fresh fine stencil)",
+               ylabel="Negative-curvature coordinate\n(fresh fine stencil)")
+        ax.set_aspect("equal", adjustable="datalim")
+        ax.xaxis.set_major_locator(MaxNLocator(3))
+        for ax in axes:
+            ax.axhline(0, color=".55", lw=.6, zorder=0); ax.grid(alpha=.16)
+            ax.spines[["top", "right"]].set_visible(False)
+        for ax in axes[:3]:
+            ax.yaxis.set_major_locator(MaxNLocator(4))
+        status = "Completed audit" if receipt["complete"] else "Partial attempt; available observations only"
+        fig.suptitle("Direct probes of trace balance\nand contraction", x=.08, y=.984, ha="left", fontsize=15)
+        fig.text(.08, .944, status, color=".35", fontsize=11)
+        fig.text(.08, .018,
+                 "Lower pair radius means stronger contraction.\n"
+                 "Dots are evaluated orbits; dashed lines only guide\n"
+                 "the eye. Root markers are numerical trace zeros\n"
+                 "of nonzero Ritz multipliers. Spectral isolation\n"
+                 "remains conditional on the computed subspace.\n"
+                 "These finite samples establish neither exact\n"
+                 "superstability nor contraction-ridge connectivity.", fontsize=10.5)
+        fig.subplots_adjust(left=.20, right=.96, top=.90, bottom=.20, hspace=.82)
+        fig.savefig(out/"connection-probe-mobile.png", dpi=190)
+        plt.close(fig)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--receipt", type=Path, required=True)
@@ -238,6 +327,7 @@ def main():
     require(hashlib.sha256(git_bytes(commit, SOURCE)).hexdigest() == source_sha, "commit plotter before rendering")
     out.mkdir(parents=True)
     render(receipt, points, out)
+    render_mobile(receipt, points, out)
     record = {"id": "BSC4-audited-connection-probe-figure", "receipt": str(args.receipt.resolve()),
               "receipt_sha256": args.sha256, "analysis_commit": commit, "source_sha256": {SOURCE: source_sha},
               "execution_source_commit": receipt["execution_source_commit"], "plan_sha256": receipt["plan_sha256"],
