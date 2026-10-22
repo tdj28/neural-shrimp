@@ -32919,3 +32919,12 @@ directory and was rerun with the absolute script path. Local latexmk completed
 successfully (195 pages; underfull-box warnings remain). The title page was
 visually inspected, and extracted PDF text contains the two date lines and no
 Praxagent reference. No scientific results or figure content changed.
+
+## 2026-10-22 23:56 UTC: run (exploratory)
+
+- **Question:** HCP1: Does the native Huginn adapter and twin diagnostic execute correctly and fit a bounded local timing pilot?
+- **Setup:** User-approved local trial; 30-minute external timeout, internal 1500-second deadline; four CPU threads, float32, TF32 off, 80 percent GPU allocator cap. Compare native core update; time 1/4/16 cells; two-control smoke; 128 transient plus 256 measured twin steps at lambda 1 and 1.10, offsets 1e-3 and 3e-4. Exploratory engineering qualification only, no chaos claim. Float64 and JVP remain unqualified.
+- **Output:** `/data2/neural-shrimp-data/explore/huginn/hcp1-local-20261022-01`
+- **Would surprise us:** Native-map mismatch, collapsed perturbations, or inability to fit the recurrent block.
+
+_commit `4157bea08ff7` (dirty worktree)_
