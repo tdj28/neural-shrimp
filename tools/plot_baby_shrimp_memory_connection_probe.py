@@ -171,7 +171,7 @@ def render(receipt, points, out):
         ax.set_title(f"Candidate: measured contraction changes\nMemory = {100*tilt['beta']:.6f}%", loc="left")
     else:
         empty(ax, "Candidate tilt not yet tested")
-    ax.set(xlabel="Displacement along −∇δ / ‖∇δ‖, scaled (×10⁻⁴)", ylabel="Pair spectral radius − center value (×10⁻⁹)")
+    ax.set(xlabel="Displacement along −∇Δ / ‖∇Δ‖, scaled (×10⁻⁴)", ylabel="Pair spectral radius − center value (×10⁻⁹)")
     for ax, label, case in zip((axes[0, 1], axes[1, 0]), ("Before", "After"),
                                [*plot["axes"], *([None]*(2-len(plot["axes"]))) ]):
         ax.set_title(label+": measured trace along saddle axes", loc="left")
@@ -182,6 +182,7 @@ def render(receipt, points, out):
                         "o--", color=color, lw=1, ms=5, label=axis["label"])
             ax.legend(frameon=False, fontsize=8)
             ax.set_title(f"{label}: measured trace along saddle axes\nMemory = {100*case['beta']:.3f}%", loc="left")
+            ax.set_xticks(sorted({s["offset"] for axis in case["axes"] for s in axis["samples"]}))
         else:
             empty(ax, "Axis case not yet tested")
         ax.set(xlabel="Signed displacement along each scaled eigenaxis", ylabel="Leading-pair trace (×10⁻⁵)")
