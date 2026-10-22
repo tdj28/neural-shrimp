@@ -27,6 +27,8 @@
 \newcommand{\memoryrepo}[1]{\href{\repourl/blob/d2a15964bdae9358ad2dbc363980a10294b2cb2e/#1}{\nolinkurl{#1}}}
 \newcommand{\memoryscanrepo}[1]{\href{\repourl/blob/b87a9e74ab364801ce8bb3ee86cc585c2bc2e338/#1}{\nolinkurl{#1}}}
 \newcommand{\memoryproberepo}[1]{\href{\repourl/blob/63a19e7f076cf45665ddb6dd12270f3c16d156a5/#1}{\nolinkurl{#1}}}
+\newcommand{\memoryminrepo}[1]{\href{\repourl/blob/f56b4d4b1c00450ae34bb2ee9f2f6ad6bb70f12b/#1}{\nolinkurl{#1}}}
+\newcommand{\memoryminfigrepo}[1]{\href{\repourl/blob/b09a8ceef5f8b5395d89f30cab073c2934be63e7/#1}{\nolinkurl{#1}}}
 \usepackage{microtype}
 \hypersetup{pdftitle={Chaos and bifurcations in continuous language-model feedback},
   pdfsubject={Supplementary material to the article of the same title}}
@@ -3302,6 +3304,18 @@ candidate this is a conditional determinant contribution, not automatically the 
 It provides numerical reason to distinguish the conditional reconnection of trace contours from that of exact
 strongest-contraction ridges. Neither statement alone fixes the brightness geometry of a finite-time scan.
 
+A stronger geometric crossing has an additional necessary condition. Suppose two continuously differentiable
+contraction-valley branches meet with distinct tangent lines, the pair radius is differentiable at their meeting,
+and it has a two-sided local minimum along each
+branch's geometric normal at the meeting point. Both independent normals must annihilate $\nabla\rho$, so
+$\nabla\rho=0$. At an exact stationary trace zero, Eq.~\eqref{eq:memoryradiustilt} then requires
+$\nabla\Delta=0$. The trace-junction conditions already impose three equations on steering, temperature and memory;
+the determinant-gradient condition adds two more. Generically these cannot all be tuned independently with only
+three controls. Symmetries or identities can reduce that count, so this is not an impossibility theorem for the
+network. It also does not exclude tangential meetings or junctions involving nonsmooth contraction features.
+The condition is necessary for the stated transverse normal-minimum crossing, not sufficient.
+
+
 \paragraph{Direct probes beyond the image.} A subsequent exploratory test (BSC4) freshly evaluated the
 continued orbit rather than inferring geometry from image brightness. All 111 evaluated points passed the saved
 full-state and spectral gates. At $\beta=0.006$, trace sign brackets lie on both sides of the saddle along its
@@ -3322,6 +3336,96 @@ offsets have a smaller radius than the candidate. Thus the measured finite-step 
 calculation, while a trace-balance point need not give the strongest sampled contraction. The comparison does not
 certify the derivative at an exact trace saddle or exclude a minimum on a smaller scale. Source, samples and
 numerical limits: \memoryproberepo{docs/baby-shrimp-zoom/memory-connection-probe-receipt.json}.
+
+\paragraph{Searching for contraction minima without imposing trace balance.}
+The determinant-tilt test leaves a practical question: where are the contraction minima when the search is
+allowed to move away from $\tau=0$? A subsequent exploratory pilot (BSC5) addresses this with actual orbit
+and spectral evaluations on twelve finite transverse sections. It first refines the stationary-trace candidate
+to $\beta=0.006448532860189464$,
+$(\alpha,\log_{10}T)=(0.0733177645493531,-0.1580461496323896)$.
+The fresh cyclic center has phase-zero trace $3.34448\times10^{-14}$; the last local field stencil gives a
+remaining stationary correction of norm $2.877\times10^{-7}$ or less. These are numerical residuals at a
+refined candidate, not exact equations or uncertainty bounds on the displayed coordinates.
+
+The geometry is declared in the existing scaled coordinates, with steering and log-temperature scales
+$2.5\times10^{-6}$ and $7.5\times10^{-6}$. The indefinite trace Hessian supplies two conditional null
+directions, each with two rays. For each unit ray $t$, let $n$ be its perpendicular unit vector in this
+scaled Euclidean metric. At longitudinal distances $\ell=0.002,0.0006,0.0002$, the searched section is
+\[
+ u(s)=u_c+\ell t+sn,\qquad
+ s\in[-0.0005,0.0005].
+\]
+Here $n$ is normal to a predictor ray; it is not a measured geometric normal to a contraction curve.
+Each section starts with the seven-point mesh
+$\{-0.0005,-0.00025,-0.000125,0,0.000125,0.00025,0.0005\}$.
+All strict interior minimum brackets are retained and refined by a bracketed, fit-free scalar search.
+No trace-zero constraint is applied to the objective, the largest computed Ritz modulus. The search does not
+fit a radius Hessian across the absolute-value crease in Eq.~\eqref{eq:memorypairradius}, and an endpoint
+with the smallest sampled value is never substituted for an interior minimum.
+
+A section minimum is operationally qualified only after its measured refinement bracket has width at most
+$10^{-5}$ and its radius is smaller than the radii at both actual offsets of each size $10^{-4}$ and
+$3\times10^{-5}$. Every contrast must exceed $1.1480570725856676\times10^{-12}$, ten times the empirical
+radius spread across the cyclic and expanded-subspace center checks. This threshold is a resolution diagnostic,
+not a validated error bound. The final brackets record the search's measured resolution; they are neither
+confidence intervals nor certified enclosures of exact extrema.
+
+All twelve searches finished. Each of the eight outer and middle sections has one qualified minimum at its
+sampled $s=0$ point, with bracket width $9.62679078163117\times10^{-6}$. This does not establish exact
+alignment with trace zero. The innermost sections give a different pattern (Figure~\ref{fig:memorysectionminima}):
+\begin{center}
+\small
+\begin{tabular}{lll}
+\hline
+Ray & Result at $\ell=0.0002$ & Selected offset $s$ \\
+\hline
+$0+$ & no strict mesh bracket; sampled radius decreases & --- \\
+$0-$ & one qualified section minimum & $-2.4733922\times10^{-4}$ \\
+$1+$ & no strict mesh bracket; sampled radius increases & --- \\
+$1-$ & one qualified section minimum & $+6.1677774\times10^{-5}$ \\
+\hline
+\end{tabular}
+\end{center}
+The labels distinguish the two conditional null directions and their opposite rays.
+For the two qualified inner minima, the measured traces are respectively
+$-2.0750618721004704\times10^{-9}$ and $-3.4917214706089474\times10^{-10}$; the final brackets both
+have width below $6.967\times10^{-6}$. Thus these sampled minima lie away from trace balance. For the
+other two sections, monotonicity holds only between the seven sampled mesh values: the completed
+\texttt{no\_bracket} result does not exclude narrower unsampled minima, minima beyond the declared support,
+or a different transverse direction.
+
+All 223 point evaluations passed the saved full-state and spectral gates, including the 195 section-objective
+evaluations; ten minima passed all forty finite-offset comparisons. The smallest contrast was
+$6.1295545326694664\times10^{-12}$, above the operational threshold. Full-state closure was below
+$10^{-12}$ at every point. A dense baseline and independently expanded cyclic subspaces support the selected
+pair, without certifying full-spectrum dominance everywhere. The conditional quadratic-field radius predictor
+and actual section measurements differ by at most $1.035\times10^{-11}$ across the tested section samples;
+that finite comparison does not validate derivatives or unsampled geometry.
+
+These results strengthen the distinction exposed by BSC4: the trace-saddle frame does not by itself identify
+where a finite-section search finds strongest contraction. They do not establish intrinsic valley curves,
+connections between independently searched minima, or exact superstability. BSC5 searches inward at one
+refined memory setting; it does not continue contraction-minimum branches in memory or rule out their meeting
+nearby. The full source, plan, array, section and lifecycle bindings are in
+\memoryminrepo{docs/baby-shrimp-zoom/contraction-minima-receipt.json}.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{fig-memory-section-minima.pdf}
+\caption{Independent contraction searches near the memory-tuned trace center (BSC5,
+$\beta=0.006448532860189464$).
+Left: the conditional trace-Hessian rays and all four transverse sections at the smallest planned distance
+$\ell=0.0002$. Right: every measured sample on those sections; stars identify the two qualified finite-section
+minima and black bars their final numerical brackets; these bars are smaller than the star markers at this
+display scale. Arms 1 and 3 have no strict minimum bracket on the sampled
+mesh; arms 2 and 4 have displaced minima. The origin is the refined numerical trace-saddle candidate.
+The four sections' counterparts at larger distances and every measured radius profile remain in the bound receipt.
+The axes use equal scales in the declared metric: steering displacement divided by $2.5\times10^{-6}$ and
+log-temperature displacement by $7.5\times10^{-6}$, displayed in units of $10^{-4}$. Section supports are sampling paths, not measured valley
+curves; independently found minima are not joined. Bracket widths are neither confidence intervals nor certified
+exact-extremum bounds. Source and reviewed rendering: \memoryminfigrepo{paper/llm/figures/fig-memory-section-minima.json}.}
+\label{fig:memorysectionminima}
+\end{figure}
 
 \paragraph{An intervention mechanism, not an identified native coupling.} Retained feedback changes both the
 one-step derivative and the orbit on which that derivative is evaluated. At $\beta=0$, write $J_i=DF_p(x_i)$,
