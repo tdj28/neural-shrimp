@@ -32901,3 +32901,21 @@ The readable BSC6 figure and metadata are public in `docs/baby-shrimp-zoom/mixed
 The concise Chaos manuscript update is committed and remote-verified at `e9476300c7193e0849ce92c5d24ab8dbdef7f5f4`, with BSC6 on pages 29–30 of the 36-page PDF. Changed and neighboring pages 27–33 passed visual review; no overfull boxes or undefined references. External QA manifest SHA-256 `944657b3c22c3cafdd7b5f7593f74e98eb3aa055b42dfc2e830e61651e4013a8`. The main blog receives the same audited result, readable responsive figures and detailed limits as a local draft; no blog publication is performed by this update.
 
 BSC6 blog integration is complete as an unpublished local draft: all 14 scoped files match the final external delivery receipt, SHA-256 `cabe4d2b7a25ed717d145c176af18f52cc5406449736bea4f9f6e8a6c4c0f1f1`. The combined memory verifier checks 122 numerical entries and six figure receipts; the whole-post check matches 4,915 of 4,915 numerical strings and finds all 107 figures. Seven corruption tests, strict new-asset hashes, Hugo, independent scientific review and desktop/mobile browser checks pass. The full-width desktop and responsive phone figure preserve the actual signed traces and empirical envelopes; the mobile table scrolls without page overflow. The exact preview server was stopped. Archive SHA-256 `49d329a735aeab7d92705c8d83f66f3d48693dbbe7260dbf745f94beb91bf885`; all 51 archived files were verified, and the current bundle plus archive/manifest hashes were separately rechecked. No blog commit, push or deployment was performed. The Chaos repository's current-PDF page count was also corrected to 36 and pushed at `6a1151accc3cb87bb8b1009ee3fcdeb2cb0c0b78`; the full report's README now records its verified 195 pages.
+
+## 2026-10-22 — Fixed manuscript date and automatic revision timestamp
+
+The big LLM paper now retains an explicit original date of October 22, 2026,
+with a separate last-save timestamp in America/Los_Angeles time. A small Python
+watcher updates the generated TeX date on manuscript, bibliography and figure
+saves; a local latexmk hook provides the same refresh before compilation.
+Generated date/build files are excluded, so compilation alone does not advance
+the date. The user service is enabled locally; setup and stopping instructions
+are in `paper/llm/DATE-MAINTENANCE.md`.
+
+Validation: temporary-source checks passed for source and figure changes,
+unchanged builds and generated-file exclusion; Python compilation and diff
+whitespace checks passed. The first test invocation used the wrong working
+directory and was rerun with the absolute script path. Local latexmk completed
+successfully (195 pages; underfull-box warnings remain). The title page was
+visually inspected, and extracted PDF text contains the two date lines and no
+Praxagent reference. No scientific results or figure content changed.

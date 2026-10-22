@@ -1,0 +1,13 @@
+[Unit]
+Description=Refresh neural-shrimp manuscript revision date on saves
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /data2/neural-shrimp/tools/update_llm_revision.py --watch
+WorkingDirectory=/data2/neural-shrimp
+Restart=on-failure
+RestartSec=5
+Nice=10
+
+[Install]
+WantedBy=default.target
