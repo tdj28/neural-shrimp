@@ -109,3 +109,13 @@ def test_orbit_numerical_progress_is_monitored(tmp_path):
     value = '{"cell_index": 0, "stage": "jacobian", "phase": 2}'
     (p / "runner-stdout.txt").write_text("progress probe " + value + "\n")
     assert group.progress(tmp_path, "neural-shrimp-test") == (value, False)
+
+
+def test_memory_image_worker_requires_bound_plan_source_and_scan_mode():
+    source='a'*40
+    command=(f'image 75 baby_shrimp_memory_scan.py --plan docs/baby-shrimp-zoom/memory-junction-scan-plan.json '
+             f'--mode scan --source-commit {source} --out llm-soft-loop/pod64/bsmz1/connection-01')
+    group.validate_orbit_job(command,source_commit=source)
+    for bad in [command.replace('image 75','image 76'),command.replace('--mode scan','--mode benchmark'),
+                command.replace(source,'b'*40),command.replace('--out llm-soft-loop/pod64/','--out elsewhere/')]:
+        with pytest.raises(ValueError): group.validate_orbit_job(bad,source_commit=source)

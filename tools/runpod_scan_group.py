@@ -70,7 +70,8 @@ def validate(c):
 def validate_orbit_job(arguments, source_commit=None):
     job = shlex.split(arguments)
     allowed = {"baby_shrimp_orbits.py": 90, "baby_shrimp_geometry.py": 195, "baby_shrimp_crossing.py": 75,
-               "baby_shrimp_transect.py": 45, "baby_shrimp_saddle_memory.py": 120}
+               "baby_shrimp_transect.py": 45, "baby_shrimp_saddle_memory.py": 120,
+               "baby_shrimp_memory_scan.py": 75}
     if len(job) < 7 or job[2] not in allowed or "::" in job:
         raise ValueError("one bounded baby-shrimp orbit worker required")
     minutes = float(job[1])
@@ -79,7 +80,8 @@ def validate_orbit_job(arguments, source_commit=None):
     # BSC3's immutable anchor is bound by its plan, rather than an --input
     # argument. Its archive has no .git, so the explicit source must match
     # the controller's uploaded commit. Other workers retain their old gates.
-    saddle = job[2] == "baby_shrimp_saddle_memory.py"
+    memory_scan = job[2] == "baby_shrimp_memory_scan.py"
+    saddle = job[2] == "baby_shrimp_saddle_memory.py" or memory_scan
     if saddle:
         for key in ("--plan", "--source-commit", "--mode"):
             if job.count(key) != 1 or job.index(key) + 1 >= len(job):
@@ -90,7 +92,8 @@ def validate_orbit_job(arguments, source_commit=None):
         commit = job[job.index("--source-commit") + 1]
         if not re.fullmatch(r"[0-9a-f]{40}", commit) or source_commit is not None and commit != source_commit:
             raise ValueError("saddle source commit differs from the uploaded source")
-        if job[job.index("--mode") + 1] not in ("pilot", "continue"):
+        modes = ("scan",) if memory_scan else ("pilot", "continue")
+        if job[job.index("--mode") + 1] not in modes:
             raise ValueError("unknown saddle worker mode")
     for key in (("--out",) if saddle else ("--input", "--out")):
         if key not in job:

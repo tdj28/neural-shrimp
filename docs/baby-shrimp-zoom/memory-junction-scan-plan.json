@@ -64,7 +64,7 @@
     "gpu": "NVIDIA A100-SXM4-80GB",
     "pod_count": 1,
     "chunk": 2048,
-    "compute_timeout_minutes": 75,
+    "compute_timeout_minutes": 65,
     "maximum_lifetime_minutes": 120,
     "retrieval_reserve_minutes": 20,
     "automatic_retries": false,
@@ -83,5 +83,31 @@
     "path": "explore/llm-phase-map/vectors-l12/vectors.npz",
     "sha256": "b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41",
     "bytes": 14860
+  },
+  "timing": {
+    "local_benchmark": {
+      "path": "explore/llm-soft-loop/bsmz1/20261022-local-timing-01/benchmark.json",
+      "sha256": "4c811f62bb6fb77f17613bb0da0c6f275b3a7999302ac4c320cc707bd7c999db",
+      "bytes": 306
+    },
+    "local_complete_manifest": {
+      "path": "explore/llm-soft-loop/bsmz1/20261022-local-timing-01/complete.json",
+      "sha256": "063e49e5b22235394d56592ef206d7b4ca9ceae6825f1f2bdd6aeeac30327d66",
+      "bytes": 714
+    },
+    "local_source_commit": "52cb6f6bf52a02ded710e4d8469b1409a47f858a",
+    "local_step_only_seconds": 1.8481128546021257,
+    "local_projected_numerical_hours": 39.42640756484535,
+    "map_equivalence": {
+      "one_step_relative_error": 0.0,
+      "saved_root_relative_closure": 2.5861316746591106e-13,
+      "period": 18,
+      "passed": true
+    },
+    "remote_reference_seconds": 2371.6,
+    "remote_reference_cells": 16384,
+    "remote_expected_minutes": 40,
+    "basis": "Same pinned float64 scan kernel,128-square grid,300+300 horizon and A100 chunk2048 as BSZ2; added memory is only one scaled vector sum. Local step-only estimate excludes overhead; A100 estimate includes prior scan bookkeeping, not current setup.",
+    "amendment": "After local pilot, use A100 fallback and65minute numerical cap,80minute setup/run,120minute hard lifetime including20minute retrieval reserve. No numerical settings changed."
   }
 }

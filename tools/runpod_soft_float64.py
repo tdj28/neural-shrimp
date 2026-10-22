@@ -45,6 +45,8 @@ UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.
                 "docs/baby-shrimp-zoom/junction-scan-plan.json",
                 "docs/baby-shrimp-zoom/grandchild-scan-plan.json",
                 "tools/baby_shrimp_saddle_memory.py", "tools/baby_shrimp_memory.py",
+                "tools/baby_shrimp_memory_scan.py", "docs/baby-shrimp-zoom/memory-junction-scan-plan.json",
+                "docs/baby-shrimp-zoom/memory-local-extension-receipt.json",
                 "tools/trace_saddle_continuation.py", "tools/trace_pair_sensitivity.py",
                 "docs/baby-shrimp-zoom/saddle-memory-plan.json",
                 "pyproject.toml")
