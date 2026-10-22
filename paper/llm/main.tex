@@ -29,6 +29,7 @@
 \newcommand{\memoryproberepo}[1]{\href{\repourl/blob/63a19e7f076cf45665ddb6dd12270f3c16d156a5/#1}{\nolinkurl{#1}}}
 \newcommand{\memoryminrepo}[1]{\href{\repourl/blob/f56b4d4b1c00450ae34bb2ee9f2f6ad6bb70f12b/#1}{\nolinkurl{#1}}}
 \newcommand{\memoryminfigrepo}[1]{\href{\repourl/blob/b09a8ceef5f8b5395d89f30cab073c2934be63e7/#1}{\nolinkurl{#1}}}
+\newcommand{\memorymixedrepo}[1]{\href{\repourl/blob/e859fdafe5d72c9f18c050374336f3a114babb10/#1}{\nolinkurl{#1}}}
 \usepackage{microtype}
 \hypersetup{pdftitle={Chaos and bifurcations in continuous language-model feedback},
   pdfsubject={Supplementary material to the article of the same title}}
@@ -3426,6 +3427,170 @@ curves; independently found minima are not joined. Bracket widths are neither co
 exact-extremum bounds. Source and reviewed rendering: \memoryminfigrepo{paper/llm/figures/fig-memory-section-minima.json}.}
 \label{fig:memorysectionminima}
 \end{figure}
+
+\paragraph{A distinct test at a regular trace-zero crease.}
+The section searches do not determine how contraction-minimum curves connect.
+They motivate a narrower, operational test (BSC6): can the two one-sided
+\emph{Hessian features} of the pair radius meet on its regular trace-zero
+crease as memory varies? This differs from the stationary-trace-saddle test.
+Here $\tau=0$ but $\nabla_u\tau\ne0$, so the radius generally has a cusp.
+The target memory value and the corrected steering--temperature location belong to this new constrained test; they are not a new estimate of the stationary trace-saddle location.
+The Euclidean metric remains the declared scaled steering--log-temperature
+metric. No common radius Hessian is assigned across that cusp.
+
+For $\Delta<0$, define the two smooth extensions
+\begin{equation}
+ \rho_s(u,\beta)=\frac{\sqrt{\tau(u,\beta)^2-4\Delta(u,\beta)}+s\tau(u,\beta)}{2},
+ \qquad s\in\{+1,-1\}.
+ \label{eq:memorymixedextensions}
+\end{equation}
+The measured pair radius equals $\rho_+$ where $\tau>0$ and $\rho_-$ where
+$\tau<0$. Both extensions have value $r=\sqrt{-\Delta}$ on the crease.
+At an exact regular trace zero, write $g_\tau=\nabla_u\tau$,
+$g_\Delta=\nabla_u\Delta$, $H_\tau=\nabla_u^2\tau$ and
+$H_\Delta=\nabla_u^2\Delta$. Their separate limiting derivatives are
+\begin{align}
+ G_s&=-\frac{g_\Delta}{2r}+\frac{s}{2}g_\tau,\nonumber\\
+ H_s&=\frac{g_\tau g_\tau^{\mathsf T}}{4r}
+       -\frac{H_\Delta}{2r}
+       -\frac{g_\Delta g_\Delta^{\mathsf T}}{4r^3}
+       +\frac{s}{2}H_\tau.
+ \label{eq:memorymixedjets}
+\end{align}
+These are derivatives of two smooth extensions, not two estimates of a
+single Hessian of the nonsmooth radius.
+
+When the largest eigenvalue of $H_s$ is positive and simple, let $e_s$ be
+its unit eigenvector, with sign transported from a declared reference.
+The measured diagnostic is
+\begin{equation}
+ f_s=e_s^{\mathsf T}G_s.
+ \label{eq:memorymixedfeature}
+\end{equation}
+An exact $f_s=0$ with positive curvature would be a strict minimum along
+the fixed straight direction $e_s$ through that point for the smooth
+extension. It need not be a minimum along the geometric normal to the
+level set $f_s=0$ where that level set is regular. For the actual smooth-side feature field,
+$\nabla_u f_s=H_s e_s+(D e_s)^{\mathsf T}G_s$;
+eigenvector rotation generally prevents that normal from being $e_s$.
+The side on which the smooth extension equals the physical pair radius
+also matters. A meeting of these conditional features therefore does not
+establish a crossing of intrinsic contraction valleys.
+
+\paragraph{Fresh correction and empirical precision checks.}
+BSC6 follows the two equations $\tau=0$ and $f_+=0$ in the two scaled
+coordinates at a central memory setting and at offsets $\pm3\times10^{-9}$.
+The outward predictors start from the freshly admitted central point and
+use the previously measured motion with memory. At each target, at most
+two coordinate corrections are followed by fresh orbit and spectral
+evaluations. The unused feature $f_-$ is then measured; its sign is not a
+condition for accepting a target. These are three locally corrected
+samples, not a verified continuous curve over the intervening memory
+interval.
+
+Nine-point central differences of the smooth fields $\tau$ and $\Delta$
+use primary step $3\times10^{-4}$ and matched check step $10^{-4}$.
+For the corrector and the reported conditional crease diagnostics, their
+measured jets are inserted into
+Eq.~\eqref{eq:memorymixedjets} with the \emph{trace value} set to zero at
+the unchanged coordinate. The actual trace residual is retained, together
+with the estimated normal displacement
+$-\tau g_\tau/\|g_\tau\|^2$; that displacement is not substituted for a
+freshly measured point. Differentiating this projected field away from
+the crease is not the same operation as differentiating the actual
+smooth extensions in Eq.~\eqref{eq:memorymixedextensions}. They agree
+on the exact crease but can have different derivatives transverse to it.
+The projected corrector is used to locate candidates for the constrained
+intersection, not to identify the tangents or normals of active-side
+contraction valleys.
+
+Every target and stencil point must pass the saved full-state period-18, orbit-alignment,
+and leading-pair spectral checks. A dense reference and a fresh cyclic
+seed replay precede the target calculations; each final candidate is
+checked at all three cyclic phases. The primary trace residual and every
+fresh cyclic trace must satisfy $|\tau|\le10^{-12}$, the primary feature
+must satisfy $|f_+|\le10^{-8}$, and the remaining primary model correction
+must have norm at most $2\times10^{-6}$. These tolerances define numerical
+admission, not exact equalities.
+
+The uncertainty calculation combines the previously measured expanded-
+subspace and fresh cyclic spreads, declared point floors, paired-stencil
+differences, eigenvector sensitivity and the conditional trace projection.
+It also transfers uncertainty in the location of the $(\tau,f_+)$
+intersection into $f_-$. With $J=D_u(\tau,f_+)$, the propagation includes
+the actual equation residuals, paired and half-step changes in $J$ and
+$\nabla_u f_-$, and a remainder for rotation of the perturbed inverse
+Jacobian. The retained empirical intersection radius must not exceed
+$5\times10^{-6}$; the total transferred $f_-$ envelope must not exceed
+$5\times10^{-8}$. Both normalized Jacobians must have minimum singular
+value at least $0.2$. Positive curvature, eigenvalue separation,
+transported orientation and the strict crease-normal cusp slopes must
+remain resolved after the declared empirical errors. A resolved sign
+requires $|f_-|$ to exceed ten times its total envelope. These propagated
+quantities are conditional on empirical jet-error estimates and a local
+linear sensitivity model; they are neither confidence intervals nor
+validated bounds on the neural map.
+
+
+
+\paragraph{A resolved numerical sign bracket, with a near-zero central candidate.}
+All three targets passed all thirteen admission checks; all 101 evaluated points passed the saved
+full-state and leading-pair spectral gates, with all 99 target alignment comparisons admitted.
+There were no failed or unfinished point attempts. The largest full-state closure residual was below
+$9.663\times10^{-13}$ and the largest leading-pair relative residual below $8.722\times10^{-9}$.
+Across the final candidates and their cyclic replays, the largest absolute trace residual was below
+$1.735\times10^{-13}$. The final primary $|f_+|$ residuals were below $1.823\times10^{-11}$ and
+remaining primary correction norms below $6.782\times10^{-9}$.
+
+With the central target $\beta_0=0.006448531183244975$, the unused feature has the following outcomes.
+The displayed empirical envelopes are rounded upward; feature values are rounded estimates.
+\begin{center}
+\small
+\begin{tabular}{rlll}
+\hline
+$\beta-\beta_0$ & Conditional $f_-$ & Empirical envelope & Status \\
+\hline
+$-3\times10^{-9}$ & $+5.125036\times10^{-7}$ & $2.4515\times10^{-8}$ & resolved positive \\
+$0$ & $+1.703940\times10^{-10}$ & $3.1624\times10^{-8}$ & sign unresolved \\
+$+3\times10^{-9}$ & $-5.670830\times10^{-7}$ & $3.4233\times10^{-8}$ & resolved negative \\
+\hline
+\end{tabular}
+\end{center}
+The endpoint magnitudes exceed their unrounded empirical envelopes by factors approximately
+$20.9061$ and $16.5655$, respectively. These are operational resolution margins, not statistical
+significance levels. The central feature is much smaller than its envelope: its sign, and an exact
+zero there, remain unresolved. The largest empirical intersection-location radius across the three
+cases is below $2.309\times10^{-6}$ in the declared scaled metric.
+
+Thus BSC6 gives a numerical sign bracket along the corrected conditional intersection over the interval
+\[
+ [0.006448528183244975,\;0.006448534183244975].
+\]
+If an exact continuous regular branch of $(\tau,f_+)=(0,0)$ connects the endpoints,
+and the empirical uncertainty assumptions correctly control the signs on that branch, continuity
+would imply a mixed-feature zero between them. The three admitted samples and their state
+alignments support tracking the same local feature, but do not certify the intervening branch or
+those error assumptions. This is stronger than a small nominal residual at a single candidate,
+while remaining short of a mathematical existence proof.
+The \memorymixedrepo{docs/baby-shrimp-zoom/mixed-junction-receipt.json}
+binds every point, source, plan, correction, uncertainty and terminal lifecycle check.
+The separately reviewed \memorymixedrepo{docs/baby-shrimp-zoom/mixed-junction-summary.pdf}
+shows both the conditional feature and the actual signed primary/cyclic trace residuals, without
+joining the three targets; its provenance is
+\memorymixedrepo{docs/baby-shrimp-zoom/mixed-junction-summary.json}.
+
+The test does not impose $\nabla\rho=0$, does not continue intrinsic
+normal-minimum curves, and does not certify an exact mixed-feature zero.
+Its regular-crease setting is distinct from the differentiable,
+transverse normal-minimum meeting considered above; a conditional
+Hessian-feature junction would not contradict that necessary-condition
+argument. The mixed-feature conditions $\tau=f_+=f_-=0$ impose three
+equations on the three controls. A nonsingular full three-variable
+Jacobian would make an exact solution locally isolated; this dimension
+count establishes neither its existence nor that nonsingularity here.
+Since the selected multipliers remain nonzero, neither an
+admitted target nor a numerical sign bracket establishes exact
+superstability or a unit-circle bifurcation.
 
 \paragraph{An intervention mechanism, not an identified native coupling.} Retained feedback changes both the
 one-step derivative and the orbit on which that derivative is evaluated. At $\beta=0$, write $J_i=DF_p(x_i)$,
