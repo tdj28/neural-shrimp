@@ -1,0 +1,74 @@
+{
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "period": 18,
+  "start": [
+    0.07309363265341377,
+    -0.1544023817786725
+  ],
+  "coordinate_scales": [
+    2.5e-06,
+    7.5e-06
+  ],
+  "anchor_directory": "explore/llm-soft-loop/pod64/bsz1-geometry/crossing-01/point-054",
+  "anchor_hashes": {
+    "point.json": "eeeacb282487465100c8ed0ca96abfe933370fbdf6c61e280e4309e46ca4c617",
+    "points.npy": "73dd2ecbae4e9c8f5aa009a03f6e90dbbacc6a9b8857e28063aac57fd3402f7d",
+    "phase-0.npz": "83b9df88370546037d1a3ada3e7280a44e43959f91fb16612bce8cf90c16e9dd",
+    "phase-6.npz": "d89652be8c0a0b20e8da78e57e6410ffa2f317ab8bab3c68e72921a60546a71f",
+    "phase-12.npz": "8c68b1987fbdf396a0b3e26e50e33b41f28974d64f48542ad4497fc0512eef7a"
+  },
+  "prior_audit": {
+    "path": "audits/baby-shrimp-zoom/20261021-memory-local-extension-audit-01/receipt.json",
+    "sha256": "141b333d2a70fdac4037a3268768f16be57f75c338a46c84d8eb886bdf236b5b",
+    "bytes": 438337
+  },
+  "id": "BSC5-contraction-minima",
+  "status": "exploratory after BSC4; section minima of the computed leading-pair radius",
+  "maximum_evaluations": 300,
+  "maximum_abs_beta": 0.007,
+  "maximum_scaled_coordinate": 1000,
+  "contraction_minima": {
+    "jet_steps": [
+      0.001,
+      0.0003
+    ],
+    "refinement_step": 0.0003,
+    "longitudinal_steps": [
+      0.002,
+      0.0006,
+      0.0002
+    ],
+    "section_mesh": [
+      -0.0005,
+      -0.00025,
+      -0.000125,
+      0.0,
+      0.000125,
+      0.00025,
+      0.0005
+    ],
+    "validation_offsets": [
+      0.0001,
+      3e-05
+    ],
+    "coordinate_tolerance": 1e-05,
+    "maximum_refinements": 2,
+    "maximum_beta_correction": 1e-07,
+    "height_tolerance": 1e-12,
+    "center_correction_tolerance": 1e-05,
+    "section_maximum_evaluations": 40,
+    "radius_floor_minimum": 1e-14,
+    "signal_multiple": 10,
+    "expanded_columns": 12
+  },
+  "question": "Do independently searched transverse minima of the actual computed leading-pair radius stay on the predicted four arms as they approach the locally refined trace-saddle candidate, or shift, disappear, become ambiguous or remain unresolved?",
+  "objective": "Largest modulus among computed Ritz multipliers, with the dominant opposite-sign pair required at least100times third Ritz modulus. Same primitive P18 orbit, native float64 and fixed six-token family. Independent12column random-start spectra atthreecyclicphases support numerical dominance, not a full-spectrum certificate. This is asymptotic orbit contraction, not singular-value transient growth or fixed-opener finite-time shading.",
+  "setup": "Replay the original dense/operator baseline and bound candidate cycle. Two same-center 3x3 stencils of smooth tau and delta predict the local frame. Up to two joint center/beta corrections use the prior neighboring saddle secants only as predictors; fresh evaluations and a new .0003 stencil must pass height1e-12 and center-correction1e-5. Expanded random-start12column cyclic spectra establish an empirical local comparison floor. If center or spectral admission fails, preserve and stop. The same height tolerance must pass every independent12column cyclic replay before center qualification.",
+  "search": "Trace-Hessian null rays predict two lines/four directed arms. At inward distances .002,.0006,.0002, search actual radius along declared normal sections supported on[-.0005,.0005]. All strict interior mesh brackets are retained; monotone or endpoint minima are not silently admitted. Each bracket gets bounded fit-free refinement plus actual symmetric offsets at .0001 and .00003. All competing minima and unresolved outcomes remain. A sampled minimum is not an intrinsic2D ridge. No tauzero constraint is used in the minimizer. Validation offsets must remain inside the declared full section support; they need not remain inside an original mesh bracket. A lower sampled neighbor prevents qualification.",
+  "precision": "Radius floor=max(1e-14,empirical radius range across fresh6column and independent12column spectra atthree phases). Require compared contrasts above10times floor. This is a numerical resolution criterion, not a validated error bound. Save all arrays, full-state closure, lower returns, signed multipliers, direct residuals and model-prediction discrepancies. No smooth Hessian of rho is fitted across a cusp. Every section objective compares all18cyclic full-state alignments to the newly accepted center: phase0 must be best and maximum relative state change below1e-4. This is a local continuity diagnostic, not a global branch certificate.",
+  "scope": "Stage1 is an exploratory admission and inward section-tracing pilot at a freshly refined moving center/beta. It cannot rule out meetings at nearby beta, unseen minima between mesh points, branch changes outside supported sections, or finite-time image effects. Follow-up must continue accepted minima and their frames in beta, refine closest approaches and check curve normals before a ridge-topology claim. A separate disclosed stage will use this pilot to choose that continuation; no exact proof claim.",
+  "resources": "Local zeta RTX2000Ada16GB,8modelthreads,75percent GPUmemory,max300point evaluations and10800seconds total external watchdog plus10second terminationgrace. Median primarypoint30.31seconds andcyclic85.06seconds fromBSC4; budget roughlytwo-to-threehours plussetup/expandedchecks, hardthreehours. Single process only; snapshot hostcapacity beforelaunch. No rental orpaidreview. Independent audits useoneBLASthread.",
+  "outputs": "Exclusive /data2/neural-shrimp-data/explore/llm-soft-loop/bsc5/20261022-contraction-minima-01. Immutable raw points, full orbit arrays, expanded spectra, progress and final manifests; compact receipt and code inGit. Predicted jets only guide locations; measured section points and uncertainty statuses supply the output figures.",
+  "amendment": "2026-10-22 UTC (2026-10-21 local): human explicitly requested this follow-up after BSC4 showed determinant-induced finite-step radius tilt. Designs are informed by prior outcomes and are exploratory. This pilot does not change prior evidence, precision gates, or the separately proposed unlaunched rigorous-certification work.",
+  "intervention": "F_beta(x)=(1-beta)F(x)+beta*x. beta=0 exactly original. Positive beta retains old feedback; negative beta is mathematical extrapolation. Same fixed prefix, layer12 philosophy steering and temperature; K=1. Model readout remains p(x), while next state is mixed."
+}
