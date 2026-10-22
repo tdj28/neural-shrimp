@@ -1,0 +1,2042 @@
+{
+  "id": "BSC6-mixed-junction-receipt",
+  "generated_utc": "2026-10-22T06:32:07.973686+00:00",
+  "external_storage_root": "/data2/neural-shrimp-data",
+  "audit": {
+    "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-audit-01/receipt.json",
+    "bytes": 389901,
+    "sha256": "691cae5fac0254a54b3f2bb919431bb3fe9650e6cc4e828809b7f137ae97b791"
+  },
+  "audit_finished": true,
+  "complete": true,
+  "execution_finished": true,
+  "status": "all saved-data gates passed",
+  "execution_source_commit": "06e170bf0c85bf4c35b65f5528289fa592da8b91",
+  "execution_source_sha256": {
+    "tools/baby_shrimp_memory_connection_probe.py": "5b04c13ce1bf69bc32fc477a89309bca07d2f253ae7a6aedf8d57814d37362d0",
+    "tools/baby_shrimp_saddle_memory.py": "09957839f1f2dccc39ee7d99d4b0932ccfb0e3394fbecd7684d8c5a23900cfeb",
+    "tools/baby_shrimp_memory.py": "9df18a5bf8e03e94896fabbba3ff52fe0e4203e5690255ec3ac9745e52966d7f",
+    "tools/baby_shrimp_crossing.py": "56b2b1684dfbd829b169b6b9c8003b4f54671b892324a3f9884eea3e5c3cbd60",
+    "tools/baby_shrimp_memory_orbit_alignment.py": "d7f4fb2773ea3eddbab48548c25c3b519b71ea445a255666667766ea740a3a08",
+    "tools/baby_shrimp_memory_finish.py": "d4ed634d1a8bcbc371bb449a5bf7e32633a23acd287234e81e8128cdc4702cd6",
+    "tools/baby_shrimp_memory_resume.py": "43d05f0d6e5ec02f5664f5ad1a770aef99e2f6af25f9202ff75cec407049f721",
+    "tools/baby_shrimp_orbits.py": "d98c236cd2345b6a444b8bab568c81464d91ded91e134bdadc94d74d1355df2c",
+    "tools/baby_shrimp_memory_determinant_gradient.py": "000116d6ed77fc911163b3435131eff5b25270787e6db1d023ff789d022e2399",
+    "tools/baby_shrimp_geometry.py": "9bde8abec9119b2031c5bec7a87fed0b82ad2bf6450d487dad6a0a6a2de8d621",
+    "tools/doubly_superstable.py": "5b353875189d8d81f796ee7b08531157be601a752e7f9d096f01772a088417a0",
+    "tools/explore_llm_soft_loop.py": "96ae11daca7d916d226e2014880161322b67ab8f739271d4b6d8ae007a7ab723",
+    "tools/explore_llm_attractors.py": "1d00277888fa366c96601137539ed919c202d7699c96170217ad7fed5bf80dc9",
+    "tools/explore_llm_phase_map.py": "a3635bd83bd2448a5af6c0a04188d549cfb6a158604833146399e74a8bcd29bf",
+    "tools/explore_latent_loop.py": "904e37f3409c1c8718258f23f76e98825e54a2971b2abe09f9a537c8005a32d3",
+    "tools/llm_feigenbaum.py": "884aa83ac14157453ad56f8fa724038ed59097d3cc6098efad0c49ee0801d82c",
+    "tools/baby_shrimp_mixed_junction_probe.py": "ffb979ebf6b361018e8c439cf0a9e612bb8c1c962c9d7262631cda77e4cc4617",
+    "tools/contraction_valley_geometry.py": "30add971fa01331d73340fa78597cab404fb2f36ab3fa1cf202c16511a895053",
+    "tools/baby_shrimp_contraction_minima_finish.py": "4b0f365178d53f0bf86c475427f2d72afc44493f950ddc2810e95548f1a96990"
+  },
+  "plan_path": "docs/baby-shrimp-zoom/mixed-junction-plan.json",
+  "plan_sha256": "dd1085937b31779173b395e7210d881da922fc7ae6ee68bcfdb99f58e53ddd7d",
+  "analysis_commit": "7f953b462569e2a2dccbf7fde0bd6b4410ad5d31",
+  "analysis_source_sha256": {
+    "tools/baby_shrimp_mixed_junction_probe_finish.py": "6b1cc064c83659192e9636d103d487bf5e04abb9ff0d67453991d5aa09a0cfb0",
+    "tools/baby_shrimp_contraction_minima_finish.py": "4b0f365178d53f0bf86c475427f2d72afc44493f950ddc2810e95548f1a96990",
+    "tools/baby_shrimp_memory_finish.py": "d4ed634d1a8bcbc371bb449a5bf7e32633a23acd287234e81e8128cdc4702cd6",
+    "tools/baby_shrimp_memory_orbit_alignment.py": "d7f4fb2773ea3eddbab48548c25c3b519b71ea445a255666667766ea740a3a08"
+  },
+  "scientific_metadata": {
+    "id": "BSC6-mixed-junction-probe",
+    "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "period": 18,
+    "start": [
+      0.07309363265341377,
+      -0.1544023817786725
+    ],
+    "coordinate_scales": [
+      2.5e-06,
+      7.5e-06
+    ],
+    "anchor_directory": "explore/llm-soft-loop/pod64/bsz1-geometry/crossing-01/point-054",
+    "anchor_hashes": {
+      "point.json": "eeeacb282487465100c8ed0ca96abfe933370fbdf6c61e280e4309e46ca4c617",
+      "points.npy": "73dd2ecbae4e9c8f5aa009a03f6e90dbbacc6a9b8857e28063aac57fd3402f7d",
+      "phase-0.npz": "83b9df88370546037d1a3ada3e7280a44e43959f91fb16612bce8cf90c16e9dd",
+      "phase-6.npz": "d89652be8c0a0b20e8da78e57e6410ffa2f317ab8bab3c68e72921a60546a71f",
+      "phase-12.npz": "8c68b1987fbdf396a0b3e26e50e33b41f28974d64f48542ad4497fc0512eef7a"
+    },
+    "intervention": "F_beta(x)=(1-beta)F(x)+beta*x. beta=0 exactly original. Positive beta retains old feedback; negative beta is mathematical extrapolation. Same fixed prefix, layer12 philosophy steering and temperature; K=1. Model readout remains p(x), while next state is mixed."
+  },
+  "runtime": {
+    "norm_sensitivity": 3.552713678800501e-15,
+    "rotary_float64": true,
+    "device": "NVIDIA RTX 2000 Ada Generation",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "threads": 8,
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "python_executable": "/data2/neural-shrimp/.venv/bin/python"
+  },
+  "baseline": {
+    "passed": true,
+    "point_index": 0,
+    "maximum_operator_relative_error": 3.002277935315703e-10,
+    "trace_error_relative_to_radius": 2.210489976610622e-12
+  },
+  "bsc5_audit": {
+    "path": "audits/baby-shrimp-zoom/20261022-contraction-minima-audit-01/receipt.json",
+    "sha256": "874f0fdceeeefe3957c5b8ac8d9a8ca87ec53a2f8d35e978c367281f0ac112c5",
+    "bytes": 707751
+  },
+  "prior_support": {
+    "audit": {
+      "path": "audits/baby-shrimp-zoom/20261022-contraction-minima-audit-01/receipt.json",
+      "sha256": "874f0fdceeeefe3957c5b8ac8d9a8ca87ec53a2f8d35e978c367281f0ac112c5",
+      "bytes": 707751
+    },
+    "scientific_complete": true,
+    "retained_unresolved_stages": [],
+    "section_statuses": [
+      {
+        "arm_id": "line-0-ray-+1",
+        "longitudinal": 0.002,
+        "status": "converged",
+        "complete": true
+      },
+      {
+        "arm_id": "line-0-ray--1",
+        "longitudinal": 0.002,
+        "status": "converged",
+        "complete": true
+      },
+      {
+        "arm_id": "line-1-ray-+1",
+        "longitudinal": 0.002,
+        "status": "converged",
+        "complete": true
+      },
+      {
+        "arm_id": "line-1-ray--1",
+        "longitudinal": 0.002,
+        "status": "converged",
+        "complete": true
+      },
+      {
+        "arm_id": "line-0-ray-+1",
+        "longitudinal": 0.0006,
+        "status": "converged",
+        "complete": true
+      },
+      {
+        "arm_id": "line-0-ray--1",
+        "longitudinal": 0.0006,
+        "status": "converged",
+        "complete": true
+      },
+      {
+        "arm_id": "line-1-ray-+1",
+        "longitudinal": 0.0006,
+        "status": "converged",
+        "complete": true
+      },
+      {
+        "arm_id": "line-1-ray--1",
+        "longitudinal": 0.0006,
+        "status": "converged",
+        "complete": true
+      },
+      {
+        "arm_id": "line-0-ray-+1",
+        "longitudinal": 0.0002,
+        "status": "no_bracket",
+        "complete": true
+      },
+      {
+        "arm_id": "line-0-ray--1",
+        "longitudinal": 0.0002,
+        "status": "converged",
+        "complete": true
+      },
+      {
+        "arm_id": "line-1-ray-+1",
+        "longitudinal": 0.0002,
+        "status": "no_bracket",
+        "complete": true
+      },
+      {
+        "arm_id": "line-1-ray--1",
+        "longitudinal": 0.0002,
+        "status": "converged",
+        "complete": true
+      }
+    ],
+    "expanded_spectrum": {
+      "status": "complete",
+      "complete": true,
+      "point_index": 27,
+      "rows": [
+        {
+          "phase": 0,
+          "tau": 3.57352493950136e-14,
+          "delta": -6.759142863415145e-09,
+          "radius": 8.221400650955458e-05,
+          "maximum_relative_residual": 8.735335007087138e-11,
+          "maximum_projected_relative_residual": 1.5798825253417296e-14,
+          "ritz_spectrum_absolute_replay_error": 0.0,
+          "pair_relative_difference": 2.7555407351980477e-11,
+          "passed": true
+        },
+        {
+          "phase": 6,
+          "tau": 1.7323054340816213e-13,
+          "delta": -6.7591428520898896e-09,
+          "radius": 8.221400650942555e-05,
+          "maximum_relative_residual": 3.816004426549727e-09,
+          "maximum_projected_relative_residual": 1.4699447147234667e-14,
+          "ritz_spectrum_absolute_replay_error": 0.0,
+          "pair_relative_difference": 2.788001418571917e-09,
+          "passed": true
+        },
+        {
+          "phase": 12,
+          "tau": 1.4692785291377242e-13,
+          "delta": -6.759142873015095e-09,
+          "radius": 8.221400662353479e-05,
+          "maximum_relative_residual": 1.389789258413578e-09,
+          "maximum_projected_relative_residual": 5.561010713632835e-15,
+          "ritz_spectrum_absolute_replay_error": 0.0,
+          "pair_relative_difference": 1.396425160795165e-09,
+          "passed": true
+        }
+      ],
+      "variations": {
+        "tau": 2.293155764018437e-13,
+        "delta": 2.0925205326546805e-17,
+        "radius": 1.1480570725856676e-13
+      },
+      "check": {
+        "path": "explore/llm-soft-loop/bsc5/20261022-contraction-minima-01/expanded-spectrum/check.json",
+        "bytes": 14105,
+        "sha256": "b859b97cb6e4fed7c29614a8d36c660d38e0644c217db09af10281bac72a0eeb"
+      },
+      "unrecorded_array_attempts": [],
+      "unrecorded_array_scope": "Hash-bound preserved attempts without a matching saved row are not admitted.",
+      "scope": "Independent saved 12-column projected spectra; no full-spectrum certificate."
+    },
+    "supporting_audit_blas_threads": 1
+  },
+  "seed_replay": {
+    "source_point_index": 27,
+    "source_directory": "explore/llm-soft-loop/bsc5/20261022-contraction-minima-01/point-0027",
+    "fresh_point_index": 1,
+    "beta": 0.006448532860189464,
+    "maximum_relative_orbit_difference": 0.0,
+    "cyclic_comparisons": [
+      {
+        "phase": 0,
+        "pair_relative_error": 5.008635421049144e-12,
+        "trace_error_relative_to_radius": 6.8024733177005646e-12,
+        "determinant_relative_error": 3.21478742936118e-12
+      },
+      {
+        "phase": 6,
+        "pair_relative_error": 6.737424023248388e-10,
+        "trace_error_relative_to_radius": 6.719960396466355e-10,
+        "determinant_relative_error": 6.754887744481602e-10
+      },
+      {
+        "phase": 12,
+        "pair_relative_error": 7.043987001134705e-11,
+        "trace_error_relative_to_radius": 7.05335016898352e-11,
+        "determinant_relative_error": 7.034619171470788e-11
+      }
+    ],
+    "passed": true
+  },
+  "resolved_f_minus_sign_bracket": true,
+  "untested_or_incomplete_stages": [],
+  "terminal_failure": null,
+  "limits": [
+    "Saved-array replay, not a fresh model run, full-spectrum proof or interval certificate.",
+    "Expanded 12-column support comes from the audited BSC5 center; BSC6 target spectra are fresh six-column cyclic measurements.",
+    "Conditional tau-value projections keep coordinates unchanged. Actual measured tau and predicted displacement remain explicit; neither is an exact trace-zero certificate.",
+    "The two one-sided extension jets are separate. There is no common radius Hessian across the cusp.",
+    "Jet-error balls, half-step Jacobian discrepancies and first-order location transfer are empirical model assumptions, not verified neural error bounds.",
+    "Admitted tau/f_plus intersections and observed f_minus signs do not certify a common zero, intrinsic ridge connectivity or exact superstability.",
+    "Failed precision/admission gates are retained; absent later targets are untested, not evidence against a possible junction."
+  ],
+  "declared_case_and_precision_settings": {
+    "allow_scientifically_partial_bsc5": false,
+    "target": {
+      "beta": 0.006448531183244975,
+      "coordinate": [
+        89.65277071017042,
+        -485.8350977422083
+      ],
+      "moving_center_beta": [
+        13377.208432063893,
+        -77154.20513687236
+      ],
+      "references": {
+        "positive_tau_side": [
+          -0.5704946970050591,
+          -0.8213012849674021
+        ],
+        "negative_tau_side": [
+          -0.8212994141120598,
+          0.5704973903351246
+        ]
+      }
+    },
+    "beta_offsets": [
+      0.0,
+      -3e-09,
+      3e-09
+    ],
+    "stencil_steps": [
+      0.0003,
+      0.0001
+    ],
+    "primary_step": 0.0003,
+    "maximum_corrections": 2,
+    "maximum_step": 0.0005,
+    "maximum_total_displacement": 0.0005,
+    "coordinate_tolerance": 2e-06,
+    "trace_tolerance": 1e-12,
+    "f_plus_tolerance": 1e-08,
+    "f_minus_tolerance": 1e-08,
+    "maximum_projection_displacement": 2e-06,
+    "maximum_predictor_projection_displacement": 0.0005,
+    "minimum_trace_gradient": 1e-06,
+    "jacobian_step": 1e-07,
+    "maximum_jacobian_condition": 100.0,
+    "minimum_normalized_jacobian_singular_value": 0.2,
+    "minimum_reference_overlap": 0.9,
+    "noise_multiplier": 1.0,
+    "signal_multiple": 10.0,
+    "maximum_feature_uncertainty": 2e-08,
+    "maximum_f_minus_total_uncertainty": 5e-08,
+    "maximum_intersection_location_uncertainty": 5e-06,
+    "maximum_jacobian_perturbation": 0.1,
+    "orbit_alignment_tolerance": 0.0001,
+    "field_noise_floor": {
+      "tau": 1e-14,
+      "delta": 1e-18
+    },
+    "jet_difference_limits": {
+      "tau": {
+        "value": 1e-12,
+        "gradient": 2e-08,
+        "hessian": 2e-05
+      },
+      "delta": {
+        "value": 1e-16,
+        "gradient": 5e-13,
+        "hessian": 2e-09
+      }
+    }
+  },
+  "raw_directory": "explore/llm-soft-loop/bsc6/20261022-mixed-junction-01",
+  "raw_key_files": [
+    {
+      "path": "explore/llm-soft-loop/bsc6/20261022-mixed-junction-01/protocol.json",
+      "bytes": 16514,
+      "sha256": "7052e47dee27fe4234c31aeb2cb98eb6c47e3ff817be0abd517e6fd410887683"
+    },
+    {
+      "path": "explore/llm-soft-loop/bsc6/20261022-mixed-junction-01/runtime.json",
+      "bytes": 314,
+      "sha256": "cd4b8a8df68aa4f52c939bca913bae6bf4c4fe16b34afc473aeb99e42aa14daf"
+    },
+    {
+      "path": "explore/llm-soft-loop/bsc6/20261022-mixed-junction-01/baseline.json",
+      "bytes": 10012,
+      "sha256": "0f3942a1f9918be80f828ac0bfb599cfffe606965b877c41ce52950bff48374c"
+    },
+    {
+      "path": "explore/llm-soft-loop/bsc6/20261022-mixed-junction-01/manifest.json",
+      "bytes": 66831,
+      "sha256": "8acb92e79af451d85dc8f48cbb4cffadeb7e40004a40dc0ea813fd8503d6ce6d"
+    },
+    {
+      "path": "explore/llm-soft-loop/bsc6/20261022-mixed-junction-01/result.json",
+      "bytes": 286955,
+      "sha256": "42955984637616173106b92c5c01cafd45da380daefe4c3e724faff9d262d74a"
+    },
+    {
+      "path": "explore/llm-soft-loop/bsc6/20261022-mixed-junction-01/probe-progress.json",
+      "bytes": 286955,
+      "sha256": "42955984637616173106b92c5c01cafd45da380daefe4c3e724faff9d262d74a"
+    }
+  ],
+  "lifecycle": {
+    "status": {
+      "command": [
+        "/data2/neural-shrimp/.venv/bin/python",
+        "tools/baby_shrimp_mixed_junction_probe.py",
+        "--plan",
+        "docs/baby-shrimp-zoom/mixed-junction-plan.json",
+        "--out",
+        "/data2/neural-shrimp-data/explore/llm-soft-loop/bsc6/20261022-mixed-junction-01",
+        "--device",
+        "cuda",
+        "--seconds",
+        "5400",
+        "--source-commit",
+        "06e170bf0c85bf4c35b65f5528289fa592da8b91"
+      ],
+      "source_commit": "06e170bf0c85bf4c35b65f5528289fa592da8b91",
+      "controller_pid": 259415,
+      "controller_start_ticks": "259381936",
+      "started_utc": "2026-10-22T05:34:15.311893+00:00",
+      "hard_seconds": 5400,
+      "termination_grace_seconds": 10,
+      "output": "/data2/neural-shrimp-data/explore/llm-soft-loop/bsc6/20261022-mixed-junction-01",
+      "complete": true,
+      "scientific_complete": true,
+      "worker_pid": 259417,
+      "worker_start_ticks": "259381941",
+      "process_group": 259417,
+      "exit_code": 0,
+      "timed_out": false,
+      "ended_utc": "2026-10-22T06:29:47.696059+00:00",
+      "elapsed_seconds": 3332.384162685834,
+      "worker_reaped": true,
+      "scope": "Execution completion and scientific completeness are separate. Exact worker reaped; host absence checked separately."
+    },
+    "artifacts": [
+      {
+        "path": "audits/baby-shrimp-zoom/20261022-bsc6-controller-01/status.json",
+        "bytes": 1177,
+        "sha256": "9431431ad167b4f9952f7b2e945bb977ce8f9d55dbfa6d8b12a7239d69fc2958"
+      },
+      {
+        "path": "audits/baby-shrimp-zoom/20261022-bsc6-controller-01/ownership.json",
+        "bytes": 892,
+        "sha256": "464e4f237a298bab17fa6f162c625d3b03c133ee358631fdb596e17e8716e337"
+      },
+      {
+        "path": "audits/baby-shrimp-zoom/20261022-bsc6-controller-01/controller.py",
+        "bytes": 3026,
+        "sha256": "96ebf9e8d994dcdc452e9e914da6368c232436b43e7a11f0799bda93275ac4d2"
+      },
+      {
+        "path": "audits/baby-shrimp-zoom/20261022-bsc6-controller-01/controller-source.json",
+        "bytes": 100,
+        "sha256": "491b9942aa0f1515eac4bb7caedc4dd279401cb04a70efe8ae3cc49550d5f9f8"
+      },
+      {
+        "path": "audits/baby-shrimp-zoom/20261022-bsc6-controller-01/terminal-raw-manifest.json",
+        "bytes": 62723,
+        "sha256": "129d3fcbeaadc22ffc2411ff28bde56a82d03ad907e76f12c5b7059139aa59a5"
+      }
+    ],
+    "host_check": {
+      "path": "audits/baby-shrimp-zoom/20261022-bsc6-controller-01/post-run-host-check.json",
+      "bytes": 1655,
+      "sha256": "d57b7f719aac220b2b3df24b1cf95c78de70a41741d0c47b29b968a249cf4dd5"
+    },
+    "audit_lifecycle": {
+      "python_finalization": true,
+      "python_manifest": {
+        "path": "explore/llm-soft-loop/bsc6/20261022-mixed-junction-01/manifest.json",
+        "bytes": 66831,
+        "sha256": "8acb92e79af451d85dc8f48cbb4cffadeb7e40004a40dc0ea813fd8503d6ce6d"
+      },
+      "python_complete": true,
+      "controller": {
+        "manifest": {
+          "path": "audits/baby-shrimp-zoom/20261022-bsc6-controller-01/terminal-raw-manifest.json",
+          "bytes": 62723,
+          "sha256": "129d3fcbeaadc22ffc2411ff28bde56a82d03ad907e76f12c5b7059139aa59a5"
+        },
+        "status_artifact": {
+          "path": "audits/baby-shrimp-zoom/20261022-bsc6-controller-01/status.json",
+          "bytes": 1177,
+          "sha256": "9431431ad167b4f9952f7b2e945bb977ce8f9d55dbfa6d8b12a7239d69fc2958"
+        },
+        "worker_pid": 259417,
+        "controller_pid": 259415,
+        "worker_reaped": true,
+        "exit_code": 0,
+        "timed_out": false,
+        "elapsed_seconds": 3332.384162685834,
+        "ended_utc": "2026-10-22T06:29:47.696059+00:00",
+        "execution_complete": true,
+        "scientific_complete": true
+      }
+    }
+  },
+  "counts": {
+    "point_attempts": 101,
+    "orbit_spectral_qualified_points": 101,
+    "unqualified_or_incomplete_points": 0,
+    "point_admission_status_counts": {
+      "passed": 99
+    },
+    "planned_cases": 3,
+    "attempted_cases": 3,
+    "admitted_cases": 3,
+    "unattempted_cases": 0
+  },
+  "validation": {
+    "maximum_full_state_closure": 9.662249274349648e-13,
+    "minimum_lower_return": 0.014948247236124838,
+    "maximum_leading_pair_relative_residual": 8.721130852384456e-09,
+    "maximum_available_f_minus_total_uncertainty": 3.4232834586107604e-08,
+    "maximum_available_intersection_location_uncertainty": 2.308093254381947e-06,
+    "scope": "Maxima include failed as well as admitted measured cases; absent measurements are null, not zero."
+  },
+  "cases": [
+    {
+      "beta_offset": 0.0,
+      "beta": 0.006448531183244975,
+      "predicted_center": [
+        89.65277071017042,
+        -485.8350977422083
+      ],
+      "predictor_parent": {
+        "kind": "frozen conditional target",
+        "beta": 0.006448531183244975,
+        "coordinate": [
+          89.65277071017042,
+          -485.8350977422083
+        ],
+        "point_index": null,
+        "beta_displacement": 0.0,
+        "moving_center_beta": [
+          13377.208432063893,
+          -77154.20513687236
+        ],
+        "scope": "Historical moving-center secant is a predictor only; fresh two-equation corrections follow."
+      },
+      "status": "admitted",
+      "complete": true,
+      "case_index": 0,
+      "iteration_count": 2,
+      "final_center": [
+        89.65277083049159,
+        -485.8350974634622
+      ],
+      "final_point_index": 28,
+      "f_minus": {
+        "value": 1.7039398984913803e-10,
+        "empirical_total_error": 3.16233203911489e-08,
+        "status": "residual_qualified_near_zero",
+        "ungated_sign_diagnostic": "residual_qualified_near_zero",
+        "scope": "Conditional local feature value at a numerically corrected intersection; not an exact zero."
+      },
+      "iteration_history": [
+        {
+          "center": [
+            89.65277071017042,
+            -485.8350977422083
+          ],
+          "beta": 0.006448531183244975,
+          "corrections_already_applied": 0,
+          "available_stages": [
+            "coarse_jet",
+            "coarse_geometry",
+            "coarse_correction",
+            "step_applied"
+          ],
+          "primary_center_point_index": 6,
+          "measured_tau": -1.0227722667269581e-12,
+          "measured_delta": -6.75874199976238e-09,
+          "conditional_f_plus": 1.9803010010144826e-09,
+          "conditional_f_minus": -1.116371826533126e-09,
+          "predicted_correction_norm": 3.0360592778387187e-07,
+          "step_applied": {
+            "old_center": [
+              89.65277071017042,
+              -485.8350977422083
+            ],
+            "new_center": [
+              89.65277083049159,
+              -485.8350974634622
+            ],
+            "displacement": [
+              1.2032118099445297e-07,
+              2.7874607224067877e-07
+            ],
+            "norm": 3.0360592778387187e-07,
+            "cumulative_displacement": 3.0360593792602876e-07
+          }
+        },
+        {
+          "center": [
+            89.65277083049159,
+            -485.8350974634622
+          ],
+          "beta": 0.006448531183244975,
+          "corrections_already_applied": 1,
+          "available_stages": [
+            "coarse_jet",
+            "coarse_geometry",
+            "coarse_correction",
+            "fine_jet",
+            "fine_geometry",
+            "fine_correction",
+            "cyclic_point_index",
+            "uncertainty",
+            "admission"
+          ],
+          "primary_center_point_index": 15,
+          "measured_tau": 2.908209697366493e-15,
+          "measured_delta": -6.758741810288608e-09,
+          "conditional_f_plus": -8.297767882722298e-12,
+          "conditional_f_minus": 1.7039398984913803e-10,
+          "predicted_correction_norm": 1.304206506028021e-09,
+          "admission_passed": true
+        }
+      ],
+      "decisive_iteration": {
+        "center": [
+          89.65277083049159,
+          -485.8350974634622
+        ],
+        "beta": 0.006448531183244975,
+        "coarse_stencil": {
+          "step": 0.0003,
+          "center_point_index": 15,
+          "fields": {
+            "tau": {
+              "value": 2.908209697366493e-15,
+              "gradient": [
+                1.1907634921382888e-05,
+                -1.4670906981034018e-06
+              ],
+              "hessian": [
+                [
+                  -0.02441090986169065,
+                  0.026198778845591027
+                ],
+                [
+                  0.026198778845591027,
+                  -0.004887882766480194
+                ]
+              ]
+            },
+            "delta": {
+              "value": -6.758741810288608e-09,
+              "gradient": [
+                -4.5479463299377455e-10,
+                8.752079411764733e-10
+              ],
+              "hessian": [
+                [
+                  4.6474784271359764e-11,
+                  2.432958992787528e-11
+                ],
+                [
+                  2.432958992787528e-11,
+                  -7.398450453005402e-11
+                ]
+              ]
+            }
+          }
+        },
+        "coarse_conditional_geometry": {
+          "input_tau": 2.908209697366493e-15,
+          "input_delta": -6.758741810288608e-09,
+          "projection": {
+            "kind": "conditional trace-value projection at the same coordinate",
+            "input_tau": 2.908209697366493e-15,
+            "enforced_tau": 0.0,
+            "absolute_trace_change": 2.908209697366493e-15,
+            "predicted_normal_displacement": [
+              -2.405787625049486e-10,
+              2.964071933364646e-11
+            ],
+            "predicted_displacement_norm": 2.423978407722075e-10,
+            "spatial_displacement_applied": false
+          },
+          "cusp": {
+            "value": 8.221156737520948e-05,
+            "normal": [
+              0.9924954848547171,
+              -0.12228128451647892
+            ],
+            "tau_gradient_norm": 1.1997671629837133e-05,
+            "normal_delta_gradient": -5.584031710485615e-10,
+            "left_slope": -2.602700764360308e-06,
+            "right_slope": 9.394970865476824e-06,
+            "slope_margin": 2.602700764360308e-06,
+            "strict_first_order_minimum": true,
+            "status": "strict_first_order_minimum"
+          },
+          "branches": {
+            "positive_tau_side": {
+              "feature": -8.297767882722298e-12,
+              "normal": [
+                -0.570460996706504,
+                -0.8213246929422141
+              ],
+              "largest_eigenvalue": 0.006654494521616471,
+              "eigenvalue_gap": 0.027958218022468395,
+              "reference_overlap": 0.9999999999994691
+            },
+            "negative_tau_side": {
+              "feature": 1.7039398984913803e-10,
+              "normal": [
+                -0.8213233009212904,
+                0.5704630008718843
+              ],
+              "largest_eigenvalue": 0.021303912381291475,
+              "eigenvalue_gap": 0.027958261113647558,
+              "reference_overlap": 0.9999999999988662
+            }
+          }
+        },
+        "coarse_corrector": {
+          "equations": [
+            2.908209697366493e-15,
+            -8.297767882722298e-12
+          ],
+          "f_minus": 1.7039398984913803e-10,
+          "correction": [
+            -3.9728011251468776e-10,
+            -1.2422250692069192e-09
+          ],
+          "correction_norm": 1.304206506028021e-09,
+          "scaled_condition": 20.386808714557127,
+          "normalized_jacobian_singular_values": [
+            1.2106555141294053,
+            0.730967322188937
+          ],
+          "half_step_jacobian_perturbation": 4.606497399422212e-12
+        },
+        "fine_stencil": {
+          "step": 0.0001,
+          "center_point_index": 15,
+          "fields": {
+            "tau": {
+              "value": 2.908209697366493e-15,
+              "gradient": [
+                1.1907658129249902e-05,
+                -1.4671111965266007e-06
+              ],
+              "hessian": [
+                [
+                  -0.024408158743401305,
+                  0.026200426157186783
+                ],
+                [
+                  0.026200426157186783,
+                  -0.004888674063003098
+                ]
+              ]
+            },
+            "delta": {
+              "value": -6.758741810288608e-09,
+              "gradient": [
+                -4.547669849091766e-10,
+                8.75280615432887e-10
+              ],
+              "hessian": [
+                [
+                  8.806681789122378e-10,
+                  -7.38286820844404e-11
+                ],
+                [
+                  -7.38286820844404e-11,
+                  -6.637950707809411e-11
+                ]
+              ]
+            }
+          }
+        },
+        "fine_conditional_geometry": {
+          "input_tau": 2.908209697366493e-15,
+          "input_delta": -6.758741810288608e-09,
+          "projection": {
+            "kind": "conditional trace-value projection at the same coordinate",
+            "input_tau": 2.908209697366493e-15,
+            "enforced_tau": 0.0,
+            "absolute_trace_change": 2.908209697366493e-15,
+            "predicted_normal_displacement": [
+              -2.4057820711799066e-10,
+              2.9641007280525044e-11
+            ],
+            "predicted_displacement_norm": 2.4239732476393163e-10,
+            "spatial_displacement_applied": false
+          },
+          "cusp": {
+            "value": 8.221156737520948e-05,
+            "normal": [
+              0.9924953064242247,
+              -0.1222827327380454
+            ],
+            "tau_gradient_norm": 1.199769717012665e-05,
+            "normal_delta_gradient": -5.583858036068256e-10,
+            "left_slope": -2.602819161014147e-06,
+            "right_slope": 9.394878009112503e-06,
+            "slope_margin": 2.602819161014147e-06,
+            "strict_first_order_minimum": true,
+            "status": "strict_first_order_minimum"
+          },
+          "branches": {
+            "positive_tau_side": {
+              "feature": 8.433352318484031e-10,
+              "normal": [
+                -0.5704307571075076,
+                -0.8213456953961321
+              ],
+              "largest_eigenvalue": 0.006654324279602629,
+              "eigenvalue_gap": 0.027962017379335402,
+              "reference_overlap": 0.9999999993596453
+            },
+            "negative_tau_side": {
+              "feature": -5.808005708805786e-10,
+              "normal": [
+                -0.8212566836254318,
+                0.5705589010790713
+              ],
+              "largest_eigenvalue": 0.021299888534128928,
+              "eigenvalue_gap": 0.027956313081983594,
+              "reference_overlap": 0.9999999933573351
+            }
+          }
+        },
+        "fine_corrector": {
+          "equations": [
+            2.908209697366493e-15,
+            8.433352318484031e-10
+          ],
+          "f_minus": -5.808005708805786e-10,
+          "correction": [
+            1.728677345331457e-08,
+            1.422885999585132e-07
+          ],
+          "correction_norm": 1.4333484647698207e-07,
+          "scaled_condition": 20.38696050723714,
+          "normalized_jacobian_singular_values": [
+            1.2106415330008804,
+            0.7309904777582799
+          ],
+          "half_step_jacobian_perturbation": 3.0521821092252946e-12
+        },
+        "cyclic_measurements": {
+          "point_index": 28,
+          "coordinate": [
+            89.65277083049159,
+            -485.8350974634622
+          ],
+          "beta": 0.006448531183244975,
+          "phases": [
+            {
+              "phase": 0,
+              "tau": 2.1089900659188032e-15,
+              "delta": -6.75874181033285e-09,
+              "radius": 8.221156737653305e-05
+            },
+            {
+              "phase": 6,
+              "tau": -9.52887671112207e-15,
+              "delta": -6.758741811249629e-09,
+              "radius": 8.221156738581872e-05
+            },
+            {
+              "phase": 12,
+              "tau": -2.6725583551767684e-15,
+              "delta": -6.758741809960392e-09,
+              "radius": 8.22115673745496e-05
+            }
+          ]
+        },
+        "cyclic_variations": {
+          "tau": 1.2437086408488562e-14,
+          "delta": 1.2892370852802485e-18
+        },
+        "uncertainty": {
+          "primary_step": 0.0003,
+          "check_step": 0.0001,
+          "field_error_balls": {
+            "tau": {
+              "value": 2.293155764018437e-13,
+              "gradient": 1.1119683355439285e-09,
+              "hessian": 1.6138510135002783e-05
+            },
+            "delta": {
+              "value": 2.0925205326546805e-17,
+              "gradient": 1.7639816192379788e-13,
+              "hessian": 2.0082013056072077e-09
+            }
+          },
+          "paired_jet_differences": {
+            "tau": {
+              "value": 0.0,
+              "gradient": 3.096434150762495e-11,
+              "hessian": 3.3987558904559085e-06
+            },
+            "delta": {
+              "value": 0.0,
+              "gradient": 7.775579802965045e-14,
+              "hessian": 8.456898985768297e-10
+            }
+          },
+          "branch_envelopes": {
+            "positive_tau_side": {
+              "gradient_error": 1.6288240044417177e-09,
+              "hessian_error": 2.0283110486964537e-05,
+              "normal_error": 0.0010267276385369322,
+              "paired_feature_difference": 8.516329997311254e-10,
+              "projection_sensitivity": 5.99878658328644e-11,
+              "feature_error": 1.3440974611309795e-08,
+              "positive_curvature_lower": 0.006634211411129506,
+              "gap_lower": 0.027917651801494466,
+              "transport_overlap_lower": 0.9989732723609321
+            },
+            "negative_tau_side": {
+              "gradient_error": 1.6288240044417177e-09,
+              "hessian_error": 2.0283110486964537e-05,
+              "normal_error": 0.001026726054925383,
+              "paired_feature_difference": 7.511945607297166e-10,
+              "projection_sensitivity": 3.6492599905181265e-10,
+              "feature_error": 8.482161596827836e-09,
+              "positive_curvature_lower": 0.02128362927080451,
+              "gap_lower": 0.02791769489267363,
+              "transport_overlap_lower": 0.9989732739439409
+            }
+          },
+          "projection_radius": 1.9357531880114295e-08,
+          "cusp": {
+            "normal_error": 0.0001853812037650043,
+            "trace_gradient_lower": 1.1996559661501589e-05,
+            "slope_error": 2.74086047615077e-09,
+            "left_upper": -2.599959903884157e-06,
+            "right_lower": 9.392230005000672e-06
+          },
+          "normalized_jacobian_minimum_singular_values": [
+            0.730967322188937,
+            0.7309904777582799
+          ],
+          "intersection": {
+            "jacobian_perturbation": 6.82986777811882e-05,
+            "scaled_jacobian_discrepancy_norms": {
+              "matched_fields": 40.20732170015275,
+              "primary_half_step": 2.7118379101264723e-06,
+              "check_half_step": 1.796805223536264e-06
+            },
+            "nominal_location_box_components": [
+              2.972326795806264e-07,
+              2.2791509856969447e-06
+            ],
+            "nominal_location_norm": 2.2984508873182463e-06,
+            "location_error_norm": 2.298607879197133e-06,
+            "f_minus_scaled_equation_sensitivities": [
+              -2.0065029838761407e-09,
+              -1.6849225967769377e-08
+            ],
+            "f_minus_nominal_transfer": 2.3126940661644477e-08,
+            "inverse_rotation_transfer": 3.344510137344089e-12,
+            "f_minus_gradient_transfer": 1.0873622539237047e-11,
+            "f_minus_location_transfer": 2.314115879432106e-08,
+            "scaled_equation_errors": [
+              0.23222378609921018,
+              1.3449272379192516
+            ],
+            "f_minus_gradient_difference": 4.730525218174676e-06,
+            "f_minus_total_error": 3.16233203911489e-08
+          }
+        },
+        "admission": {
+          "passed": true,
+          "checks": {
+            "actual_cyclic_trace": true,
+            "actual_primary_trace": true,
+            "f_plus_residual": true,
+            "coordinate_correction": true,
+            "projection_displacement": true,
+            "paired_field_jets": true,
+            "regular_crease_with_uncertainty": true,
+            "both_normalized_jacobians": true,
+            "strict_cusp_slopes": true,
+            "positive_simple_transported_normals": true,
+            "feature_precision": true,
+            "intersection_precision": true,
+            "f_minus_total_precision": true
+          },
+          "f_minus": {
+            "value": 1.7039398984913803e-10,
+            "empirical_total_error": 3.16233203911489e-08,
+            "status": "residual_qualified_near_zero",
+            "ungated_sign_diagnostic": "residual_qualified_near_zero"
+          }
+        }
+      }
+    },
+    {
+      "beta_offset": -3e-09,
+      "beta": 0.006448528183244975,
+      "predicted_center": [
+        89.65273069886629,
+        -485.8348660008468
+      ],
+      "predictor_parent": {
+        "kind": "fresh admitted central intersection",
+        "beta": 0.006448531183244975,
+        "coordinate": [
+          89.65277083049159,
+          -485.8350974634622
+        ],
+        "point_index": 28,
+        "beta_displacement": -3e-09,
+        "moving_center_beta": [
+          13377.208432063893,
+          -77154.20513687236
+        ],
+        "scope": "Historical moving-center secant is a predictor only; fresh two-equation corrections follow."
+      },
+      "status": "admitted",
+      "complete": true,
+      "case_index": 1,
+      "iteration_count": 3,
+      "final_center": [
+        89.65271116173703,
+        -485.83485185909336
+      ],
+      "final_point_index": 64,
+      "f_minus": {
+        "value": 5.125036201979886e-07,
+        "empirical_total_error": 2.4514587126949303e-08,
+        "status": "resolved_positive",
+        "ungated_sign_diagnostic": "resolved_positive",
+        "scope": "Conditional local feature value at a numerically corrected intersection; not an exact zero."
+      },
+      "iteration_history": [
+        {
+          "center": [
+            89.65273069886629,
+            -485.8348660008468
+          ],
+          "beta": 0.006448528183244975,
+          "corrections_already_applied": 0,
+          "available_stages": [
+            "coarse_jet",
+            "coarse_geometry",
+            "coarse_correction",
+            "step_applied"
+          ],
+          "primary_center_point_index": 33,
+          "measured_tau": 2.6567857393515904e-10,
+          "measured_delta": -6.7587584440199774e-09,
+          "conditional_f_plus": 3.101822785684958e-09,
+          "conditional_f_minus": -1.2363774540302165e-09,
+          "predicted_correction_norm": 2.5279002064435838e-05,
+          "step_applied": {
+            "old_center": [
+              89.65273069886629,
+              -485.8348660008468
+            ],
+            "new_center": [
+              89.6527102050079,
+              -485.8348512011943
+            ],
+            "displacement": [
+              -2.049385838763459e-05,
+              1.4799652487856958e-05
+            ],
+            "norm": 2.5279002064435838e-05,
+            "cumulative_displacement": 2.5279002064729145e-05
+          }
+        },
+        {
+          "center": [
+            89.6527102050079,
+            -485.8348512011943
+          ],
+          "beta": 0.006448528183244975,
+          "corrections_already_applied": 1,
+          "available_stages": [
+            "coarse_jet",
+            "coarse_geometry",
+            "coarse_correction",
+            "step_applied"
+          ],
+          "primary_center_point_index": 42,
+          "measured_tau": -1.3604795607679958e-11,
+          "measured_delta": -6.758736169813997e-09,
+          "conditional_f_plus": 3.551623742638479e-11,
+          "conditional_f_minus": 5.372761302512718e-07,
+          "predicted_correction_norm": 1.161103693985317e-06,
+          "step_applied": {
+            "old_center": [
+              89.6527102050079,
+              -485.8348512011943
+            ],
+            "new_center": [
+              89.65271116173703,
+              -485.83485185909336
+            ],
+            "displacement": [
+              9.567291270794315e-07,
+              -6.57899054250861e-07
+            ],
+            "norm": 1.161103693985317e-06,
+            "cumulative_displacement": 2.4118221520972466e-05
+          }
+        },
+        {
+          "center": [
+            89.65271116173703,
+            -485.83485185909336
+          ],
+          "beta": 0.006448528183244975,
+          "corrections_already_applied": 2,
+          "available_stages": [
+            "coarse_jet",
+            "coarse_geometry",
+            "coarse_correction",
+            "fine_jet",
+            "fine_geometry",
+            "fine_correction",
+            "cyclic_point_index",
+            "uncertainty",
+            "admission"
+          ],
+          "primary_center_point_index": 51,
+          "measured_tau": -2.7516834297247605e-14,
+          "measured_delta": -6.758737181957625e-09,
+          "conditional_f_plus": 1.496200241304956e-11,
+          "conditional_f_minus": 5.125036201979886e-07,
+          "predicted_correction_norm": 2.589472101226384e-09,
+          "admission_passed": true
+        }
+      ],
+      "decisive_iteration": {
+        "center": [
+          89.65271116173703,
+          -485.83485185909336
+        ],
+        "beta": 0.006448528183244975,
+        "coarse_stencil": {
+          "step": 0.0003,
+          "center_point_index": 51,
+          "fields": {
+            "tau": {
+              "value": -2.7516834297247605e-14,
+              "gradient": [
+                1.2749237370712114e-05,
+                -2.0515825052032006e-06
+              ],
+              "hessian": [
+                [
+                  -0.024411175099554875,
+                  0.026198705256723822
+                ],
+                [
+                  0.026198705256723822,
+                  -0.004887670210903033
+                ]
+              ]
+            },
+            "delta": {
+              "value": -6.758737181957625e-09,
+              "gradient": [
+                -4.5479774838205745e-10,
+                8.752089523482481e-10
+              ],
+              "hessian": [
+                [
+                  5.363256192969501e-11,
+                  2.569235620071285e-11
+                ],
+                [
+                  2.569235620071285e-11,
+                  -7.218693995912363e-11
+                ]
+              ]
+            }
+          }
+        },
+        "coarse_conditional_geometry": {
+          "input_tau": -2.7516834297247605e-14,
+          "input_delta": -6.758737181957625e-09,
+          "projection": {
+            "kind": "conditional trace-value projection at the same coordinate",
+            "input_tau": -2.7516834297247605e-14,
+            "enforced_tau": 0.0,
+            "absolute_trace_change": 2.7516834297247605e-14,
+            "predicted_normal_displacement": [
+              2.1038341904408298e-09,
+              -3.385449100565034e-10
+            ],
+            "predicted_displacement_norm": 2.1308990959200738e-09,
+            "spatial_displacement_applied": false
+          },
+          "cusp": {
+            "value": 8.221153922630098e-05,
+            "normal": [
+              0.9872988329052915,
+              -0.15887420981345315
+            ],
+            "tau_gradient_norm": 1.2913250725917861e-05,
+            "normal_delta_gradient": -5.880694169115478e-10,
+            "left_slope": -2.8800628606270586e-06,
+            "right_slope": 1.0033187865290802e-05,
+            "slope_margin": 2.8800628606270586e-06,
+            "strict_first_order_minimum": true,
+            "status": "strict_first_order_minimum"
+          },
+          "branches": {
+            "positive_tau_side": {
+              "feature": 1.496200241304956e-11,
+              "normal": [
+                -0.5704573089390922,
+                -0.8213272543133884
+              ],
+              "largest_eigenvalue": 0.0066544592717506035,
+              "eigenvalue_gap": 0.027958158974016524,
+              "reference_overlap": 0.9999999999999066
+            },
+            "negative_tau_side": {
+              "feature": 5.125036201979886e-07,
+              "normal": [
+                -0.8213258314901023,
+                0.5704593574717589
+              ],
+              "largest_eigenvalue": 0.021303976974232926,
+              "eigenvalue_gap": 0.027958349068523264,
+              "reference_overlap": 0.9999999999989304
+            }
+          }
+        },
+        "coarse_corrector": {
+          "equations": [
+            -2.7516834297247605e-14,
+            1.496200241304956e-11
+          ],
+          "f_minus": 5.125036201979886e-07,
+          "correction": [
+            2.3375810163471866e-09,
+            1.114038040213636e-09
+          ],
+          "correction_norm": 2.589472101226384e-09,
+          "scaled_condition": 21.534728744187166,
+          "normalized_jacobian_singular_values": [
+            1.196937037913472,
+            0.7532209020406452
+          ],
+          "half_step_jacobian_perturbation": 1.4122534645549864e-12
+        },
+        "fine_stencil": {
+          "step": 0.0001,
+          "center_point_index": 51,
+          "fields": {
+            "tau": {
+              "value": -2.7516834297247605e-14,
+              "gradient": [
+                1.2749072902799082e-05,
+                -2.0516606707814133e-06
+              ],
+              "hessian": [
+                [
+                  -0.024412328809928635,
+                  0.026200399113118843
+                ],
+                [
+                  0.026200399113118843,
+                  -0.004888468408824516
+                ]
+              ]
+            },
+            "delta": {
+              "value": -6.758737181957625e-09,
+              "gradient": [
+                -4.548046301718235e-10,
+                8.752737139341643e-10
+              ],
+              "hessian": [
+                [
+                  2.0308185665044512e-10,
+                  -9.11532769108429e-11
+                ],
+                [
+                  -9.11532769108429e-11,
+                  3.1161465318036403e-11
+                ]
+              ]
+            }
+          }
+        },
+        "fine_conditional_geometry": {
+          "input_tau": -2.7516834297247605e-14,
+          "input_delta": -6.758737181957625e-09,
+          "projection": {
+            "kind": "conditional trace-value projection at the same coordinate",
+            "input_tau": -2.7516834297247605e-14,
+            "enforced_tau": 0.0,
+            "absolute_trace_change": 2.7516834297247605e-14,
+            "predicted_normal_displacement": [
+              2.103855913907604e-09,
+              -3.3856567206604064e-10
+            ],
+            "predicted_displacement_norm": 2.1309238420895125e-09,
+            "spatial_displacement_applied": false
+          },
+          "cusp": {
+            "value": 8.221153922630098e-05,
+            "normal": [
+              0.9872975619084695,
+              -0.15888210802224376
+            ],
+            "tau_gradient_norm": 1.2913100765846948e-05,
+            "normal_delta_gradient": -5.880928352796428e-10,
+            "left_slope": -2.8798454530910628e-06,
+            "right_slope": 1.0033255312755885e-05,
+            "slope_margin": 2.8798454530910628e-06,
+            "strict_first_order_minimum": true,
+            "status": "strict_first_order_minimum"
+          },
+          "branches": {
+            "positive_tau_side": {
+              "feature": 2.6256153198905087e-10,
+              "normal": [
+                -0.5704669789057483,
+                -0.8213205379010978
+              ],
+              "largest_eigenvalue": 0.006654742053540716,
+              "eigenvalue_gap": 0.027961238040416978,
+              "reference_overlap": 0.9999999999255035
+            },
+            "negative_tau_side": {
+              "feature": 5.121801937780078e-07,
+              "normal": [
+                -0.8213238799339374,
+                0.5704621672383396
+              ],
+              "largest_eigenvalue": 0.02130380596557358,
+              "eigenvalue_gap": 0.027958568645729563,
+              "reference_overlap": 0.9999999999880749
+            }
+          }
+        },
+        "fine_corrector": {
+          "equations": [
+            -2.7516834297247605e-14,
+            2.6256153198905087e-10
+          ],
+          "f_minus": 5.121801937780078e-07,
+          "correction": [
+            8.894435838606126e-09,
+            4.185827503614531e-08
+          ],
+          "correction_norm": 4.2792828580133226e-08,
+          "scaled_condition": 21.53360396352686,
+          "normalized_jacobian_singular_values": [
+            1.1969384594066785,
+            0.7532186431529477
+          ],
+          "half_step_jacobian_perturbation": 2.824247510950949e-12
+        },
+        "cyclic_measurements": {
+          "point_index": 64,
+          "coordinate": [
+            89.65271116173703,
+            -485.83485185909336
+          ],
+          "beta": 0.006448528183244975,
+          "phases": [
+            {
+              "phase": 0,
+              "tau": -2.976774642754476e-14,
+              "delta": -6.758737182117966e-09,
+              "radius": 8.221153924216003e-05
+            },
+            {
+              "phase": 6,
+              "tau": -5.936149195893275e-14,
+              "delta": -6.758737184548941e-09,
+              "radius": 8.221153927174178e-05
+            },
+            {
+              "phase": 12,
+              "tau": -3.73103918637277e-14,
+              "delta": -6.7587371814399945e-09,
+              "radius": 8.221153924180802e-05
+            }
+          ]
+        },
+        "cyclic_variations": {
+          "tau": 3.184465766168515e-14,
+          "delta": 3.1089467517519788e-18
+        },
+        "uncertainty": {
+          "primary_step": 0.0003,
+          "check_step": 0.0001,
+          "field_error_balls": {
+            "tau": {
+              "value": 2.293155764018437e-13,
+              "gradient": 1.2631016382668279e-09,
+              "hessian": 1.541886627178075e-05
+            },
+            "delta": {
+              "value": 2.0925205326546805e-17,
+              "gradient": 1.637685647718387e-13,
+              "hessian": 1.4080078009969267e-09
+            }
+          },
+          "paired_jet_differences": {
+            "tau": {
+              "value": 0.0,
+              "gradient": 1.8209764423052426e-10,
+              "hessian": 2.6791120272338755e-06
+            },
+            "delta": {
+              "value": 0.0,
+              "gradient": 6.512620087769127e-14,
+              "hessian": 2.454963939665484e-10
+            }
+          },
+          "branch_envelopes": {
+            "positive_tau_side": {
+              "gradient_error": 1.6275794387467385e-09,
+              "hessian_error": 1.627299994030146e-05,
+              "normal_error": 0.0008236200390131948,
+              "paired_feature_difference": 2.475995295760013e-10,
+              "projection_sensitivity": 5.7269125948831046e-11,
+              "feature_error": 1.1098613356068916e-08,
+              "positive_curvature_lower": 0.0066381862718103025,
+              "gap_lower": 0.02792561297413592,
+              "transport_overlap_lower": 0.9991763799608935
+            },
+            "negative_tau_side": {
+              "gradient_error": 1.6275794387467385e-09,
+              "hessian_error": 1.627299994030146e-05,
+              "normal_error": 0.0008236144357915632,
+              "paired_feature_difference": 3.234264199808315e-10,
+              "projection_sensitivity": 3.820208164834627e-10,
+              "feature_error": 6.954611123355643e-09,
+              "positive_curvature_lower": 0.021287703974292624,
+              "gap_lower": 0.02792580306864266,
+              "transport_overlap_lower": 0.9991763855631388
+            }
+          },
+          "projection_radius": 1.9891005023591083e-08,
+          "cusp": {
+            "normal_error": 0.00019564790100816114,
+            "trace_gradient_lower": 1.2911987624279595e-05,
+            "slope_error": 2.8012058881556347e-09,
+            "left_upper": -2.877261654738903e-06,
+            "right_lower": 1.0030386659402647e-05
+          },
+          "normalized_jacobian_minimum_singular_values": [
+            0.7532209020406452,
+            0.7532186431529477
+          ],
+          "intersection": {
+            "jacobian_perturbation": 0.00030728280442135746,
+            "scaled_jacobian_discrepancy_norms": {
+              "matched_fields": 184.30731955289704,
+              "primary_half_step": 8.470654733194749e-07,
+              "check_half_step": 1.694044210465151e-06
+            },
+            "nominal_location_box_components": [
+              3.124230460963159e-07,
+              1.8414833072269794e-06
+            ],
+            "nominal_location_norm": 1.8677978826756696e-06,
+            "location_error_norm": 1.8683720012639204e-06,
+            "f_minus_scaled_equation_sensitivities": [
+              -1.8298941888692946e-09,
+              -1.5366271603913713e-08
+            ],
+            "f_minus_nominal_transfer": 1.7547397880751217e-08,
+            "inverse_rotation_transfer": 1.2230855650827319e-11,
+            "f_minus_gradient_transfer": 3.472671916152799e-13,
+            "f_minus_location_transfer": 1.755997600359366e-08,
+            "scaled_equation_errors": [
+              0.2568324106990913,
+              1.1113575358481964
+            ],
+            "f_minus_gradient_difference": 1.8586619333856417e-07,
+            "f_minus_total_error": 2.4514587126949303e-08
+          }
+        },
+        "admission": {
+          "passed": true,
+          "checks": {
+            "actual_cyclic_trace": true,
+            "actual_primary_trace": true,
+            "f_plus_residual": true,
+            "coordinate_correction": true,
+            "projection_displacement": true,
+            "paired_field_jets": true,
+            "regular_crease_with_uncertainty": true,
+            "both_normalized_jacobians": true,
+            "strict_cusp_slopes": true,
+            "positive_simple_transported_normals": true,
+            "feature_precision": true,
+            "intersection_precision": true,
+            "f_minus_total_precision": true
+          },
+          "f_minus": {
+            "value": 5.125036201979886e-07,
+            "empirical_total_error": 2.4514587126949303e-08,
+            "status": "resolved_positive",
+            "ungated_sign_diagnostic": "resolved_positive"
+          }
+        }
+      }
+    },
+    {
+      "beta_offset": 3e-09,
+      "beta": 0.006448534183244975,
+      "predicted_center": [
+        89.65281096211689,
+        -485.83532892607764
+      ],
+      "predictor_parent": {
+        "kind": "fresh admitted central intersection",
+        "beta": 0.006448531183244975,
+        "coordinate": [
+          89.65277083049159,
+          -485.8350974634622
+        ],
+        "point_index": 28,
+        "beta_displacement": 3e-09,
+        "moving_center_beta": [
+          13377.208432063893,
+          -77154.20513687236
+        ],
+        "scope": "Historical moving-center secant is a predictor only; fresh two-equation corrections follow."
+      },
+      "status": "admitted",
+      "complete": true,
+      "case_index": 2,
+      "iteration_count": 3,
+      "final_center": [
+        89.65283261467283,
+        -485.8353445400823
+      ],
+      "final_point_index": 100,
+      "f_minus": {
+        "value": -5.670829965410349e-07,
+        "empirical_total_error": 3.4232834586107604e-08,
+        "status": "resolved_negative",
+        "ungated_sign_diagnostic": "resolved_negative",
+        "scope": "Conditional local feature value at a numerically corrected intersection; not an exact zero."
+      },
+      "iteration_history": [
+        {
+          "center": [
+            89.65281096211689,
+            -485.83532892607764
+          ],
+          "beta": 0.006448534183244975,
+          "corrections_already_applied": 0,
+          "available_stages": [
+            "coarse_jet",
+            "coarse_geometry",
+            "coarse_correction",
+            "step_applied"
+          ],
+          "primary_center_point_index": 69,
+          "measured_tau": -2.656740225222016e-10,
+          "measured_delta": -6.758725176286009e-09,
+          "conditional_f_plus": -3.1119139048272067e-09,
+          "conditional_f_minus": 1.5694957338182072e-09,
+          "predicted_correction_norm": 2.5266686905060083e-05,
+          "step_applied": {
+            "old_center": [
+              89.65281096211689,
+              -485.83532892607764
+            ],
+            "new_center": [
+              89.6528314449714,
+              -485.8353437199324
+            ],
+            "displacement": [
+              2.048285450668792e-05,
+              -1.4793854751760577e-05
+            ],
+            "norm": 2.5266686905060083e-05,
+            "cumulative_displacement": 2.526668690369292e-05
+          }
+        },
+        {
+          "center": [
+            89.6528314449714,
+            -485.8353437199324
+          ],
+          "beta": 0.006448534183244975,
+          "corrections_already_applied": 1,
+          "available_stages": [
+            "coarse_jet",
+            "coarse_geometry",
+            "coarse_correction",
+            "step_applied"
+          ],
+          "primary_center_point_index": 78,
+          "measured_tau": -1.3597867704875574e-11,
+          "measured_delta": -6.758747440900468e-09,
+          "conditional_f_plus": -4.2760431760749905e-11,
+          "conditional_f_minus": -5.36665726273068e-07,
+          "predicted_correction_norm": 1.4285822729788821e-06,
+          "step_applied": {
+            "old_center": [
+              89.6528314449714,
+              -485.8353437199324
+            ],
+            "new_center": [
+              89.65283261467283,
+              -485.8353445400823
+            ],
+            "displacement": [
+              1.169701432001113e-06,
+              -8.201499074218417e-07
+            ],
+            "norm": 1.4285822729788821e-06,
+            "cumulative_displacement": 2.6695136647691725e-05
+          }
+        },
+        {
+          "center": [
+            89.65283261467283,
+            -485.8353445400823
+          ],
+          "beta": 0.006448534183244975,
+          "corrections_already_applied": 2,
+          "available_stages": [
+            "coarse_jet",
+            "coarse_geometry",
+            "coarse_correction",
+            "fine_jet",
+            "fine_geometry",
+            "fine_correction",
+            "cyclic_point_index",
+            "uncertainty",
+            "admission"
+          ],
+          "primary_center_point_index": 87,
+          "measured_tau": -4.352400872435075e-14,
+          "measured_delta": -6.758748689528917e-09,
+          "conditional_f_plus": -1.8224315857777874e-11,
+          "conditional_f_minus": -5.670829965410349e-07,
+          "predicted_correction_norm": 6.780998694223441e-09,
+          "admission_passed": true
+        }
+      ],
+      "decisive_iteration": {
+        "center": [
+          89.65283261467283,
+          -485.8353445400823
+        ],
+        "beta": 0.006448534183244975,
+        "coarse_stencil": {
+          "step": 0.0003,
+          "center_point_index": 87,
+          "fields": {
+            "tau": {
+              "value": -4.352400872435075e-14,
+              "gradient": [
+                1.0975838359115078e-05,
+                -8.199756365753922e-07
+              ],
+              "hessian": [
+                [
+                  -0.024410522976945008,
+                  0.02619888130642327
+                ],
+                [
+                  0.02619888130642327,
+                  -0.004888110574372584
+                ]
+              ]
+            },
+            "delta": {
+              "value": -6.758748689528917e-09,
+              "gradient": [
+                -4.5479209705378256e-10,
+                8.752082246609196e-10
+              ],
+              "hessian": [
+                [
+                  5.41435389667561e-11,
+                  2.3449088333947516e-11
+                ],
+                [
+                  2.3449088333947516e-11,
+                  -6.846907559615141e-11
+                ]
+              ]
+            }
+          }
+        },
+        "coarse_conditional_geometry": {
+          "input_tau": -4.352400872435075e-14,
+          "input_delta": -6.758748689528917e-09,
+          "projection": {
+            "kind": "conditional trace-value projection at the same coordinate",
+            "input_tau": -4.352400872435075e-14,
+            "enforced_tau": 0.0,
+            "absolute_trace_change": 4.352400872435075e-14,
+            "predicted_normal_displacement": [
+              3.94342919006275e-09,
+              -2.9460308676342317e-10
+            ],
+            "predicted_displacement_norm": 3.9544183840066155e-09,
+            "spatial_displacement_applied": false
+          },
+          "cusp": {
+            "value": 8.221160921383863e-05,
+            "normal": [
+              0.9972210340746163,
+              -0.07449972616830983
+            ],
+            "tau_gradient_norm": 1.1006424838702128e-05,
+            "normal_delta_gradient": -5.187310183904274e-10,
+            "left_slope": -2.3483598179309367e-06,
+            "right_slope": 8.658065020771191e-06,
+            "slope_margin": 2.3483598179309367e-06,
+            "strict_first_order_minimum": true,
+            "status": "strict_first_order_minimum"
+          },
+          "branches": {
+            "positive_tau_side": {
+              "feature": -1.8224315857777874e-11,
+              "normal": [
+                -0.5704650607995213,
+                -0.8213218701623611
+              ],
+              "largest_eigenvalue": 0.006654495852500874,
+              "eigenvalue_gap": 0.02795829067067139,
+              "reference_overlap": 0.999999999999307
+            },
+            "negative_tau_side": {
+              "feature": -5.670829965410349e-07,
+              "normal": [
+                -0.8213195172660085,
+                0.5704684483456827
+              ],
+              "largest_eigenvalue": 0.021303750231564954,
+              "eigenvalue_gap": 0.02795816587748196,
+              "reference_overlap": 0.9999999999994871
+            }
+          }
+        },
+        "coarse_corrector": {
+          "equations": [
+            -4.352400872435075e-14,
+            -1.8224315857777874e-11
+          ],
+          "f_minus": -5.670829965410349e-07,
+          "correction": [
+            3.5330410494952597e-09,
+            -5.7878808067928844e-09
+          ],
+          "correction_norm": 6.780998694223441e-09,
+          "scaled_condition": 19.21530208746799,
+          "normalized_jacobian_singular_values": [
+            1.2278586847630282,
+            0.7016858629415355
+          ],
+          "half_step_jacobian_perturbation": 4.495398070410386e-12
+        },
+        "fine_stencil": {
+          "step": 0.0001,
+          "center_point_index": 87,
+          "fields": {
+            "tau": {
+              "value": -4.352400872435075e-14,
+              "gradient": [
+                1.097585672861696e-05,
+                -8.199383796166256e-07
+              ],
+              "hessian": [
+                [
+                  -0.02440604603723244,
+                  0.026200529067285303
+                ],
+                [
+                  0.026200529067285303,
+                  -0.004888653839922076
+                ]
+              ]
+            },
+            "delta": {
+              "value": -6.758748689528917e-09,
+              "gradient": [
+                -4.547558956018076e-10,
+                8.752725541566351e-10
+              ],
+              "hessian": [
+                [
+                  8.582904618008408e-10,
+                  -1.1233032068360392e-10
+                ],
+                [
+                  -1.1233032068360392e-10,
+                  -2.1009477660173095e-10
+                ]
+              ]
+            }
+          }
+        },
+        "fine_conditional_geometry": {
+          "input_tau": -4.352400872435075e-14,
+          "input_delta": -6.758748689528917e-09,
+          "projection": {
+            "kind": "conditional trace-value projection at the same coordinate",
+            "input_tau": -4.352400872435075e-14,
+            "enforced_tau": 0.0,
+            "absolute_trace_change": 4.352400872435075e-14,
+            "predicted_normal_displacement": [
+              3.943424652367217e-09,
+              -2.945888689647335e-10
+            ],
+            "predicted_displacement_norm": 3.954412799723295e-09,
+            "spatial_displacement_applied": false
+          },
+          "cusp": {
+            "value": 8.221160921383863e-05,
+            "normal": [
+              0.9972212948135191,
+              -0.07449623594819112
+            ],
+            "tau_gradient_norm": 1.1006440381589977e-05,
+            "normal_delta_gradient": -5.186967737495446e-10,
+            "left_slope": -2.348575860695726e-06,
+            "right_slope": 8.657864520894251e-06,
+            "slope_margin": 2.348575860695726e-06,
+            "strict_first_order_minimum": true,
+            "status": "strict_first_order_minimum"
+          },
+          "branches": {
+            "positive_tau_side": {
+              "feature": 7.470736263027523e-10,
+              "normal": [
+                -0.5704373631441698,
+                -0.8213411074146517
+              ],
+              "largest_eigenvalue": 0.006655576398993009,
+              "eigenvalue_gap": 0.027962514326750797,
+              "reference_overlap": 0.999999999470393
+            },
+            "negative_tau_side": {
+              "feature": -5.679021411942015e-07,
+              "normal": [
+                -0.8212405275919755,
+                0.5705821552068149
+              ],
+              "largest_eigenvalue": 0.021299308577880496,
+              "eigenvalue_gap": 0.027955278807371253,
+              "reference_overlap": 0.9999999905554242
+            }
+          }
+        },
+        "fine_corrector": {
+          "equations": [
+            -4.352400872435075e-14,
+            7.470736263027523e-10
+          ],
+          "f_minus": -5.679021411942015e-07,
+          "correction": [
+            1.34751976221288e-08,
+            1.272996024588315e-07
+          ],
+          "correction_norm": 1.280108188284567e-07,
+          "scaled_condition": 19.21187192321374,
+          "normalized_jacobian_singular_values": [
+            1.2278480941865748,
+            0.7017043947435386
+          ],
+          "half_step_jacobian_perturbation": 1.0449547664305309e-12
+        },
+        "cyclic_measurements": {
+          "point_index": 100,
+          "coordinate": [
+            89.65283261467283,
+            -485.8353445400823
+          ],
+          "beta": 0.006448534183244975,
+          "phases": [
+            {
+              "phase": 0,
+              "tau": -4.6401047609258284e-14,
+              "delta": -6.7587486897639125e-09,
+              "radius": 8.221160923846837e-05
+            },
+            {
+              "phase": 6,
+              "tau": -1.7345665377123398e-13,
+              "delta": -6.75874870018316e-09,
+              "radius": 8.221160936536463e-05
+            },
+            {
+              "phase": 12,
+              "tau": -4.534911400393138e-14,
+              "delta": -6.758748689320481e-09,
+              "radius": 8.221160923524551e-05
+            }
+          ]
+        },
+        "cyclic_variations": {
+          "tau": 1.2993264504688323e-13,
+          "delta": 1.0862678906292331e-17
+        },
+        "uncertainty": {
+          "primary_step": 0.0003,
+          "check_step": 0.0001,
+          "field_error_balls": {
+            "tau": {
+              "value": 2.293155764018437e-13,
+              "gradient": 1.1225433678389512e-09,
+              "hessian": 1.770921202753107e-05
+            },
+            "delta": {
+              "value": 2.0925205326546805e-17,
+              "gradient": 1.7245854873260155e-13,
+              "hessian": 1.9857654243174156e-09
+            }
+          },
+          "paired_jet_differences": {
+            "tau": {
+              "value": 0.0,
+              "gradient": 4.1539373802647605e-11,
+              "hessian": 4.9694577829841955e-06
+            },
+            "delta": {
+              "value": 0.0,
+              "gradient": 7.381618483845413e-14,
+              "hessian": 8.232540172870375e-10
+            }
+          },
+          "branch_envelopes": {
+            "positive_tau_side": {
+              "gradient_error": 1.6101507745932018e-09,
+              "hessian_error": 2.0931993697795584e-05,
+              "normal_error": 0.0010595958521780141,
+              "paired_feature_difference": 7.652979421605302e-10,
+              "projection_sensitivity": 8.374841481842632e-11,
+              "feature_error": 1.310763053634674e-08,
+              "positive_curvature_lower": 0.006633563858803078,
+              "gap_lower": 0.027916426683275798,
+              "transport_overlap_lower": 0.998940404147129
+            },
+            "negative_tau_side": {
+              "gradient_error": 1.6101507745932018e-09,
+              "hessian_error": 2.0931993697795584e-05,
+              "normal_error": 0.0010596005853003572,
+              "paired_feature_difference": 8.191446531666355e-10,
+              "projection_sensitivity": 4.550193213476003e-10,
+              "feature_error": 8.835613697116164e-09,
+              "positive_curvature_lower": 0.02128281823786716,
+              "gap_lower": 0.027916301890086367,
+              "transport_overlap_lower": 0.9989403994141868
+            }
+          },
+          "projection_radius": 2.4791648407683e-08,
+          "cusp": {
+            "normal_error": 0.000204000460453477,
+            "trace_gradient_lower": 1.100530229533429e-05,
+            "slope_error": 2.8338758712843478e-09,
+            "left_upper": -2.3455259420596524e-06,
+            "right_lower": 8.655231144899906e-06
+          },
+          "normalized_jacobian_minimum_singular_values": [
+            0.7016858629415355,
+            0.7017043947435386
+          ],
+          "intersection": {
+            "jacobian_perturbation": 0.00020572615874490816,
+            "scaled_jacobian_discrepancy_norms": {
+              "matched_fields": 117.89450751427398,
+              "primary_half_step": 2.576156377478989e-06,
+              "check_half_step": 5.989350798896952e-07
+            },
+            "nominal_location_box_components": [
+              1.9419054125630092e-07,
+              2.299433148065507e-06
+            ],
+            "nominal_location_norm": 2.307618419222698e-06,
+            "location_error_norm": 2.308093254381947e-06,
+            "f_minus_scaled_equation_sensitivities": [
+              -2.2465498033257866e-09,
+              -1.8864944040618763e-08
+            ],
+            "f_minus_nominal_transfer": 2.537479944351699e-08,
+            "inverse_rotation_transfer": 1.0115708509775537e-11,
+            "f_minus_gradient_transfer": 1.2305736964673522e-11,
+            "f_minus_location_transfer": 2.539722088899144e-08,
+            "scaled_equation_errors": [
+              0.27283958512619444,
+              1.3125854852204517
+            ],
+            "f_minus_gradient_difference": 5.331559693834255e-06,
+            "f_minus_total_error": 3.4232834586107604e-08
+          }
+        },
+        "admission": {
+          "passed": true,
+          "checks": {
+            "actual_cyclic_trace": true,
+            "actual_primary_trace": true,
+            "f_plus_residual": true,
+            "coordinate_correction": true,
+            "projection_displacement": true,
+            "paired_field_jets": true,
+            "regular_crease_with_uncertainty": true,
+            "both_normalized_jacobians": true,
+            "strict_cusp_slopes": true,
+            "positive_simple_transported_normals": true,
+            "feature_precision": true,
+            "intersection_precision": true,
+            "f_minus_total_precision": true
+          },
+          "f_minus": {
+            "value": -5.670829965410349e-07,
+            "empirical_total_error": 3.4232834586107604e-08,
+            "status": "resolved_negative",
+            "ungated_sign_diagnostic": "resolved_negative"
+          }
+        }
+      }
+    }
+  ],
+  "failed_or_incomplete_point_admissions": [],
+  "unqualified_or_incomplete_points": [],
+  "figures": {
+    "provenance": {
+      "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-figures-01/receipt.json",
+      "bytes": 149342,
+      "sha256": "515490bc8fc314b85cedc3764fbe86e9e9d945675fa388311cf9db879cac92b0"
+    },
+    "visual_review": {
+      "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-visual-review-01/review.json",
+      "bytes": 2471,
+      "sha256": "0c602701519a0e86f561b2a0642c065a6308627c3866fb0735b3feeba98912c5"
+    },
+    "files": [
+      {
+        "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-figures-01/mixed-junction-locations.pdf",
+        "bytes": 24996,
+        "sha256": "286ffbbcc83c676538e0eb35c2457f80e541d91add49a05afe34a3430d3c7ec1"
+      },
+      {
+        "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-figures-01/mixed-junction-locations.png",
+        "bytes": 184620,
+        "sha256": "ae90f4c6c9feca79713fbc611c2b8fe8ce4dde9a1566e865c7a0826cec8c4d7b"
+      },
+      {
+        "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-figures-01/mixed-junction-summary.pdf",
+        "bytes": 24709,
+        "sha256": "8da9663f48a98703fb1217a1f3ee8127d333effa9c13575e13ced85b4e753c5f"
+      },
+      {
+        "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-figures-01/mixed-junction-summary.png",
+        "bytes": 195706,
+        "sha256": "6e7bd4493dd5fde63d30667790c070ae6775999d445624b7eb59776abdd05a06"
+      }
+    ]
+  },
+  "assembly": {
+    "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-audit-01/assemble-compact-receipt.py",
+    "bytes": 18224,
+    "sha256": "6d12941a3fb99ae90f86a6fd1d3a2e474080d83a5a3f7971afae0ce51b57603d"
+  },
+  "assembly_verification_source": {
+    "path": "tools/plot_baby_shrimp_mixed_junction.py",
+    "commit": "7f953b462569e2a2dccbf7fde0bd6b4410ad5d31",
+    "sha256": "7d798e5c126e2912145ed7a388dfe61cad064346e0302418f564454d76c37708"
+  },
+  "compact_scope": "Decisive measured fields, all final case gates/uncertainties and correction history. Full point arrays and detailed iterations remain in the bound external audit. Conditional Hessian features are not automatically geometric-normal contraction-minimum curves."
+}

@@ -1,0 +1,66 @@
+{
+  "id": "BSC6-readable-summary-provenance",
+  "numeric_receipt": {
+    "path": "docs/baby-shrimp-zoom/mixed-junction-receipt.json",
+    "bytes": 73471,
+    "sha256": "d57e1890f09476803b899d0d8ace10e1bd5c6dd6658ce984b37686fcc9b9b8b7"
+  },
+  "external_storage_root": "/data2/neural-shrimp-data",
+  "source_commit": "7f953b462569e2a2dccbf7fde0bd6b4410ad5d31",
+  "source_hashes": {
+    "tools/plot_baby_shrimp_mixed_junction_summary.py": "4796dad3e1d88e019fc38d7d3c4dec4c1f2dd3f38ab916d5c837df6cddfa2d26",
+    "tools/plot_baby_shrimp_mixed_junction.py": "7d798e5c126e2912145ed7a388dfe61cad064346e0302418f564454d76c37708"
+  },
+  "scientific_complete": true,
+  "full_audit": {
+    "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-audit-01/receipt.json",
+    "bytes": 389901,
+    "sha256": "691cae5fac0254a54b3f2bb919431bb3fe9650e6cc4e828809b7f137ae97b791"
+  },
+  "figure_receipt": {
+    "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-summary-01/receipt.json",
+    "bytes": 149696,
+    "sha256": "a61fef2f8af572f294be51354d4a4d9f00ee92f1c3341ad99d3be54ead27cd70"
+  },
+  "visual_review": {
+    "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-summary-01/visual-review.json",
+    "bytes": 3260,
+    "sha256": "7efb62c5016281401791858c1761122311926a21072e6445434e4a9ff0f401a4"
+  },
+  "independent_replay": {
+    "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-summary-01/independent-replay.json",
+    "bytes": 6890,
+    "sha256": "2054d331901cf4a74ad2852c69baed5421d11a308636f1fe1539936af6d967a2"
+  },
+  "public_figures": [
+    {
+      "path": "docs/baby-shrimp-zoom/mixed-junction-summary.png",
+      "bytes": 204033,
+      "sha256": "ea726d27ddd78428350f2c3fdc76de8daaaf4059c024290b066139d9913e9059"
+    },
+    {
+      "path": "docs/baby-shrimp-zoom/mixed-junction-summary.pdf",
+      "bytes": 38305,
+      "sha256": "52b4a5578f92d3b57c85f63262683c541e037b9e735d110378674fdf8c38e69c"
+    }
+  ],
+  "external_figures": [
+    {
+      "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-summary-01/mixed-junction-mobile-summary.png",
+      "bytes": 201019,
+      "sha256": "b1e81be11dd12201ac942d59aefcd44b67a0fc3ff6358cf50dbea38f04998a60"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-summary-01/mixed-junction-readable-summary.pdf",
+      "bytes": 38305,
+      "sha256": "52b4a5578f92d3b57c85f63262683c541e037b9e735d110378674fdf8c38e69c"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-summary-01/mixed-junction-readable-summary.png",
+      "bytes": 204033,
+      "sha256": "ea726d27ddd78428350f2c3fdc76de8daaaf4059c024290b066139d9913e9059"
+    }
+  ],
+  "scope": "Conditional Hessian-feature estimates at numerically corrected intersections; the Hessian eigenvector need not be the geometric normal of its feature locus. Empirical envelopes are not confidence intervals or verified neural bounds. Actual trace residuals are retained as measured. No exact zero, ridge crossing, between-case connection, or superstability is established.",
+  "root_visual_check": "Actual readable PNG inspected; source summary numeric labels, status and signed residuals match the compact receipt."
+}
