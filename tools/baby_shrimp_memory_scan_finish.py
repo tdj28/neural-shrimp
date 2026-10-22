@@ -390,7 +390,7 @@ def render(old, new, plan, scale, out, old_evidence, runtime):
     # caption supplies the exact centers, sampling limits and root qualification.
     compact_titles = [r"(a) $\beta=0$", rf"(b) $\beta_*={plan['beta']:.8f}$"]
     fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.8))
-    fig.subplots_adjust(left=.085, right=.835, top=.90, bottom=.17, wspace=.25)
+    fig.subplots_adjust(left=.105, right=.835, top=.90, bottom=.17, wspace=.25)
     draw_panels(fig, axes, old, new, plan, scale, centers, titles=compact_titles,
                 title_size=10, label_size=9, tick_size=8.5, left_ylabel_only=True)
     draw_gray_bar(fig, scale, [.88, .19, .018, .66], "Finite-time growth per step",
@@ -401,10 +401,10 @@ def render(old, new, plan, scale, out, old_evidence, runtime):
     # Stacked mobile image uses the same arrays, limits and scale; only layout
     # changes. A surrounding web caption must retain the scientific limits.
     fig, axes = plt.subplots(2, 1, figsize=(5.0, 8.8))
-    fig.subplots_adjust(left=.17, right=.79, top=.96, bottom=.075, hspace=.30)
+    fig.subplots_adjust(left=.18, right=.75, top=.96, bottom=.075, hspace=.30)
     draw_panels(fig, axes, old, new, plan, scale, centers, titles=compact_titles,
                 title_size=13, label_size=12, tick_size=11.5)
-    draw_gray_bar(fig, scale, [.85, .16, .025, .68], "Finite-time growth per step",
+    draw_gray_bar(fig, scale, [.81, .16, .025, .68], "Finite-time growth per step",
                   label_size=11, tick_size=10.5)
     fig.savefig(out / "fig-memory-junction-pair-mobile.png", dpi=190)
     plt.close(fig)
