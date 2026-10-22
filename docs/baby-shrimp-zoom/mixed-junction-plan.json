@@ -116,7 +116,12 @@
     {
       "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-planning-02/copy-receipt.json",
       "sha256": "6ffd1ee561b142985e2201c919561c4f70f60bdab0d27ecf941344e7057812ad"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261022-mixed-feature-geometry-planning-01/copy-receipt.json",
+      "sha256": "10f984d80ad38c1177c6e08c89f927670e30cba6aa0f08445dde0baeb1a0ca1f"
     }
   ],
-  "planning_warning": "The corrected sensitivity packet preserves an earlier insufficient inverse-rotation calculation. Under a hypothetical maximum Jacobian perturbation and simultaneously saturated residual caps, the upper endpoint can fail the unchanged 5e-8 total-error cap. That possible failure is retained, not prevented by loosening the cap. Actual endpoint admissions determine the outcome."
+  "planning_warning": "The corrected sensitivity packet preserves an earlier insufficient inverse-rotation calculation. Under a hypothetical maximum Jacobian perturbation and simultaneously saturated residual caps, the upper endpoint can fail the unchanged 5e-8 total-error cap. That possible failure is retained, not prevented by loosening the cap. Actual endpoint admissions determine the outcome.",
+  "prelaunch_geometry_review": "Independent conditional-model checks find small nonzero derivatives along the geometric normals of the one-sided Hessian-feature loci even where the two Hessian features vanish. These diagnostics are not resolved neural measurements. The actual smooth-side feature gradients differ from the trace-value-projected off-crease extension used for the joint corrector. This pilot remains a conditional Hessian-feature test, not an intrinsic-valley or active-side gluing certificate; neither connection is inferred by plotting the three corrected targets."
 }
