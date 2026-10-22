@@ -31,7 +31,9 @@ assumption; it does not supply a full-spectrum proof.
 
 Trace zero balances the moduli of the two multipliers. At trace zero,
 $\rho=\sqrt{-\Delta}$, which need not vanish or be locally minimal as the
-parameters change. Exact superstability requires a separate definition and
+parameters change. The multipliers are $+\sqrt{-\Delta}$ and
+$-\sqrt{-\Delta}$ and remain distinct. The absolute-value crease comes from
+switching which modulus determines $\rho$. Exact superstability requires a separate definition and
 zero-multiplier evidence; a trace-zero intersection alone supplies neither.
 
 ## A regular trace-zero crease

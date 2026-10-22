@@ -1,0 +1,122 @@
+{
+  "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+  "period": 18,
+  "start": [
+    0.07309363265341377,
+    -0.1544023817786725
+  ],
+  "coordinate_scales": [
+    2.5e-06,
+    7.5e-06
+  ],
+  "anchor_directory": "explore/llm-soft-loop/pod64/bsz1-geometry/crossing-01/point-054",
+  "anchor_hashes": {
+    "point.json": "eeeacb282487465100c8ed0ca96abfe933370fbdf6c61e280e4309e46ca4c617",
+    "points.npy": "73dd2ecbae4e9c8f5aa009a03f6e90dbbacc6a9b8857e28063aac57fd3402f7d",
+    "phase-0.npz": "83b9df88370546037d1a3ada3e7280a44e43959f91fb16612bce8cf90c16e9dd",
+    "phase-6.npz": "d89652be8c0a0b20e8da78e57e6410ffa2f317ab8bab3c68e72921a60546a71f",
+    "phase-12.npz": "8c68b1987fbdf396a0b3e26e50e33b41f28974d64f48542ad4497fc0512eef7a"
+  },
+  "prior_audit": {
+    "path": "audits/baby-shrimp-zoom/20261021-memory-local-extension-audit-01/receipt.json",
+    "sha256": "141b333d2a70fdac4037a3268768f16be57f75c338a46c84d8eb886bdf236b5b",
+    "bytes": 438337
+  },
+  "maximum_abs_beta": 0.007,
+  "maximum_scaled_coordinate": 1000,
+  "intervention": "F_beta(x)=(1-beta)F(x)+beta*x. beta=0 exactly original. Positive beta retains old feedback; negative beta is mathematical extrapolation. Same fixed prefix, layer12 philosophy steering and temperature; K=1. Model readout remains p(x), while next state is mixed.",
+  "id": "BSC6-mixed-junction-probe",
+  "status": "PREPARATION ONLY: predecessor terminal audit binding pending",
+  "maximum_evaluations": 120,
+  "bsc5_audit": null,
+  "mixed_junction": {
+    "allow_scientifically_partial_bsc5": false,
+    "target": {
+      "beta": 0.006448531183244975,
+      "coordinate": [
+        89.65277071017042,
+        -485.8350977422083
+      ],
+      "moving_center_beta": [
+        13377.208432063893,
+        -77154.20513687236
+      ],
+      "references": {
+        "positive_tau_side": [
+          -0.5704946970050591,
+          -0.8213012849674021
+        ],
+        "negative_tau_side": [
+          -0.8212994141120598,
+          0.5704973903351246
+        ]
+      }
+    },
+    "beta_offsets": [
+      0.0,
+      -3e-09,
+      3e-09
+    ],
+    "stencil_steps": [
+      0.0003,
+      0.0001
+    ],
+    "primary_step": 0.0003,
+    "maximum_corrections": 2,
+    "maximum_step": 0.0005,
+    "maximum_total_displacement": 0.0005,
+    "coordinate_tolerance": 2e-06,
+    "trace_tolerance": 1e-12,
+    "f_plus_tolerance": 1e-08,
+    "f_minus_tolerance": 1e-08,
+    "maximum_projection_displacement": 2e-06,
+    "maximum_predictor_projection_displacement": 0.0005,
+    "minimum_trace_gradient": 1e-06,
+    "jacobian_step": 1e-07,
+    "maximum_jacobian_condition": 100.0,
+    "minimum_normalized_jacobian_singular_value": 0.2,
+    "minimum_reference_overlap": 0.9,
+    "noise_multiplier": 1.0,
+    "signal_multiple": 10.0,
+    "maximum_feature_uncertainty": 2e-08,
+    "maximum_f_minus_total_uncertainty": 5e-08,
+    "maximum_intersection_location_uncertainty": 5e-06,
+    "maximum_jacobian_perturbation": 0.1,
+    "orbit_alignment_tolerance": 0.0001,
+    "field_noise_floor": {
+      "tau": 1e-14,
+      "delta": 1e-18
+    },
+    "jet_difference_limits": {
+      "tau": {
+        "value": 1e-12,
+        "gradient": 2e-08,
+        "hessian": 2e-05
+      },
+      "delta": {
+        "value": 1e-16,
+        "gradient": 5e-13,
+        "hessian": 2e-09
+      }
+    }
+  },
+  "question": "Can fresh full-map fields admit a nearby regular trace-zero intersection with the positive-side Hessian feature, and does the negative-side feature have a resolved sign change along its continuation in memory?",
+  "scope": "Exploratory conditional feature-intersection pilot, distinct from the stationary trace X. The Hessian feature f=e_high dot grad(rho_side) depends on the declared scaled Euclidean metric and is not automatically an intrinsic geometric-normal valley. No full off-axis connectivity, active-side curve gluing, exact zero, superstability or interval certificate is claimed. A sign bracket supports a candidate only under retained continuity and numerical assumptions.",
+  "continuation": "Solve tau=0 and f_plus=0 in both spatial coordinates separately at the central beta and two declared neighboring betas; inspect f_minus. Each correction requires fresh field stencils. Endpoint predictors retain the admitted central corrected coordinate plus the historical moving-center secant, which is a predictor only. Failures stop the bounded pilot and preserve unattempted cases.",
+  "conditional_projection": "Retain measured tau; set only its value to zero at the same coordinate to evaluate labeled one-sided smooth-extension limits. Record predicted normal displacement without applying it as a measured correction. The actual measured trace and cyclic replays must satisfy their numerical gates. There is no single smooth radius Hessian across the crease.",
+  "uncertainty": "Primary h=0.0003 and check h=0.0001 are fixed before BSC6 outcomes. Empirical field balls include retained BSC5 cyclic/subspace spans, fresh cyclic spans, center-value discrepancy and paired derivative discrepancy. Propagate normals, curvature, cusp slopes, projection sensitivity, actual equation residuals and intersection location through matched and half-step model Jacobians, including inverse-rotation remainder. These are conditional local-model envelopes, not validated neural error bounds. Signal_multiple=10 is an operational margin, not a probability or sigma claim. f_minus_tolerance=1e-8 labels a nominal small residual only; the allowed total error is larger and does not certify zero.",
+  "resources": "Local zeta RTX 2000 Ada, one model process, eight model threads, 75 percent GPU memory, at most 120 point attempts and 5400 seconds external watchdog plus 10-second termination grace. Recheck available CPU, RAM and GPU after BSC5 terminates. Reuse measured primary-point median about 30.31 seconds and cyclic median about 85.06 seconds; predecessor audit runs with one BLAS thread. No rental or paid review.",
+  "outputs": "Exclusive external directory /data2/neural-shrimp-data/explore/llm-soft-loop/bsc6/20261022-mixed-junction-01, with all points, arrays, failed or partial attempts and terminal controller manifest retained. Compact audited receipt only in Git.",
+  "disclosure": "Prepared after BSC4 determinant-tilt evidence and BSC5 accepted center/stencil/expanded-spectrum measurements, while BSC5 section searches continued. The nearby target, Hessian reference vectors and beta offsets come from a conditional quadratic model, not new neural measurements. The fixed gates and offsets are chosen using preserved empirical-noise sensitivity calculations. BSC5 terminal outcomes must be reviewed and bound before launch; a partial predecessor requires explicit disclosure and exact retained-stage statuses.",
+  "planning_packets": [
+    {
+      "path": "audits/baby-shrimp-zoom/20261022-contraction-planning-01/copy-receipt.json",
+      "sha256": "72832f592390a2e2311003351835962ca317afc2b2be81e40d0215ea8e3159b4"
+    },
+    {
+      "path": "audits/baby-shrimp-zoom/20261022-mixed-junction-planning-02/copy-receipt.json",
+      "sha256": "6ffd1ee561b142985e2201c919561c4f70f60bdab0d27ecf941344e7057812ad"
+    }
+  ],
+  "planning_warning": "The corrected sensitivity packet preserves an earlier insufficient inverse-rotation calculation. Under a hypothetical maximum Jacobian perturbation and simultaneously saturated residual caps, the upper endpoint can fail the unchanged 5e-8 total-error cap. That possible failure is retained, not prevented by loosening the cap. Actual endpoint admissions determine the outcome."
+}
