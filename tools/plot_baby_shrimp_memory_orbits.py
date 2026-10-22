@@ -155,6 +155,7 @@ def draw(arrays, derived, records, out):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
+    from matplotlib.ticker import MaxNLocator
 
     plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 10,
                          "axes.spines.top": False, "axes.spines.right": False})
@@ -200,6 +201,9 @@ def draw(arrays, derived, records, out):
         share = derived["phases"][phase]["common_pc1_explained_variance"] * 100
         ax.set(title=f"Phase {phase} · common PC1: {share:.1f}%", xlabel="Position at this visit", ylabel="Position six steps later",
                xlim=limits, ylim=limits)
+        ax.xaxis.set_major_locator(MaxNLocator(nbins=3))
+        ax.yaxis.set_major_locator(MaxNLocator(nbins=3))
+        ax.ticklabel_format(axis="both", style="sci", scilimits=(-2, 2), useOffset=False)
         ax.set_aspect("equal", adjustable="box")
     handles, labels = axes[0, 0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(.5, .925), ncol=3, frameon=False)
