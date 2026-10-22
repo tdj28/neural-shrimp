@@ -315,20 +315,20 @@ def image_data(data, scale, chaos_level):
     return rgba
 
 
-def render(old, new, plan, scale, out, old_evidence, runtime):
-    import matplotlib
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-    from matplotlib.colors import ListedColormap, Normalize
-    from matplotlib.cm import ScalarMappable
-    for key in ("shared_gray_contraction_cap", "shared_positive_vmax"):
-        require(np.isfinite(scale[key]) and scale[key] > 0, "invalid shared color scale")
-    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 11})
-    fig, axes = plt.subplots(1, 2, figsize=(13.4, 8.0))
-    fig.subplots_adjust(left=.075, right=.89, top=.82, bottom=.25, wspace=.24)
-    centers = [old_evidence["center"], plan["center"]]
-    for ax, data, center, title in zip(axes, [old, new], centers,
-            ["Original close-up · no retained feedback", f"Translated close-up · {100*plan['beta']:.5f}% retained"]):
+def center_sampling(data, center):
+    """Report actual node coverage; an even endpoint grid omits its center."""
+    axes = []
+    for key, value in zip(("alpha", "log10_temperature"), center):
+        axis = data[key]
+        axes.append({"axis": key, "nodes": len(axis),
+                     "contains_exact_center": bool(np.any(axis == value)),
+                     "nearest_node_distance": float(np.min(np.abs(axis - value)))})
+    return {"axes": axes, "center_is_measured_cell": all(a["contains_exact_center"] for a in axes)}
+
+
+def draw_panels(fig, axes, old, new, plan, scale, centers, *, titles,
+                title_size=11, label_size=11, tick_size=10, left_ylabel_only=False):
+    for index, (ax, data, center, title) in enumerate(zip(axes, [old, new], centers, titles)):
         a, t = (data[k] for k in ("alpha", "log10_temperature"))
         da, dt = np.diff(a).mean(), np.diff(t).mean()
         extent = 1e6 * (np.array([a[0]-da/2, a[-1]+da/2, t[0]-dt/2, t[-1]+dt/2])
@@ -336,17 +336,42 @@ def render(old, new, plan, scale, out, old_evidence, runtime):
         ax.imshow(image_data(data, scale, plan["chaos_level"]), origin="lower", interpolation="nearest",
                   aspect="auto", extent=extent)
         spans = [np.ptp(plan[k]) * 1e6 / 2 for k in ("alpha", "log10_temperature")]
-        ax.set(xlim=(-spans[0], spans[0]), ylim=(-spans[1], spans[1]), title=title,
-               xlabel="Steering offset Δα (×10⁻⁶)", ylabel="Temperature offset Δlog₁₀T (×10⁻⁶)")
+        ax.set(xlim=(-spans[0], spans[0]), ylim=(-spans[1], spans[1]))
+        ax.set_title(title, fontsize=title_size)
+        ax.set_xlabel("Steering offset Δα (×10⁻⁶)", fontsize=label_size)
+        if index == 0 or not left_ylabel_only:
+            ax.set_ylabel("Temperature offset Δlog₁₀T (×10⁻⁶)", fontsize=label_size)
         ax.set_xticks([-1.5, 0, 1.5]); ax.set_yticks([-4.5, -3, -1.5, 0, 1.5, 3, 4.5])
-        ax.tick_params(labelsize=10)
+        ax.tick_params(labelsize=tick_size)
+
+
+def draw_gray_bar(fig, scale, rect, label, *, label_size=11, tick_size=10):
+    from matplotlib.colors import ListedColormap, Normalize
+    from matplotlib.cm import ScalarMappable
     cap = scale["shared_gray_contraction_cap"]
     rates = np.linspace(-cap, 0, 256)
     gray = 1-.9*np.sqrt(np.maximum(-rates, 0)/cap)
     cmap = ListedColormap(np.stack([gray, gray, gray, np.ones_like(gray)], axis=-1))
-    cax = fig.add_axes([.92, .30, .016, .45])
-    fig.colorbar(ScalarMappable(norm=Normalize(-cap, 0), cmap=cmap), cax=cax,
-                 label="Finite-time growth per step (gray cells)")
+    cax = fig.add_axes(rect)
+    bar = fig.colorbar(ScalarMappable(norm=Normalize(-cap, 0), cmap=cmap), cax=cax)
+    bar.set_label(label, fontsize=label_size)
+    bar.ax.tick_params(labelsize=tick_size)
+
+
+def render(old, new, plan, scale, out, old_evidence, runtime):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    for key in ("shared_gray_contraction_cap", "shared_positive_vmax"):
+        require(np.isfinite(scale[key]) and scale[key] > 0, "invalid shared color scale")
+    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 11})
+    fig, axes = plt.subplots(1, 2, figsize=(13.4, 8.0))
+    fig.subplots_adjust(left=.075, right=.89, top=.82, bottom=.25, wspace=.24)
+    centers = [old_evidence["center"], plan["center"]]
+    draw_panels(fig, axes, old, new, plan, scale, centers,
+                titles=["Original close-up · no retained feedback",
+                        f"Translated close-up · {100*plan['beta']:.5f}% retained"])
+    draw_gray_bar(fig, scale, [.92, .30, .016, .45], "Finite-time growth per step (gray cells)")
     fig.suptitle("The child's center, with and without retained feedback", x=.075, ha="left",
                  y=.96, fontsize=21, fontweight="bold")
     fig.text(.075, .88, "Measured network scans · same physical span and gray scale · no fitted crossing overlaid", fontsize=12)
@@ -360,10 +385,45 @@ def render(old, new, plan, scale, out, old_evidence, runtime):
     for ext in ("png", "pdf"):
         fig.savefig(out / f"fig-memory-junction-pair.{ext}", dpi=190)
     plt.close(fig)
+
+    # Publication output has no poster heading or footer: the manuscript's
+    # caption supplies the exact centers, sampling limits and root qualification.
+    compact_titles = [r"(a) $\beta=0$", rf"(b) $\beta_*={plan['beta']:.8f}$"]
+    fig, axes = plt.subplots(1, 2, figsize=(7.2, 3.8))
+    fig.subplots_adjust(left=.085, right=.835, top=.90, bottom=.17, wspace=.25)
+    draw_panels(fig, axes, old, new, plan, scale, centers, titles=compact_titles,
+                title_size=10, label_size=9, tick_size=8.5, left_ylabel_only=True)
+    draw_gray_bar(fig, scale, [.88, .19, .018, .66], "Finite-time growth per step",
+                  label_size=9, tick_size=8.5)
+    fig.savefig(out / "fig-memory-junction-pair-publication.pdf", dpi=190)
+    plt.close(fig)
+
+    # Stacked mobile image uses the same arrays, limits and scale; only layout
+    # changes. A surrounding web caption must retain the scientific limits.
+    fig, axes = plt.subplots(2, 1, figsize=(5.0, 8.8))
+    fig.subplots_adjust(left=.17, right=.79, top=.96, bottom=.075, hspace=.30)
+    draw_panels(fig, axes, old, new, plan, scale, centers, titles=compact_titles,
+                title_size=13, label_size=12, tick_size=11.5)
+    draw_gray_bar(fig, scale, [.85, .16, .025, .68], "Finite-time growth per step",
+                  label_size=11, tick_size=10.5)
+    fig.savefig(out / "fig-memory-junction-pair-mobile.png", dpi=190)
+    plt.close(fig)
+
     return {"interpolation": "nearest", "coordinate_display": "offsets from each window center, multiplied by 1e6",
             "centers": centers, "beta_values": [0., plan["beta"]], "color_scale": scale,
             "spans": [float(np.ptp(plan[k])) for k in ("alpha", "log10_temperature")],
             "source_devices": [old_evidence["gpu_type"], runtime["device"]], "caption": text,
+            "center_sampling": [center_sampling(data, center) for data, center in zip([old, new], centers)],
+            "caption_requirements": [
+                "Give both actual window centers and identify beta_* as a residual-qualified trace-root estimate.",
+                "The 128-by-128 endpoint grids omit the exact window centers; no pixel measures the exact candidate.",
+                "Fixed-opener recurrence does not certify orbit identity with the separately continued root orbit.",
+                "Trace-zero contours and finite-time contraction tracks are distinct; no fitted crossing is overlaid."],
+            "output_layouts": {
+                "fig-memory-junction-pair.png": "13.4-by-8-inch full annotated comparison",
+                "fig-memory-junction-pair.pdf": "13.4-by-8-inch full annotated comparison",
+                "fig-memory-junction-pair-publication.pdf": "7.2-by-3.8-inch two-panel publication variant; 8.5-to-10-point labels; external caption required",
+                "fig-memory-junction-pair-mobile.png": "5-by-8.8-inch stacked mobile variant; 10.5-to-13-point labels; external caption required"},
             "overlaid_fitted_curves": False, "visual_review": "pending"}
 
 
@@ -423,6 +483,8 @@ def run(scan, out):
                               "The right panel is at a residual-qualified trace-root estimate, not an exact certified crossing.",
                               "Trace-zero contours, exact contraction ridges and finite-time image tracks are distinct.",
                               "The original panel is centered on the saved anchor; the translated panel uses the continued candidate.",
+                              "Even endpoint grids omit the exact window centers; the candidate is not an actual measured pixel.",
+                              "Fixed-opener recurrence does not certify orbit identity with the separately continued root orbit.",
                               "Root-state replay is independent of scan recurrence candidates; no full orbit was retained for every pixel."]}
         (out / "receipt.json").write_text(json.dumps(receipt, indent=2, allow_nan=False) + "\n")
         return receipt

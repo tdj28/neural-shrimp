@@ -164,6 +164,23 @@ def test_same_growth_maps_to_same_gray_in_both_panels(sample):
     assert np.allclose(right[0, 0], [.1, .1, .1, 1.])
 
 
+def test_even_grid_does_not_claim_candidate_pixel():
+    data = {"alpha": np.linspace(-1.5e-6, 1.5e-6, 128),
+            "log10_temperature": np.linspace(-4.5e-6, 4.5e-6, 128)}
+    sampling = finish.center_sampling(data, [0., 0.])
+    assert sampling["center_is_measured_cell"] is False
+    assert not any(a["contains_exact_center"] for a in sampling["axes"])
+    assert sampling["axes"][0]["nearest_node_distance"] == pytest.approx(1.5e-6 / 127)
+    assert sampling["axes"][1]["nearest_node_distance"] == pytest.approx(4.5e-6 / 127)
+
+
+def test_center_coverage_requires_a_node_on_both_axes():
+    data = {"alpha": np.array([-1., 0., 1.]), "log10_temperature": np.array([-2., 2.])}
+    assert finish.center_sampling(data, [0., 0.])["center_is_measured_cell"] is False
+    data["log10_temperature"] = np.array([-2., 0., 2.])
+    assert finish.center_sampling(data, [0., 0.])["center_is_measured_cell"] is True
+
+
 @pytest.fixture
 def root_fixture(tmp_path, monkeypatch):
     repo, data = tmp_path / "repo", tmp_path / "data"
