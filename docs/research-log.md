@@ -32760,3 +32760,48 @@ The separate BSC6 saved-evidence auditor is now prepared and independently revie
 A separate pure-model tangent check makes the Hessian-feature interpretation concrete. At the stored conditional target, the geometric normals of the two smooth-side feature loci differ slightly from their Hessian eigenvectors. The resulting normal slopes are nonzero in the assumed quadratic model, despite positive normal curvature. Those tiny values are not resolved neural derivatives. Thus even an admitted joint Hessian-feature zero would not automatically establish a crossing of intrinsic normal-minimum curves. The corrector's trace-value-projected extension is valid for the joint intersection equations, but its off-crease gradient must not be substituted for the active smooth-side curve's tangent. Both initial and amended diagnostic packets are retained outside Git at `audits/baby-shrimp-zoom/20261022-mixed-feature-geometry-planning-01`; copy-receipt SHA-256 `10f984d80ad38c1177c6e08c89f927670e30cba6aa0f08445dde0baeb1a0ca1f`. A separate one-thread replay reproduced the amended output byte-for-byte. This limitation is added to the still-unlaunched preparation plan.
 
 The BSC6 plotter now passes 68 tests and an independent source review, including integration with the separate auditor's analytic fixture. All eight synthetic complete, failed, unattempted and interrupted-stencil PDF layouts passed visual review; final synthetic manifest SHA-256 `b55e7e43685ffbb9e5e3ff9da7255bff4a2422c6574212d47b9bc5cd721941e7`. The plotter binds the exact audit, sources, plan, raw inventory and terminal lifecycle. It separates conditional Hessian features and empirical envelopes from measured signed trace residuals, retains failed admission diagnostics, labels steering and log-temperature in the frozen scaled metric, and draws sampled locations without inferred connections. Production figures still require an actual terminal audit and visual inspection. This checkpoint supplies plotting infrastructure only; no BSC6 model run has begun.
+
+## 2026-10-22 04:45 UTC: Run card RI1 (exploratory pilot): do the soft map's regimes carry over to real inference?
+
+Human approval 21 Oct 2026 ("do it") for a RunPod run under an approved hard ceiling (amount in the private ledger).
+Exploratory pilot, not a confirmatory test. Code: `tools/real_inference_twins.py` (committed before any run).
+
+- **Question:** the soft map is the noise-free skeleton of ordinary sampling (the soft token is the mean of the
+  sampled token's embedding; the sampling covariance is the embedding covariance in the map's derivative). Does
+  ordinary generation's sensitivity to a tiny perturbation change where the soft map changes regime, beyond what the
+  sampling noise (entropy) explains?
+- **System (real inference):** Qwen2.5-0.5B-Instruct, hard tokens, full growing context (key-value cache), the
+  article's prompt ("open", opener "Hello!") with the philosophy vector at layer 12 added at every position (the
+  hook of explore_llm_soft_loop.py), float64 with keep_float64_norms (checked at load, recorded). Two samplers at the
+  cell's temperature: plain (full softmax) and Qwen's default processors (repetition penalty 1.1, top-k 20, top-p 0.8;
+  its default temperature 0.7 is replaced by the cell's, 0.703 on the line).
+- **Pairs:** 32 seeds per setting; two copies with common random numbers (one uniform per seed and step, inverse-CDF
+  sampling in vocabulary order); copy B's first prompt-token embedding nudged in a seeded random direction. Nudges:
+  1e-8 relative (primary: growth of the copies' next-token total-variation distance while their texts agree) and
+  1e-3 relative (secondary: split statistics). The second size was added after a CPU smoke test (3 seeds, 40
+  tokens, nudge 1e-3) left every pair's text identical, so 1e-8 alone would give almost no splits. 300 new tokens,
+  no stop at end-of-turn (recorded). Pairs that split and do not re-merge (50 identical consecutive tokens) are
+  re-nudged from 50 tokens after the split: each copy from its own history, 4 fresh 1e-8 nudges and 1 zero-nudge
+  control, 100 tokens with the same uniforms. Outcomes: no split, re-merge, split with both copies holding
+  (each re-nudge repeats its parent), split with scatter, mixed, unresolved (split after token 150), invalid (the
+  zero-nudge control leaves its parent). A zero-nudge control setting checks the rounding floor of copy pairs (CPU
+  smoke: TV at most 5e-15).
+- **Settings.** (1) A line of 15 settings at log10 T = -0.152994 (HR10 row 320), alpha evenly from 0.073342 to
+  0.073605, crossing the right edge of the period-6 body into chaos; on the HR10 map the soft exponent changes sign
+  between alpha 0.073448 (period 6, -0.19) and 0.073465 (chaotic, +0.16) while the soft entropy stays near 1.6-1.9.
+  Each setting's soft exponent and period come from a new float64 CPU scan of exactly these 15 settings (HR10
+  arguments: window 1, 300 + 300 steps, tolerance 1e-8, twin 1e-6), for the article's prompt and for prompt variant
+  p08-opposite-system (the line is run with both prompts). (2) Matched settings from the article's 512 x 512 map
+  (cross-512): in each quadrant of the plane, one periodic cell (exponent <= -0.15, its 3 x 3 neighborhood with the
+  same period) and one chaotic cell (exponent >= 0.15, neighborhood without period and exponents > 0.05) whose soft
+  entropies differ by at most 5 %; the periodic cell is the one closest in entropy to the quadrant's median chaotic
+  entropy, the chaotic one the closest to it in entropy. Article prompt only.
+- **Predictions (if the dynamics carry over):** (a) along the line, the TV growth rate and the split rate change
+  abruptly at the edge rather than smoothly with entropy; (b) matched chaotic settings show faster TV growth and more
+  splitting and scatter than matched periodic ones; (c) the sign of the TV growth rate follows the soft exponent's
+  sign. **If noise alone:** smooth change with entropy along the line, no matched-pair difference. A growth rate
+  that never becomes positive anywhere would say real inference damps tiny perturbations in both regimes.
+- **Compute:** one secure or community A100/H100-class pod through tools/runpod_soft_float64.py (job set toolseq),
+  run limit 45 minutes, per-attempt worst case and the total within the approved ceiling; at most two attempts.
+  Outputs llm-soft-loop/pod64/ri1, copied to ../neural-shrimp-data/explore/llm-real-inference/ri1 with hashes.
+  Analysis: `real_inference_twins.py analyze` (per-row gates: completion, hashes, finite values, float64 patch).
