@@ -26,6 +26,7 @@
 % The memory continuation postdates the original release tag; bind its receipts to their audited commit.
 \newcommand{\memoryrepo}[1]{\href{\repourl/blob/d2a15964bdae9358ad2dbc363980a10294b2cb2e/#1}{\nolinkurl{#1}}}
 \newcommand{\memoryscanrepo}[1]{\href{\repourl/blob/b87a9e74ab364801ce8bb3ee86cc585c2bc2e338/#1}{\nolinkurl{#1}}}
+\newcommand{\memoryproberepo}[1]{\href{\repourl/blob/63a19e7f076cf45665ddb6dd12270f3c16d156a5/#1}{\nolinkurl{#1}}}
 \usepackage{microtype}
 \hypersetup{pdftitle={Chaos and bifurcations in continuous language-model feedback},
   pdfsubject={Supplementary material to the article of the same title}}
@@ -81,8 +82,8 @@ predicted in advance from fold normal forms came within one iterate of the retur
 24) (the six
 misses, at a period-6 fold, 3.1 to 5.2\,\% short), and interval arithmetic proves an attracting period-8 orbit and, at one parameter cell, two coexisting
 attracting orbits of periods 2 and 3. In a smaller period-18 window, retaining about 0.645\,\% of the previous feedback
-state as a third control numerically reconnects the selected return pair's trace-zero contours as its saddle is
-followed in steering and temperature. The sampled centers keep their state period and six-token readout, and the
+state as a third control changes the selected return pair's trace-saddle height through a numerical sign bracket
+as its center is followed in steering and temperature, supporting a conditional local reconnection interpretation. The sampled centers keep their state period and six-token readout, and the
 multipliers remain nonzero. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled
 generation. These results show that bifurcation theory can make quantitative predictions about continuous language-model
 feedback, with rigorous guarantees for selected periodic orbits of the full transformer.
@@ -210,7 +211,7 @@ Fold normal forms predict passage times (42 of 48; both all-row criteria failed)
 Late doubling ratios approach Feigenbaum's $\delta$, at the float64 floor & numerical & Sec.~\ref{sec:cascade} \\
 13 of the 17 tangent reversals of the continued fold curves are located cusps (four found on 18 October are not located); local unfoldings match Newton solves & numerical; unfoldings frozen & Sec.~\ref{sec:organization} \\
 A period-5 window is a shrimp in a two-parameter plane (boundary organization) & numerical; found by search & Sec.~\ref{sec:organization} \\
-Retained feedback reconnects a period-18 family's pair-trace contours while the sampled centers keep their period and readout & exploratory; numerical & Sec.~\ref{sec:memoryunfolding} \\
+Retained feedback changes a period-18 family's trace-saddle height sign, supporting conditional contour reconnection while the sampled centers keep their period and readout & exploratory; numerical & Sec.~\ref{sec:memoryunfolding} \\
 An attracting period-8 orbit exists & proof & App.~\ref{sec:evidence} \\
 Attracting orbits of periods 2 and 3 coexist at one parameter cell, with certified token loops and basin neighborhoods & proof & App.~\ref{sec:evidence} \\
 No accuracy information beyond first-token uncertainty; no edge-of-chaos advantage & frozen; bounded nulls & Sec.~\ref{sec:consequences} \\
@@ -3048,16 +3049,18 @@ each at the phase continuous with the fold curve. One orbit with another token l
 
 
 \FloatBarrier
-\subsection{Retained feedback as a third control: reconnecting the child's trace contours}
+\subsection{Retained feedback as a third control: a trace-saddle sign change}
 \label{sec:memoryunfolding}
 The separation of the period-6 body's lines raises a question that a finer picture alone cannot answer: is the
 separation removable by changing the map? We tested this in the smaller period-18 window below that body, called
 the child to distinguish it from the period-6 mother. These are different full-state orbit families. The child
 retains a primitive 18-step state cycle while writing a six-token cycle three times; equality of the text after six
 steps is not closure of its 896-dimensional feedback state. In this exploratory intervention, retaining a small
-fraction of the previous feedback state changes the connections of the selected pair's trace-zero contours, while
+fraction of the previous feedback state changes the sign of the selected pair's trace-saddle height, while
 the sampled centers keep that period and readout. The result is a controlled change of spectral geometry within
-one periodic family, rather than a transition to different text or a demonstration of exact superstability.
+one periodic family. Under the local smooth-saddle assumptions below, the sign change implies a reconnection of
+the trace-zero contours; the sampled measurements do not trace their complete connections away from the saddle.
+It is not a transition to different text or a demonstration of exact superstability.
 
 \paragraph{What memory means here.} Write $F_p$ for the original one-token soft-feedback map at
 $p=(\alpha,\log_{10}T)$. We replace its state update by
@@ -3111,7 +3114,13 @@ are bound by \memoryrepo{docs/baby-shrimp-zoom/memory-continuation-receipt.json}
 reports the accepted saddle heights. The values at $\beta=0.006$ and 0.007 have opposite signs, separated from zero
 by much more than the observed changes under stencil scale, center transport and cyclic phase
 (Figure~\ref{fig:memorycontinuation}). The root search
-then satisfied its declared $|h|\le10^{-8}$ stopping rule at
+uses those measured endpoints to locate a candidate: a secant through their heights proposes an intermediate
+$\beta$, with bisection when the interpolation fails the declared safeguard. The endpoint centers provide only
+an initial guess for the new center. At each proposed memory setting, the solver again adjusts steering and
+temperature until the trace is stationary, and only then evaluates the corrected saddle height. A measured
+height outside the residual tolerance replaces the bracket endpoint of the same sign, and the process repeats.
+This is data-guided numerical root location after a sign change was observed, not an advance prediction of the
+connection parameter. The procedure then satisfied its declared $|h|\le10^{-8}$ stopping rule at
 \begin{equation}
  \begin{split}
  \beta_*&=0.006448531026086656,\\
@@ -3192,7 +3201,7 @@ center with a window translated to the retained-feedback candidate, using identi
 integration lengths and gray scale. The original image has separated dark contraction tracks; the translated
 image displays an X-like junction near its center. Every pixel comes from a network trajectory; no fitted
 trace contour or quadratic saddle is drawn over the data. The figure therefore shows an observed change in
-finite-time contraction geometry that accompanies the independently measured trace-contour reconnection.
+finite-time contraction geometry that accompanies the independently measured trace-saddle sign change.
 
 All 16,384 cells in each window yield period-18 recurrence candidates, with the same canonical six-token readout
 repeated three times. These fixed-opener trajectories do not supply full-state primitive-orbit verification at
@@ -3216,8 +3225,8 @@ are offsets from that panel's own center. Both use $128\times128$ fixed-opener c
 measurement steps, nearest-cell rendering and the same gray scale (darker means stronger contraction).
 The separated tracks in (a) form an X-like junction in (b), without a fitted crossing overlay. All cells have
 period-18 recurrence candidates and a period-6 token readout; these labels do not certify every orbit or its
-identity with the continued root orbit. Neither even grid includes its exact center. Trace-contour reconnection
-has separate orbit evidence; this finite-time image alone does not establish exact superstability or intersection
+identity with the continued root orbit. Neither even grid includes its exact center. The conditional reconnection
+interpretation has separate orbit evidence; this finite-time image alone does not establish exact superstability or intersection
 of the strongest-contraction ridges. Source, array and image hashes:
 \memoryscanrepo{docs/baby-shrimp-zoom/memory-junction-scan-receipt.json}.}
 \label{fig:memoryjunction}
@@ -3290,8 +3299,29 @@ discrepancy of norm $2.63\times10^{-16}$ or less. If that gradient persists at a
 Eq.~\eqref{eq:memoryradiustilt} gives a radius tilt approximately
 $(2.7660\times10^{-6},-5.3230\times10^{-6})$ in the same scaled coordinates. At the actual finite-residual
 candidate this is a conditional determinant contribution, not automatically the gradient of its actual radius.
-It provides numerical reason to distinguish the reconnection of the traced contours from that of exact
+It provides numerical reason to distinguish the conditional reconnection of trace contours from that of exact
 strongest-contraction ridges. Neither statement alone fixes the brightness geometry of a finite-time scan.
+
+\paragraph{Direct probes beyond the image.} A subsequent exploratory test (BSC4) freshly evaluated the
+continued orbit rather than inferring geometry from image brightness. All 111 evaluated points passed the saved
+full-state and spectral gates. At $\beta=0.006$, trace sign brackets lie on both sides of the saddle along its
+negative-curvature axis, with none on the sampled positive-curvature axis; at $\beta=0.007$ the roles reverse.
+This supports the opening-direction change predicted by Eq.~\eqref{eq:memorymorse}. At the latter memory setting,
+a root search located six trace-zero candidates, two on each of three transverse slices. Every candidate passed
+spectral checks at three cyclic phases; its phase-zero residual satisfies $|\tau|<1.94\times10^{-11}$.
+Each had a smaller pair radius than both
+measured offsets of $\pm0.003$ along a local approximate normal in the declared scaled coordinates. These are
+sampled zero locations and finite-offset comparisons, not complete curve continuation, a proof of local minima,
+or verification of their connections away from the saddle.
+
+At the earlier $\beta_*$ candidate, direct offsets also test the determinant contribution in
+Eq.~\eqref{eq:memoryradiustilt}. Along the unit direction opposite $\nabla_u\Delta$, the centered radius slopes at
+steps $10^{-4}$ and $3\times10^{-4}$ are $5.999729\times10^{-6}$ and $5.997785\times10^{-6}$, respectively.
+They differ from the conditional prediction $5.998715\times10^{-6}$ by less than $0.017\,\%$ each. Both negative
+offsets have a smaller radius than the candidate. Thus the measured finite-step tilt agrees with the determinant
+calculation, while a trace-balance point need not give the strongest sampled contraction. The comparison does not
+certify the derivative at an exact trace saddle or exclude a minimum on a smaller scale. Source, samples and
+numerical limits: \memoryproberepo{docs/baby-shrimp-zoom/memory-connection-probe-receipt.json}.
 
 \paragraph{An intervention mechanism, not an identified native coupling.} Retained feedback changes both the
 one-step derivative and the orbit on which that derivative is evaluated. At $\beta=0$, write $J_i=DF_p(x_i)$,
@@ -3332,9 +3362,10 @@ attracting. This is an analytic counterexample, not a model fitted to the networ
 mechanism would require independently defined pathways, measured projection and nonnormality errors, predictions
 of the full trace and determinant at additional points, and interventions continuing the same primitive orbit.
 
-The supported claim is therefore specific: adding retained feedback produces a numerically resolved reconnection
-of the selected pair's trace-zero contours on the continued period-18 child family. The local normal form explains
-how the sign of a saddle height controls avoidance. The experiment does not uncover a hidden crossing in the
+The supported measurement is specific: adding retained feedback changes the sign of the selected pair's
+trace-saddle height on the continued period-18 child family. Under the local smooth-saddle assumptions, the
+Morse form interprets this as a reconnection of trace-zero contours. The sampled axis probes and zero locations
+support that interpretation without tracing complete connections away from the saddle. The experiment does not uncover a hidden crossing in the
 original $\beta=0$ map, establish an exact two-dimensional nonlinear reduction, or show that the period-6 mother
 or other windows reconnect under the same intervention. The earlier mother's unsuccessful determinant-saddle
 test and subsequent trace amendment remain distinct evidence (Figure~\ref{fig:delta2d}).
@@ -4237,9 +4268,9 @@ multiplier) avoid each other where a head would be. Symbolic
 sequences are determined for the period-6 window only (paragraph ``Symbolic dynamics''); we have not traced tails,
 tested for a periodicity hub \cite{vitolo2011hubs,jones2012rossler}, or shown that a two-dimensional map reproduces the
 windows' nonlinear dynamics. The cusps are float64
-computations validated by step-size checks, not proofs (Appendix~\ref{sec:curves}). The period-18 child's trace
-reconnection under retained feedback (Section~\ref{sec:memoryunfolding}) changes the map and follows the moving
-saddle in steering and temperature. It is not an exact superstable crossing of the original map, does not establish
+computations validated by step-size checks, not proofs (Appendix~\ref{sec:curves}). The period-18 child's
+trace-saddle sign change under retained feedback (Section~\ref{sec:memoryunfolding}) changes the map and follows
+the moving saddle in steering and temperature; contour reconnection is its conditional local interpretation. It is not an exact superstable crossing of the original map, does not establish
 reconnection of the exact strongest-contraction ridges, and does not identify a native modal-coupling mechanism.
 
 \paragraph{Limitations.} The detailed orbit studies cover Qwen2.5 at 0.5B and 1.5B, with three float64 orbits at 7B;
@@ -4379,9 +4410,9 @@ step by step, and it behaves as one. Temperature and steering carry it from repe
 Lyapunov exponent. Its periodic windows open and close in folds and flips whose normal forms, computed from the
 network's own derivatives, forecast how long trajectories linger near a vanished orbit; its cascades approach
 Feigenbaum's constant; and its parameter plane holds shrimp-shaped windows organized as in the low-dimensional maps
-where such windows were first found. A small retained-feedback term provides a third control that numerically
-reconnects trace-zero contours in a period-18 window without changing the sampled centers' state period or token
-cycle, as a moving saddle's height changes sign. Two coupled copies drift apart at approximately the rate the loop's Lyapunov exponent predicts.
+where such windows were first found. A small retained-feedback term changes a moving trace saddle's height sign
+in a period-18 window, supporting a conditional local reconnection interpretation without changing the sampled
+centers' state period or token cycle. Two coupled copies drift apart at approximately the rate the loop's Lyapunov exponent predicts.
 None of this rests on a simplified model of the network: the orbits, multipliers and normal forms are those of the full
 transformer in float64, and three of its periodic orbits are proved to exist with interval arithmetic. For the expected-embedding
 feedback studied here with a fixed prompt, the derivative factorization applies to smooth networks with a linear output
