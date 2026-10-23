@@ -65,7 +65,8 @@ def test_continuation_streams_before_setting_completion_and_requires_all_shards(
     c.close()
 
 
-def test_complete_synthetic_worker_retains_all_states_and_selection(tmp_path,monkeypatch,capsys):
+@pytest.mark.parametrize('gated',[False,True])
+def test_complete_synthetic_worker_retains_all_states_and_selection(tmp_path,monkeypatch,capsys,gated):
     import argparse,types,torch
     import explore_latent_loop as latent
     torch.set_num_threads(1)
@@ -95,15 +96,29 @@ def test_complete_synthetic_worker_retains_all_states_and_selection(tmp_path,mon
     anchor=np.ones((1,12,5280),dtype=np.float32);reference=np.concatenate([anchor,.5*anchor+.5*(.2*anchor+1)])
     np.savez(tmp_path/'input.npz',anchor=anchor,reference=reference,direction=np.ones(5280))
     plan=dict(experiment='HPC2',batch=1,input_path='input.npz',input_sha256=s.sha256(tmp_path/'input.npz'),max_compute_seconds=3600,prompt='test',prompt_ids=[1],model_revision=latent.REVISIONS['huginn'],steering=0.,anchor_update_size=.5,lambda_range=[1.27,1.28],checkpoint_steps=256,transient=256,measure=256,max_settings=3,coarse_settings=2,refinement_settings=1,eps=[.001,.0003],recurrence_tolerance=3e-5)
+    if gated:
+        plan.update(retrieval_barrier=True,schedule='bidirectional',max_settings=4,refinement_settings=2)
+        import huginn_evidence_gate as gate
+        actual_wait=gate.wait_for_ack
+        acknowledged=[]
+        def verified_ack(root,payload,deadline):
+            assert payload['index']==len(acknowledged)
+            for name,digest in payload['files'].items():assert s.sha256(root/name)==digest
+            # The worker cannot have started the next setting while waiting.
+            assert not (root/f"initial-{payload['index']+1:04d}.npz").exists()
+            ack=root/'.retrieval-acks'/f"{payload['index']:04d}.json";ack.parent.mkdir(exist_ok=True)
+            ack.write_text(json.dumps(payload));actual_wait(root,payload,deadline)
+            acknowledged.append(payload)
+        monkeypatch.setattr(gate,'wait_for_ack',verified_ack)
     path=tmp_path/'plan.json';path.write_text(json.dumps(plan))
     s.execute(argparse.Namespace(out='test',plan=path,source_commit='a'*40),plan)
     root=tmp_path/'explore/test';summary=json.loads((root/'summary.json').read_text())
-    assert len(summary['rows'])==3 and all(row['period']==[1,1] for row in summary['rows'])
-    assert summary['rows'][2]['stage']=='refined'
+    assert len(summary['rows'])==plan['max_settings'] and all(row['period']==[1,1] for row in summary['rows'])
+    assert summary['rows'][2]['stage']==('descending' if gated else 'refined')
     manifest=json.loads((root/'manifest.json').read_text())
-    assert set(manifest)=={p.name for p in root.iterdir() if p.name!='manifest.json'}
+    assert set(manifest)=={p.name for p in root.iterdir() if p.is_file() and p.name!='manifest.json'}
     for name,digest in manifest.items():assert s.sha256(root/name)==digest
-    for i in range(3):
+    for i in range(plan['max_settings']):
         with np.load(root/f'states-{i:04d}-m-00256.npz') as z:
             assert z['states'].shape==(256,2,12,5280) and z['log_growth'].shape==(256,2,2)
 
@@ -136,13 +151,17 @@ def test_complete_synthetic_worker_retains_all_states_and_selection(tmp_path,mon
     c,reader=setup_collector(tmp_path/'transport')
     c.plan=plan
     remote=c.identity['remote_data']
-    for file in root.iterdir():reader.files[remote+'/'+file.name]=file.read_bytes()
+    for file in root.iterdir():
+        if file.is_file():reader.files[remote+'/'+file.name]=file.read_bytes()
     reader.files['/root/neural-shrimp/'+c.identity['plan']]=path.read_bytes()
     c.sources[c.identity['plan']]={'sha256':sha(path.read_bytes()),'bytes':path.stat().st_size}
     c.close()
     c=h.Collector(tmp_path/'bound-transport',c.identity,c.sources,'b'*64,plan,reader)
     artifacts=sorted(h.continuation_artifacts(plan))
-    reader.snapshot_value=dict(ready=True,chunks=[0,1,2],artifacts=artifacts,manifest=manifest)
+    reader.snapshot_value=dict(ready=True,chunks=list(range(plan['max_settings'])),artifacts=artifacts,manifest=manifest)
+    if gated:
+        reader.snapshot_value['barrier']=acknowledged[-1]
+        reader.acknowledge=lambda root,payload: None
     for _ in range(30):
         if c.step()=='complete':break
     else:pytest.fail('actual worker artifacts were not completely retrieved')

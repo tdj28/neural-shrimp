@@ -73,6 +73,11 @@ def validate(c):
             raise ValueError(f"invalid {k}")
     if c["hard_minutes"] <= c["retrieval_minutes"] + 30:
         raise ValueError("insufficient retrieval reserve")
+    for command in c['commands']:
+        if '--jobset-args' in command:
+            job=shlex.split(command[command.index('--jobset-args')+1])
+            if 'docs/huginn-chaos-transition-plan.json' in job and c.get('evidence_gate') is not True:
+                raise ValueError('transition sweep requires controller evidence gate before rental')
     worst = len(names) * (c["max_rate"] + c["disk_hourly_rate"]) * c["hard_minutes"] / 60
     if worst > c["ceiling"]:
         raise ValueError("worst-case lifetime exceeds the approved ceiling")
@@ -119,7 +124,7 @@ def validate_orbit_job(arguments, source_commit=None):
             if job.count(key) != 1 or job.index(key) + 1 >= len(job):
                 raise ValueError(f"saddle worker requires one {key}")
         plan = job[job.index("--plan") + 1]
-        if (plan not in ("docs/huginn-chaos-map-plan.json", "docs/huginn-chaos-zoom-plan.json", "docs/huginn-chaos-tight-zoom-plan.json", "docs/huginn-chaos-continuation-plan.json") if huginn else not plan.startswith("docs/baby-shrimp-zoom/")) or ".." in Path(plan).parts:
+        if (plan not in ("docs/huginn-chaos-map-plan.json", "docs/huginn-chaos-zoom-plan.json", "docs/huginn-chaos-tight-zoom-plan.json", "docs/huginn-chaos-continuation-plan.json", "docs/huginn-chaos-transition-plan.json") if huginn else not plan.startswith("docs/baby-shrimp-zoom/")) or ".." in Path(plan).parts:
             raise ValueError("saddle plan must remain in the declared repository plan directory")
         commit = job[job.index("--source-commit") + 1]
         if not re.fullmatch(r"[0-9a-f]{40}", commit) or source_commit is not None and commit != source_commit:
@@ -205,6 +210,18 @@ def cleanup(out, pod, why, c):
     if current["terminated"]:
         return
     event(out, "salvage_started", pod_id=pid, reason=why)
+    if c.get("evidence_gate") and protected_huginn(c,pod["name"]):
+        # Even emergency controller cleanup cannot bypass the evidence barrier.
+        # Keep the original hard deadline; never grant a fresh rental lifetime.
+        cutoff=pod["created_epoch"]+60*c["hard_minutes"]-TERMINATION_RESERVE_SECONDS
+        while time.time()<cutoff:
+            snapshot=retrieval_snapshot(out,pod,c)
+            if snapshot.get("complete") and snapshot.get("compute_stopped"):
+                break
+            current=owned(c,ledger()).get(pid)
+            if current and current["terminated"]:
+                return
+            time.sleep(min(15,max(0,cutoff-time.time())))
     try:
         if protected_huginn(c, pod["name"]):
             # The mandatory collector has already been copying immutable files
@@ -413,6 +430,13 @@ def watch_reason(c, pod, state, alive, now, tracker, snapshot, *, protected, arc
     if protected:
         if snapshot.get("error"):
             return "protected retrieval binding invalid"
+        if c.get("evidence_gate"):
+            # The worker pauses at each evidence barrier. Numerical inactivity,
+            # collector recovery, or metadata failure must not delete evidence.
+            # The independent absolute resource ceiling above still wins.
+            if snapshot.get("complete") and snapshot.get("compute_stopped") and (state.get("finished") or not alive):
+                return "verified incremental retrieval ready for termination"
+            return None
         if snapshot.get("bound") and snapshot.get("compute_stopped"):
             if snapshot.get("complete"):
                 if state.get("finished") or not alive:

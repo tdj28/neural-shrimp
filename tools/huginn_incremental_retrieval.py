@@ -1,6 +1,6 @@
-"""Read-only, incremental recovery of an already approved Huginn map.
+"""Incremental recovery with optional hash-only evidence acknowledgments of an already approved Huginn map.
 
-No resource creation, execution retry, termination or runner-log edits. This
+No resource creation, execution retry, termination or runner-log edits. Gated plans may write only exact per-setting hash acknowledgments. This
 collector copies immutable, completed chunks before large tails, preserving
 failed transfers. It is opt-in and independently bounded by the existing
 controller's lifetime. Scientific auditing is a separate subsequent step.
@@ -85,7 +85,7 @@ def verify_ownership(config, entries, pod_id, name, source, approval):
     if not output.startswith('llm-soft-loop/pod64/'):
         raise ValueError('output outside allowed scan tree')
     plan = relative_name(argument(job, '--plan'))
-    if not re.fullmatch(r'docs/huginn-chaos-(map|zoom|tight-zoom|continuation)-plan.json', plan):
+    if not re.fullmatch(r'docs/huginn-chaos-(map|zoom|tight-zoom|continuation|transition)-plan.json', plan):
         raise ValueError('unrecognized scan plan')
     creates = [e for e in entries if e.get('event') == 'created' and e.get('pod_id') == pod_id]
     if len(creates) != 1:
@@ -185,6 +185,8 @@ if 'complete' in phases and (p/'manifest.json').exists():
   manifest=json.loads((p/'manifest.json').read_text())
  except json.JSONDecodeError: pass
 print(json.dumps({'ready':'native_gate' in phases,'chunks':complete,'manifest':manifest,
+ 'stopped':json.loads((p/'.stopped-after-setting').read_text()) if (p/'.stopped-after-setting').exists() else None,
+ 'barrier':next((r['barrier'] for r in reversed(rows) if r.get('phase')=='retrieval_wait'),None),
  'artifacts':[r['file'] for r in rows if r.get('phase')=='artifact_complete'],
  'native_gate':next((r for r in rows if r.get('phase')=='native_gate'),None),
  'throughput_gate':next((r for r in rows if r.get('phase')=='throughput_gate'),None)}))
@@ -213,10 +215,32 @@ class SSHReader:
         ports = ((status.get('runtime') or {}).get('ports') or [])
         port = next((p for p in ports if p.get('privatePort') == 22 and p.get('isIpPublic')), None)
         if port is None:
+            # Identity was freshly checked above. Do not discard a working,
+            # host-key-checked connection solely because API metadata is absent.
+            if self.base is not None:
+                return True
             raise RuntimeError('owned pod has no SSH endpoint')
         from runpod_phase0 import ssh_base
         self.base = ssh_base(port['ip'], port['publicPort'])
         return True
+
+    def acknowledge(self, root, payload):
+        if root != self.identity['remote_data'] or payload.get('source') != self.identity['source']:
+            raise ValueError('acknowledgment identity mismatch')
+        index=payload.get('index')
+        if type(index) is not int or not 0 <= index < 10000:
+            raise ValueError('invalid acknowledgment index')
+        code = """import json,os,pathlib,sys
+p=pathlib.Path(sys.argv[1]);v=json.loads(sys.argv[2]);d=p/'.retrieval-acks';d.mkdir(exist_ok=True)
+f=d/(str(v['index']).zfill(4)+'.json');t=f.with_suffix('.tmp')
+if f.exists():
+ assert json.loads(f.read_text())==v
+else:
+ with t.open('w') as s:json.dump(v,s,sort_keys=True);s.flush();os.fsync(s.fileno())
+ os.replace(t,f)
+"""
+        subprocess.run(self.base+['python3 -c '+shlex.quote(code)+' '+shlex.quote(root)+' '+shlex.quote(json.dumps(payload))],
+                       check=True,timeout=min(30,max(.1,self.deadline-time.time())),capture_output=True)
 
     def command(self, code, path):
         return self.base + ['python3 -c ' + shlex.quote(code) + ' ' + shlex.quote(path)]
@@ -327,6 +351,7 @@ class Collector:
                 event = json.loads(line)
                 if event['event'] == 'transfer_started':
                     name = event['file']; self.attempts[name] = self.attempts.get(name, 0) + 1
+        self.acknowledged = set()
         self.source_done = False
         self.verified = {}  # session-only; every restart revalidates local files
         # Real byte progress, not heartbeat timestamps or bytes retransmitted
@@ -498,6 +523,23 @@ class Collector:
             if not path.exists() and self.attempts.get('data/'+name, 0) < self.max_attempts:
                 self.transfer(root+'/'+name, 'data/'+name, (manifest or {}).get(name))
                 break
+        barrier=snapshot.get('barrier')
+        if self.plan.get('retrieval_barrier') and barrier is not None:
+            index=barrier.get('index')
+            if type(index) is not int or not 0 <= index < self.plan['max_settings'] or barrier.get('source') != self.identity['source']:
+                raise ValueError('invalid evidence barrier identity')
+            required={'plan.json','runtime.json','steering-direction.npy','benchmark.npz',f'initial-{index:04d}.npz',f'chunk-{index:04d}.npz'}
+            required.update(n for n in continuation_artifacts(self.plan) if n.startswith(f'states-{index:04d}-'))
+            hashes=barrier.get('files',{})
+            if set(hashes)!=required or any(not isinstance(v,str) or not SHA.fullmatch(v) for v in hashes.values()):
+                raise ValueError('incomplete evidence barrier')
+            if index not in self.acknowledged and all((self.out/'data'/n).is_file() for n in required):
+                for name,sha in hashes.items():
+                    if digest_file(self.out/'data'/name)!=sha:
+                        raise ValueError('evidence barrier hash mismatch')
+                self.reader.acknowledge(root,barrier)
+                self.acknowledged.add(index)
+                self.event('setting_acknowledged',index=index,files=hashes)
         if manifest is not None:
             saved_manifest = self.out/'data/manifest.json'
             all_present = saved_manifest.is_file() and all((self.out/'data'/name).is_file() for name in manifest)
@@ -580,7 +622,7 @@ def main(argv=None):
                 collector.event('collector_error', error=str(error), consecutive_errors=consecutive_errors)
                 collector.status('error', complete=False, error=str(error))
                 result = 'error'
-            if result in ('complete', 'absent', 'deadline') or args.once or consecutive_errors >= 3:
+            if result in ('complete', 'absent', 'deadline') or args.once or (consecutive_errors >= 3 and not collector.plan.get('retrieval_barrier')):
                 return 0 if result == 'complete' else 2 if result in ('absent', 'deadline', 'error') else 1
             time.sleep(min(args.poll_seconds, max(0., deadline-time.time())))
     finally:

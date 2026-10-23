@@ -1,0 +1,53 @@
+{
+  "experiment": "HPC2",
+  "label": "Proposed fixed transition sweep with retrieval barriers; not approved for rental",
+  "prompt": "What is 17 times 23? The answer is",
+  "prompt_ids": [
+    65504,
+    3248,
+    305,
+    345,
+    55,
+    2150,
+    402,
+    51,
+    63,
+    428,
+    1873,
+    305
+  ],
+  "model_revision": "bb6621b65e90b6a4b9b29ef88dc83866d450470c",
+  "input_path": "explore/llm-soft-loop/hpc3-input-20261023/anchor.npz",
+  "input_sha256": "2d0158317465e034a796f064273092082ff8b51e83f9ea3295c408361bc9c653",
+  "anchor_update_size": 1.2532258064516129,
+  "steering": -0.03741935483870967,
+  "lambda_range": [
+    1.28,
+    1.285
+  ],
+  "coarse_settings": 11,
+  "refinement_settings": 11,
+  "max_settings": 22,
+  "batch": 1,
+  "transient": 16384,
+  "measure": 8192,
+  "checkpoint_steps": 1024,
+  "eps": [
+    0.001,
+    0.0003
+  ],
+  "recurrence_tolerance": 3e-05,
+  "max_compute_seconds": 34200,
+  "retain_full_tails": false,
+  "selection": "Fixed ascending eleven-point grid followed by the same eleven-point descending grid. No adaptive interval selection.",
+  "initialization": "Ascending continued state from audited HPC2 retry setting at1.280. Descending state continues the last ascending endpoint. Fresh original seed0 at every setting. anchor_update_size remains the reference replay coordinate, not the new continued anchor coordinate.",
+  "growth": "Shared base for two simultaneous renormalized perturbations per initialization. Radius fixed from measured-window initial norm. Natural-log growth per update, both halves retained. Settling duplicates all six rows to preserve batch arithmetic.",
+  "evidence": "All base states and per-step growth; per-setting full-file retrieval acknowledgment before advancing. No token feedback. No promise of a cascade.",
+  "qualification": "Exploratory float32 screening, not proven chaos, exact primitive cycles, stability multipliers or Feigenbaum scaling.",
+  "approval_reference": "PENDING-new-scope-and-ceiling",
+  "cost": "see private ledger",
+  "study": "HPC3",
+  "schedule": "bidirectional",
+  "retrieval_barrier": true,
+  "continued_anchor_update_size": 1.28
+}

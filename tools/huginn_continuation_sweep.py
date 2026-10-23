@@ -100,7 +100,11 @@ def execute(args,plan):
         rows=[];ends=[];coarse=np.linspace(*plan['lambda_range'],plan['coarse_settings'])
         warm=torch.from_numpy(anchor).to('cuda');selection=None
         def setting(index,lam,warm,stage,parent):
-            guard();F=step(torch.tensor(lam,device='cuda',dtype=torch.float32));base=torch.cat([warm,h0]);save(f'initial-{index:04d}.npz',states=base.cpu().numpy(),update_size=np.array(lam),parent=np.array(parent))
+            guard()
+            if (root/'.stop-after-setting').exists():
+                atomic_json(root/'.stopped-after-setting',dict(index=index-1,source=args.source_commit))
+                raise RuntimeError('Controller requested stop after verified setting')
+            F=step(torch.tensor(lam,device='cuda',dtype=torch.float32));base=torch.cat([warm,h0]);save(f'initial-{index:04d}.npz',states=base.cpu().numpy(),update_size=np.array(lam),parent=np.array(parent))
             buffer=[];logs=[];windows=[];recent=[];project=[];tic=time.monotonic()
             for k in range(plan['transient']):
                 guard();base=F(base.repeat(3,1,1))[:2];buffer.append(base.cpu().numpy())
@@ -129,15 +133,37 @@ def execute(args,plan):
             save(f'chunk-{index:04d}.npz',update_size=np.array(lam),lyapunov=growth.mean(0),half_means=np.stack([a.mean(0) for a in np.array_split(growth,2)]),recurrence_candidate=np.array(period),window_period=np.array(windows),projection=np.array(project),final_state=tail[-1],readouts_json=np.array(json.dumps(readouts)))
             row=dict(index=index,update_size=float(lam),stage=stage,parent=parent,period=period,growth=growth.mean(0).tolist(),seconds=time.monotonic()-tic)
             emit('chunk_complete',chunk_start=index,completed=index+1,total=plan['max_settings'],**row)
+            if plan.get('retrieval_barrier'):
+                from huginn_evidence_gate import setting_payload,wait_for_ack
+                payload=setting_payload(root,index,args.source_commit,sha256)
+                emit('retrieval_wait',chunk_start=index,barrier=payload)
+                wait_for_ack(root,payload,deadline)
+                emit('retrieval_verified',chunk_start=index)
+                if index==0:
+                    remaining=deadline-time.monotonic()
+                    projected=(time.monotonic()-tic)*(plan['max_settings']-1)*1.1
+                    emit('retrieval_throughput_gate',projected_remaining=projected,remaining=remaining)
+                    if projected>remaining-60:
+                        atomic_json(root/'.stopped-after-setting',dict(index=index,source=args.source_commit))
+                        raise RuntimeError('Measured computation plus verified retrieval cannot fit original deadline')
+                if (root/'.stop-after-setting').exists():
+                    atomic_json(root/'.stopped-after-setting',dict(index=index,source=args.source_commit))
+                    raise RuntimeError('Controller requested stop after verified setting')
             return row,base[:1].clone(),tail[-1,0].copy()
         for lam in coarse:
             i=len(rows);row,warm,end=setting(i,float(lam),warm,'coarse',i-1);rows.append(row);ends.append(end)
-        choice,why=refinement_interval(rows);lower=rows[choice]['update_size'];upper=rows[choice+1]['update_size']
-        selection=dict(lower=lower,upper=upper,coarse_parent=choice,reason=why);emit('refinement_selected',**selection)
-        warm=torch.from_numpy(ends[choice][None]).to('cuda')
-        for lam in interior_grid(lower,upper,plan['refinement_settings']):
-            i=len(rows);parent=choice if i==len(coarse) else i-1
-            row,warm,end=setting(i,float(lam),warm,'refined',parent);rows.append(row)
+        if plan.get('schedule') == 'bidirectional':
+            selection=dict(reason='fixed reverse grid; no outcome-based interval selection')
+            emit('refinement_selected',**selection)
+            for lam in coarse[::-1]:
+                i=len(rows);row,warm,end=setting(i,float(lam),warm,'descending',i-1);rows.append(row)
+        else:
+            choice,why=refinement_interval(rows);lower=rows[choice]['update_size'];upper=rows[choice+1]['update_size']
+            selection=dict(lower=lower,upper=upper,coarse_parent=choice,reason=why);emit('refinement_selected',**selection)
+            warm=torch.from_numpy(ends[choice][None]).to('cuda')
+            for lam in interior_grid(lower,upper,plan['refinement_settings']):
+                i=len(rows);parent=choice if i==len(coarse) else i-1
+                row,warm,end=setting(i,float(lam),warm,'refined',parent);rows.append(row)
         save('map.npz',update_sizes=np.array([r['update_size'] for r in rows]),lyapunov=np.array([r['growth'] for r in rows]),recurrence_candidate=np.array([r['period'] for r in rows]))
         atomic_json(root/'summary.json',dict(rows=rows,selection=selection,seconds=time.monotonic()-start,peak_cuda_bytes=torch.cuda.max_memory_allocated(),qualification='Finite float32 recurrence and growth; not proven chaos or primitive stability. Shared base, two offsets; no token feedback.'))
         emit('complete',cells=len(rows))

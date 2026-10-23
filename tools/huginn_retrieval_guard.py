@@ -142,6 +142,13 @@ def validate_scan_gates(out, binding):
         if len(replay) != 6 or not all(math.isfinite(x) and 0 <= x <= 3e-5 for x in replay):
             raise ValueError('saved six-row replay gate failed')
         one('refinement_selected')
+        if plan.get('retrieval_barrier'):
+            acknowledged=[r['chunk_start'] for r in rows if r.get('phase')=='retrieval_verified']
+            if acknowledged!=list(range(total)):
+                raise ValueError('missing or out-of-order setting retrieval acknowledgment')
+            gate=one('retrieval_throughput_gate')
+            if not (0 < gate['projected_remaining'] <= gate['remaining']-60):
+                raise ValueError('saved end-to-end throughput gate failed')
     return dict(native_gate_verified=True, throughput_gate_verified=True,
                 source_plan_verified=True, completed_cells=total)
 
@@ -198,6 +205,12 @@ class ProtectedRun:
         self.compute_deadline = self.hard_deadline-60*float(config['retrieval_minutes'])
         self.retrieval_deadline = self.hard_deadline-60  # provider termination reserve
         self.source_archive_sha = source_archive_sha
+        plan=json.loads(subprocess.check_output(['git','show',args.commit+':'+self.identity['plan']],cwd=ROOT))
+        self.evidence_gate=plan.get('retrieval_barrier') is True
+        if self.evidence_gate != (config.get('evidence_gate') is True):
+            raise ValueError('controller evidence gate differs from pinned plan')
+        self.numerical_started=False
+        self.collector_restarts=0
         self.collector = None
         self.log = None
         local_sources = {name:digest_file(ROOT/'tools'/name) for name in
@@ -206,7 +219,7 @@ class ProtectedRun:
         self.fields = dict(**self.identity, local_control_sha256=local_sources,
                            worker_pid=os.getpid(), worker_ticks=process_identity(os.getpid()),
                            compute_deadline_epoch=self.compute_deadline, compute_stopped=False,
-                           retrieval_complete=False)
+                           retrieval_complete=False, evidence_gate=self.evidence_gate)
         self.write('setup')
 
     def write(self, phase, **fields):
@@ -216,7 +229,7 @@ class ProtectedRun:
     def start(self):
         if time.time() >= self.compute_deadline-10:
             raise TimeoutError('compute budget exhausted before collector launch')
-        self.log = (self.out/'incremental-stdout.txt').open('x')
+        self.log = (self.out/('incremental-stdout.txt' if self.collector_restarts==0 else f'incremental-restart-{self.collector_restarts}.txt')).open('x')
         command = [sys.executable, str(ROOT/'tools/huginn_incremental_retrieval.py'), '--watch',
                    '--poll-seconds', '10',
                    '--controller', str(self.controller), '--pod', self.identity['pod_id'],
@@ -242,6 +255,7 @@ class ProtectedRun:
         raise TimeoutError('collector readiness not confirmed; numerical run refused')
 
     def supervise(self, process, *, clock=time.time, sleep=time.sleep):
+        self.numerical_started=True
         self.write('running')
         failure_started = None
         failure_progress = 0
@@ -272,15 +286,72 @@ class ProtectedRun:
                     self.write('complete' if numerical == 0 else 'failed', **receipt)
                     return dict(receipt, runner_returncode=numerical,
                                 success=numerical == 0, compute_stopped=stopped)
-            if failure_started is not None and now-failure_started >= 120:
+            if numerical is not None and numerical != 0 and getattr(self,'evidence_gate',False):
+                raise RuntimeError('gated numerical exit; recover verified boundary before termination')
+            if failure_started is not None and now-failure_started >= 120 and not getattr(self,'evidence_gate',False):
                 raise RuntimeError('numerical process failed; partial retrieval made no new progress for 120s')
             if collected is not None and collected != 0:
-                raise RuntimeError('mandatory collector failed; preserving all retrieved/partial files')
+                if not getattr(self,'evidence_gate',False):
+                    raise RuntimeError('mandatory collector failed; preserving all retrieved/partial files')
+                self.write('recovery',collector_returncode=collected,
+                           recovery='numerics stop at setting barrier; retain resource within original deadline')
+                if self.collector_restarts < 3 and now < self.compute_deadline-30:
+                    self.collector_restarts += 1
+                    if self.log is not None:self.log.close()
+                    try:self.start()
+                    except (RuntimeError,TimeoutError) as error:
+                        self.write('recovery',recovery_error=str(error))
+
             if now >= self.retrieval_deadline:
                 raise TimeoutError('termination reserve reached before verified retrieval')
             if numerical is None and now >= self.compute_deadline+15:
                 raise TimeoutError('remote compute timeout did not return; refusing deadline extension')
             sleep(min(2, max(0, self.retrieval_deadline-now)))
+
+    def salvage_before_termination(self, base, *, clock=time.time, sleep=time.sleep):
+        """For gated runs, stop at the next verified boundary before deletion.
+
+        A control-plane exception is not authority to destroy uncollected data.
+        Only an acknowledged boundary or the original hard reserve ends recovery.
+        """
+        if not getattr(self,'evidence_gate',False):return {'enabled':False}
+        if not getattr(self,'numerical_started',False):return {'enabled':True,'no_numerical_launch':True}
+        root=self.identity['remote_data']
+        command="import pathlib,sys; (pathlib.Path(sys.argv[1])/'.stop-after-setting').touch()"
+        requested=False
+        while clock()<self.retrieval_deadline:
+            try:
+                if not requested:
+                    subprocess.run(base+['python3 -c '+shlex.quote(command)+' '+shlex.quote(root)],
+                                   check=True,capture_output=True,timeout=min(30,max(.1,self.retrieval_deadline-clock())))
+                    requested=True
+                # Inspect the real remote boundary, not a stale local status.
+                from huginn_incremental_retrieval import SSHReader
+                reader=SSHReader(self.identity,self.retrieval_deadline);reader.base=base
+                snapshot=reader.snapshot(root)
+                barrier=snapshot.get('barrier')
+                if barrier and requested:
+                    receipts=self.out/'incremental/receipts.jsonl'
+                    for line in receipts.read_text().splitlines():
+                        row=json.loads(line)
+                        if row.get('event')=='setting_acknowledged' and row.get('index')==barrier['index'] and row.get('files')==barrier['files']:
+                            stopped=snapshot.get('stopped')
+                            last=barrier['index']
+                            if stopped==dict(index=last,source=self.identity['source']):
+                                for name,sha in barrier['files'].items():
+                                    if digest_file(self.out/'incremental/data'/relative_name(name))!=sha:
+                                        raise ValueError('recovery boundary local hash mismatch')
+                                self.write('recovered_partial',compute_stopped=True,recovery_setting=last)
+                                return {'enabled':True,'verified_boundary':last}
+                if self.collector is not None and self.collector.poll() is not None and self.collector_restarts<3 and clock()<self.compute_deadline-30:
+                    self.collector_restarts+=1
+                    if self.log is not None:self.log.close()
+                    self.start()
+                self.write('recovery',recovery='retaining resource for bounded evidence retrieval')
+            except Exception as error:
+                self.write('recovery',recovery_error=str(error))
+            sleep(min(10,max(0,self.retrieval_deadline-clock())))
+        return {'enabled':True,'deadline_reached':True,'complete_recovery':False}
 
     def close(self):
         if self.collector is not None and self.collector.poll() is None:
