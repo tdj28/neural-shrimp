@@ -1,0 +1,74 @@
+{
+  "label": "HPR1 exploratory local period-2 readout and persistence",
+  "model_revision": "bb6621b65e90b6a4b9b29ef88dc83866d450470c",
+  "prompt": "What is 17 times 23? The answer is",
+  "prompt_ids": [
+    65504,
+    3248,
+    305,
+    345,
+    55,
+    2150,
+    402,
+    51,
+    63,
+    428,
+    1873,
+    305
+  ],
+  "seed": 0,
+  "selected_cell_index": 45,
+  "selected_local_index": 13,
+  "lambda": 1.2532258064516129,
+  "steering": -0.03741935483870967,
+  "input_execution_source": "63002827356c61e535f912d4351302116d785864",
+  "input_provenance_limitation": "HCM2 final remote manifest was lost; surviving per-file inputs retain local hashes and source/plan bindings but historical completeness is not claimed.",
+  "tail_paths": [
+    "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/salvaged/explore/llm-soft-loop/pod64/hcm2/map-01/tail-0032-0.npz",
+    "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/salvaged/explore/llm-soft-loop/pod64/hcm2/map-01/tail-0032-1.npz"
+  ],
+  "tail_sha256": [
+    "9c2991b78bab003e24b5d5ee0966c9913f91e1e276685ed4e34d42eb4f95ffe8",
+    "899836505809a8cc391f1188f437938f3a1f2124621f93938ccdc79a4829e6f0"
+  ],
+  "steering_direction_path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/salvaged/explore/llm-soft-loop/pod64/hcm2/map-01/steering-direction.npy",
+  "steering_direction_sha256": "10bba3a6acd83ce7e6a42b72558fabf174ad0879131e340018428e73cc13d2b0",
+  "tail_start_update": 3001,
+  "tail_end_update": 3072,
+  "extension_steps": 8192,
+  "chunk_steps": 128,
+  "threads": 4,
+  "max_seconds": 900,
+  "memory_fraction": 0.8,
+  "gates": {
+    "native_relative": 1e-06,
+    "saved_one_step_relative": 3e-05,
+    "cpu_native_max_abs": 0.0001,
+    "cpu_native_tv": 1e-05,
+    "readout_max_abs": 0.001,
+    "readout_tv": 0.0001,
+    "recurrence_relative": 3e-05
+  },
+  "precision": "float32; TF32 disabled; full-state norm reductions and offline probability analysis in float64",
+  "output_policy": "Every full raw state and full next-token logits in immutable 128-step uncompressed NPZ shards; atomic checkpoints, per-file hashes, final manifest, preserved failures. Separate physical-disk backup after completion.",
+  "claim_boundary": "Readout at one fixed prompt, not appended tokens or generated text. Finite float32 persistence does not establish exact primitive periodicity or stability multipliers. Fresh and warm rows may follow different attractors.",
+  "trajectories": [
+    {
+      "row": 0,
+      "name": "warm",
+      "initial_update": 3072,
+      "initial_state": "selected saved raw h3072",
+      "final_update": 11264
+    },
+    {
+      "row": 1,
+      "name": "fresh",
+      "initial_update": 0,
+      "initial_state": "native seed-0 initialized raw state for fixed prompt",
+      "final_update": 8192
+    }
+  ],
+  "saved_readout_stage": "Decode all 72 retained full raw states h3001..h3072, saving complete logits before continuation.",
+  "batch_equivalence": "Compare first eight saved one-step pairs to batch-two replays on the local device before extension. Record discrepancy against unchanged 3e-5 relative threshold.",
+  "throughput_gate": "First 128 steps of both rows includes core updates, complete coda/readout, CPU transfer, serialization, fsync, summaries and hashes. Require 1.3 times projected remaining duration to fit the original 900-second deadline."
+}
