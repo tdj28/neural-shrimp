@@ -1,0 +1,27 @@
+{
+  "experiment": "HCM3",
+  "status": "incremental retrieval active; numerical audit and termination pending",
+  "execution_source": "a00da420f2b41588bdc3461fc6d22584684b9d09",
+  "collector_source": "d2f77b7f4a9e858ad6bf3a3a627aae0051a2b904",
+  "pod_id": "7yfq0xm26xdqsb",
+  "collector_pid": 1057362,
+  "collector_start_ticks": 270157385,
+  "checked_utc": "2026-10-23T11:34:11.759358+00:00",
+  "source_plan_binding": "All seven pinned source files, source archive hash, plan and runtime verified by collector and independent local read-only review.",
+  "retrieval_root": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023/incremental",
+  "startup_verification": {
+    "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023/incremental-startup-verification.json",
+    "sha256": "a75d7b15e96c7a1af471b9d391df3d614e19dec2e808241e5a16595a8c80a3c3",
+    "bytes": 12069
+  },
+  "verified_chunks_at_check": 37,
+  "verified_full_tails_at_check": 3,
+  "completed_map": false,
+  "termination_verified": false,
+  "existing_deadline_unchanged": true,
+  "original_controller_and_watchdog_unchanged": true,
+  "tests": "11 collector tests; 31 combined collector/resource-watchdog tests passed",
+  "reason": "HCM2 watchdog misclassified final archive creation as stagnation and terminated during transfer. Incremental retrieval protects completed immutable evidence before this existing scan finishes.",
+  "limits": "Collector is read-only on the pod and does not control termination. Final manifest, numerical audit, archive status and independent termination checks remain required.",
+  "cost": "see private ledger; no new rental or execution retry"
+}
