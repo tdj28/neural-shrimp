@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
 import runpod_pod as rp  # noqa: E402
+import huginn_retrieval_guard as huginn_guard  # noqa: E402
 from runpod_phase0 import KEY, ssh_base, wait_for_ssh  # noqa: E402
 
 UPLOAD_PATHS = ("tools/huginn_chaos_map.py", "tools/runpod_huginn_chaos_runner.sh", "docs/huginn-chaos-map-plan.json", "tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.py", "tools/explore_llm_phase_map.py",
@@ -80,7 +81,7 @@ def archives(commit, extra=(), huginn_only=False):
     return code, buf.getvalue()
 
 
-def own_creation(name, since):
+def own_creation(name, since, source=None, approval=None):
     """The newest 'created' record of the pod named `name` written after `since` (epoch seconds); refuses if absent."""
     from datetime import datetime
     mine = []
@@ -88,10 +89,16 @@ def own_creation(name, since):
         e = json.loads(line)
         if e.get("event") == "created" and e.get("name") == name and \
                 datetime.fromisoformat(e["time"]).timestamp() >= since - 1:
+            if source is not None and e.get("commit") != source:
+                continue
+            if approval is not None and e.get("approval") != approval:
+                continue
             mine.append(e)
     if not mine:
         raise SystemExit(f"a pod named {name} was requested but no creation record of it was found; check the inventory")
-    return mine[-1]
+    if len(mine) != 1:
+        raise SystemExit("ambiguous creation records; refusing to adopt a resource")
+    return mine[0]
 
 
 def main():
@@ -115,6 +122,8 @@ def main():
     parser.add_argument("--run-minutes", type=float, required=True)
     parser.add_argument("--out", default=str(rp.DATA / "runpod" / "soft64"))
     parser.add_argument("--approval", required=True)
+    parser.add_argument("--controller-root", type=Path,
+                        help="required live owning controller for protected Huginn retrieval")
     parser.add_argument("--dry-run", action="store_true", help="build the uploads and report their sizes only")
     parser.add_argument("--upload-timeout", type=float, default=600,
                         help="seconds allowed for uploading the start data (large warm-start states need more)")
@@ -127,7 +136,10 @@ def main():
                             text=True).stdout.strip()
     if not pushed:
         raise SystemExit(f"commit {head} is not on any remote branch; push it first")
-    huginn_only = args.jobset == "toolseq" and " huginn_chaos_map.py " in args.jobset_args
+    huginn_only = huginn_guard.is_huginn(args.jobset, args.jobset_args)
+    config = None
+    if huginn_only and not args.dry_run:
+        config = huginn_guard.validate_request(args, head)
     code, data = archives(head, args.extra_data, huginn_only=huginn_only)
     # the 10 minutes cover the default upload allowance and the retrieval; a longer upload allowance is added
     worst = args.max_rate * (args.ready_minutes + args.run_minutes + 10
@@ -154,6 +166,10 @@ def main():
             out, k = Path(args.out) / f"{stamp}-{k}", k + 1
     pod_id, chosen = None, None
     for entry in args.gpu_type:
+        if huginn_only:
+            # Recheck guards before every permitted capacity fallback; no pod
+            # may be created after its independent guard has disappeared.
+            huginn_guard.validate_request(args, head)
         cloud, _, gpu = entry.partition(":")
         create = argparse.Namespace(gpu_type=gpu, cloud=cloud, image=args.image, name=args.name,
                                     gpu_count=args.gpu_count,
@@ -171,22 +187,32 @@ def main():
             raise
         # this run's own creation record: the ledger is shared by parallel launches, so its last line can belong to
         # another run (whose pod would then be adopted here, and its own left running)
-        last = own_creation(args.name, attempt)
+        last = own_creation(args.name, attempt, head, args.approval)
         pod_id, chosen = last["pod_id"], entry
         break
     if pod_id is None:
         raise SystemExit("no capacity for any listed GPU type; no pod was created")
     started = time.time()
     rate = last.get("cost_per_hr")
-    if rate is None:
-        raise SystemExit(f"no hourly rate in the creation record of pod {pod_id}")
-    result = {"pod_id": pod_id, "gpu_type": chosen, "rate": rate, "commit": head, "jobset": args.jobset,
+    result = {"pod_id": pod_id, "name": args.name, "gpu_type": chosen, "rate": rate, "commit": head, "jobset": args.jobset,
               "started": started, "out": str(out), "upload": {k: plan[k] for k in ("code_bytes", "data_bytes",
               "code_sha256", "data_sha256", "extra_data", "jobset_args")}}
+    guard, proc, base = None, None, None
     try:
+        if rate is None:
+            raise SystemExit(f"no hourly rate in the creation record of pod {pod_id}")
+        if huginn_only:
+            # Exact ledger ownership and the unchanged controller lifetime are
+            # bound before touching this pod; the collector begins before setup.
+            args.commit = head
+            guard = huginn_guard.ProtectedRun(args.controller_root, out, config, last, args,
+                                              plan['code_sha256'])
         if rate > args.max_rate:
             raise SystemExit(f"pod rate {rate}/h above --max-rate")
-        ip, port = wait_for_ssh(pod_id, started + 60 * args.ready_minutes)
+        ready_deadline = started + 60 * args.ready_minutes
+        if guard:
+            ready_deadline = min(ready_deadline, guard.compute_deadline-10)
+        ip, port = wait_for_ssh(pod_id, ready_deadline)
         rp.record({"event": "ssh_ready", "pod_id": pod_id, "seconds_after_create": round(time.time() - started)})
         base = ssh_base(ip, port)
         subprocess.run(base + ["mkdir -p /root/neural-shrimp && tar -x -C /root/neural-shrimp"], input=code,
@@ -194,8 +220,13 @@ def main():
         subprocess.run(base + ["mkdir -p /root/neural-shrimp-data && tar -x -C /root/neural-shrimp-data"], input=data,
                        check=True, timeout=args.upload_timeout)
         rp.record({"event": "uploaded", "pod_id": pod_id, "archive_bytes": len(code), "data_bytes": len(data)})
+        if guard:
+            guard.start()
         with open(out / "runner-stdout.txt", "w") as log:              # streamed: readable while the run goes
             remote = f"bash /root/neural-shrimp/tools/runpod_soft_runner.sh {args.jobset} {args.jobset_args}".strip()
+            if guard:
+                remote = huginn_guard.remote_command(args.jobset, args.jobset_args,
+                                                      min(guard.compute_deadline, time.time()+60*args.run_minutes))
             token = hf_token() if args.jobset in GATED_JOBSETS else None
             if token:            # gated downloads: the token travels on stdin, never on a command line or in a log
                 remote = "IFS= read -r HF_TOKEN; export HF_TOKEN; " + remote
@@ -204,11 +235,18 @@ def main():
             if token:
                 proc.stdin.write((token + "\n").encode())
                 proc.stdin.close()
-            try:
-                proc.wait(timeout=60 * args.run_minutes)
-            except subprocess.TimeoutExpired:
-                proc.kill()
-                rp.record({"event": "run_timeout", "pod_id": pod_id, "minutes": args.run_minutes})
+            if guard:
+                result.update(guard.supervise(proc))
+                if not result['success']:
+                    raise RuntimeError('Huginn numerical process failed; verified partial evidence preserved')
+            else:
+                try:
+                    proc.wait(timeout=60 * args.run_minutes)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                    rp.record({"event": "run_timeout", "pod_id": pod_id, "minutes": args.run_minutes})
+        if guard:
+            return  # finally verifies termination; no monolithic Huginn archive
         text = (out / "runner-stdout.txt").read_text()
         remote_hash = next((line.split()[0] for line in text.splitlines() if line.endswith("/root/results.tgz")), None)
         if remote_hash is None:                                   # timed out or failed: pack what exists
@@ -235,11 +273,31 @@ def main():
                     tar.extractall(out / "extracted", filter="data")
                 else:
                     tar.extractall(rp.DATA, filter="data")
+    except BaseException as error:
+        result.update(success=False, error=str(error))
+        if guard:
+            guard.write('failed', error=str(error))
+        raise
     finally:
-        rp.cmd_terminate(argparse.Namespace(pod=pod_id))
-        result["wall_seconds"] = round(time.time() - started)
-        (out / "result.json").write_text(json.dumps(result, indent=1))
+        if guard and base is not None:
+            try:
+                import shlex
+                result['diagnostics'] = huginn_guard.retrieve_diagnostics(
+                    base, out, shlex.split(args.jobset_args)[0], guard.retrieval_deadline)
+            except Exception as diagnostic_error:
+                result['diagnostics'] = {'state':'failed', 'error':str(diagnostic_error)}
+        try:
+            if guard:
+                guard.close()
+            if proc is not None and proc.poll() is None:
+                proc.kill()  # only this worker's local SSH process; pod cleanup below
+                proc.wait(timeout=10)
+        except BaseException as cleanup_error:
+            result['local_cleanup_error'] = str(cleanup_error)
+        terminated = huginn_guard.terminate_and_record(pod_id, result, out, started, rp)
         print(json.dumps(result), flush=True)
+        if not terminated:
+            raise RuntimeError('termination unconfirmed; inspect the preserved result.json')
 
 
 if __name__ == "__main__":

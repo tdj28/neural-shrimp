@@ -1,5 +1,6 @@
 #!/bin/bash
 # Dedicated pinned Huginn runtime; invoked only for its allowlisted toolseq job.
+# HUGINN_RETRIEVAL_PROTOCOL=2: local incremental collector owns artifact retrieval.
 set -euo pipefail
 name=$1
 minutes=$2
@@ -9,8 +10,15 @@ export NEURAL_SHRIMP_DATA=/root/neural-shrimp-data
 export PATH=/root/.local/bin:/usr/local/cuda/bin:$PATH
 OUT=$NEURAL_SHRIMP_DATA/explore/llm-soft-loop/pod64
 mkdir -p "$OUT/logs"
-pack() { tar czf /root/results.tgz -C "$NEURAL_SHRIMP_DATA" explore/llm-soft-loop/pod64; sha256sum /root/results.tgz; }
-trap pack EXIT
+# Never recompress the already compressed full-state tails. The controller has
+# started its mandatory per-file collector before this runner may start.
+finish() {
+  rc=$?
+  trap - EXIT
+  printf '{"event":"huginn_runner_exit","returncode":%d}\n' "$rc"
+  exit "$rc"
+}
+trap finish EXIT
 curl -LsSf https://astral.sh/uv/install.sh | sh > "$OUT/logs/setup-uv.log" 2>&1
 uv venv -q -p 3.12 /root/venv-huginn
 uv pip install -q -p /root/venv-huginn/bin/python torch==2.14.1 --index-url https://download.pytorch.org/whl/cu126 > "$OUT/logs/setup-torch.log" 2>&1

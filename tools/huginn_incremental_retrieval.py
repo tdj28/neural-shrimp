@@ -12,8 +12,10 @@ Example (use a NEW destination outside every repository)::
       --name EXACT_NAME --source FULL_COMMIT --approval EXISTING_APPROVAL \
       --out /path/to/new/incremental-copy
 
-Only the local tests have exercised this helper until a live receipt says
-otherwise. It imports no model code and uses no local GPU.
+The original collector preserved the complete HCM3 dataset (see its receipt).
+Subsequent lifecycle integration and fault tests are documented separately;
+past retrieval success does not qualify a changed deployment. No model code
+is imported and no local GPU is used.
 """
 from __future__ import annotations
 
@@ -275,6 +277,16 @@ def atomic_json(path, value):
         json.dump(value, f, sort_keys=True, indent=2, allow_nan=False)
         f.write('\n'); f.flush(); os.fsync(f.fileno())
     os.replace(temporary, path)
+    sync_directory(path.parent)
+
+
+def sync_directory(path):
+    """Persist newly published directory entries, not just their file contents."""
+    descriptor = os.open(path, os.O_RDONLY | os.O_DIRECTORY)
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
 
 
 class Collector:
@@ -306,6 +318,11 @@ class Collector:
                     name = event['file']; self.attempts[name] = self.attempts.get(name, 0) + 1
         self.source_done = False
         self.verified = {}  # session-only; every restart revalidates local files
+        # Real byte progress, not heartbeat timestamps or bytes retransmitted
+        # after a failure. Watchdogs may retain the maximum across restarts.
+        self.received_highwater = {}
+        self.verification_bytes = 0
+        self.status('ready', complete=False)
 
     def close(self):
         self.lock.close()
@@ -323,7 +340,15 @@ class Collector:
 
     def status(self, state, **fields):
         atomic_json(self.out/'status.json', dict(time=time.time(), pid=os.getpid(), state=state,
-                                               pod_id=self.identity['pod_id'], **fields))
+                    pod_id=self.identity['pod_id'],
+                    progress_bytes=sum(self.received_highwater.values()),
+                    verified_files=len(self.verified),
+                    verified_bytes=sum(value[1]['bytes'] for value in self.verified.values()),
+                    verification_bytes=self.verification_bytes, **fields))
+
+    def pulse(self, local, received):
+        self.received_highwater[local] = max(received, self.received_highwater.get(local, 0))
+        self.status('transferring', file=local, received_bytes=received)
 
     def transfer(self, remote, local, expected=None):
         relative_name(local)
@@ -364,7 +389,7 @@ class Collector:
         try:
             with partial.open('xb') as stream:
                 actual = self.reader.stream(remote, stream, min(self.transfer_timeout, self.deadline-time.time()),
-                                            lambda n:self.status('transferring', file=local, received_bytes=n))
+                                            lambda n:self.pulse(local, n))
                 stream.flush(); os.fsync(stream.fileno())
             if actual != metadata or partial.stat().st_size != metadata['bytes']:
                 raise ValueError('truncated or hash-mismatched transfer')
@@ -372,8 +397,10 @@ class Collector:
             # an existing artifact. The verified partial is then unlinked.
             os.link(partial, destination)
             partial.unlink()
+            sync_directory(destination.parent)
             current = destination.stat()
             self.verified[local] = ((current.st_dev, current.st_ino, current.st_size, current.st_mtime_ns, current.st_ctime_ns), actual)
+            self.received_highwater[local] = max(actual['bytes'], self.received_highwater.get(local, 0))
             self.event('verified', file=local, **actual)
             return True
         except Exception as error:
@@ -455,11 +482,20 @@ class Collector:
             # One full independent final pass, never quadratically rehash large
             # tails while the remaining files are still being collected.
             if all_present:
+                self.status('verifying_manifest', complete=False)
+                verified_bytes = 0
                 for name, sha in manifest.items():
+                    if time.time() >= self.deadline:
+                        self.status('deadline_reached', complete=False)
+                        return 'deadline'
                     path = self.out/'data'/name
                     if path.is_symlink() or digest_file(path) != sha:
                         raise ValueError(f'final local manifest mismatch; preserved: {name}')
+                    verified_bytes += path.stat().st_size
+                    self.verification_bytes = max(self.verification_bytes, verified_bytes)
+                    self.status('verifying_manifest', complete=False, file='data/'+name)
             if all_present and json.loads(saved_manifest.read_text()) == manifest:
+                sync_directory(self.out/'data')
                 self.status('complete', complete=True, manifest_sha256=digest_file(saved_manifest),
                             source_archive_sha256=self.binding['source_archive_sha256'])
                 self.event('all_manifest_files_verified', files=len(manifest),

@@ -50,6 +50,17 @@ Git; preserve existing frozen evidence and history.
   approval from a previous run and an available account balance do not authorize
   another rental. Once that specific run is approved, proceed without asking
   again unless its scope or ceiling changes (human directive, 22 October 2026).
+- Protect Huginn map evidence with the mandatory incremental collector from
+  startup, before scientific execution. Copy completed immutable chunks and
+  full-state tails with remote/local hashes; normal success requires the entire
+  final manifest verified locally before termination. Numerical completion,
+  retrieval progress and verified completion are different states. Never let
+  final packing trigger a numerical-stall timeout or start duplicate packing.
+  Test interrupted transfers, collector death, corrupt/missing evidence and
+  deadline enforcement locally before reusing the paid path. Hard resource
+  ceilings still apply: preserve partial evidence and report incomplete recovery
+  if the deadline wins. Keep a separately verified disk copy of completed data;
+  Git protects code and receipts, not the external arrays (23 October 2026).
 - Work directly on `main` during the early research stage (human directive,
   11 October 2026). Commit tested changes and push them to `main` regularly;
   pull requests are not required. Use a short-lived branch only when parallel

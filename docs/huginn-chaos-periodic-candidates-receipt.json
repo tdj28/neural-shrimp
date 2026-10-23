@@ -1,0 +1,195 @@
+{
+  "status": "exploratory_saved_evidence_audit",
+  "date_utc": "2026-10-23T16:59:25.366023+00:00",
+  "audit_root": "/data2/neural-shrimp-data/audits/huginn-chaos/periodic-candidates-20261023-01",
+  "artifacts": {
+    "preservation-receipt.json": {
+      "sha256": "dac9c83297ea6e78219988ee59e3ccbaae322c6e9fb8c82a1c846bdc5c2e5d1f",
+      "bytes": 432
+    },
+    "huginn-periodic-candidates-audit.py": {
+      "sha256": "f1af316ba96fb0ebbb837100cf63a13acc956b2692f1173fa191c846477e1daf",
+      "bytes": 4193
+    },
+    "huginn-periodic-candidates-audit.json": {
+      "sha256": "b36015bb3cd66a189cee1c1956bde07534e39cdc122ed23195eaf7edc5195c40",
+      "bytes": 15539
+    }
+  },
+  "method": "Read-only CPU audit of existing evidence; no model execution. Worst relative full-state difference over last eight positions, all lags1..64, float64 reductions of saved float32 states; threshold3e-5.",
+  "new_model_execution": false,
+  "HCM1": {
+    "nonfixed_candidates": 200,
+    "stored_recurrence_label_counts": {
+      "0": 358,
+      "1": 466,
+      "2": 182,
+      "3": 1,
+      "6": 7,
+      "8": 1,
+      "10": 1,
+      "14": 1,
+      "18": 2,
+      "26": 2,
+      "28": 2,
+      "55": 1
+    },
+    "qualification": "Hash-bound stored full-state recurrence labels. No retained full tails; cannot independently recompute closure. No primitive/stability validation.",
+    "period6_example": {
+      "index": 526,
+      "lambda": 1.1564516129032258,
+      "steering": -0.02419354838709678,
+      "stored_candidate": [
+        6,
+        6
+      ],
+      "lle": [
+        -0.06446925550699234,
+        -0.0642155334353447
+      ],
+      "halves": [
+        [
+          -0.0641731545329094,
+          -0.06476534157991409
+        ],
+        [
+          -0.06389567255973816,
+          -0.06453529000282288
+        ]
+      ]
+    },
+    "map_sha256": "6639fe3285a1aa0dab7c2a281110f0215f51702280873eeb137e2fafd9a5b927"
+  },
+  "HCM2": {
+    "preview_cells": 512,
+    "preview_label_counts": {
+      "0": 467,
+      "2": 40,
+      "16": 1,
+      "18": 1,
+      "24": 1,
+      "26": 2
+    },
+    "full_tail_candidate_counts": {
+      "2": 11,
+      "16": 1
+    },
+    "qualification": "Missing remote manifest and failed whole-archive hash. Surviving full-tail arrays are locally hash-bound and independently recomputed, but provenance remains provisional.",
+    "period2_example": {
+      "index": 45,
+      "lambda": 1.2532258064516129,
+      "steering": -0.03741935483870967,
+      "lle": [
+        -0.006451443303376436,
+        -0.00644605653360486
+      ],
+      "halves": [
+        [
+          -0.007648739963769913,
+          -0.0052541522309184074
+        ],
+        [
+          -0.007632159162312746,
+          -0.0052599529735744
+        ]
+      ],
+      "relative_closure_worst_of_eight": [
+        3.228964201204984e-06,
+        3.228964201204984e-06
+      ],
+      "threshold": 3e-05,
+      "passing_lags": [
+        [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20,
+          22,
+          24,
+          26,
+          28,
+          30,
+          32,
+          34,
+          36,
+          38,
+          40,
+          42,
+          44,
+          46,
+          48,
+          50,
+          52,
+          54,
+          56,
+          58,
+          60,
+          62,
+          64
+        ],
+        [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20,
+          22,
+          24,
+          26,
+          28,
+          30,
+          32,
+          34,
+          36,
+          38,
+          40,
+          42,
+          44,
+          46,
+          48,
+          50,
+          52,
+          54,
+          56,
+          58,
+          60,
+          62,
+          64
+        ]
+      ],
+      "tail_sha256": [
+        "9c2991b78bab003e24b5d5ee0966c9913f91e1e276685ed4e34d42eb4f95ffe8",
+        "899836505809a8cc391f1188f437938f3a1f2124621f93938ccdc79a4829e6f0"
+      ]
+    },
+    "period16_caution": {
+      "index": 16,
+      "lambda": 1.25,
+      "steering": 0.0,
+      "passing_lags": [
+        16,
+        34,
+        50
+      ],
+      "qualification": "Only lags16,34,50 pass, not integer multiples of16. This is a threshold recurrence label, not demonstrated primitive period16; near period2 closure also needs scrutiny."
+    }
+  },
+  "HCM3": {
+    "receipt": "/data2/neural-shrimp/docs/huginn-chaos-tight-zoom-receipt.json",
+    "cells": 1024,
+    "recurrence_candidates_through_64": 0,
+    "qualification": "All128fulltails independently audited; absence of detected recurrence does not add evidence for chaos."
+  },
+  "claim_boundary": "Recurrence candidates only. No high-precision primitive-orbit solve, multiplier stability verification, or shrimp-boundary organization established. Absence of detected recurrence is not additional evidence for chaos."
+}

@@ -1,0 +1,76 @@
+{
+  "status": "locally_fault_tested_not_new_live_rental",
+  "date_utc": "2026-10-23T17:08:01.037324+00:00",
+  "audit_root": "/data2/neural-shrimp-data/audits/huginn-chaos/retrieval-safeguards-20261023-01",
+  "artifacts": {
+    "hcm3-attestation-replay.json": {
+      "sha256": "c0a5631c823c598a3e5e1eb3012250a3fefdedbd4d633af0d5ff3523eba20c35",
+      "bytes": 546
+    },
+    "validation.json": {
+      "sha256": "5676d19375442f342b716b943776f8dd8d01695bd6abb9192d5d4ac7943d0ea4",
+      "bytes": 689
+    },
+    "scoped-tests.txt": {
+      "sha256": "bb628c3cd21a2cea038ab070de81bce73fd42d55229e45698c5a27397439836e",
+      "bytes": 194
+    },
+    "baseline-confirmation.json": {
+      "sha256": "d1404007f4543f9ee0e4f3a5ea0b9aa0a7d9418311c28e49135625a0ab112d9b",
+      "bytes": 283
+    },
+    "preexisting-saddle-packaging-failure.txt": {
+      "sha256": "bb4d35d1169096e7fcf24fbcdf0cde16334e879a95a6426599384364860a1561",
+      "bytes": 2162
+    }
+  },
+  "source_file_sha256": {
+    "tools/huginn_incremental_retrieval.py": "84e124304ddf05859265975a5d77c2e0dfeee5d195579884e93997de383f0e63",
+    "tools/huginn_retrieval_guard.py": "1d8001afd04b8bf2548b9c39be3181f4e932bb07b89ae4be07398f002d657942",
+    "tools/runpod_scan_group.py": "be6b2e1dd70ed284e620e8a7662cc79e185b7c4b05f2d1c1ea9a3a4243cec2fb",
+    "tools/runpod_soft_float64.py": "49c2cb75c5df342b919a78ba480d4a85637321be0c4069336626060c6e15c3ac",
+    "tools/runpod_huginn_chaos_runner.sh": "d731315d2275c6a2466d7c29ee5cd3620279ab20a775c76583b8bc147cb3ae35",
+    "tests/test_huginn_incremental_retrieval.py": "2081c1f246032d4fc38e4a2cb5c7a086d35e42a24817f8418c7a82e4c67eb986",
+    "tests/test_huginn_retrieval_guard.py": "a13f64984eb5265259d47ae2ffc2f6afa2c65610432efbf8ed2e1cac4b535f23",
+    "tests/test_runpod_scan_group.py": "8d54c229a5f49171c97104baec68b8ac2a94c101b0456d93c2181dee6fd42688"
+  },
+  "scoped_tests": {
+    "passed": 101,
+    "deselected": 1,
+    "exit_code": 0,
+    "forced_local_collector_kill_test": true
+  },
+  "known_preexisting_failure": {
+    "test": "tests/test_runpod_saddle_packaging.py::test_archive_covers_saddle_worker_local_imports_and_plans",
+    "baseline_commit": "22b18534aad3a350e6bb744dbcd843c962848d63",
+    "reason": "Unrelated saddle worker upload allowlist omits existing imports; preserved separately, not relaxed or claimed passing."
+  },
+  "hcm3_offline_attestation": {
+    "manifest_files": 198,
+    "manifest_sha256": "5f11ed8bb3fa112824113f3dc919d4f2abc5052a2901203c1e3f3c22223d9e8f",
+    "completed_cells": 1024,
+    "native_gate_verified": true,
+    "throughput_gate_verified": true,
+    "source_plan_verified": true,
+    "retrieval_complete": true,
+    "hash_verification": "collector final full-file rehash; worker manifest/receipt cross-check",
+    "qualification": "Offline replay of saved HCM3 per-file completion attestation only. Historical monolithic archive failed; no historical or new lifecycle action performed."
+  },
+  "new_paid_execution": false,
+  "local_gpu_use": false,
+  "controls": [
+    "mandatory collector before numerical execution",
+    "remote/local per-file hashes and atomic publication with disk flush",
+    "full final manifest plus native/throughput/source-plan gates before success",
+    "separate computation and retrieval progress clocks",
+    "no monolithic Huginn tail archive or competing salvage archive",
+    "original compute and hard resource deadlines unchanged",
+    "exact resource ownership and verified termination; result survives delete race",
+    "failed transfer fragments and bounded diagnostic logs preserved"
+  ],
+  "limits": [
+    "New integration has local fault tests and saved-evidence replay; it has not launched a new RunPod instance.",
+    "Hard resource deadline still wins if retrieval cannot finish. Report incomplete recovery; no automatic rental retry.",
+    "Separate-disk backup is a snapshot on the same host, not offsite or continuous."
+  ]
+}

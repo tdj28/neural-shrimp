@@ -233,3 +233,106 @@ def test_stable_environment_preserved_once_with_hash_receipts(tmp_path):
         assert receipt['sha256'] == sha(reader.files[remote])
         assert receipt['bytes'] == len(reader.files[remote])
     collector.close()
+
+
+def test_progress_counts_unique_bytes_not_retries_or_heartbeat(tmp_path):
+    collector, reader = setup_collector(tmp_path)
+    initial = json.loads((collector.out/'status.json').read_text())
+    assert initial['state'] == 'ready'
+    assert initial['progress_bytes'] == 0
+    collector.pulse('data/a.npz', 10)
+    collector.pulse('data/a.npz', 10)  # repeated chatter
+    collector.pulse('data/a.npz', 2)   # restarted transfer
+    collector.status('waiting')
+    assert json.loads((collector.out/'status.json').read_text())['progress_bytes'] == 10
+    collector.pulse('data/a.npz', 12)
+    collector.pulse('data/b.npz', 5)
+    assert json.loads((collector.out/'status.json').read_text())['progress_bytes'] == 17
+    collector.close()
+
+
+def test_collector_restart_preserves_verified_file_and_incomplete_transfer(tmp_path):
+    collector, reader = setup_collector(tmp_path)
+    root = collector.identity['remote_data']
+    assert collector.transfer(root+'/chunk-0000.npz', 'data/chunk-0000.npz')
+    reader.bad = 'truncated'
+    assert not collector.transfer(root+'/tail-0000-0.npz', 'data/tail-0000-0.npz')
+    partials = {p.name:p.read_bytes() for p in (collector.out/'data').glob('*.partial')}
+    collector.close()
+    reader.bad = None
+    reader.transferred.clear()
+    restarted = h.Collector(collector.out, collector.identity, collector.sources,
+                            'b'*64, collector.plan, reader)
+    assert restarted.transfer(root+'/chunk-0000.npz', 'data/chunk-0000.npz')
+    assert restarted.transfer(root+'/tail-0000-0.npz', 'data/tail-0000-0.npz')
+    assert root+'/chunk-0000.npz' not in reader.transferred
+    assert {p.name:p.read_bytes() for p in (collector.out/'data').glob('*.partial')} == partials
+    restarted.close()
+
+
+def test_directory_fsync_after_atomic_publication(tmp_path, monkeypatch):
+    collector, reader = setup_collector(tmp_path)
+    synced = []
+    original = h.sync_directory
+    def record(path):
+        synced.append(Path(path))
+        original(path)
+    monkeypatch.setattr(h, 'sync_directory', record)
+    root = collector.identity['remote_data']
+    assert collector.transfer(root+'/chunk-0000.npz', 'data/chunk-0000.npz')
+    assert collector.out/'data' in synced
+    collector.status('waiting')
+    assert collector.out in synced
+    collector.close()
+
+
+def test_forced_kill_preserves_completed_shard_and_partial_for_restart(tmp_path):
+    """Kill a real local collector process mid-transfer, not a mocked exception."""
+    import multiprocessing
+    import os
+    ctx = multiprocessing.get_context('fork')
+    partial_written = ctx.Event()
+
+    def interrupted_collection():
+        collector, reader = setup_collector(tmp_path)
+        root = collector.identity['remote_data']
+        assert collector.transfer(root+'/chunk-0000.npz', 'data/chunk-0000.npz')
+        def interrupted_stream(remote, target, timeout, pulse):
+            target.write(b'partial'); target.flush(); os.fsync(target.fileno())
+            pulse(7)
+            partial_written.set()
+            time.sleep(30)
+        reader.stream = interrupted_stream
+        collector.transfer(root+'/tail-0000-0.npz', 'data/tail-0000-0.npz')
+
+    process = ctx.Process(target=interrupted_collection)
+    process.start()
+    try:
+        assert partial_written.wait(5), 'child never reached interrupted transfer'
+        process.kill()  # this test's own local process, SIGKILL
+        process.join(5)
+        assert process.exitcode == -9
+    finally:
+        if process.is_alive():
+            process.kill(); process.join(5)
+    out = tmp_path/'out'
+    partials = {p.name:p.read_bytes() for p in (out/'data').glob('*.partial')}
+    assert list(partials.values()) == [b'partial']
+    assert (out/'data/chunk-0000.npz').read_bytes() == b'chunk0'
+    assert not (out/'data/tail-0000-0.npz').exists()
+    # Retain exact immutable identity/deadline. New fake transport serves the
+    # same pinned bytes; verified chunks are revalidated but not recopied.
+    binding = json.loads((out/'identity.json').read_text())
+    fixture, reader = setup_collector(tmp_path/'fresh-fixture')
+    fixture.close()
+    identity = {k:v for k,v in binding.items()
+                if k not in ('source_archive_sha256','source_files','deadline_epoch')}
+    restarted = h.Collector(out, identity, binding['source_files'],
+                            binding['source_archive_sha256'], fixture.plan, reader,
+                            deadline=binding['deadline_epoch'])
+    root = identity['remote_data']
+    assert restarted.transfer(root+'/chunk-0000.npz', 'data/chunk-0000.npz')
+    assert restarted.transfer(root+'/tail-0000-0.npz', 'data/tail-0000-0.npz')
+    assert root+'/chunk-0000.npz' not in reader.transferred
+    assert {p.name:p.read_bytes() for p in (out/'data').glob('*.partial')} == partials
+    restarted.close()

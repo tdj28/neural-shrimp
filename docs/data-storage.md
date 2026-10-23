@@ -25,6 +25,47 @@ has been configured by this change. Never describe a Git push as a backup
 of these external raw files. Preserve them on the server and record any
 later verified additional copy, including its location and checksum result.
 
+## Huginn transfer protection after the 23 October 2026 failure
+
+HCM2 completed its numerical scan but lost most of its full-state evidence when
+the watchdog treated final archive creation as numerical stagnation. It launched
+a second archive, timed out, and terminated during transfer. HCM3 suffered the
+same legacy archive failure, but its complete scientific dataset had already
+been saved by the incremental collector. Both failed archives remain preserved;
+neither is described as hash-verified recovery.
+
+Future Huginn map launches use the protected worker path:
+
+- `runpod_scan_group.py` binds the worker to a live controller and watchdog.
+  Standalone Huginn launches and pinned runners with the old archive protocol
+  are refused before resource creation.
+- `huginn_incremental_retrieval.py` starts before scientific execution. It copies
+  completed compact chunks first, then immutable full-state tails, with remote
+  and local hashes. Files are published atomically only after verification;
+  failed transfers retain their uniquely named partials. Completed files and
+  directory entries are flushed to disk.
+- The remote Huginn runner no longer builds a monolithic tail archive. Numerical
+  completion and verified retrieval have separate states and inactivity checks.
+  Progress means new bytes, verified files or completed final hash checks;
+  repeated timestamps and duplicate transfer attempts do not reset timers.
+- Normal success requires numerical exit zero and the entire final manifest
+  verified locally by the collector. The worker records the manifest, source,
+  collection mode and exact resource identity. Termination is checked by exact
+  lookup and inventory, with a receipt even if the watchdog deleted first.
+- Computation stops before the original retrieval reserve begins. Retrieval
+  cannot extend the original approved hard deadline. If a failure or deadline
+  wins, retain partial evidence, record incomplete recovery, and terminate the
+  exact owned resource. No automatic new rental or scientific retry follows.
+
+The revised integration is tested locally with synthetic data and simulated
+provider responses, including an actual local collector process killed during
+transfer. This does not claim a new live RunPod qualification. Before the next
+approved scan, its costed plan must also check local/remote disk capacity and
+measure representative transfer throughput against its output volume and
+retrieval reserve. Keep source and deployment hashes with the run. Completed
+scientific files also need a verified copy on the separate archive disk; a
+successful transfer onto `/data2` alone is not an independent backup.
+
 The initiating numerical follow-up uses a branch derived from the existing
 EXP-008 branch because its frozen source and evidence are required inputs.
 Its review must retain that dependency; it must not overwrite or bypass the
@@ -156,3 +197,7 @@ they are listed in the receipt. 1,548 files created during the copy belong to th
 private files (cost ledger, checkpoint, /data2/Handoff.md) are in `private-handoff/`. `.env` is excluded on
 purpose. This is a same-machine copy on a separate physical disk (sda), not offsite and not continuous; run
 tools/backup_snapshot.py again after substantial new raw data.
+
+## Verified Huginn evidence snapshot, 23 October 2026
+
+The completed HCM1 map, surviving HCM2 evidence, complete HCM3 scientific dataset, their audits/provenance and failed archives are preserved at `/archive/neural-shrimp-backups/20261023T165845Z-huginn-hcm-evidence`. All 389 files (40,963,108,908 bytes) passed independent destination and second-source SHA-256 checks; exact inventories and stable source metadata also passed. Source physical disk nvme1n1 and archive disk sda were checked again. The private full manifest stays with the backup; its SHA-256 and exact selected roots are in [the compact receipt](backups/huginn-hcm-evidence-20261023.json). This is a same-machine snapshot on another disk, not offsite or continuous backup. It preserves the authentic failed HCM2/HCM3 archives alongside the recovered evidence; it does not repair missing HCM2 data.

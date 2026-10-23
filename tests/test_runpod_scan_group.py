@@ -1,5 +1,6 @@
 """Synthetic-unit budget and resource-identity gates; no provider calls."""
 import importlib.util
+import json
 from pathlib import Path
 import sys
 
@@ -129,3 +130,211 @@ def test_huginn_map_bound_source_plan_and_lifetime(plan_name):
     group.validate_orbit_job(command,source_commit=source)
     for bad in [command.replace('720','721'),command.replace(source,'b'*40),command.replace(plan,'docs/other.json')]:
         with pytest.raises(ValueError):group.validate_orbit_job(bad,source_commit=source)
+
+
+def protected_config():
+    c = config()
+    command = c["commands"][0]
+    command[command.index("--jobset") + 1] = "toolseq"
+    command += ["--jobset-args", "hcm 70 huginn_chaos_map.py --plan docs/huginn-chaos-map-plan.json "
+                "--mode scan --source-commit " + c["source_commit"] + " --out llm-soft-loop/pod64/hcm/map",
+                "--out", "unused-worker-output"]
+    return c
+
+
+def protected_files(tmp_path, monkeypatch):
+    c = protected_config()
+    pod = group.owned(c, [creation(cost_per_hr=0.5)])["new"]
+    attempt = tmp_path / "workers" / pod["name"] / "attempt"
+    folder = attempt / "incremental"
+    folder.mkdir(parents=True)
+    phase = dict(pod_id="new", name=pod["name"], source=c["source_commit"], approval=c["approval"],
+                 hard_deadline_epoch=pod["created_epoch"] + 60*c["hard_minutes"],
+                 compute_deadline_epoch=pod["created_epoch"] + 60*(c["hard_minutes"]-c["retrieval_minutes"]),
+                 phase="retrieving", compute_stopped=True, collector_pid=99, collector_ticks=123)
+    binding = {k: v for k, v in phase.items() if k in ("pod_id", "name", "source", "approval", "hard_deadline_epoch")}
+    binding.update(created_epoch=pod["created_epoch"], deadline_epoch=phase["hard_deadline_epoch"] - 60)
+    status = dict(pod_id="new", pid=99, state="transferring", complete=False,
+                  progress_bytes=100, verification_bytes=0, time=1000)
+    (attempt / "phase.json").write_text(json.dumps(phase))
+    (folder / "identity.json").write_text(json.dumps(binding))
+    (folder / "status.json").write_text(json.dumps(status))
+    (folder / "receipts.jsonl").write_text(json.dumps(dict(event="verified", file="data/chunk-0000.npz",
+                                                         bytes=100, sha256="e" * 64)) + "\n")
+    monkeypatch.setattr(group, "identity", lambda pid: 123 if pid == 99 else None)
+    return c, pod, attempt, phase, binding, status
+
+
+def test_worker_injection_is_mandatory_and_mismatch_fails_before_provider(tmp_path, monkeypatch):
+    c = protected_config()
+    cmd = group.worker_command(c, c["names"][0], tmp_path)
+    assert cmd[-2:] == ["--controller-root", str(tmp_path.resolve())]
+    assert cmd[cmd.index("--out") + 1] == str(tmp_path / "workers" / c["names"][0])
+    c["commands"][0] += ["--controller-root", str(tmp_path / "wrong")]
+    cfg = tmp_path / "request.json"
+    cfg.write_text(json.dumps(c))
+    monkeypatch.setattr(group.rp, "inventory", lambda: pytest.fail("must fail before provider call"))
+    with pytest.raises(ValueError, match="controller root"):
+        group.launch(cfg, tmp_path / "controller")
+
+
+def test_protected_snapshot_ignores_chatter_and_duplicate_verified_receipts(tmp_path, monkeypatch):
+    c, pod, attempt, phase, binding, status = protected_files(tmp_path, monkeypatch)
+    initial = group.retrieval_snapshot(tmp_path, pod, c)
+    assert initial["bound"] and initial["active"] and not initial["complete"]
+    tracker = group.ProgressWatch(pod["created_epoch"])
+    tracker.observe('{"chunk_start": -1, "phase": "complete", "cells": 1024}', initial, 1000)
+    status["time"] = 99999999
+    (attempt / "incremental/status.json").write_text(json.dumps(status))
+    with (attempt / "incremental/receipts.jsonl").open("a") as stream:
+        stream.write(json.dumps(dict(event="skip_verified", file="data/chunk-0000.npz", bytes=100,
+                                    sha256="e" * 64)) + "\n")
+    later = group.retrieval_snapshot(tmp_path, pod, c)
+    tracker.observe('{"phase": "complete", "chunk_start": -1, "cells": 1024, "elapsed": 999999}', later, 1500)
+    assert tracker.retrieval_changed == 1000
+    assert tracker.numerical_changed == 1000
+    assert later["verified_files"] == 1 and later["verified_bytes"] == 100
+
+
+@pytest.mark.parametrize("location,key,value", [
+    ("phase", "source", "b" * 40), ("phase", "approval", "different-approval"),
+    ("phase", "hard_deadline_epoch", 999999999), ("binding", "pod_id", "some-other-pod"),
+    ("binding", "created_epoch", 121), ("binding", "deadline_epoch", 999999999),
+    ("status", "pod_id", "some-other-pod"), ("status", "pid", 100),
+])
+def test_protected_snapshot_rejects_stale_or_foreign_identity(tmp_path, monkeypatch, location, key, value):
+    c, pod, attempt, phase, binding, status = protected_files(tmp_path, monkeypatch)
+    record, name = {"phase": (phase, "phase.json"), "binding": (binding, "incremental/identity.json"),
+                    "status": (status, "incremental/status.json")}[location]
+    record[key] = value
+    (attempt / name).write_text(json.dumps(record))
+    observed = group.retrieval_snapshot(tmp_path, pod, c)
+    assert not observed["bound"] and observed["error"]
+
+
+def test_complete_requires_bound_final_manifest_receipt_not_only_marker(tmp_path, monkeypatch):
+    c, pod, attempt, phase, binding, status = protected_files(tmp_path, monkeypatch)
+    status.update(state="complete", complete=True, manifest_sha256="f" * 64)
+    (attempt / "incremental/status.json").write_text(json.dumps(status))
+    assert not group.retrieval_snapshot(tmp_path, pod, c)["complete"]
+    with (attempt / "incremental/receipts.jsonl").open("a") as stream:
+        stream.write(json.dumps(dict(event="all_manifest_files_verified", files=1,
+                                    manifest_sha256="f" * 64)) + "\n")
+    assert group.retrieval_snapshot(tmp_path, pod, c)["complete"]
+
+
+def test_slow_real_retrieval_survives_numerical_timeout_and_original_compute_cutoff():
+    c = protected_config()
+    pod = dict(created_epoch=0, cost_per_hr=0.5)
+    tracker = group.ProgressWatch(0)
+    state = dict(finished=False, updated_epoch=0)
+    snapshot = dict(bound=True, compute_stopped=True, active=True, complete=False)
+    # More than one numerical inactivity window, then into the retrieval reserve.
+    # Continued byte progress remains valid even if the controller died.
+    for now, size in [(3000, 10), (4000, 20), (5000, 30), (6100, 40), (7000, 50)]:
+        snapshot["progress_bytes"] = size
+        tracker.observe('{"chunk_start": -1, "phase": "complete"}', snapshot, now)
+        assert group.watch_reason(c, pod, state, False, now, tracker, snapshot,
+                                  protected=True, archive_ready=False) is None
+    assert group.watch_reason(c, pod, state, True, 7140, tracker, snapshot,
+                              protected=True, archive_ready=False) == "original hard lifetime termination reserve reached"
+
+
+def test_hung_retrieval_and_counter_reset_cannot_bypass_timeout():
+    c = protected_config()
+    pod = dict(created_epoch=0, cost_per_hr=0.5)
+    tracker = group.ProgressWatch(0)
+    state = dict(finished=False, updated_epoch=1000)
+    snapshot = dict(bound=True, compute_stopped=True, active=True, complete=False, progress_bytes=100)
+    tracker.observe("complete", snapshot, 1000)
+    snapshot["progress_bytes"] = 0  # restarted process / repeated transfer
+    tracker.observe("complete", snapshot, 1500)
+    snapshot["progress_bytes"] = 100
+    tracker.observe("complete", snapshot, 1800)
+    assert tracker.retrieval_changed == 1000
+    assert group.watch_reason(c, pod, state, True, 1901, tracker, snapshot,
+                              protected=True, archive_ready=True) == "artifact retrieval stalled"
+    snapshot["verification_bytes"] = 100  # real local full-manifest hashing
+    tracker.observe("complete", snapshot, 1902)
+    assert group.watch_reason(c, pod, state, True, 1902, tracker, snapshot,
+                              protected=True, archive_ready=False) is None
+
+
+def test_numerical_complete_without_stopped_compute_proof_does_not_extend_compute():
+    c = protected_config()
+    pod = dict(created_epoch=0, cost_per_hr=0.5)
+    tracker = group.ProgressWatch(0)
+    snapshot = dict(bound=True, compute_stopped=False, active=True)
+    tracker.observe('{"chunk_start": -1, "phase": "complete"}', snapshot, 5990)
+    state = dict(finished=False, updated_epoch=6000)
+    assert group.watch_reason(c, pod, state, True, 6000, tracker, snapshot,
+                              protected=True, archive_ready=True) is None  # one poll publication grace
+    assert group.watch_reason(c, pod, state, True, 6015, tracker, snapshot,
+                              protected=True, archive_ready=True) == "compute cutoff reached without stopped-compute proof"
+
+
+def test_protected_cleanup_never_rearchives_and_preserves_local_files(tmp_path, monkeypatch):
+    c, pod, attempt, *_ = protected_files(tmp_path, monkeypatch)
+    evidence = attempt / "incremental/data/tail.npz.partial"
+    evidence.parent.mkdir()
+    evidence.write_bytes(b"preserved interrupted transfer")
+    monkeypatch.setattr(group, "ledger", lambda: [creation(cost_per_hr=0.5)])
+    monkeypatch.setattr(group.subprocess, "run", lambda *a, **k: pytest.fail("must not run duplicate tar/SCP"))
+    deleted = []
+    monkeypatch.setattr(group, "terminate_owned", lambda out, p: deleted.append(p["pod_id"]))
+    group.cleanup(tmp_path, pod, "artifact retrieval stalled", c)
+    assert deleted == ["new"] and evidence.read_bytes() == b"preserved interrupted transfer"
+    assert "incremental_evidence_preserved" in (tmp_path / "watchdog-events.jsonl").read_text()
+
+
+def test_cleanup_refuses_ownership_change(tmp_path, monkeypatch):
+    c, pod, *_ = protected_files(tmp_path, monkeypatch)
+    monkeypatch.setattr(group, "ledger", lambda: [])
+    monkeypatch.setattr(group, "terminate_owned", lambda *a: pytest.fail("foreign resource must not be touched"))
+    group.cleanup(tmp_path, pod, "test", c)
+    assert "cleanup_refused" in (tmp_path / "watchdog-events.jsonl").read_text()
+
+
+def test_at_hard_deadline_legacy_cleanup_only_terminates(tmp_path, monkeypatch):
+    c = config()
+    pod = group.owned(c, [creation(cost_per_hr=0.5)])["new"]
+    monkeypatch.setattr(group, "ledger", lambda: [creation(cost_per_hr=0.5)])
+    monkeypatch.setattr(group.time, "time", lambda: pod["created_epoch"] + 60*c["hard_minutes"])
+    monkeypatch.setattr(group.rp, "pod_status", lambda p: dict(id=p, name=pod["name"], runtime=dict(ports=[
+        dict(privatePort=22, isIpPublic=True, ip="example.invalid", publicPort=22)])))
+    monkeypatch.setattr(group.subprocess, "run", lambda *a, **k: pytest.fail("no salvage time remains"))
+    deleted = []
+    monkeypatch.setattr(group, "terminate_owned", lambda out, p: deleted.append(p["pod_id"]))
+    group.cleanup(tmp_path, pod, "hard deadline", c)
+    assert deleted == ["new"]
+
+
+def test_duplicate_deletion_checks_both_views_and_never_reissues_delete(tmp_path, monkeypatch):
+    monkeypatch.setattr(group.rp, "pod_status", lambda _: None)
+    monkeypatch.setattr(group.rp, "inventory", lambda: dict(pods=[]))
+    rows = []
+    monkeypatch.setattr(group.rp, "record", rows.append)
+    monkeypatch.setattr(group.rp, "cmd_terminate", lambda _: pytest.fail("already absent"))
+    group.terminate_owned(tmp_path, dict(pod_id="new", name="neural-shrimp-test"))
+    assert rows[0]["event"] == "terminated_verified"
+    monkeypatch.setattr(group.rp, "inventory", lambda: dict(pods=[dict(id="new")]))
+    with pytest.raises(RuntimeError, match="disagree"):
+        group.terminate_owned(tmp_path, dict(pod_id="new", name="neural-shrimp-test"))
+
+
+def test_watchdog_ready_is_published_after_initial_heartbeat(tmp_path, monkeypatch):
+    (tmp_path / "config.json").write_text(json.dumps(config()))
+    (tmp_path / "state.json").write_text(json.dumps(dict(controller_pid=1, controller_ticks=7,
+                                                        updated_epoch=100, finished=True)))
+    monkeypatch.setattr(group, "identity", lambda _: 7)
+    monkeypatch.setattr(group, "ledger", lambda: [])
+    order, save = [], group.save
+
+    def recording_save(path, value):
+        order.append(path.name)
+        save(path, value)
+
+    monkeypatch.setattr(group, "save", recording_save)
+    group.watch(tmp_path)
+    assert order[:2] == ["watchdog-heartbeat.json", "watchdog-ready.json"]
+    assert json.loads((tmp_path / "watchdog-ready.json").read_text())["ticks"] == 7

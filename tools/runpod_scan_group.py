@@ -23,6 +23,37 @@ import runpod_pod as rp
 from runpod_phase0 import KEY, ssh_base
 
 ROOT = Path(__file__).resolve().parents[1]
+TERMINATION_RESERVE_SECONDS = 60
+
+
+def huginn_command(command):
+    """Identify the separately protected worker without substring matching."""
+    if "--jobset" not in command or command[command.index("--jobset") + 1] != "toolseq":
+        return False
+    if "--jobset-args" not in command:
+        return False
+    job = shlex.split(command[command.index("--jobset-args") + 1])
+    return len(job) >= 3 and job[2] == "huginn_chaos_map.py"
+
+
+def protected_huginn(c, name):
+    return huginn_command(c["commands"][c["names"].index(name)])
+
+
+def worker_command(c, name, out):
+    """Bind the protected worker to this controller before it can create a pod."""
+    cmd = list(c["commands"][c["names"].index(name)])
+    cmd[0] = sys.executable
+    cmd[cmd.index("--out") + 1] = str(out / "workers" / name)
+    if huginn_command(cmd):
+        if "--controller-root" in cmd:
+            if (cmd.count("--controller-root") != 1 or
+                    cmd.index("--controller-root") + 1 >= len(cmd) or
+                    Path(cmd[cmd.index("--controller-root") + 1]).resolve() != out.resolve()):
+                raise ValueError("Huginn controller root differs from this scan group")
+        else:
+            cmd += ["--controller-root", str(out.resolve())]
+    return cmd
 
 
 def save(path, value):
@@ -147,32 +178,82 @@ def event(out, state, **kw):
         f.write(json.dumps({"time": datetime.now(timezone.utc).isoformat(), "state": state, **kw}) + "\n")
 
 
-def cleanup(out, pod, why):
+def terminate_owned(out, pod):
+    """Avoid a second delete failing after the normal worker already finished."""
     pid = pod["pod_id"]
+    current = rp.pod_status(pid)
+    if current is None:
+        if pid in {p["id"] for p in rp.inventory()["pods"]}:
+            raise RuntimeError("direct lookup and inventory disagree about owned pod")
+        rp.record({"event": "terminated_verified", "pod_id": pid,
+                   "direct_lookup": None, "in_inventory": False})
+    else:
+        if current.get("id") != pid or current.get("name") != pod["name"]:
+            raise ValueError("live pod identity differs from the exact creation record")
+        rp.cmd_terminate(argparse.Namespace(pod=pid))
+    event(out, "terminated", pod_id=pid)
+
+
+def cleanup(out, pod, why, c):
+    pid = pod["pod_id"]
+    # Revalidate the immutable creation binding in the cleanup thread, rather
+    # than relying only on a prior poll. Never adopt a similarly named resource.
+    current = owned(c, ledger()).get(pid)
+    if current is None or current["created_epoch"] != pod["created_epoch"]:
+        event(out, "cleanup_refused", pod_id=pid, reason="ownership changed")
+        return
+    if current["terminated"]:
+        return
     event(out, "salvage_started", pod_id=pid, reason=why)
     try:
+        if protected_huginn(c, pod["name"]):
+            # The mandatory collector has already been copying immutable files
+            # since the run started. Repacking large, compressed tails here was
+            # the cause of HCM2's evidence loss. Preserve its files and failures;
+            # never compete with it by starting another archive or collector.
+            snapshot = retrieval_snapshot(out, pod, c)
+            event(out, "incremental_evidence_preserved", pod_id=pid,
+                  attempt=snapshot.get("attempt"),
+                  retrieval_complete=snapshot.get("complete", False),
+                  progress_bytes=snapshot.get("progress_bytes", 0),
+                  verified_bytes=snapshot.get("verified_bytes", 0),
+                  error=snapshot.get("error"))
+            return
         status = rp.pod_status(pid)
+        if status is not None and (status.get("id"), status.get("name")) != (pid, pod["name"]):
+            raise ValueError("live pod identity mismatch before salvage")
         ports = ((status or {}).get("runtime") or {}).get("ports") or []
         port = next((p for p in ports if p.get("privatePort") == 22 and p.get("isIpPublic")), None)
         if port:
+            def allowance():
+                remaining = (pod["created_epoch"] + 60 * c["hard_minutes"] -
+                             TERMINATION_RESERVE_SECONDS - time.time())
+                if remaining <= 0:
+                    raise TimeoutError("original lifetime leaves no salvage time")
+                return min(120, remaining)
+
             base = ssh_base(port["ip"], port["publicPort"])
             packed = subprocess.run(base + ["tar czf /root/scan-salvage.tgz -C /root/neural-shrimp-data "
                                             "explore/llm-soft-loop/pod64 && sha256sum /root/scan-salvage.tgz"],
-                                    capture_output=True, text=True, timeout=120)
+                                    capture_output=True, text=True, timeout=allowance(), check=True)
             dest = out / f"salvage-{pid}.tgz"
             subprocess.run(["scp", "-i", str(KEY), "-P", str(port["publicPort"]), "-o", "BatchMode=yes",
                             "-o", f"UserKnownHostsFile={rp.DATA / 'runpod/known_hosts'}",
                             f"root@{port['ip']}:/root/scan-salvage.tgz", str(dest)],
-                           capture_output=True, timeout=120, check=True)
-            sha = hashlib.sha256(dest.read_bytes()).hexdigest()
+                           capture_output=True, timeout=allowance(), check=True)
+            digest = hashlib.sha256()
+            with dest.open("rb") as stream:
+                for block in iter(lambda: stream.read(1024 * 1024), b""):
+                    allowance()
+                    digest.update(block)
+            sha = digest.hexdigest()
             event(out, "salvaged", pod_id=pid, sha256=sha,
                   hash_verified=bool(packed.stdout.split()) and packed.stdout.split()[0] == sha)
     except BaseException as error:
         event(out, "salvage_failed", pod_id=pid, error=str(error))
     finally:
         try:
-            rp.cmd_terminate(argparse.Namespace(pod=pid))
-            event(out, "terminated", pod_id=pid)
+            terminate_owned(out, pod)
         except BaseException as error:
             event(out, "termination_unconfirmed", pod_id=pid, error=str(error))
 
@@ -192,10 +273,183 @@ def progress(out, name):
     return values[-1] if values else None, finished
 
 
+def numerical_token(value):
+    """Elapsed-time chatter must not reset the numerical inactivity timer."""
+    if value is None:
+        return None
+    try:
+        row = json.loads(value)
+    except json.JSONDecodeError:
+        return value
+    return json.dumps({k: row[k] for k in ("chunk_start", "cell_index", "stage", "phase", "offset",
+                                         "step", "completed", "total", "cells") if k in row}, sort_keys=True)
+
+
+def retrieval_snapshot(out, pod, c):
+    """Read only the protected attempt bound to this exact creation.
+
+    A numerical `phase=complete` or an archive checksum is deliberately not a
+    retrieval-complete signal. These records are authored by the local worker
+    and collector, whose process identities and fixed deadlines are checked.
+    """
+    result = {"bound": False, "complete": False, "compute_stopped": False,
+              "active": False, "progress_bytes": 0, "verified_bytes": 0,
+              "verification_bytes": 0, "verified_files": 0}
+    try:
+        candidates = []
+        for path in sorted((out / "workers" / pod["name"]).glob("*/phase.json")):
+            phase = json.loads(path.read_text())
+            if phase.get("pod_id") == pod["pod_id"]:
+                candidates.append((path.parent, phase))
+        if not candidates:
+            return result
+        if len(candidates) != 1:
+            raise ValueError("multiple protected attempts claim this pod")
+        attempt, phase = candidates[0]
+        result["attempt"] = str(attempt)
+        expected = {"pod_id": pod["pod_id"], "name": pod["name"],
+                    "source": c["source_commit"], "approval": c["approval"],
+                    "hard_deadline_epoch": pod["created_epoch"] + 60 * c["hard_minutes"],
+                    "compute_deadline_epoch": pod["created_epoch"] +
+                    60 * (c["hard_minutes"] - c["retrieval_minutes"])}
+        if any(phase.get(k) != v for k, v in expected.items()):
+            raise ValueError("protected worker identity or fixed deadline mismatch")
+        result.update(bound=True, phase=phase.get("phase"),
+                      compute_stopped=phase.get("compute_stopped") is True)
+        folder = attempt / "incremental"
+        binding = json.loads((folder / "identity.json").read_text())
+        if (any(binding.get(k) != v for k, v in expected.items() if k != "compute_deadline_epoch") or
+                binding.get("created_epoch") != pod["created_epoch"] or
+                not isinstance(binding.get("deadline_epoch"), (int, float)) or
+                not pod["created_epoch"] < binding["deadline_epoch"] <= expected["hard_deadline_epoch"]):
+            raise ValueError("collector identity or original lifetime mismatch")
+        status = json.loads((folder / "status.json").read_text())
+        if status.get("pod_id") != pod["pod_id"] or status.get("pid") != phase.get("collector_pid"):
+            raise ValueError("collector status belongs to a different process or resource")
+        ticks = phase.get("collector_ticks")
+        result["active"] = (type(ticks) is int and ticks > 0 and
+                            identity(phase["collector_pid"]) == ticks)
+        # Never use status timestamps as progress. The collector's high-water
+        # counters are based on actual streamed bytes and completed local hashes.
+        for key in ("progress_bytes", "verification_bytes"):
+            number = status.get(key, 0)
+            if type(number) is not int or number < 0:
+                raise ValueError("invalid collector progress counter")
+            result[key] = number
+        files, final = {}, None
+        for line in (folder / "receipts.jsonl").read_text().splitlines(keepends=True):
+            if not line.endswith("\n"):
+                continue  # a concurrent append is completed on the next poll
+            record = json.loads(line)
+            if record.get("event") in ("verified", "skip_verified"):
+                name, sha, size = record.get("file"), record.get("sha256"), record.get("bytes")
+                if not isinstance(name, str) or not isinstance(sha, str) or not re.fullmatch(r"[0-9a-f]{64}", sha):
+                    raise ValueError("invalid verified-file receipt")
+                if type(size) is not int or size < 0:
+                    raise ValueError("invalid verified-file size")
+                if name in files and files[name] != (sha, size):
+                    raise ValueError("conflicting immutable file receipts")
+                files[name] = sha, size
+            elif record.get("event") == "all_manifest_files_verified":
+                final = record
+        result.update(verified_files=len(files), verified_bytes=sum(size for _, size in files.values()))
+        result["complete"] = (status.get("state") == "complete" and status.get("complete") is True and
+                              isinstance(status.get("manifest_sha256"), str) and
+                              bool(re.fullmatch(r"[0-9a-f]{64}", status["manifest_sha256"])) and
+                              final is not None and final.get("manifest_sha256") == status["manifest_sha256"] and
+                              type(final.get("files")) is int and final["files"] > 0)
+    except FileNotFoundError:
+        # The worker emits phase.json before the collector's first atomic
+        # checkpoint; startup remains subject to the ordinary bounded allowance.
+        pass
+    except (ValueError, TypeError, KeyError) as error:
+        result.update(bound=False, active=False, complete=False, error=str(error))
+    return result
+
+
+class ProgressWatch:
+    """Monotonic observations; chatter or a retry cannot buy more idle time."""
+    def __init__(self, created_epoch):
+        self.numeric = None
+        self.numerical_changed = created_epoch
+        self.retrieval_changed = None
+        self.compute_stopped = False
+        self.highwater = {k: 0 for k in ("progress_bytes", "verification_bytes", "verified_bytes", "verified_files")}
+
+    def observe(self, value, snapshot, now):
+        numeric = numerical_token(value)
+        if numeric != self.numeric:
+            self.numeric, self.numerical_changed = numeric, now
+        if not snapshot.get("bound"):
+            return
+        if snapshot.get("compute_stopped") and not self.compute_stopped:
+            self.compute_stopped = True
+            self.retrieval_changed = now
+        for key, previous in self.highwater.items():
+            number = snapshot.get(key, 0)
+            if number > previous:
+                self.highwater[key] = number
+                self.retrieval_changed = now
+
+
+def watch_reason(c, pod, state, alive, now, tracker, snapshot, *, protected, archive_ready):
+    """Pure lifecycle decision, exercised with simulated failures and clocks."""
+    age = now - pod["created_epoch"]
+    rate = pod.get("cost_per_hr")
+    if rate is None or rate > c["max_rate"]:
+        return "missing or excessive provider rate"
+    if age >= 60 * c["hard_minutes"] - TERMINATION_RESERVE_SECONDS:
+        return "original hard lifetime termination reserve reached"
+    if protected:
+        if snapshot.get("error"):
+            return "protected retrieval binding invalid"
+        if snapshot.get("bound") and snapshot.get("compute_stopped"):
+            if snapshot.get("complete"):
+                if state.get("finished") or not alive:
+                    return "verified incremental retrieval ready for termination"
+                # Give the normal worker a short bounded final receipt/teardown
+                # interval, never an entire numerical no-progress window.
+                if now - tracker.retrieval_changed > 120:
+                    return "verified retrieval awaiting worker termination"
+                return None
+            if not snapshot.get("active"):
+                return "protected collector stopped before verified retrieval"
+            if now - tracker.retrieval_changed > 60 * c["no_progress_minutes"]:
+                return "artifact retrieval stalled"
+            return None  # retrieval can use its original reserve, not more time
+        if age >= 60 * (c["hard_minutes"] - c["retrieval_minutes"]):
+            # The worker's remote KILL is scheduled no later than this cutoff.
+            # Allow one poll to publish its local stopped-compute proof.
+            if (snapshot.get("bound") and snapshot.get("active") and
+                    age < 60 * (c["hard_minutes"] - c["retrieval_minutes"]) + 15):
+                return None
+            return "compute cutoff reached without stopped-compute proof"
+    elif age >= 60 * (c["hard_minutes"] - c["retrieval_minutes"]):
+        return "lifetime retrieval reserve reached"
+    if not alive and now - state["updated_epoch"] > 120:
+        return "controller orphaned"
+    # Protected jobs never interpret an archive hash or numerical completion as
+    # successful retrieval; only the bound collector manifest can establish it.
+    finished = archive_ready and not protected
+    if age > 1800 and tracker.numeric is None and not finished:
+        return "no numerical progress after setup allowance"
+    if tracker.numeric is not None and not finished and now - tracker.numerical_changed > 60 * c["no_progress_minutes"]:
+        return "numerical progress stalled"
+    if state.get("finished"):
+        return "worker exited without verified termination"
+    return None
+
+
 def watch(out):
     c = json.loads((out / "config.json").read_text())
     validate(c)
-    save(out / "watchdog-ready.json", {"pid": os.getpid(), "started": time.time()})
+    initial = json.loads((out / "state.json").read_text())
+    save(out / "watchdog-heartbeat.json", {"time": time.time(), "pid": os.getpid(), "owned_ids": [],
+                                           "controller_alive": identity(initial["controller_pid"]) ==
+                                           initial["controller_ticks"]})
+    # Worker preflight reads both files; readiness must not race its first
+    # heartbeat. Bind the process start ticks as well as the recyclable PID.
+    save(out / "watchdog-ready.json", {"pid": os.getpid(), "ticks": identity(os.getpid()), "started": time.time()})
     changes, cleaning = {}, {}
     with ThreadPoolExecutor(max_workers=len(c["names"])) as pool:
         while True:
@@ -213,27 +467,14 @@ def watch(out):
                         continue
                     cleaning.pop(pid)
                 val, finished = progress(out, pod["name"])
-                old, changed = changes.get(pid, (None, pod["created_epoch"]))
-                if val != old:
-                    changed = now
-                changes[pid] = val, changed
-                age = now - pod["created_epoch"]
-                reason = None
-                rate = pod.get("cost_per_hr")
-                if rate is None or rate > c["max_rate"]:
-                    reason = "missing or excessive provider rate"
-                elif age >= 60 * (c["hard_minutes"] - c["retrieval_minutes"]):
-                    reason = "lifetime retrieval reserve reached"
-                elif not alive and now - state["updated_epoch"] > 120:
-                    reason = "controller orphaned"
-                elif age > 1800 and val is None and not finished:
-                    reason = "no numerical progress after setup allowance"
-                elif val is not None and not finished and now - changed > 60 * c["no_progress_minutes"]:
-                    reason = "numerical progress stalled"
-                elif state.get("finished") and not pod["terminated"]:
-                    reason = "worker exited without verified termination"
+                protected = protected_huginn(c, pod["name"])
+                snapshot = retrieval_snapshot(out, pod, c) if protected else {}
+                tracker = changes.setdefault(pid, ProgressWatch(pod["created_epoch"]))
+                tracker.observe(val, snapshot, now)
+                reason = watch_reason(c, pod, state, alive, now, tracker, snapshot,
+                                      protected=protected, archive_ready=finished)
                 if reason:
-                    cleaning[pid] = pool.submit(cleanup, out, pod, reason)
+                    cleaning[pid] = pool.submit(cleanup, out, pod, reason, c)
             if (state.get("finished") or not alive) and all(p["terminated"] for p in pods.values()):
                 event(out, "watchdog_complete", owned_ids=list(pods))
                 return
@@ -243,6 +484,9 @@ def watch(out):
 def launch(config, out):
     c = json.loads(config.read_text())
     validate(c)
+    # Resolve every worker command before creating directories or querying the
+    # provider. A mismatched protected controller must fail before any rental.
+    commands = [worker_command(c, name, out) for name in c["names"]]
     out.mkdir(parents=True, exist_ok=False)
     c.update(started_epoch=time.time(), preexisting_ids=[p["id"] for p in rp.inventory()["pods"]])
     save(out / "config.json", c)
@@ -259,12 +503,9 @@ def launch(config, out):
         time.sleep(0.2)
     children = []
     try:
-        for name, command in zip(c["names"], c["commands"]):
+        for name, cmd in zip(c["names"], commands):
             if watchdog.poll() is not None:
                 raise RuntimeError("watchdog stopped; refusing another pod")
-            cmd = list(command)
-            cmd[0] = sys.executable
-            cmd[cmd.index("--out") + 1] = str(out / "workers" / name)
             with (out / f"{name}.log").open("x") as log:
                 child = subprocess.Popen(cmd, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
             children.append(child)
@@ -285,7 +526,7 @@ def launch(config, out):
             # If the independent guard itself dies, the live controller owns
             # this emergency path. Only this task's new provider IDs qualify.
             with ThreadPoolExecutor(max_workers=len(c["names"])) as pool:
-                jobs = [pool.submit(cleanup, out, p, "watchdog lost")
+                jobs = [pool.submit(cleanup, out, p, "watchdog lost", c)
                         for p in owned(c, ledger()).values() if not p["terminated"]]
                 for job in jobs:
                     job.result()
