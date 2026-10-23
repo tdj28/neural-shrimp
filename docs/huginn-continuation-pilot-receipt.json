@@ -1,0 +1,296 @@
+{
+  "experiment": "HPC1 exploratory local continuation",
+  "source": "a0e4359e88827d7fd2182b2a8c14f3c6f242fb0d",
+  "plan_sha256": "5ce67cb09603ba6d754aaffd1783031a14e9c35a4c87e144815742090d44eec3",
+  "raw_manifest": {
+    "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/hpc1/20261023-local-01/manifest.json",
+    "bytes": 54436,
+    "sha256": "20b9622b55a2951669f8e77dd3394d4f31b6d4e557eb633ebd6eae837eaa6c05"
+  },
+  "raw_files_verified": 364,
+  "saved_state_rows_checked": 82944,
+  "full_ladder_complete": true,
+  "unique_parameter_settings": 17,
+  "steps_per_trajectory": 2304,
+  "fixed_steering": -0.03741935483870967,
+  "precision": "float32; TF32 off",
+  "candidate_criterion": "Smallest lag 1..64 with relative full-state error below 3e-5 at every checked position. Worker last8, independent last128 agree.",
+  "rows": [
+    {
+      "rung": 0,
+      "lambdas": [
+        1.2532258064516129,
+        1.2532258064516129
+      ],
+      "row_order": [
+        "increasing_continued",
+        "increasing_fresh",
+        "decreasing_continued",
+        "decreasing_fresh"
+      ],
+      "candidate_period": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "q2_errors_last128": [
+        2.1336727147277046e-06,
+        1.8503067958381822e-06,
+        2.1336727147277046e-06,
+        1.8503067958381822e-06
+      ]
+    },
+    {
+      "rung": 1,
+      "lambdas": [
+        1.2612258064516129,
+        1.2452258064516128
+      ],
+      "row_order": [
+        "increasing_continued",
+        "increasing_fresh",
+        "decreasing_continued",
+        "decreasing_fresh"
+      ],
+      "candidate_period": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "q2_errors_last128": [
+        2.2428109584751216e-06,
+        2.408615874240798e-06,
+        2.426138966570428e-06,
+        2.403241214779457e-06
+      ]
+    },
+    {
+      "rung": 2,
+      "lambdas": [
+        1.2692258064516129,
+        1.2372258064516128
+      ],
+      "row_order": [
+        "increasing_continued",
+        "increasing_fresh",
+        "decreasing_continued",
+        "decreasing_fresh"
+      ],
+      "candidate_period": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "q2_errors_last128": [
+        3.273153458552224e-06,
+        2.5014964851849454e-06,
+        2.2425772266215753e-06,
+        1.545391622596699e-05
+      ]
+    },
+    {
+      "rung": 3,
+      "lambdas": [
+        1.2772258064516129,
+        1.2292258064516128
+      ],
+      "row_order": [
+        "increasing_continued",
+        "increasing_fresh",
+        "decreasing_continued",
+        "decreasing_fresh"
+      ],
+      "candidate_period": [
+        2,
+        0,
+        2,
+        0
+      ],
+      "q2_errors_last128": [
+        5.758315174052229e-06,
+        0.14999054547864427,
+        1.8170478616332795e-05,
+        0.008283047877912416
+      ]
+    },
+    {
+      "rung": 4,
+      "lambdas": [
+        1.2852258064516129,
+        1.2212258064516128
+      ],
+      "row_order": [
+        "increasing_continued",
+        "increasing_fresh",
+        "decreasing_continued",
+        "decreasing_fresh"
+      ],
+      "candidate_period": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "q2_errors_last128": [
+        0.1461381989128589,
+        0.1463445898610165,
+        0.0018337636179551716,
+        0.019804872726146682
+      ]
+    },
+    {
+      "rung": 5,
+      "lambdas": [
+        1.293225806451613,
+        1.2132258064516128
+      ],
+      "row_order": [
+        "increasing_continued",
+        "increasing_fresh",
+        "decreasing_continued",
+        "decreasing_fresh"
+      ],
+      "candidate_period": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "q2_errors_last128": [
+        0.17204263007566378,
+        0.1747285345011077,
+        1.6189833521613242e-06,
+        1.8250903889592229e-06
+      ]
+    },
+    {
+      "rung": 6,
+      "lambdas": [
+        1.301225806451613,
+        1.2052258064516128
+      ],
+      "row_order": [
+        "increasing_continued",
+        "increasing_fresh",
+        "decreasing_continued",
+        "decreasing_fresh"
+      ],
+      "candidate_period": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "q2_errors_last128": [
+        0.19318036852540946,
+        0.19444714967680812,
+        1.1497296693206557e-06,
+        2.725886198180938e-06
+      ]
+    },
+    {
+      "rung": 7,
+      "lambdas": [
+        1.309225806451613,
+        1.1972258064516128
+      ],
+      "row_order": [
+        "increasing_continued",
+        "increasing_fresh",
+        "decreasing_continued",
+        "decreasing_fresh"
+      ],
+      "candidate_period": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "q2_errors_last128": [
+        0.21241261090916674,
+        0.21492681479479,
+        1.1307594218925134e-06,
+        3.2547244285355214e-06
+      ]
+    },
+    {
+      "rung": 8,
+      "lambdas": [
+        1.317225806451613,
+        1.1892258064516128
+      ],
+      "row_order": [
+        "increasing_continued",
+        "increasing_fresh",
+        "decreasing_continued",
+        "decreasing_fresh"
+      ],
+      "candidate_period": [
+        0,
+        0,
+        2,
+        2
+      ],
+      "q2_errors_last128": [
+        0.21751016893027,
+        0.21919631075409074,
+        1.044247305174253e-06,
+        6.943793544410043e-06
+      ]
+    }
+  ],
+  "peak_cuda_bytes": 6583917056,
+  "qualification": "All saved state arrays/hash/source/plan/continuation bindings checked. Readout strings are stored native CPU outputs; full logits were not saved in this pilot. Smallest passing lag is a numerical recurrence candidate, not a primitive-orbit or chaos proof.",
+  "conclusion": "No period4 or higher passing lag observed. Continued P2 candidate passes at1.2772258064516129 and is unresolved at1.2852258064516129. Lower settings show distinct projected continued/fresh P2 candidates; long transient versus coexistence remains unresolved. No Lyapunov or multiplier calculation.",
+  "artifacts": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/continuation-pilot-20261023-01/analysis-01/receipt.json",
+      "bytes": 73502,
+      "sha256": "163c6c45bb87c5693fe608f07829746560b44f26b93a71e907266a6bc4744751"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/continuation-pilot-20261023-01/capacity-after.json",
+      "bytes": 205,
+      "sha256": "14f0258895445793e8e3b349fbf7d411f7c0dc99b94ecc6837945aa45b57af3e"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/continuation-pilot-20261023-01/libraries.json",
+      "bytes": 1526,
+      "sha256": "4615b0037dbb6f9983ef0c768884d9e0bcb9279ba1036e73574278e74acd8d6d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/continuation-pilot-20261023-01/launch-01/result.json",
+      "bytes": 174,
+      "sha256": "3ea59e2c6f86251ee8ab6b11ceae1afa98e5daddb42256a3f38672636b5765a6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/continuation-pilot-20261023-01/audit-execution.json",
+      "bytes": 141,
+      "sha256": "99da788447a1b08a9c30a7861e5892380c21b837d4bdebbf52ac99b641bdc2c8"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/continuation-pilot-20261023-01/visual-review.json",
+      "bytes": 426,
+      "sha256": "e6052bc24ec999e48ca0461a939e633e3540a57c00ae32351d453b7c01d7a156"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/continuation-pilot-20261023-01/analysis-01/continuation-pilot.png",
+      "bytes": 190870,
+      "sha256": "d6beed3c62c407d69af6831220b89ca3ba8117f11599beda613dfa454804fd9f"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/continuation-pilot-20261023-01/analysis-01/continuation-pilot.pdf",
+      "bytes": 48868,
+      "sha256": "8b78429fb49cdba0b466bf65efb54737ea0ab50b8dea7f9cc21f1df0104b57be"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/continuation-pilot-20261023-01/analysis-01/audit-source.py",
+      "bytes": 7844,
+      "sha256": "7150e1e4a4e67180d99461c88c1a2cd12e92b19db976e07dcffb1a2aed88dc72"
+    }
+  ],
+  "backup_receipt": "docs/backups/huginn-continuation-pilot-20261023.json"
+}
