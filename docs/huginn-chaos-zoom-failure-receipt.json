@@ -1,0 +1,124 @@
+{
+  "status": "failed_retrieval_partial_recovery",
+  "source": "63002827356c61e535f912d4351302116d785864",
+  "pod_id": "etn7ftg1db9lhz",
+  "run_plan": "docs/huginn-chaos-zoom-plan.json",
+  "plan_sha256": "8be975cbd84d335368e48d7c7df14000048eff53a6de3752b4709b9f63c03b2b",
+  "source_archive_sha256": "c386efd2c8d06f3745e87f7609c04c23c5d8f4ce0cb76360103396bd3c3bf394",
+  "numerical_completion_logged": 1024,
+  "numerical_seconds": 25668.649703475006,
+  "full_archive_verified": false,
+  "remote_manifest_available": false,
+  "remote_archive_sha256": "0cb26b153148ce131500a33bd46c26a589b9e1578922650e330442d5e8b99d6f",
+  "partial_archive": {
+    "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm2-20261022/workers/neural-shrimp-hcm2-20261022/20261023T033831Z/results.tgz",
+    "bytes": 2145361920,
+    "sha256": "f3e04d53c43ad11971cb80351f9d25ac22f98fc007e8a96bcb27bde9af4c366c"
+  },
+  "preserved_preview_cells": 512,
+  "complete_raw_chunks": 3,
+  "complete_full_tail_files": 7,
+  "recurrence_recomputed_cells_both_offsets": 48,
+  "recurrence_recomputed_extra_cells_one_offset": 16,
+  "provisional_preview_findings": {
+    "snapshot_cells": 512,
+    "snapshot_complete_chunks": 32,
+    "snapshot_all_finite": true,
+    "snapshot_positive_both_offsets_gt_1e_minus_3": 55,
+    "snapshot_positive_both_halves_both_offsets_gt_1e_minus_3": 42,
+    "snapshot_positive_both_offsets_gt_zero": 88,
+    "snapshot_positive_both_halves_both_offsets_gt_zero": 61,
+    "snapshot_positive_with_recurrence": 0,
+    "snapshot_recurrence_agreement_counts": {
+      "0": 467,
+      "2": 40,
+      "16": 1,
+      "18": 1,
+      "24": 1,
+      "26": 2
+    },
+    "snapshot_recurrence_disagreement": 0,
+    "snapshot_offset_gap_max": 0.00225780694745481,
+    "snapshot_half_gap_max": 0.009820041246712208,
+    "snapshot_exponent_range": [
+      -0.01382103469222784,
+      0.018184920772910118
+    ]
+  },
+  "native_gate": {
+    "chunk_start": -1,
+    "phase": "native_gate",
+    "error": 0.0,
+    "repeat": 0.0
+  },
+  "throughput_gate": {
+    "chunk_start": -1,
+    "phase": "throughput_gate",
+    "seconds_per_cell_step": 0.004476530060628647,
+    "projected_seconds_with_margin": 30510.88290154934,
+    "remaining_seconds": 32391.30269666697
+  },
+  "termination": {
+    "verified_absent": true,
+    "exact_lookup": null,
+    "independent_verification_time": "2026-10-23T11:11:03.460236+00:00",
+    "receipt": {
+      "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm2-20261022/independent-failure-lifecycle.json",
+      "bytes": 1312,
+      "sha256": "52aba2192483a8bb6e9b21f009fb697af51937869ad7021104b6ad40a27dda54"
+    }
+  },
+  "failure": "The no-progress watchdog ignored numerical completion until archive SHA appeared; it started a redundant archive, timed out after 120 seconds and terminated the pod during original transfer. The worker termination race prevented result.json. No rerun launched.",
+  "limitations": [
+    "All scientific findings remain provisional: full archive failed and remote manifest is missing.",
+    "Surviving tail ZIP CRCs and independent recurrence agree but do not replace missing remote SHA verification.",
+    "Only first 48 cells have both full-state tails audited; preview recurrence labels elsewhere are not independently recomputable.",
+    "Finite-window growth and recurrence are candidates, not verified chaos, primitive stability or shrimp organization."
+  ],
+  "artifacts": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/salvage.py",
+      "bytes": 1711,
+      "sha256": "046fe0634f3a3df02eaabadf01fe6a9d76effd4f3156d8cbbfeba30b22d20cb4"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/salvage-receipt.json",
+      "bytes": 4466,
+      "sha256": "ebc1838f6fccd43271dbe57dee7611dbaa2ea1e4f4007c4c5645aa0c92d6b4ed"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/audit.py",
+      "bytes": 8241,
+      "sha256": "149111a645e9d0c1eaa710960e83c7aa14fe1a2c95114e8b11068c7be9226cdd"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/preserved-audit.json",
+      "bytes": 10170,
+      "sha256": "ff8d2890694f3483b75f1fc0cbf4c54c33209d6e072b8481f1e285d1dc19c1e3"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/plot.py",
+      "bytes": 2483,
+      "sha256": "65e48038f532828bf32eea99301832180f7b515bf8489c14b6a760d9b366e9dc"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/hcm2-partial-recovery.png",
+      "bytes": 208696,
+      "sha256": "de46daef92cf32278a51d4fabee8d08496410e5fa80adca6328fd286dfee7fb2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/hcm2-partial-recovery.pdf",
+      "bytes": 58940,
+      "sha256": "c6555fd7f646e9ec0e280584ce93c7994de961874b50afe7dd28028d9fbbab31"
+    }
+  ],
+  "partial_members": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/salvaged/explore/llm-soft-loop/pod64/hcm2/map-01/tail-0048-1.npz.partial",
+      "bytes": 239075328,
+      "sha256": "114236959fae2522087237e4b0c24ad9d52eb136e7940c54e8ea2eb4fb9fea34"
+    }
+  ],
+  "visual_review": "2026-10-23: both panels inspected; missing upper half explicitly labeled lost during transfer; shared axes and scale; provisional caption.",
+  "cost": "see private ledger"
+}
