@@ -1,0 +1,78 @@
+{
+  "status": "running; numerical gates passed, final audit and termination pending",
+  "source": "6987c41367c53b1b0b47b94603c87335a31cf2ca",
+  "pod_id": "4xmwqihavfc7n3",
+  "name": "neural-shrimp-hpc2r-20261023",
+  "controller_root": "/data2/neural-shrimp-data/runpod/huginn-chaos/hpc2-retry-20261023",
+  "worker_root": "/data2/neural-shrimp-data/runpod/huginn-chaos/hpc2-retry-20261023/workers/neural-shrimp-hpc2r-20261023/20261023T210445Z",
+  "source_archive_sha256": "816a723de122fd2a9bb9591d37a969f9f30eecc80e4c8da13848408b324c08fd",
+  "source_file_count": 10,
+  "plan_sha256": "cae7833cfc9d1a7fabb2543b89809d9d5b87b8de40453047d09b64f97241510f",
+  "native_gate": {
+    "phase": "native_gate",
+    "chunk_start": -1,
+    "error": 0.0,
+    "repeat": 0.0
+  },
+  "saved_step_gate": {
+    "phase": "saved_step_gate",
+    "chunk_start": -1,
+    "relative_errors": [
+      1.2930529869826189e-06,
+      1.2930529869826189e-06,
+      1.2930529869826189e-06,
+      1.2930529869826189e-06,
+      1.2930529869826189e-06,
+      1.2930529869826189e-06
+    ]
+  },
+  "throughput_gate": {
+    "phase": "throughput_gate",
+    "chunk_start": -1,
+    "seconds_per_cell_step": 0.020842136906253472,
+    "checkpoint_seconds": 0.89188965500216,
+    "projected_seconds_with_margin": 15099.108710967004,
+    "remaining_seconds": 41390.56069341599
+  },
+  "controller_pid": 1293564,
+  "watchdog_pid": 1293567,
+  "collector_pid": 1293983,
+  "hard_deadline_epoch": 1792842886.0,
+  "compute_deadline_epoch": 1792837486.0,
+  "automated_followup": "finish-huginn-bifurcation-sweep",
+  "tests": {
+    "passed": 92,
+    "failed": 0,
+    "scope": "CPU synthetic worker, recurrence/refinement, incremental transport and lifecycle faults"
+  },
+  "evidence": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hpc2-retry-launch-20261023-01/tests-01.txt",
+      "bytes": 8698,
+      "sha256": "42d13a31f05acb9f62fb0ed518259c9f6948830bf646cef600a4aa8f0769c983"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hpc2-retry-launch-20261023-01/tests-02.txt",
+      "bytes": 711,
+      "sha256": "39126a8661e2ebd63e978458e06256b4a7b0154f1e1a9863c4b288613d3206e8"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hpc2-retry-launch-20261023-01/watchdog-observation.json",
+      "bytes": 643,
+      "sha256": "f23ac38f4f29d2bee7a61a625d4f44a4f7bd49eaa9445f7a750c356084ff3bf1"
+    }
+  ],
+  "private_attestation": {
+    "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hpc2-retry-launch-20261023-01/launch-attestation.json",
+    "bytes": 2816,
+    "sha256": "6492abe9d91bf476bbe3909a501d466b792e5350aee14a3613450f0db83b7a5e"
+  },
+  "qualification": "Exploratory continuation, finite recurrence/growth candidates; no promise of cascade or proof of chaos. Local GPU unused. 64x64 map deferred.",
+  "cost": "see private ledger",
+  "first_scientific_shard": {
+    "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hpc2-retry-20261023/workers/neural-shrimp-hpc2r-20261023/20261023T210445Z/incremental/data/states-0000-t-01024.npz",
+    "bytes": 519045386,
+    "sha256": "ef02413ff1b70f13b6def126074bde79005c8fffd5146efb41cf6df3bca8828b",
+    "independent_local_rehash": true
+  }
+}
