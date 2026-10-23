@@ -16,7 +16,8 @@ def axes(plan):
     result=[]
     for key, anchor in [('lambda_range',1.),('steering_range',0.)]:
         x=np.linspace(*plan[key],plan['resolution'])
-        x[np.argmin(abs(x-anchor))]=anchor
+        if x[0] <= anchor <= x[-1]:
+            x[np.argmin(abs(x-anchor))]=anchor
         result.append(np.sort(x))
     return result
 
@@ -101,7 +102,10 @@ def main():
                 if k>=plan['measure']-128:obs.append(h[:,-1,:3].cpu().numpy())
                 if k>=plan['measure']-72:recent.append(h.cpu().numpy())
                 if (k+1)%128==0:emit('measure',chunk_start=start,offset=offset,step=k+1)
-            log=np.asarray(logs);tail=np.asarray(recent);logs_all.append(log.mean(axis=0));half_all.append(np.stack([z.mean(axis=0) for z in np.array_split(log,2)]))
+            log=np.asarray(logs);tail=np.asarray(recent)
+            if plan.get('retain_full_tails',False):
+                np.savez_compressed(root/f'tail-{start:04d}-{offset}.npz',states=tail,cells=c,eps=eps)
+            logs_all.append(log.mean(axis=0));half_all.append(np.stack([z.mean(axis=0) for z in np.array_split(log,2)]))
             period_all.append(recurrence_candidates(tail,plan['recurrence_tolerance']))
             norm_all.append(np.stack([np.min(norms,axis=0),np.max(norms,axis=0)]));obs_all.append(np.asarray(obs));last=tail[-1]
             del recent,tail,x,h,g,delta,hn,gn

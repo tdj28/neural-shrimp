@@ -44,6 +44,12 @@ Git; preserve existing frozen evidence and history.
 - Paid RunPod execution requires a measured, costed run plan, an approved hard
   ceiling, exact task resource ownership, artifact retrieval and verified
   termination. A prepared archive does not authorize a launch.
+  Before each new paid run, present its concrete scope, estimated cost and hard
+  spending ceiling, and obtain explicit confirmation from the human. This
+  includes follow-up zooms and retries after a completed or failed run; unused
+  approval from a previous run and an available account balance do not authorize
+  another rental. Once that specific run is approved, proceed without asking
+  again unless its scope or ceiling changes (human directive, 22 October 2026).
 - Work directly on `main` during the early research stage (human directive,
   11 October 2026). Commit tested changes and push them to `main` regularly;
   pull requests are not required. Use a short-lived branch only when parallel

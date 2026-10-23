@@ -38,7 +38,7 @@ def test_cpu_end_to_end_contracting_map(tmp_path,monkeypatch):
     monkeypatch.setattr(torch.cuda,'get_device_name',lambda:'CPU analytic fixture')
     tensor=torch.tensor
     monkeypatch.setattr(torch,'tensor',lambda *a,**kw:tensor(*a,**{k:v for k,v in kw.items() if k!='device'}))
-    p=json.loads((Path(__file__).parents[1]/'docs/huginn-chaos-map-plan.json').read_text());p.update(resolution=2,batch=2,transient=8,measure=80)
+    p=json.loads((Path(__file__).parents[1]/'docs/huginn-chaos-map-plan.json').read_text());p.update(resolution=2,batch=2,transient=8,measure=80,retain_full_tails=True)
     plan=tmp_path/'plan.json';plan.write_text(json.dumps(p))
     monkeypatch.setattr(sys,'argv',['worker','--plan',str(plan),'--source-commit','a'*40,'--mode','scan','--out','test'])
     m.main();root=tmp_path/'explore/test';a=np.load(root/'map.npz')
@@ -46,4 +46,14 @@ def test_cpu_end_to_end_contracting_map(tmp_path,monkeypatch):
     expected=np.log(abs(1-.5*a['cells'][:,0]))
     assert np.max(abs(a['lyapunov']-expected))<.002
     assert np.all(a['recurrence_candidate']==1)
+    for path in root.glob('tail-*.npz'):
+        tail=np.load(path);assert np.all(m.recurrence_candidates(tail['states'],p['recurrence_tolerance'])==1)
+    assert len(list(root.glob('tail-*.npz')))==4
     for file,digest in json.loads((root/'manifest.json').read_text()).items():assert hashlib.sha256((root/file).read_bytes()).hexdigest()==digest
+
+
+def test_zoom_never_inserts_out_of_range_native_coordinate():
+    p=json.loads((Path(__file__).parents[1]/'docs/huginn-chaos-zoom-plan.json').read_text())
+    l,a=m.axes(p)
+    assert l.min()==1.25 and l.max()==1.35 and 1 not in l
+    assert a.min()==-.18 and a.max()==.16 and 0 in a

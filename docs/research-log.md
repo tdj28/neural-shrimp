@@ -32961,3 +32961,12 @@ _commit `cc6e66cceae4` (dirty worktree)_
 All 1024 cells at both perturbation offsets completed; all 64 chunks and 70 raw-manifest files verified, source archive reconstructed from execution commit, raw plan bound to committed design, merged arrays checked against every chunk. Finite arrays throughout. At the original update size and zero steering, exponent estimates -0.1997325 and -0.1997184 and recurrence candidate 1 show contraction toward a fixed state for this prompt. Across the modified loop map, 85 cells exceed 1e-3 at both offsets; 73 exceed it in both measurement halves as well. No positive-growth cell has a detected recurrence candidate. Candidate periods agree across offsets for all cells: 466 fixed-point candidates, 182 period-two, 18 higher-period candidates, 358 without a detected return up to 64. This finite-window float32 screen establishes neither sustained chaos nor verified shrimps. Full-state tail histories were not retained, so period labels cannot be recomputed independently from saved full-state tails; final states and projected tails are preserved for follow-up. Exact pod 54r7yo4rn29be3 verified absent by direct lookup and inventory; retrieval archive hash matches. Numerical elapsed 11886.52 seconds, controller wall 12004 seconds. Both figure panels visually inspected. Raw/figures outside Git; compact receipt docs/huginn-chaos-map-receipt.json. No new compute or rentals launched during audit.
 
 _commit `23510b203496` (dirty worktree)_
+
+## 2026-10-23 03:37 UTC: run (exploratory)
+
+- **Question:** HCM2: Does expansion persist with longer observation, and does a finer hidden-loop map resolve repeating windows?
+- **Setup:** User approved proposed zoom and its separate ceiling. 32x32 cells, lambda 1.25..1.35, steering -0.18..0.16, same arithmetic prompt and seed-0 unit-RMS direction as HCM1. 1024 settling steps plus 2048 measured steps at each of two offsets. Save last 72 full states per chunk and offset for independent recurrence audit. Same initial state and float32; no stronger chaos claim. Fix axis helper to insert reference coordinates only when within range. One A10080 with 160GB ephemeral disk for full tails plus archive; independent watchdog; separate private cost ceiling and approval. No local GPU use.
+- **Output:** `/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hcm2/map-01`
+- **Would surprise us:** Positive growth disappearing with longer windows, or coherent higher-period windows within candidate chaotic band.
+
+_commit `1f44b34dbfd8` (dirty worktree)_
