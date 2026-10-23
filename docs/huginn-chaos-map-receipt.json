@@ -1,0 +1,87 @@
+{
+  "source": "cc6e66cceae417f67ffc26bd4b0b6571b88298d1",
+  "pod_id": "54r7yo4rn29be3",
+  "archive_sha256": "86d8f3a2aef987e1be3f41f115c51ba94c6e1f0461660692bfcc394edf141586",
+  "raw_manifest_sha256": "5631997ef02adb43dd6fe1c6687767af5370ac039906aa0482dcd24f251551c2",
+  "plan_sha256": "0944db7de875398b9024ed9202a4aa0d739e1a4d3f30fdae7f4fb46130fecf26",
+  "raw_root": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hcm1/map-01",
+  "verified_files": 70,
+  "verified_chunks": 64,
+  "cells": 1024,
+  "all_finite": true,
+  "native_gate": {
+    "chunk_start": -1,
+    "phase": "native_gate",
+    "error": 0.0,
+    "repeat": 0.0
+  },
+  "throughput_gate": {
+    "chunk_start": -1,
+    "phase": "throughput_gate",
+    "seconds_per_cell_step": 0.00448117402902426,
+    "projected_seconds_with_margin": 15271.267500638962,
+    "remaining_seconds": 43191.91840599803
+  },
+  "positive_both_offsets": 85,
+  "positive_both_halves_both_offsets": 73,
+  "positive_with_recurrence": 0,
+  "recurrence_agreement_counts": {
+    "0": 358,
+    "1": 466,
+    "2": 182,
+    "3": 1,
+    "6": 7,
+    "8": 1,
+    "10": 1,
+    "14": 1,
+    "18": 2,
+    "26": 2,
+    "28": 2,
+    "55": 1
+  },
+  "recurrence_disagreement": 0,
+  "offset_gap_max": 0.00517219677567482,
+  "offset_gap_median": 6.407126784324646e-05,
+  "half_gap_max": 0.02632889524102211,
+  "native": {
+    "index": 143,
+    "exponents": [
+      -0.19973251223564148,
+      -0.1997183859348297
+    ],
+    "recurrence_candidates": [
+      1,
+      1
+    ]
+  },
+  "exponent_range": [
+    -0.22810682654380798,
+    0.033666908740997314
+  ],
+  "norm_range": [
+    264.6355285644531,
+    373.9095153808594
+  ],
+  "limitations": [
+    "One short prompt, one steering direction, one initialization, float32 and finite windows",
+    "Positive growth and repeated returns are candidates; no primitive-orbit stability, float64 or JVP verification",
+    "Full tail states not retained, so recurrence labels cannot be independently recomputed from saved full-state tails; their implementation has synthetic tests",
+    "A positive finite-time exponent does not by itself distinguish sustained chaos from transients"
+  ],
+  "audit_path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm1-20261022/audit.json",
+  "audit_sha256": "fc6c5b5842f808e6f64d0d12bc8e9f1191f62cf66f64638a22cda6a8d4006060",
+  "figures": {
+    "huginn-internal-loop-map.pdf": "a61426abaf8f348bb4e60bfbb2c51992ac6518ec30efe7cdc1f8ba8e568d34b0",
+    "huginn-internal-loop-map.png": "f621b620de46c0a0156eb8efa8c95f47ee2ae3a3b80da7dd1dbd8dc463a02b6b"
+  },
+  "visual_review": "Both panels inspected; labels readable, axes oriented steering horizontal/update size vertical, native star at (0,1).",
+  "termination": {
+    "pod_id": "54r7yo4rn29be3",
+    "direct_lookup": null,
+    "in_inventory": false,
+    "independent_check_utc": "2026-10-23T03:32:26.436739+00:00",
+    "controller_complete_sha256": "69b5a61112bc88b876543357357cb86079cb5734045433a235cc0a6cec2eaa4a"
+  },
+  "runtime_log_sha256": "1a9f17d47b34a700e7a4e6f430ff34339a56edffc2b78935b21cd6d5af62bb01",
+  "wall_seconds": 12004
+}
