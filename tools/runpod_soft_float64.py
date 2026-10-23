@@ -25,7 +25,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 import runpod_pod as rp  # noqa: E402
 from runpod_phase0 import KEY, ssh_base, wait_for_ssh  # noqa: E402
 
-UPLOAD_PATHS = ("tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.py", "tools/explore_llm_phase_map.py",
+UPLOAD_PATHS = ("tools/huginn_chaos_map.py", "tools/runpod_huginn_chaos_runner.sh", "docs/huginn-chaos-map-plan.json", "tools/explore_llm_soft_loop.py", "tools/explore_llm_attractors.py", "tools/explore_llm_phase_map.py",
                 "tools/bifurcation_curves.py", "tools/explore_latent_loop.py", "tools/runpod_soft_runner.sh",
                 "tools/explore_llm_msm.py", "tools/llm_feigenbaum.py", "tools/doubly_superstable.py", "tools/pi_f64_twins.py", "tools/pi_harness.py", "tools/pi_matrix_run.sh", "tools/pi_matrix_analyze.py", "tools/pi_reason.py", "tools/pi_reason_f64.py", "tools/pi_generate_diag.py", "docs/pi/llama-diag-indices.json", "tools/pi_matrix2_analyze.py", "tools/damping_locate.py", "tools/moe_routing.py", "tools/olmoe_float64.py", "docs/pi-gsm8k-test.json", "tools/behavior_zones.py", "docs/bz-pairs.json", "docs/bz-tasks.json", "tools/behavior_prompts.py", "docs/bp-tasks.json", "tools/two_block_map.py", "tools/steer_gain.py", "tools/repro_noise.py", "tools/repro_task.py", "tools/crossover.py", "tools/turning_scan.py", "tools/soft_dialogue.py", "docs/dlg", "tools/reservoir_capacity.py", "docs/tp", "tools/period_colors.py", "docs/xo-cells.json", "docs/xo7-cells.json", "docs/xo-cells-gratitude.json", "docs/xo-cells-random1.json", "docs/repro7-cells.json", "docs/repro-l8-cells.json", "docs/repro70-cells.json", "docs/bpc-tasks.json", "docs/bpcs-tasks.json", "docs/repro-task-problems.json", "tools/return_map.py", "tools/flip_normal_form.py", "tools/hostility_score.py",
                 "tools/huginn_relax_eval.py", "tools/huginn_edge.py", "tools/p1_committor.py", "tools/p1_detection.py", "tools/p1_select_dose.py", "tools/cusp_check.py", "tools/llm_sae_readout.py", "tools/cusp_unfolding.py", "tools/pilot_stage2.py",
@@ -67,12 +67,14 @@ def hf_token():
     raise SystemExit("HF_TOKEN missing in .env (needed for gated weights)")
 
 
-def archives(commit, extra=()):
-    code = subprocess.run(["git", "archive", "--format=tar", commit, *UPLOAD_PATHS], cwd=ROOT, capture_output=True,
+def archives(commit, extra=(), huginn_only=False):
+    selected = ("tools/huginn_chaos_map.py", "tools/runpod_huginn_chaos_runner.sh", "tools/runpod_soft_runner.sh",
+                "tools/explore_latent_loop.py", "docs/huginn-chaos-map-plan.json") if huginn_only else UPLOAD_PATHS
+    code = subprocess.run(["git", "archive", "--format=tar", commit, *selected], cwd=ROOT, capture_output=True,
                           check=True).stdout
     buf = io.BytesIO()
     with tarfile.open(fileobj=buf, mode="w") as tar:
-        for rel in (*DATA_PATHS, *extra):
+        for rel in (*( () if huginn_only else DATA_PATHS), *extra):
             tar.add(rp.DATA / rel, arcname=rel)
     return code, buf.getvalue()
 
@@ -124,7 +126,8 @@ def main():
                             text=True).stdout.strip()
     if not pushed:
         raise SystemExit(f"commit {head} is not on any remote branch; push it first")
-    code, data = archives(head, args.extra_data)
+    huginn_only = args.jobset == "toolseq" and " huginn_chaos_map.py " in args.jobset_args
+    code, data = archives(head, args.extra_data, huginn_only=huginn_only)
     # the 10 minutes cover the default upload allowance and the retrieval; a longer upload allowance is added
     worst = args.max_rate * (args.ready_minutes + args.run_minutes + 10
                              + max(0.0, args.upload_timeout - 600) / 60) / 60

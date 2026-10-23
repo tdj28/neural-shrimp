@@ -16,6 +16,10 @@ LOGS=$OUT/llm-soft-loop/pod64/logs
 mkdir -p "$LOGS"
 log() { echo "$(date -u +%FT%TZ) $*"; }
 
+if [ "$JOBSET" = toolseq ] && [ "${JOBARGS[2]:-}" = huginn_chaos_map.py ]; then
+  exec bash tools/runpod_huginn_chaos_runner.sh "${JOBARGS[@]}"
+fi
+
 log "setup start"
 curl -LsSf https://astral.sh/uv/install.sh | sh > "$LOGS/setup-uv.log" 2>&1
 uv venv -q -p 3.12 /root/venv

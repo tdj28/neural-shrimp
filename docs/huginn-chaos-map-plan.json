@@ -1,0 +1,18 @@
+{
+  "label": "HCM1 exploratory hidden-state map; no soft-token wrapper",
+  "prompt": "What is 17 times 23? The answer is",
+  "resolution": 32,
+  "lambda_range": [0.95, 1.35],
+  "steering_range": [-0.25, 0.25],
+  "steering_definition": "Seed-0 Gaussian direction scaled to unit RMS, added at every token position after recurrent block 0 each iteration; alpha is additive activation RMS. Both axes include native setting exactly by replacing nearest grid coordinate.",
+  "direction_seed": 0,
+  "batch": 16,
+  "transient": 512,
+  "measure": 1024,
+  "eps": [0.001, 0.0003],
+  "recurrence_tolerance": 0.00003,
+  "max_compute_seconds": 43200,
+  "classification": "Positive finite-window growth at both offsets is a candidate; full-state recurrence at eight consecutive positions is a candidate period. Neither proves chaos, primitive periodic stability or shrimp organization.",
+  "local_timing_receipt": "docs/huginn-chaos-pilot-receipt.json",
+  "remote_gate": "Benchmark exact batched intervention path; projected duration with 30 percent margin must fit remaining numerical deadline minus 600 seconds. No automatic retry. Preserve every partial chunk."
+}

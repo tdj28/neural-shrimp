@@ -32934,3 +32934,18 @@ _commit `4157bea08ff7` (dirty worktree)_
 Source 0d8ee9014b86f8af793ad20a3d51edcc1c6298ac; completed in 61.77 seconds, exit zero. Native recurrent update matched exactly at the tested initial state; deterministic repeat exact. Short 12-token prompt, float32, TF32 disabled; 16-cell twin batch measured 0.0141607 seconds per cell-step and peak allocator memory 6715245056 bytes. All four 256-step diagnostic rows were finite and contracting; this is not a chaos classification. All saved file hashes verified. Worker PID 674594 absent and independent GPU query shows 2 MiB used and no compute processes. Receipt docs/huginn-chaos-pilot-receipt.json. A 32x32 map with a shared 512-step transient and 1024 steps at two offsets projects 10.32 local-speed compute-hours before overhead; remote throughput unmeasured. No rental launched. Future production map, float64/JVP checks, long prompts and orbit verification remain unqualified.
 
 _commit `0d8ee9014b86` (dirty worktree)_
+
+## 2026-10-23 00:03 UTC: run (exploratory)
+
+- **Question:** HCM1: What finite-window contraction, expansion and recurrence structure appears in Huginn native hidden-state recurrence under update-size and additive steering controls?
+- **Setup:** User approved first exploratory 32x32 scan following HCP1 quote. Fixed 12-token arithmetic prompt, lambda 0.95..1.35 and seed-0 RMS-normalized random steering -0.25..0.25 after recurrent block 0, exact native coordinate included. Float32; 512 transient, 1024 measured per offset 1e-3 and 3e-4, batch 16. Native equivalence gate, measured target throughput with 30 percent overhead margin, full-state repeated-closure candidates. One A100 80GB; external owned-resource watchdog, 14-hour hard lifetime, retrieval reserve, no automatic retries. Local GPU remains released. Plan docs/huginn-chaos-map-plan.json. Cost and approval in private ledger.
+- **Output:** `/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hcm1/map-01`
+- **Would surprise us:** Expansion robust to both offsets, or organized candidate repetition windows. Positive growth and recurrent windows remain exploratory candidates.
+
+_commit `6d850cc80ca5` (dirty worktree)_
+
+## 2026-10-23 00:03 UTC: HCM1 preflight checks and limitation
+
+New map passed CPU end-to-end analytic contraction fixture, multi-position recurrence checks, axis/native-coordinate tests, resource-ownership and budget-validator tests. Legacy saddle-packaging suite reports an existing missing baby_shrimp_memory_height_root.py dependency in its broad archive. HCM1 uses a new minimal five-file archive without saddle workers or historical raw data, so that unrelated legacy failure does not affect this run. New full map path has CPU fixture coverage and reuses the locally timed Huginn GPU adapter; rented-node native and throughput gates precede the scan. CUDA runtime minor version differs from local and is recorded; no float64/JVP qualification claimed.
+
+_commit `6d850cc80ca5` (dirty worktree)_

@@ -119,3 +119,11 @@ def test_memory_image_worker_requires_bound_plan_source_and_scan_mode():
     for bad in [command.replace('image 75','image 76'),command.replace('--mode scan','--mode benchmark'),
                 command.replace(source,'b'*40),command.replace('--out llm-soft-loop/pod64/','--out elsewhere/')]:
         with pytest.raises(ValueError): group.validate_orbit_job(bad,source_commit=source)
+
+
+def test_huginn_map_bound_source_plan_and_lifetime():
+    source='a'*40
+    command=f'hcm1 720 huginn_chaos_map.py --plan docs/huginn-chaos-map-plan.json --mode scan --source-commit {source} --out llm-soft-loop/pod64/hcm1/map'
+    group.validate_orbit_job(command,source_commit=source)
+    for bad in [command.replace('720','721'),command.replace(source,'b'*40),command.replace('docs/huginn-chaos-map-plan.json','docs/other.json')]:
+        with pytest.raises(ValueError):group.validate_orbit_job(bad,source_commit=source)
