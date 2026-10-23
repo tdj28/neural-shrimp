@@ -65,7 +65,7 @@ def test_continuation_streams_before_setting_completion_and_requires_all_shards(
     c.close()
 
 
-def test_complete_synthetic_worker_retains_all_states_and_selection(tmp_path,monkeypatch):
+def test_complete_synthetic_worker_retains_all_states_and_selection(tmp_path,monkeypatch,capsys):
     import argparse,types,torch
     import explore_latent_loop as latent
     torch.set_num_threads(1)
@@ -94,7 +94,7 @@ def test_complete_synthetic_worker_retains_all_states_and_selection(tmp_path,mon
     monkeypatch.setattr(latent,'HuginnLoop',FakeLoop);monkeypatch.setattr(latent,'DATA',tmp_path)
     anchor=np.ones((1,12,5280),dtype=np.float32);reference=np.concatenate([anchor,.5*anchor+.5*(.2*anchor+1)])
     np.savez(tmp_path/'input.npz',anchor=anchor,reference=reference,direction=np.ones(5280))
-    plan=dict(input_path='input.npz',input_sha256=s.sha256(tmp_path/'input.npz'),max_compute_seconds=3600,prompt='test',prompt_ids=[1],model_revision=latent.REVISIONS['huginn'],steering=0.,anchor_update_size=.5,lambda_range=[1.27,1.28],checkpoint_steps=256,transient=256,measure=256,max_settings=3,coarse_settings=2,refinement_settings=1,eps=[.001,.0003],recurrence_tolerance=3e-5)
+    plan=dict(experiment='HPC2',batch=1,input_path='input.npz',input_sha256=s.sha256(tmp_path/'input.npz'),max_compute_seconds=3600,prompt='test',prompt_ids=[1],model_revision=latent.REVISIONS['huginn'],steering=0.,anchor_update_size=.5,lambda_range=[1.27,1.28],checkpoint_steps=256,transient=256,measure=256,max_settings=3,coarse_settings=2,refinement_settings=1,eps=[.001,.0003],recurrence_tolerance=3e-5)
     path=tmp_path/'plan.json';path.write_text(json.dumps(plan))
     s.execute(argparse.Namespace(out='test',plan=path,source_commit='a'*40),plan)
     root=tmp_path/'explore/test';summary=json.loads((root/'summary.json').read_text())
@@ -106,3 +106,47 @@ def test_complete_synthetic_worker_retains_all_states_and_selection(tmp_path,mon
     for i in range(3):
         with np.load(root/f'states-{i:04d}-m-00256.npz') as z:
             assert z['states'].shape==(256,2,12,5280) and z['log_growth'].shape==(256,2,2)
+
+    # Feed actual worker output through the production watchdog decision path.
+    import runpod_scan_group as group
+    from test_runpod_scan_group import protected_files
+    control=tmp_path/'controller'
+    config,pod,attempt,phase,binding,status=protected_files(control,monkeypatch)
+    config.update(hard_minutes=900,retrieval_minutes=90,no_progress_minutes=20)
+    phase.update(compute_stopped=False,phase='computing',
+                 hard_deadline_epoch=pod['created_epoch']+54000,
+                 compute_deadline_epoch=pod['created_epoch']+48600)
+    binding.update(hard_deadline_epoch=phase['hard_deadline_epoch'],deadline_epoch=phase['hard_deadline_epoch']-60)
+    (attempt/'phase.json').write_text(json.dumps(phase))
+    (attempt/'incremental/identity.json').write_text(json.dumps(binding))
+    tracker=group.ProgressWatch(pod['created_epoch'])
+    logfile=attempt/'runner-stdout.txt';logfile.write_text('')
+    now=pod['created_epoch']+1900
+    for line in capsys.readouterr().out.splitlines():
+        with logfile.open('a') as f:f.write(line+'\n')
+        value,archive=group.progress(control,pod['name'])
+        snapshot=group.retrieval_snapshot(control,pod,config)
+        tracker.observe(value,snapshot,now)
+        assert group.watch_reason(config,pod,dict(finished=False,updated_epoch=now),True,now,tracker,snapshot,protected=True,archive_ready=archive) is None
+        now+=15
+    assert tracker.numeric is not None
+    assert group.watch_reason(config,pod,dict(finished=False,updated_epoch=now),True,now+1201,tracker,snapshot,protected=True,archive_ready=False)=='numerical progress stalled'
+
+    # Transfer the actual generated artifacts through the production collector.
+    c,reader=setup_collector(tmp_path/'transport')
+    c.plan=plan
+    remote=c.identity['remote_data']
+    for file in root.iterdir():reader.files[remote+'/'+file.name]=file.read_bytes()
+    reader.files['/root/neural-shrimp/'+c.identity['plan']]=path.read_bytes()
+    c.sources[c.identity['plan']]={'sha256':sha(path.read_bytes()),'bytes':path.stat().st_size}
+    c.close()
+    c=h.Collector(tmp_path/'bound-transport',c.identity,c.sources,'b'*64,plan,reader)
+    artifacts=sorted(h.continuation_artifacts(plan))
+    reader.snapshot_value=dict(ready=True,chunks=[0,1,2],artifacts=artifacts,manifest=manifest)
+    for _ in range(30):
+        if c.step()=='complete':break
+    else:pytest.fail('actual worker artifacts were not completely retrieved')
+    for name,digest in manifest.items():assert h.digest_file(c.out/'data'/name)==digest
+    import huginn_retrieval_guard as guard
+    assert guard.verified_completion(c.out,c.identity,'b'*64,0)['retrieval_complete']
+    c.close()

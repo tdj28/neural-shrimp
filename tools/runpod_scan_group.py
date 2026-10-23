@@ -483,6 +483,11 @@ def watch(out):
                 tracker.observe(val, snapshot, now)
                 reason = watch_reason(c, pod, state, alive, now, tracker, snapshot,
                                       protected=protected, archive_ready=finished)
+                save(out / ("progress-" + pid + ".json"),
+                     {"time": now, "pod_id": pid, "numeric": tracker.numeric,
+                      "numerical_changed": tracker.numerical_changed,
+                      "retrieval_changed": tracker.retrieval_changed,
+                      "retrieval": snapshot, "decision": reason})
                 if reason:
                     cleaning[pid] = pool.submit(cleanup, out, pod, reason, c)
             if (state.get("finished") or not alive) and all(p["terminated"] for p in pods.values()):
