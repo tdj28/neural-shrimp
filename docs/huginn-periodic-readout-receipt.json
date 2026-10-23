@@ -1,0 +1,225 @@
+{
+  "label": "HPR1 exploratory period-two readout and persistence",
+  "status": "Complete local execution and independent saved-array audit; finite float32 periodic candidate",
+  "created_utc": "2026-10-23T17:53:31.051358+00:00",
+  "execution_source": "82b7b6204ac1aeb50b45cff587a5a13042126240",
+  "plan": {
+    "path": "/data2/neural-shrimp/docs/huginn-periodic-readout-plan.json",
+    "bytes": 3417,
+    "sha256": "fd75e6bbb30c48782072c2eb420d3e4a4d2e124073aadf6b008359e0c9109d74"
+  },
+  "raw_root": "/data2/neural-shrimp-data/explore/llm-soft-loop/hpr1/20261023-local-01",
+  "audit_root": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01",
+  "model": {
+    "name": "tomg-group-umd/huginn-0125",
+    "revision": "bb6621b65e90b6a4b9b29ef88dc83866d450470c",
+    "prompt": "What is 17 times 23? The answer is",
+    "steering": -0.03741935483870967,
+    "update_size": 1.2532258064516129,
+    "precision": "float32, TF32 off; independent norm/probability reductions float64"
+  },
+  "verification": {
+    "raw_manifest": {
+      "path": "/data2/neural-shrimp-data/explore/llm-soft-loop/hpr1/20261023-local-01/manifest.json",
+      "bytes": 20733,
+      "sha256": "b545b74c8b22f23557b33b44653ee675034308e2a913693a34ef2776ae91e290"
+    },
+    "files_verified": 136,
+    "all_manifest_hashes_checked_before_and_after_analysis": true,
+    "source_plan_binding": true,
+    "full_state_and_full_logit_rows_independently_checked": 16456,
+    "initial_rows_checked_separately": 2,
+    "completed_shards": 64,
+    "recorded_native_saved_step_readout_throughput_gates_passed": true,
+    "synthetic_tests_passed": 18,
+    "audit_receipt": {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01/analysis-02/receipt.json",
+      "bytes": 73631,
+      "sha256": "42f71429bdf7b4cf5d87f1428a85679c23e603d205349256a14b6b31678a93ed"
+    },
+    "visual_review": {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01/visual-review.json",
+      "bytes": 797,
+      "sha256": "3a712fb7218faaa3f3a07a5b4ef4a7b0aa41f4c2ced684aff82ae7c0a8ba12dc"
+    },
+    "independent_claim_check": "Second reviewer checked all 16456 per-update metadata rows against reported horizons, argmax counts, recurrence suffixes and upward-rounded bounds. No discrepancy; distinguish top predictions from generated text and numerical cycles from exact periodicity."
+  },
+  "warm": {
+    "internal_updates": [
+      3073,
+      11264
+    ],
+    "additional_updates": 8192,
+    "two_update_cycles": 4096,
+    "phase_A_token": {
+      "token_id": 259,
+      "token_string": " a",
+      "mean_probability": 0.0740491669269877,
+      "min_probability": 0.07404843786415771,
+      "max_probability": 0.0740499901650828
+    },
+    "phase_B_token": {
+      "token_id": 361,
+      "token_string": " on",
+      "mean_probability": 0.05712343013973539,
+      "min_probability": 0.057123110092457206,
+      "max_probability": 0.057123764394325496
+    },
+    "phase_argmax_counts": [
+      [
+        {
+          "token_id": 259,
+          "token_string": " a",
+          "count": 4096
+        }
+      ],
+      [
+        {
+          "token_id": 361,
+          "token_string": " on",
+          "count": 4096
+        }
+      ]
+    ],
+    "argmax_sequence": " a, on alternating at odd/even updates with zero exceptions",
+    "maximum_q2_relative_error": 5.737414522043212e-06,
+    "maximum_same_parity_original_anchor_drift": 1.0445911587964362e-05,
+    "adjacent_readout_total_variation": {
+      "samples": 8192,
+      "min": 0.7748700239972067,
+      "max": 0.7748716297651899,
+      "mean": 0.7748708276283696
+    },
+    "two_step_readout_total_variation": {
+      "samples": 8192,
+      "min": 5.644423986362106e-07,
+      "max": 2.0012913014219515e-06,
+      "mean": 9.286523167583647e-07
+    },
+    "combined_saved_and_continued_history": {
+      "first_internal_update": 3001,
+      "last_internal_update": 11264,
+      "samples": 8264,
+      "q2_passing_suffix": {
+        "threshold": 3e-05,
+        "tested_samples": 8262,
+        "failed_samples": 0,
+        "first_observed_passing_suffix_update": 3003,
+        "passing_suffix_samples": 8262,
+        "definition": "First tested update after the last observed q2 failure; applies only through the saved terminal horizon, not to unobserved earlier or future states."
+      },
+      "q1_relative": {
+        "samples": 8263,
+        "min": 1.4051039662651448,
+        "max": 1.4052888589125025,
+        "mean": 1.4051964409149
+      },
+      "q2_relative": {
+        "samples": 8262,
+        "min": 2.224868301971533e-06,
+        "max": 5.737414522043212e-06,
+        "mean": 3.3253998571587735e-06
+      }
+    }
+  },
+  "fresh": {
+    "seed": 0,
+    "internal_updates": [
+      1,
+      8192
+    ],
+    "argmax_suffix": {
+      "last_mismatching_argmax_update": 88,
+      "first_unbroken_a_on_suffix_update": 89,
+      "last_internal_update": 8192,
+      "suffix_length": 8104
+    },
+    "full_state_recurrence_suffix": {
+      "threshold": 3e-05,
+      "tested_samples": 8191,
+      "failed_samples": 1351,
+      "first_observed_passing_suffix_update": 1356,
+      "passing_suffix_samples": 6837,
+      "definition": "First tested update after the last observed q2 failure; applies only through the saved terminal horizon, not to unobserved earlier or future states."
+    }
+  },
+  "lifecycle": {
+    "launch": {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01/launch-01/launch.json",
+      "bytes": 987,
+      "sha256": "0852908ac4043dbbfc4de0bedf092475b26cb1c7031a2f92a65065874d89c964"
+    },
+    "result": {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01/launch-01/result.json",
+      "bytes": 174,
+      "sha256": "7305290228b91c4c68f13838448fafa520d72efbd6d2a987fbd59c25e8e6cc54"
+    },
+    "independent_release_check": {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01/capacity-after.json",
+      "bytes": 241,
+      "sha256": "782d0a7d878f547ddca452c4c6cfe93bcd77204d928ea5fb0a081f1cd694b5e0"
+    },
+    "elapsed_seconds": 630.0221163160168,
+    "peak_cuda_bytes": 11123576320,
+    "no_rental": true
+  },
+  "artifacts": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01/analysis-02/period2-readout-summary.png",
+      "bytes": 349161,
+      "sha256": "5f6f1f64d588a2a0abf17e9906948e4180a46cb2b0d944f640fdcb209000fa1d"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01/analysis-02/period2-readout-summary.pdf",
+      "bytes": 110118,
+      "sha256": "9865a0886dfdeb8fc3506f31dccee16da29264dbec0ca04813730227dd91e1c5"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01/analysis-02/analysis-source.py",
+      "bytes": 35726,
+      "sha256": "df27be7c962eef0fbc88d8c9121d0546adcb7cca5340a812da3df38d7c35aba9"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01/analysis-02/per-update-metrics.json",
+      "bytes": 9456694,
+      "sha256": "7405f33fee045507b0803e984f39c0b1394a62c1336221439f94768327965c53"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01/readout-suffix-summary.json",
+      "bytes": 657,
+      "sha256": "495fd48be67f7f832b72ea6f1b11571da0b9352c9970359adf03c4a1d9f2dcf9"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01/library-inventory.json",
+      "bytes": 3409,
+      "sha256": "c6ffcdb5736e0415dfc5fa92e6ca77ef9466b2aaa9cea3e9b7397541f0663477"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/period2-readout-20261023-01/preflight-test-review.json",
+      "bytes": 1159,
+      "sha256": "790556ca1b489b8e2e86dd6143e4fae44bc2262bf310805ca4d55bcf5a86e60f"
+    }
+  ],
+  "preserved_failures": {
+    "offline_analysis": "First attempt used a removed private NumPy header API and failed before numerical analysis. Source, invocation, stderr and exit status preserved. Second attempt uses public header readers; raw data and all numerical thresholds unchanged; no model rerun.",
+    "runtime_inventory": "pip is absent, so pip-freeze failed; empty output retained. importlib.metadata records the installed library inventory without changing the environment."
+  },
+  "backup_receipt": "docs/backups/huginn-periodic-readout-20261023.json",
+  "claim_boundary": [
+    "Same fixed next-token position; these are diagnostic token predictions, not an autoregressively generated sentence.",
+    "Modified Huginn internal map with update-size and steering interventions, not native unmodified operation or soft-token feedback.",
+    "Finite-horizon approximate period-two evidence; no verified exact primitive orbit, stability multipliers, infinite persistence or shrimp organization.",
+    "HCM2 final remote manifest was lost; surviving input per-file/source/plan bindings do not restore historical completeness. HPR1 has its own complete verified manifest.",
+    "Fresh row uses the original seed and prompt, not an independent random-seed replication."
+  ],
+  "backup": {
+    "receipt_path": "docs/backups/huginn-periodic-readout-20261023.json",
+    "receipt_sha256": "ebf923f8b9d95031d3153ff31dc848a023009be544d06d6a0a4de0028e66dd7e",
+    "destination": "/archive/neural-shrimp-backups/20261023T175214Z-huginn-periodic-readout",
+    "files": 167,
+    "bytes": 8537887856,
+    "manifest_sha256": "f24aef455f3a2611ea8bc6f9969784e5ab73c029cc1c8690e28e0ba781623f70",
+    "distinct_physical_disks_verified": true,
+    "scope": "Verified same-host separate-disk snapshot, not offsite or continuous."
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "backup_script_sha256": "1e76e5758355581a03874cd823231ecc61bc686fd4f19ca9b8e1b3e5f019e7f4",
+  "bytes": 8537887856,
+  "completed_utc": "2026-10-23T17:53:13.435459+00:00",
+  "destination": "/archive/neural-shrimp-backups/20261023T175214Z-huginn-periodic-readout",
+  "destination_inventory_complete": true,
+  "destination_private_mode": "0700",
+  "elapsed_seconds": 58.509,
+  "file_count": 167,
+  "hash_mismatches": 0,
+  "io_priority": "idle (ionice class 3)",
+  "manifest_sha256": "f24aef455f3a2611ea8bc6f9969784e5ab73c029cc1c8690e28e0ba781623f70",
+  "physical_storage": {
+    "basis": "lsblk mount ancestry and differing filesystem device IDs checked during this snapshot",
+    "destination": "sda",
+    "distinct_physical_disks_verified": true,
+    "source": "nvme1n1"
+  },
+  "scope": "Huginn HPR1 raw states, readouts, provenance, audits and any failed partial attempts; original HCM input evidence protected by the earlier HCM snapshot. Private same-machine separate-disk snapshot; not offsite or continuous.",
+  "selected_roots": [
+    "explore/llm-soft-loop/hpr1",
+    "audits/huginn-chaos/period2-readout-20261023-01"
+  ],
+  "source": "/data2/neural-shrimp-data",
+  "source_commit_at_copy": "82b7b6204ac1aeb50b45cff587a5a13042126240",
+  "source_inventory_after_sha256": "bf000a9d7917480f3eec087ba4ff7907514e3363b8e3df14f5ee19c92c4ade97",
+  "source_inventory_before_sha256": "bf000a9d7917480f3eec087ba4ff7907514e3363b8e3df14f5ee19c92c4ade97",
+  "source_inventory_stable": true,
+  "started_utc": "2026-10-23T17:52:14.926453+00:00",
+  "status": "verified",
+  "symlink_count": 0,
+  "verification": "Every copied file independently SHA-256 verified, followed by a second source SHA-256 pass; exact source inventories stable and destination inventory complete. Existing source files were not changed.",
+  "verified_copies": 167,
+  "verified_sources_again": 167,
+  "worker_count": 1
+}
