@@ -109,7 +109,7 @@
     "HCM2 comparison is partial recovery; no complete HCM2 map is available"
   ],
   "experiment": "HCM3",
-  "status": "scientific_dataset_retrieved_and_audited; legacy archive and termination pending",
+  "status": "complete scientific retrieval and audit; pod terminated; legacy archive failure preserved",
   "retrieval_method": "incremental remote/local SHA-256 per immutable file and independent final raw-manifest pass",
   "collector_source": "d2f77b7f4a9e858ad6bf3a3a627aae0051a2b904",
   "collector_complete": true,
@@ -134,12 +134,27 @@
     "raw_hashes_joined_to_manifest": 192
   },
   "legacy_archive": {
-    "status": "pending",
-    "hash_verified": false
+    "status": "failed transfer; partial archive preserved",
+    "hash_verified": false,
+    "remote_sha256": "31e54d428a5fd940e4c069c4d0e734121c58e2617be9edf85e034a494ba0eb3b",
+    "partial_archive": {
+      "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023/workers/neural-shrimp-hcm3-20261023/20261023T072751Z/results.tgz",
+      "bytes": 1290716160,
+      "sha256": "3d93c0e988686d4c0bf3638348c7498630516f5a381adc5b7e50a453a90ee97c"
+    },
+    "worker_returncodes": [
+      1
+    ],
+    "result_json_exists": false,
+    "controller_complete_json_exists": false,
+    "failure": "Original watchdog misclassified numerical completion plus final packing as stalled progress, attempted redundant salvage, timed out and terminated during original archive transfer. All 198 scientific files had already passed incremental per-file and manifest verification."
   },
   "termination": {
-    "verified_absent": false,
-    "status": "original controller and watchdog still active"
+    "verified_absent": true,
+    "exact_lookup": null,
+    "inventory_absent": true,
+    "checked_utc": "2026-10-23T14:54:28.013232+00:00",
+    "provider_terminated_utc": "2026-10-23T14:53:23+00:00"
   },
   "visual_review": "Both final PNGs inspected: steering horizontal, update size vertical, accurate scales, recurrence and finite-window qualifications readable; HCM2 missing upper half gray, native marker readable only in HCM1; no smoothing.",
   "controller_directory": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023",
@@ -215,6 +230,22 @@
       "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023/incremental/identity.json",
       "bytes": 1620,
       "sha256": "dbad843fc62a39c6e06304bea189d0dc135617c237010eccef9e00221518d250"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023/independent-completion-lifecycle.json",
+      "bytes": 4251,
+      "sha256": "975e2cdd85d2538587be49a6a6bd3be4fe6fb00071d1eb8a27401e97d992b7f2"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023/legacy-archive-failure-verification.json",
+      "bytes": 976,
+      "sha256": "6084d86bc60aa754868e98cd663722858f172f18a8bfea4f5e0c7d4ceb5c95b5"
     }
-  ]
+  ],
+  "local_processes_absent": {
+    "901405": true,
+    "901406": true,
+    "901407": true,
+    "1057362": true
+  }
 }
