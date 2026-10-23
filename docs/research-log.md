@@ -32949,3 +32949,9 @@ _commit `6d850cc80ca5` (dirty worktree)_
 New map passed CPU end-to-end analytic contraction fixture, multi-position recurrence checks, axis/native-coordinate tests, resource-ownership and budget-validator tests. Legacy saddle-packaging suite reports an existing missing baby_shrimp_memory_height_root.py dependency in its broad archive. HCM1 uses a new minimal five-file archive without saddle workers or historical raw data, so that unrelated legacy failure does not affect this run. New full map path has CPU fixture coverage and reuses the locally timed Huginn GPU adapter; rented-node native and throughput gates precede the scan. CUDA runtime minor version differs from local and is recorded; no float64/JVP qualification claimed.
 
 _commit `6d850cc80ca5` (dirty worktree)_
+
+## 2026-10-23 00:07 UTC: HCM1 launched: target-machine gates passed
+
+Owned pod 54r7yo4rn29be3, NVIDIA A100 SXM 80GB; source cc6e66cceae417f67ffc26bd4b0b6571b88298d1; immutable image runpod/pytorch@sha256:61a4aafb0094cd773f11eefa378929d5a687bd775febeb78eac62fc824141fb5. Native map relative difference and repeat difference both zero. Remote batch-16 measured 0.00448117402902426 seconds per cell-step; full scan projection with 30 percent margin 15271.2675 seconds. Controller PID 680519 and independent watchdog PID 680527; private controller records /data2/neural-shrimp-data/runpod/huginn-chaos/hcm1-20261022. Source archive SHA256 3d97c368a9c72c1769626dd87cb654e21c18603316377c21932d4f066a787afe. Retrieval and termination pending; no scientific outcome yet. Existing-run follow-up finish-huginn-internal-loop-map scheduled to audit and deliver on completion, with no new paid work authorized by the follow-up.
+
+_commit `cc6e66cceae4` (dirty worktree)_
