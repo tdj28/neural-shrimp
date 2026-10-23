@@ -32976,3 +32976,12 @@ _commit `1f44b34dbfd8` (dirty worktree)_
 User explicitly confirmed the separate HCM2 spending ceiling and requested that confirmation before each new paid run be recorded in AGENTS.md. Rule committed with tested zoom code at 63002827356c61e535f912d4351302116d785864. Owned A100 SXM pod etn7ftg1db9lhz created and independently observed running. Controller 774794 and watchdog 774795; records /data2/neural-shrimp-data/runpod/huginn-chaos/hcm2-20261022. No local GPU use. Source archive SHA256 c386efd2c8d06f3745e87f7609c04c23c5d8f4ce0cb76360103396bd3c3bf394; six-file minimal archive includes both plans. Target numerical gates, retrieval and termination pending. Completion follow-up finish-huginn-chaos-zoom monitors only this existing resource; it cannot authorize new paid work. Amounts and balance in private cost ledger.
 
 _commit `63002827356c` (dirty worktree)_
+
+## 2026-10-23 07:26 UTC: run (exploratory)
+
+- **Question:** HCM3: Does the strongest HCM1 expansion candidate retain positive growth across a much tighter parameter neighborhood and longer observation?
+- **Setup:** User approved the displayed cyan box and its separate ceiling on 2026-10-23. Additional 32x32 scan, steering -0.110..-0.100 and lambda 1.320..1.328; same prompt, seed-0 steering direction, initial state, float32/TF32-off path as HCM2. Batch 16, 1024 settling steps and 2048 measured steps at each of two offsets; retain 72 full states per chunk and offset. Selection follows HCM1 peak and partial HCM2 inspection, and user-requested box tightening; exploratory, not confirmatory. HCM2 remains independently running. One A100 80GB, 160GB ephemeral disk, native/throughput gates, independent exact-ownership watchdog and bounded retrieval reserve; no automatic execution retries. Local GPU remains reserved for other work. Plan docs/huginn-chaos-tight-zoom-plan.json; approval and costs in private ledger.
+- **Output:** `/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hcm3/map-01`
+- **Would surprise us:** Growth disappearing at longer horizons or organized recurrence windows within this selected neighborhood; neither visual patterns nor positive finite-window growth prove chaos or shrimps.
+
+_commit `2267de6000a7` (dirty worktree)_

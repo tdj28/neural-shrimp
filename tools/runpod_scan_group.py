@@ -88,7 +88,7 @@ def validate_orbit_job(arguments, source_commit=None):
             if job.count(key) != 1 or job.index(key) + 1 >= len(job):
                 raise ValueError(f"saddle worker requires one {key}")
         plan = job[job.index("--plan") + 1]
-        if (plan not in ("docs/huginn-chaos-map-plan.json", "docs/huginn-chaos-zoom-plan.json") if huginn else not plan.startswith("docs/baby-shrimp-zoom/")) or ".." in Path(plan).parts:
+        if (plan not in ("docs/huginn-chaos-map-plan.json", "docs/huginn-chaos-zoom-plan.json", "docs/huginn-chaos-tight-zoom-plan.json") if huginn else not plan.startswith("docs/baby-shrimp-zoom/")) or ".." in Path(plan).parts:
             raise ValueError("saddle plan must remain in the declared repository plan directory")
         commit = job[job.index("--source-commit") + 1]
         if not re.fullmatch(r"[0-9a-f]{40}", commit) or source_commit is not None and commit != source_commit:

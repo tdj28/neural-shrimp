@@ -69,7 +69,8 @@ def hf_token():
 
 def archives(commit, extra=(), huginn_only=False):
     selected = ("tools/huginn_chaos_map.py", "tools/runpod_huginn_chaos_runner.sh", "tools/runpod_soft_runner.sh",
-                "tools/explore_latent_loop.py", "docs/huginn-chaos-map-plan.json", "docs/huginn-chaos-zoom-plan.json") if huginn_only else UPLOAD_PATHS
+                "tools/explore_latent_loop.py", "docs/huginn-chaos-map-plan.json", "docs/huginn-chaos-zoom-plan.json",
+                "docs/huginn-chaos-tight-zoom-plan.json") if huginn_only else UPLOAD_PATHS
     code = subprocess.run(["git", "archive", "--format=tar", commit, *selected], cwd=ROOT, capture_output=True,
                           check=True).stdout
     buf = io.BytesIO()

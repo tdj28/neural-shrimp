@@ -1,0 +1,33 @@
+{
+  "label": "HCM3 approved exploratory tight hidden-state zoom",
+  "prompt": "What is 17 times 23? The answer is",
+  "resolution": 32,
+  "lambda_range": [
+    1.32,
+    1.328
+  ],
+  "steering_range": [
+    -0.11,
+    -0.1
+  ],
+  "steering_definition": "Seed-0 Gaussian direction scaled to unit RMS, added at every token position after recurrent block 0 each iteration; alpha is additive activation RMS. Only in-range reference coordinates may replace the nearest grid coordinate.",
+  "direction_seed": 0,
+  "batch": 16,
+  "transient": 1024,
+  "measure": 2048,
+  "eps": [
+    0.001,
+    0.0003
+  ],
+  "recurrence_tolerance": 3e-05,
+  "max_compute_seconds": 32400,
+  "classification": "Positive finite-window growth at both offsets is a candidate; full-state recurrence at eight consecutive positions is a candidate period. Neither proves chaos, primitive periodic stability or shrimp organization.",
+  "local_timing_receipt": "docs/huginn-chaos-pilot-receipt.json",
+  "remote_gate": "Benchmark exact batched intervention path; projected duration with 30 percent margin must fit remaining numerical deadline minus 600 seconds. No automatic retry. Preserve every partial chunk.",
+  "native_coordinate": "Both native coordinates are outside this zoom; preserve original HCM1 native reference.",
+  "additional_output": "Retain the last 72 full states for each completed chunk so recurrence candidates can be audited independently; offline compression and disk capacity must be budgeted.",
+  "retain_full_tails": true,
+  "selection": "Adapted after inspecting HCM1 and partial HCM2. Centered around strongest HCM1 finite-window candidate, cell 937 at steering -0.10483870967741937 and lambda 1.3241935483870968; user tightened and approved cyan locator box on 2026-10-23. HCM2 continues independently. No claim of established chaos at selection.",
+  "parent_receipt": "docs/huginn-chaos-map-receipt.json",
+  "approval_reference": "HCM3-user-approved-tighter-cyan-box-20261023"
+}

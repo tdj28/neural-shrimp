@@ -57,3 +57,12 @@ def test_zoom_never_inserts_out_of_range_native_coordinate():
     l,a=m.axes(p)
     assert l.min()==1.25 and l.max()==1.35 and 1 not in l
     assert a.min()==-.18 and a.max()==.16 and 0 in a
+
+
+def test_tight_zoom_keeps_both_axes_inside_approved_box():
+    p=json.loads((Path(__file__).parents[1]/'docs/huginn-chaos-tight-zoom-plan.json').read_text())
+    l,a=m.axes(p)
+    assert len(l)==len(a)==32
+    assert l.min()==1.320 and l.max()==1.328 and 1 not in l
+    assert a.min()==-.110 and a.max()==-.100 and 0 not in a
+    assert np.all(np.diff(l)>0) and np.all(np.diff(a)>0)
