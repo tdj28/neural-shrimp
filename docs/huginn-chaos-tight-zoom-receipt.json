@@ -1,0 +1,220 @@
+{
+  "source": "a00da420f2b41588bdc3461fc6d22584684b9d09",
+  "pod_id": "7yfq0xm26xdqsb",
+  "raw_root": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023/incremental/data",
+  "source_archive_sha256": "5b606e5a28dfcd153843c49619e977eb201c5a36aafa4cd126ba9d3ba2eed679",
+  "raw_manifest_sha256": "5f11ed8bb3fa112824113f3dc919d4f2abc5052a2901203c1e3f3c22223d9e8f",
+  "plan_sha256": "f628f9f9f79c9772f1322c6a93b7aaac3bd51b0e82b6b6d45c9bcdfb834fe0c0",
+  "manifest_files": 198,
+  "manifest_bytes": 34893696010,
+  "verified_chunks": 64,
+  "cells": 1024,
+  "runtime": {
+    "source": "a00da420f2b41588bdc3461fc6d22584684b9d09",
+    "plan_sha256": "f628f9f9f79c9772f1322c6a93b7aaac3bd51b0e82b6b6d45c9bcdfb834fe0c0",
+    "model_revision": "bb6621b65e90b6a4b9b29ef88dc83866d450470c",
+    "torch": "2.14.1+cu126",
+    "cuda": "12.6",
+    "transformers": "4.55.0",
+    "numpy": "2.5.4",
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "prompt_ids": [
+      65504,
+      3248,
+      305,
+      345,
+      55,
+      2150,
+      402,
+      51,
+      63,
+      428,
+      1873,
+      305
+    ],
+    "dtype": "float32",
+    "tf32": false
+  },
+  "native_gate": {
+    "chunk_start": -1,
+    "phase": "native_gate",
+    "error": 0.0,
+    "repeat": 0.0
+  },
+  "throughput_gate": {
+    "chunk_start": -1,
+    "phase": "throughput_gate",
+    "seconds_per_cell_step": 0.004497309027328811,
+    "projected_seconds_with_margin": 30652.507019162178,
+    "remaining_seconds": 32390.473115358036
+  },
+  "numerical_seconds": 25334.33923941996,
+  "positive_both_offsets_gt_1e_minus_3": 823,
+  "positive_both_halves_both_offsets_gt_1e_minus_3": 775,
+  "positive_both_offsets_gt_zero": 865,
+  "positive_both_halves_both_offsets_gt_zero": 811,
+  "positive_with_recurrence": 0,
+  "recurrence_agreement_counts": {
+    "0": 1024
+  },
+  "recurrence_disagreement": 0,
+  "offset_sign_disagreement": 28,
+  "offset_gap_max": 0.004204221535474062,
+  "offset_gap_median": 0.0004174495115876198,
+  "half_gap_max": 0.045284420251846313,
+  "half_aggregation_max_error": 4.842877388000488e-08,
+  "exponent_range": [
+    -0.004214480519294739,
+    0.03984740003943443
+  ],
+  "half_exponent_range": [
+    -0.007384913042187691,
+    0.045165013521909714
+  ],
+  "norm_range": [
+    319.3259582519531,
+    355.4259033203125
+  ],
+  "strongest_minimum_offset_cell": {
+    "index": 884,
+    "lambda_value": 1.326967741935484,
+    "steering": -0.10354838709677419,
+    "exponents": [
+      0.03824932128190994,
+      0.03813262656331062
+    ],
+    "halves": [
+      [
+        0.040465377271175385,
+        0.0360332690179348
+      ],
+      [
+        0.03933834657073021,
+        0.036926936358213425
+      ]
+    ],
+    "recurrence_candidates": [
+      0,
+      0
+    ]
+  },
+  "environment_hashes": {
+    "hardware.txt": "92c960df5cd7ed3d270b4fd9524c4cf6f69dc2c06a44e06ff08c11bf5d5aa479",
+    "libraries.txt": "1a9f17d47b34a700e7a4e6f430ff34339a56edffc2b78935b21cd6d5af62bb01"
+  },
+  "limitations": [
+    "One prompt, one direction and initialization; float32 finite-window screening of a modified internal loop",
+    "Positive finite-window expansion does not establish sustained chaos or primitive-orbit stability",
+    "Native point (steering 0, update size 1) is outside this window",
+    "HCM2 comparison is partial recovery; no complete HCM2 map is available"
+  ],
+  "experiment": "HCM3",
+  "status": "scientific_dataset_retrieved_and_audited; legacy archive and termination pending",
+  "retrieval_method": "incremental remote/local SHA-256 per immutable file and independent final raw-manifest pass",
+  "collector_source": "d2f77b7f4a9e858ad6bf3a3a627aae0051a2b904",
+  "collector_complete": true,
+  "scientific_audit_passed": true,
+  "independent_recurrence": {
+    "passed": true,
+    "complete": true,
+    "tails": 128,
+    "recomputed_cell_offsets": 2048,
+    "mismatch_tail_count": 0,
+    "candidate_counts_by_offset": {
+      "0": {
+        "0": 1024
+      },
+      "1": {
+        "0": 1024
+      }
+    },
+    "tolerance": 3e-05,
+    "smallest_tested_closure_statistic": 0.037389718969567984,
+    "method": "Independent float64 difference and sum-of-squares reductions of saved float32 full states; smallest period 1..64 closing at all eight final positions with relative Euclidean error strictly below tolerance.",
+    "raw_hashes_joined_to_manifest": 192
+  },
+  "legacy_archive": {
+    "status": "pending",
+    "hash_verified": false
+  },
+  "termination": {
+    "verified_absent": false,
+    "status": "original controller and watchdog still active"
+  },
+  "visual_review": "Both final PNGs inspected: steering horizontal, update size vertical, accurate scales, recurrence and finite-window qualifications readable; HCM2 missing upper half gray, native marker readable only in HCM1; no smoothing.",
+  "controller_directory": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023",
+  "heartbeat": "finish-huginn-tight-chaos-zoom",
+  "cost": "see private ledger",
+  "artifacts": [
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm3-20261023/audit.py",
+      "bytes": 9324,
+      "sha256": "90e049ed1c72703f7dba049ac056964e2062496976e83b7f1f15d11f99e46745"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm3-20261023/array-provenance-audit.json",
+      "bytes": 4902,
+      "sha256": "dba4ec97093e3c52574f91e6dbe3c544cc58527b01a6452af3b35277f5cb4fd6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm3-20261023/cross-audit-verification.json",
+      "bytes": 805,
+      "sha256": "a6b064ecc75855eb62534959a4070ddd046e3ce3a7fb459588311ba131fd5a34"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm3-recurrence-20261023/audit.py",
+      "bytes": 10896,
+      "sha256": "85daeabc853c59fb67a119912d0951e64b746f114e81bee4fd68991dc462c897"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm3-recurrence-20261023/recurrence-audit.json",
+      "bytes": 151207,
+      "sha256": "08fad42d1bdd3db5bf7031b9adbbe9c9dd2e9c3021f20246b655596d0af449aa"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm3-recurrence-20261023/recurrence-errors.npz",
+      "bytes": 493857,
+      "sha256": "deb1adcac03d5100ebd2f0cfc90d188bffdb7a68cc6a856117b6ed79bcd27028"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm3-20261023/figures/final-01/render.py",
+      "bytes": 10268,
+      "sha256": "219408f02f0f9bc5b6948179cc9a6795bd487fd41c250fcc8390c983d7b1d7d6"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm3-20261023/figures/final-01/figure-receipt.json",
+      "bytes": 1808,
+      "sha256": "816a6300e26e26e2efd54dd55143adcc5d945ab0f8915400d532b391aa6e714b"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm3-20261023/figures/final-01/huginn-tight-zoom.png",
+      "bytes": 252020,
+      "sha256": "99b24bcfea10d31e07cb477cdecb6f806ff4528ac2f4a5a229994faeaf518a22"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm3-20261023/figures/final-01/huginn-tight-zoom.pdf",
+      "bytes": 46426,
+      "sha256": "a5296f08e4edb6c00df01a59a5fd17af63967891cc491f12ee835b8585ae226a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm3-20261023/figures/final-01/huginn-tight-zoom-context.png",
+      "bytes": 284973,
+      "sha256": "3641b535011ea8977a09076c4bc7fef16f69abab3ff5c89267357903aa439616"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm3-20261023/figures/final-01/huginn-tight-zoom-context.pdf",
+      "bytes": 53154,
+      "sha256": "5313e21b97f7486bb00c955056979271bcdbe7aba7802c1014c6f4e96f6a21cf"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023/incremental/status.json",
+      "bytes": 308,
+      "sha256": "7cb421808f00a5673bf54428cede86130a5d5145f3b9653278abce40da3f3722"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023/incremental/identity.json",
+      "bytes": 1620,
+      "sha256": "dbad843fc62a39c6e06304bea189d0dc135617c237010eccef9e00221518d250"
+    }
+  ]
+}
