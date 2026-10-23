@@ -346,3 +346,18 @@ def test_hpc2_uses_existing_protected_route_with_bounded_plan():
     group.validate_orbit_job(command,source_commit=source)
     assert group.huginn_command(['runner','--jobset','toolseq','--jobset-args',command])
     with pytest.raises(ValueError):group.validate_orbit_job(command.replace('720','721'),source_commit=source)
+
+
+def test_hpc2_phase_first_progress_and_artifacts_do_not_hide_numerics(tmp_path):
+    import itertools,json
+    p=tmp_path/'workers/neural-shrimp-test/attempt';p.mkdir(parents=True)
+    logfile=p/'runner-stdout.txt'
+    pairs=[('phase','transient'),('chunk_start',4),('step',4096)]
+    for order in itertools.permutations(pairs):
+        value=json.dumps(dict(order))
+        logfile.write_text('prefix '+value+'\n'+json.dumps(dict(phase='artifact_complete',chunk_start=-1,file='states.npz'))+'\n')
+        result,finished=group.progress(tmp_path,'neural-shrimp-test')
+        assert json.loads(result)==dict(pairs) and not finished
+    logfile.write_text('{"phase":"measure","chunk_start":4,"step":4096}\n{"phase":"measure","chunk_start":')
+    result,_=group.progress(tmp_path,'neural-shrimp-test')
+    assert json.loads(result)['step']==4096

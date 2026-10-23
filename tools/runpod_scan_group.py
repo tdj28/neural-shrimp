@@ -266,9 +266,19 @@ def progress(out, name):
     finished = any(re.fullmatch(r"[0-9a-f]{64}\s+/root/results\.tgz", line.strip()) for line in lines)
     values = []
     for line in lines:
-        for marker in ('{"chunk_start"', '{"cell_index"'):
-            if marker in line:
-                values.append(line[line.index(marker):])
+        # JSON key order is not a protocol. HPC2 emits phase before chunk_start.
+        # Decode a complete object, including after a runner timestamp prefix.
+        for match in re.finditer(r"\{", line):
+            try:
+                row, end = json.JSONDecoder().raw_decode(line[match.start():])
+            except json.JSONDecodeError:
+                continue
+            if not isinstance(row, dict):
+                continue
+            if row.get("phase") == "artifact_complete":
+                continue  # artifact liveness is tracked separately
+            if any(type(row.get(key)) is int for key in ("chunk_start", "cell_index")):
+                values.append(line[match.start():match.start()+end])
                 break
     return values[-1] if values else None, finished
 

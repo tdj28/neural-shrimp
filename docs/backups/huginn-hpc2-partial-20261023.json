@@ -1,0 +1,38 @@
+{
+  "backup_script_sha256": "ce947b9eb2f7cb501b6974ce01ed251fa3a318145d14bfdf9929cd2453e6179f",
+  "bytes": 25580175615,
+  "completed_utc": "2026-10-23T20:56:20.807519+00:00",
+  "destination": "/archive/neural-shrimp-backups/20261023T205158Z-huginn-hpc2-partial",
+  "destination_inventory_complete": true,
+  "destination_private_mode": "0700",
+  "elapsed_seconds": 262.074,
+  "file_count": 101,
+  "hash_mismatches": 0,
+  "io_priority": "idle (ionice class 3)",
+  "manifest_sha256": "e5a264ca314163655a46bd0d6a9f4fbe66b97bdd4357e5e00fd6ed76e564437f",
+  "physical_storage": {
+    "basis": "lsblk mount ancestry and differing filesystem device IDs checked during this snapshot",
+    "destination": "sda",
+    "distinct_physical_disks_verified": true,
+    "source": "nvme1n1"
+  },
+  "scope": "HPC2 failed-run recovered evidence, transfer partials, controller records, inputs and failure audit. Missing remote evidence is not reconstructed. Private same-machine separate-disk snapshot; not offsite or continuous.",
+  "selected_roots": [
+    "runpod/huginn-chaos/hpc2-20261023",
+    "audits/huginn-chaos/hpc2-launch-20261023-01",
+    "audits/huginn-chaos/hpc2-failure-20261023",
+    "explore/llm-soft-loop/hpc2-input-20261023"
+  ],
+  "source": "/data2/neural-shrimp-data",
+  "source_commit_at_copy": "588bc1b0695e8156bf1d86ab524b37c08710cb11",
+  "source_inventory_after_sha256": "54b32138bc5707e14d8867ce4e64b4036a5491fb0afeee6bd976a7ca62bc84e1",
+  "source_inventory_before_sha256": "54b32138bc5707e14d8867ce4e64b4036a5491fb0afeee6bd976a7ca62bc84e1",
+  "source_inventory_stable": true,
+  "started_utc": "2026-10-23T20:51:58.751935+00:00",
+  "status": "verified",
+  "symlink_count": 0,
+  "verification": "Every copied file independently SHA-256 verified, followed by a second source SHA-256 pass; exact source inventories stable and destination inventory complete. Existing source files were not changed.",
+  "verified_copies": 101,
+  "verified_sources_again": 101,
+  "worker_count": 1
+}

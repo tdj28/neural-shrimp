@@ -1,0 +1,170 @@
+{
+  "status": "failed/incomplete; no retry",
+  "source": "423fc4b00b911366627389f6d77f0bd84462eb27",
+  "pod_id": "6w65zdr1e02nel",
+  "termination": {
+    "direct_absent": true,
+    "inventory_absent": true
+  },
+  "cause": "Watchdog progress parser required chunk_start or cell_index as first JSON key; HPC2 emitted phase first. Healthy numerical progress was missed, triggering setup-allowance termination after30minutes.",
+  "verified_files": 73,
+  "verified_bytes": 25438718107,
+  "npz_files_checked": 58,
+  "final_manifest_present": false,
+  "rows": [
+    {
+      "index": 0,
+      "update_size": 1.27,
+      "stored_period": [
+        2,
+        2
+      ],
+      "stored_growth": [
+        [
+          -0.01232226099818945,
+          -0.012398394756019115
+        ],
+        [
+          -0.012325428426265717,
+          -0.012403750792145729
+        ]
+      ],
+      "missing_state_shards": [],
+      "audit_status": "complete setting shards; global manifest missing",
+      "independent_period": [
+        2,
+        2
+      ]
+    },
+    {
+      "index": 1,
+      "update_size": 1.275,
+      "stored_period": [
+        2,
+        0
+      ],
+      "stored_growth": [
+        [
+          -0.008202824741601944,
+          -0.0007912719156593084
+        ],
+        [
+          -0.008181031793355942,
+          -0.00032454502070322633
+        ]
+      ],
+      "missing_state_shards": [],
+      "audit_status": "complete setting shards; global manifest missing",
+      "independent_period": [
+        2,
+        0
+      ]
+    },
+    {
+      "index": 2,
+      "update_size": 1.28,
+      "stored_period": [
+        2,
+        0
+      ],
+      "stored_growth": [
+        [
+          -0.0015303901163861156,
+          0.00014410125731956214
+        ],
+        [
+          -0.0014871637104079127,
+          0.00021949487563688308
+        ]
+      ],
+      "missing_state_shards": [],
+      "audit_status": "complete setting shards; global manifest missing",
+      "independent_period": [
+        2,
+        0
+      ]
+    },
+    {
+      "index": 3,
+      "update_size": 1.2850000000000001,
+      "stored_period": [
+        0,
+        0
+      ],
+      "stored_growth": [
+        [
+          -3.933168045477942e-06,
+          -0.00010767376079456881
+        ],
+        [
+          6.39456557109952e-05,
+          -7.744629692751914e-05
+        ]
+      ],
+      "missing_state_shards": [
+        "states-0003-t-01024.npz",
+        "states-0003-t-02048.npz",
+        "states-0003-t-03072.npz",
+        "states-0003-t-04096.npz",
+        "states-0003-t-05120.npz",
+        "states-0003-t-06144.npz",
+        "states-0003-t-07168.npz",
+        "states-0003-t-08192.npz",
+        "states-0003-m-01024.npz",
+        "states-0003-m-02048.npz",
+        "states-0003-m-03072.npz",
+        "states-0003-m-04096.npz",
+        "states-0003-m-05120.npz",
+        "states-0003-m-06144.npz",
+        "states-0003-m-07168.npz",
+        "states-0003-m-08192.npz"
+      ],
+      "audit_status": "incomplete full-state evidence"
+    }
+  ],
+  "partial_files": [
+    {
+      "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hpc2-20261023/workers/neural-shrimp-hpc2-20261023/20261023T201602Z/incremental/data/states-0003-m-01024.npz.3116510b5c2642f4b570a70f278bc49e.partial",
+      "bytes": 140574720,
+      "sha256": "2e8a32cec481996515a4c6150b4dea63ccd639a89609a4d9b0e228b2e24bd6f7"
+    }
+  ],
+  "repaired_parser_reads": {
+    "phase": "transient",
+    "chunk_start": 4,
+    "step": 4096
+  },
+  "artifacts": [
+    {
+      "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hpc2-20261023/workers/neural-shrimp-hpc2-20261023/20261023T201602Z/runner-stdout.txt",
+      "bytes": 11918,
+      "sha256": "347b117974117d531ea31fd3dcef15a8577786709e99a05882a7b5809db3084a"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hpc2-20261023/workers/neural-shrimp-hpc2-20261023/20261023T201602Z/result.json",
+      "bytes": 2897,
+      "sha256": "1000eb9fe45c8be186acc9918e1b199af476ac13deb3e04cedf97dbb93407e74"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hpc2-20261023/watchdog-events.jsonl",
+      "bytes": 711,
+      "sha256": "5d6cbbe83281e1b26237d5ee31c6799d098b11d25254a0411a97acfb97f8e91c"
+    },
+    {
+      "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hpc2-20261023/workers/neural-shrimp-hpc2-20261023/20261023T201602Z/incremental/receipts.jsonl",
+      "bytes": 36554,
+      "sha256": "57fb7e0038cfb127ad500d947fb389dcfb6c8ca4a4f1ac392e67ade48ed650ca"
+    }
+  ],
+  "qualification": "Local per-file hashes match remote retrieval receipts. Missing global manifest and later shards prevent claiming full completion. No new GPU use or rental.",
+  "external_audit": {
+    "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hpc2-failure-20261023/receipt.json",
+    "sha256": "e922615d59e9ad6d73ec953203585946814f7840c487f44e1d3ad1afa6b0a79c",
+    "bytes": 4684
+  },
+  "tests": {
+    "passed": 87,
+    "failed": 0
+  },
+  "backup_receipt": "docs/backups/huginn-hpc2-partial-20261023.json"
+}
