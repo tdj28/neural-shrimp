@@ -1,0 +1,41 @@
+{
+  "label": "HPC1 local exploratory bounded warm/fresh continuation",
+  "center": 1.2532258064516129,
+  "spacing": 0.008,
+  "rungs": 9,
+  "steps": 2304,
+  "seconds": 1740,
+  "tolerance": 3e-05,
+  "steering": -0.03741935483870967,
+  "prompt": "What is 17 times 23? The answer is",
+  "prompt_ids": [
+    65504,
+    3248,
+    305,
+    345,
+    55,
+    2150,
+    402,
+    51,
+    63,
+    428,
+    1873,
+    305
+  ],
+  "model_revision": "bb6621b65e90b6a4b9b29ef88dc83866d450470c",
+  "initial_states": "/data2/neural-shrimp-data/explore/llm-soft-loop/hpr1/20261023-local-01/initial-states.npz",
+  "direction": "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/salvaged/explore/llm-soft-loop/pod64/hcm2/map-01/steering-direction.npy",
+  "inputs": {
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/hpr1/20261023-local-01/initial-states.npz": "d91f7ca38e1efe60e6420d598c2b4f4db3457d573b9d996541e168ad9fa17718",
+    "/data2/neural-shrimp-data/audits/huginn-chaos/hcm2-retrieval-failure-20261023/salvaged/explore/llm-soft-loop/pod64/hcm2/map-01/steering-direction.npy": "10bba3a6acd83ce7e6a42b72558fabf174ad0879131e340018428e73cc13d2b0",
+    "/data2/neural-shrimp-data/explore/llm-soft-loop/hpr1/20261023-local-01/saved-tail-readouts.npz": "f591c6f37a3855060098dffda37374c790eaddc1c42aedf648ae46f372bb9b80"
+  },
+  "row_order": [
+    "increasing_warm",
+    "increasing_fresh",
+    "decreasing_warm",
+    "decreasing_fresh"
+  ],
+  "scope": "2048 settling updates and256 retained diagnostic tail per rung. Full states saved in128-update shards. Stop before next rung if measured projection with30percent margin exceeds deadline. No Lyapunov, float64 or multiplier claims.",
+  "reference_states": "/data2/neural-shrimp-data/explore/llm-soft-loop/hpr1/20261023-local-01/saved-tail-readouts.npz"
+}
