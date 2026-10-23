@@ -32970,3 +32970,9 @@ _commit `23510b203496` (dirty worktree)_
 - **Would surprise us:** Positive growth disappearing with longer windows, or coherent higher-period windows within candidate chaotic band.
 
 _commit `1f44b34dbfd8` (dirty worktree)_
+
+## 2026-10-23 03:40 UTC: HCM2 launch and per-run approval rule
+
+User explicitly confirmed the separate HCM2 spending ceiling and requested that confirmation before each new paid run be recorded in AGENTS.md. Rule committed with tested zoom code at 63002827356c61e535f912d4351302116d785864. Owned A100 SXM pod etn7ftg1db9lhz created and independently observed running. Controller 774794 and watchdog 774795; records /data2/neural-shrimp-data/runpod/huginn-chaos/hcm2-20261022. No local GPU use. Source archive SHA256 c386efd2c8d06f3745e87f7609c04c23c5d8f4ce0cb76360103396bd3c3bf394; six-file minimal archive includes both plans. Target numerical gates, retrieval and termination pending. Completion follow-up finish-huginn-chaos-zoom monitors only this existing resource; it cannot authorize new paid work. Amounts and balance in private cost ledger.
+
+_commit `63002827356c` (dirty worktree)_
