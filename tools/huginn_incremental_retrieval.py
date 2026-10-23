@@ -85,7 +85,7 @@ def verify_ownership(config, entries, pod_id, name, source, approval):
     if not output.startswith('llm-soft-loop/pod64/'):
         raise ValueError('output outside allowed scan tree')
     plan = relative_name(argument(job, '--plan'))
-    if not re.fullmatch(r'docs/huginn-chaos-(map|zoom|tight-zoom)-plan.json', plan):
+    if not re.fullmatch(r'docs/huginn-chaos-(map|zoom|tight-zoom|continuation)-plan.json', plan):
         raise ValueError('unrecognized scan plan')
     creates = [e for e in entries if e.get('event') == 'created' and e.get('pod_id') == pod_id]
     if len(creates) != 1:
@@ -185,6 +185,7 @@ if 'complete' in phases and (p/'manifest.json').exists():
   manifest=json.loads((p/'manifest.json').read_text())
  except json.JSONDecodeError: pass
 print(json.dumps({'ready':'native_gate' in phases,'chunks':complete,'manifest':manifest,
+ 'artifacts':[r['file'] for r in rows if r.get('phase')=='artifact_complete'],
  'native_gate':next((r for r in rows if r.get('phase')=='native_gate'),None),
  'throughput_gate':next((r for r in rows if r.get('phase')=='throughput_gate'),None)}))
 '''
@@ -288,6 +289,16 @@ def sync_directory(path):
     finally:
         os.close(descriptor)
 
+
+
+def continuation_artifacts(plan):
+    names = {'benchmark.npz'}
+    for i in range(plan['max_settings']):
+        names.add(f'initial-{i:04d}.npz')
+        for phase, key in [('t','transient'),('m','measure')]:
+            for end in range(plan['checkpoint_steps'],plan[key]+1,plan['checkpoint_steps']):
+                names.add(f'states-{i:04d}-{phase}-{end:05d}.npz')
+    return names
 
 class Collector:
     def __init__(self, out, identity, source_files, source_archive_sha, plan, reader,
@@ -409,7 +420,7 @@ class Collector:
             return False
 
     def names(self, snapshot):
-        count = self.plan['resolution'] ** 2
+        count = self.plan['max_settings'] if self.plan.get('experiment') == 'HPC2' else self.plan['resolution'] ** 2
         batch = self.plan['batch']
         chunks = sorted(set(snapshot.get('chunks', [])))
         if any(type(i) is not int or i < 0 or i >= count or i % batch for i in chunks):
@@ -417,6 +428,12 @@ class Collector:
         compact = [f'chunk-{i:04d}.npz' for i in chunks]
         tails = ([f'tail-{i:04d}-{offset}.npz' for i in chunks for offset in range(len(self.plan['eps']))]
                  if self.plan.get('retain_full_tails') else [])
+        if self.plan.get('experiment') == 'HPC2':
+            allowed = continuation_artifacts(self.plan)
+            artifacts = snapshot.get('artifacts', [])
+            if len(artifacts) != len(set(artifacts)) or not set(artifacts) <= allowed | set(compact) | {'map.npz'}:
+                raise ValueError('Invalid continuation artifact marker')
+            tails = sorted(set(artifacts) & allowed)
         return compact, tails
 
     def step(self):
@@ -439,7 +456,12 @@ class Collector:
             if not isinstance(manifest, dict) or any(not SHA.fullmatch(v) for v in manifest.values()):
                 raise ValueError('invalid final manifest')
             required = set(initial + compact + tails + ['map.npz', 'summary.json', 'progress.jsonl'])
-            expected_chunks = len(range(0, self.plan['resolution']**2, self.plan['batch']))
+            count = self.plan['max_settings'] if self.plan.get('experiment') == 'HPC2' else self.plan['resolution']**2
+            expected_chunks = len(range(0, count, self.plan['batch']))
+            if self.plan.get('experiment') == 'HPC2':
+                required = set(initial + compact + ['map.npz', 'summary.json', 'progress.jsonl']) | continuation_artifacts(self.plan)
+                if set(tails) != continuation_artifacts(self.plan):
+                    raise ValueError('Incomplete continuation artifact markers')
             if len(compact) != expected_chunks or set(manifest) != required:
                 raise ValueError('final manifest or completed chunk set is incomplete')
         # Immutable provenance first, then ALL completed compact chunks.

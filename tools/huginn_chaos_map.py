@@ -40,6 +40,9 @@ def main():
     p.add_argument('--mode',choices=['scan'],required=True)
     p.add_argument('--out',required=True)
     args=p.parse_args(); plan=json.loads(args.plan.read_text())
+    if plan.get('experiment') == 'HPC2':
+        from huginn_continuation_sweep import execute
+        return execute(args, plan)
     from explore_latent_loop import HuginnLoop, DATA, REVISIONS
     import torch,transformers
     root=DATA/'explore'/args.out;root.mkdir(parents=True,exist_ok=False)

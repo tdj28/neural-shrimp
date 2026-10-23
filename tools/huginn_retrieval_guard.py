@@ -129,7 +129,7 @@ def validate_scan_gates(out, binding):
     if (not all(math.isfinite(x) for x in (unit,projected,remaining))
             or unit <= 0 or projected <= 0 or projected > remaining-600):
         raise ValueError('saved throughput gate failed')
-    total = plan['resolution']**2
+    total = plan['max_settings'] if plan.get('experiment') == 'HPC2' else plan['resolution']**2
     completed = [r for r in rows if r.get('phase') == 'chunk_complete']
     expected = list(range(0,total,plan['batch']))
     if (sorted(r['chunk_start'] for r in completed) != expected
@@ -137,6 +137,11 @@ def validate_scan_gates(out, binding):
                    for r in completed)):
         raise ValueError('saved completed chunk set failed')
     one('complete')
+    if plan.get('experiment') == 'HPC2':
+        replay = one('saved_step_gate')['relative_errors']
+        if len(replay) != 6 or not all(math.isfinite(x) and 0 <= x <= 3e-5 for x in replay):
+            raise ValueError('saved six-row replay gate failed')
+        one('refinement_selected')
     return dict(native_gate_verified=True, throughput_gate_verified=True,
                 source_plan_verified=True, completed_cells=total)
 
@@ -213,6 +218,7 @@ class ProtectedRun:
             raise TimeoutError('compute budget exhausted before collector launch')
         self.log = (self.out/'incremental-stdout.txt').open('x')
         command = [sys.executable, str(ROOT/'tools/huginn_incremental_retrieval.py'), '--watch',
+                   '--poll-seconds', '10',
                    '--controller', str(self.controller), '--pod', self.identity['pod_id'],
                    '--name', self.identity['name'], '--source', self.identity['source'],
                    '--approval', self.identity['approval'], '--out', str(self.out/'incremental'),

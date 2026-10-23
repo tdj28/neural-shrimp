@@ -1,0 +1,49 @@
+{
+  "experiment": "HPC2",
+  "label": "Approved exploratory extended period-two continuation",
+  "prompt": "What is 17 times 23? The answer is",
+  "prompt_ids": [
+    65504,
+    3248,
+    305,
+    345,
+    55,
+    2150,
+    402,
+    51,
+    63,
+    428,
+    1873,
+    305
+  ],
+  "model_revision": "bb6621b65e90b6a4b9b29ef88dc83866d450470c",
+  "input_path": "explore/llm-soft-loop/hpc2-input-20261023/anchor.npz",
+  "input_sha256": "13baac1a97ad85c08636ea10bdcf7b7decf8665f80b9cda851ece7e6fabeda6d",
+  "anchor_update_size": 1.2532258064516129,
+  "steering": -0.03741935483870967,
+  "lambda_range": [
+    1.27,
+    1.34
+  ],
+  "coarse_settings": 15,
+  "refinement_settings": 17,
+  "max_settings": 32,
+  "batch": 1,
+  "transient": 8192,
+  "measure": 8192,
+  "checkpoint_steps": 1024,
+  "eps": [
+    0.001,
+    0.0003
+  ],
+  "recurrence_tolerance": 3e-05,
+  "max_compute_seconds": 41400,
+  "retain_full_tails": false,
+  "selection": "First change in final full-state recurrence labels between coarse neighbors, including unresolved zero. Otherwise largest absolute change across the four growth estimates; first index breaks ties. Seventeen strictly interior refinement settings.",
+  "initialization": "Coarse increasing continuation from HPR1 h3072 anchor; fresh original seed0 every setting. Refined continuation starts from chosen lower coarse endpoint; exact parents recorded.",
+  "growth": "Shared base for two simultaneous renormalized perturbations per initialization. Radius fixed from measured-window initial norm. Natural-log growth per update, both halves retained. Settling duplicates all six rows to preserve batch arithmetic.",
+  "evidence": "Every unperturbed state at every settling and measured update, per-step growth, native readout at final two states, and saved 256-step projections at each measured checkpoint. No readout feedback.",
+  "qualification": "Exploratory float32 screening, not proven chaos, exact primitive cycles, stability multipliers or Feigenbaum scaling.",
+  "approval_reference": "HPC2-extended-sweep-user-approved-20261023",
+  "cost": "see private ledger"
+}

@@ -338,3 +338,11 @@ def test_watchdog_ready_is_published_after_initial_heartbeat(tmp_path, monkeypat
     group.watch(tmp_path)
     assert order[:2] == ["watchdog-heartbeat.json", "watchdog-ready.json"]
     assert json.loads((tmp_path / "watchdog-ready.json").read_text())["ticks"] == 7
+
+
+def test_hpc2_uses_existing_protected_route_with_bounded_plan():
+    source='a'*40
+    command=f'hpc2 720 huginn_chaos_map.py --plan docs/huginn-chaos-continuation-plan.json --mode scan --source-commit {source} --out llm-soft-loop/pod64/hpc2/sweep-01'
+    group.validate_orbit_job(command,source_commit=source)
+    assert group.huginn_command(['runner','--jobset','toolseq','--jobset-args',command])
+    with pytest.raises(ValueError):group.validate_orbit_job(command.replace('720','721'),source_commit=source)
