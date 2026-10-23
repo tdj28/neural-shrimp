@@ -1,0 +1,49 @@
+{
+  "label": "HPC2 proposed RunPod period-two follow-up",
+  "status": "prepared scope; no paid launch",
+  "steering": -0.03741935483870967,
+  "update_size_range": [
+    1.2772258064516129,
+    1.2852258064516129
+  ],
+  "settings": 17,
+  "spacing": 0.0005,
+  "initializations": [
+    "continued from preceding setting, seeded by HPC1 increasing continued endpoint at the lower bound",
+    "original seed-0 fresh state at each setting"
+  ],
+  "settling_updates": 8192,
+  "measurement_updates": 8192,
+  "diagnostics": [
+    "full-state recurrence lags 1 through 64 in multiple measurement windows",
+    "phase projection and endpoint token readouts",
+    "compare continued and fresh trajectories; unresolved is not chaos"
+  ],
+  "precision": "float32, TF32 off; no exact primitive orbit or multiplier claim",
+  "throughput_basis": {
+    "local_pilot_source": "a0e4359e88827d7fd2182b2a8c14f3c6f242fb0d",
+    "pilot_state_updates": 82944,
+    "pilot_compute_seconds": 1019.7403541970998,
+    "proposed_state_updates": 557056,
+    "same_per_state_throughput_seconds": 6848.626576336078,
+    "qualification": "Local four-row timing is only a conservative planning reference, not a measured A100 two-row timing. Exact remote workload must qualify before scaling."
+  },
+  "resource_proposal": {
+    "gpu": "one A100 80GB",
+    "hard_lifetime_minutes": 300,
+    "maximum_numerical_minutes": 225,
+    "retrieval_reserve_minutes": 45,
+    "no_automatic_retries": true,
+    "cost": "see private ledger"
+  },
+  "evidence_protection": [
+    "immutable state shards throughout execution",
+    "mandatory incremental collector with remote/local per-file hashes",
+    "artifact-aware independent watchdog and fixed absolute deadline",
+    "preserve all partial attempts",
+    "verify exact pod termination via lookup and inventory",
+    "separate-disk verified backup after retrieval"
+  ],
+  "map_followup": "64x64 deferred until HPC2 results reviewed; not authorized to launch by this plan",
+  "locator": "/data2/neural-shrimp-data/audits/huginn-chaos/continuation-followup-proposal-20261023/followup-location.png"
+}
