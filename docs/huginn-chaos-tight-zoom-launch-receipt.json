@@ -1,0 +1,78 @@
+{
+  "status": "running; numerical results pending audit",
+  "experiment": "HCM3",
+  "pod_id": "7yfq0xm26xdqsb",
+  "source": "a00da420f2b41588bdc3461fc6d22584684b9d09",
+  "plan_path": "docs/huginn-chaos-tight-zoom-plan.json",
+  "plan_sha256": "f628f9f9f79c9772f1322c6a93b7aaac3bd51b0e82b6b6d45c9bcdfb834fe0c0",
+  "source_archive_sha256": "5b606e5a28dfcd153843c49619e977eb201c5a36aafa4cd126ba9d3ba2eed679",
+  "source_archive_files": [
+    "docs/huginn-chaos-map-plan.json",
+    "docs/huginn-chaos-tight-zoom-plan.json",
+    "docs/huginn-chaos-zoom-plan.json",
+    "tools/explore_latent_loop.py",
+    "tools/huginn_chaos_map.py",
+    "tools/runpod_huginn_chaos_runner.sh",
+    "tools/runpod_soft_runner.sh"
+  ],
+  "uploaded_files_verified": true,
+  "source_hashes": {
+    "tools/huginn_chaos_map.py": "f6eba0dbf0d6e2560c49a9f0b2d7833c860b4677bb2ede52510e381790ee94e8",
+    "tools/runpod_huginn_chaos_runner.sh": "db9a09e5376a856cca6d4918ab7507a99b20dbb4c1fb5fa0492026013008e5d2",
+    "tools/runpod_soft_runner.sh": "2df87b412b9a37f05565af4dbaec76d8997c502397bc43f9882133e38e1ff23e",
+    "tools/explore_latent_loop.py": "904e37f3409c1c8718258f23f76e98825e54a2971b2abe09f9a537c8005a32d3",
+    "docs/huginn-chaos-map-plan.json": "0944db7de875398b9024ed9202a4aa0d739e1a4d3f30fdae7f4fb46130fecf26",
+    "docs/huginn-chaos-zoom-plan.json": "8be975cbd84d335368e48d7c7df14000048eff53a6de3752b4709b9f63c03b2b",
+    "docs/huginn-chaos-tight-zoom-plan.json": "f628f9f9f79c9772f1322c6a93b7aaac3bd51b0e82b6b6d45c9bcdfb834fe0c0"
+  },
+  "runtime": {
+    "source": "a00da420f2b41588bdc3461fc6d22584684b9d09",
+    "plan_sha256": "f628f9f9f79c9772f1322c6a93b7aaac3bd51b0e82b6b6d45c9bcdfb834fe0c0",
+    "model_revision": "bb6621b65e90b6a4b9b29ef88dc83866d450470c",
+    "torch": "2.14.1+cu126",
+    "cuda": "12.6",
+    "transformers": "4.55.0",
+    "numpy": "2.5.4",
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "prompt_ids": [
+      65504,
+      3248,
+      305,
+      345,
+      55,
+      2150,
+      402,
+      51,
+      63,
+      428,
+      1873,
+      305
+    ],
+    "dtype": "float32",
+    "tf32": false
+  },
+  "hardware": "name, driver_version, memory.total [MiB]\nNVIDIA A100-SXM4-80GB, 595.91.07, 81920 MiB\n",
+  "library_sha256": "1a9f17d47b34a700e7a4e6f430ff34339a56edffc2b78935b21cd6d5af62bb01",
+  "startup_record": {
+    "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023/startup-verification.json",
+    "sha256": "8d92cb2aaac1fe5e1cc56eb5b210151d623b2ac378185271e80cee46b55bcfd9",
+    "bytes": 2790
+  },
+  "native_gate": {
+    "error": 0.0,
+    "repeat": 0.0
+  },
+  "throughput_gate": {
+    "seconds_per_cell_step": 0.004497309027328811,
+    "projected_seconds_with_margin": 30652.507019162178
+  },
+  "controller_directory": "/data2/neural-shrimp-data/runpod/huginn-chaos/hcm3-20261023",
+  "controller_pid": 901405,
+  "watchdog_pid": 901406,
+  "heartbeat": "finish-huginn-tight-chaos-zoom",
+  "local_tests": "35 passed; isolated archive imports and shell syntax passed",
+  "raw_output": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/hcm3/map-01",
+  "retrieval_verified": false,
+  "termination_verified": false,
+  "cost": "see private ledger"
+}

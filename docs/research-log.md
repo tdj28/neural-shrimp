@@ -32985,3 +32985,9 @@ _commit `63002827356c` (dirty worktree)_
 - **Would surprise us:** Growth disappearing at longer horizons or organized recurrence windows within this selected neighborhood; neither visual patterns nor positive finite-window growth prove chaos or shrimps.
 
 _commit `2267de6000a7` (dirty worktree)_
+
+## 2026-10-23 07:30 UTC: HCM3 tighter zoom launched: source and target-machine gates verified
+
+User confirmed the displayed tighter cyan box. Plan and tested launch support pushed at a00da420f2b41588bdc3461fc6d22584684b9d09 before rental. Exact owned pod 7yfq0xm26xdqsb, NVIDIA A100-SXM4-80GB, created 2026-10-23T07:27:52Z; HCM2 remains healthy on its separate resource. All seven uploaded files match the pushed source, and runtime source/plan binding passed. Native equivalence and repeat errors zero; target throughput 0.004497309 seconds per cell-step, projected 30652.507 seconds with 30 percent margin. Controller PID 901405 and independent watchdog 901406 guard this resource only; startup record under runpod/huginn-chaos/hcm3-20261023. Launch receipt docs/huginn-chaos-tight-zoom-launch-receipt.json. All 35 scoped CPU tests passed; isolated archive imports and shell syntax passed. Completion heartbeat finish-huginn-tight-chaos-zoom will verify retrieval/termination, audit every cell and saved full-state recurrence tail, inspect figures and deliver results; it authorizes no new rentals or retries. Numerical results remain pending. No local GPU used. Costs remain only in private ledger.
+
+_commit `a00da420f2b4` (dirty worktree)_
