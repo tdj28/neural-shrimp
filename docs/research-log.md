@@ -33264,3 +33264,16 @@ are claimed. Bind a hash-verified snapshot of the two completed endpoint
 states while the remaining coarse settings finish independently. Two CPU
 threads per process, four total; available memory exceeds their combined
 observed usage. The refinement has a 20-minute local wall limit; no rental.
+
+PCP1 attractor diagnosis amendment (24 October): the human requested separation
+of derivative change, fixed-point instability and resulting chaos. Follow the
+three post-bracket settings s=0.75, 0.875 and 1 from the same fresh feedback
+state. Use 512 settling and 256 saved measured float64 updates, test recurrence
+lags 1..64 over 128 positions, reject ambiguous proper divisors, and compute
+composed-map Floquet multipliers with two Arnoldi starts and a central-difference
+convergence gate for any numerical cycle. If no cycle qualifies, measure 512
+additional twin-renormalized updates at relative offsets 1e-5 and 3e-6, reporting
+both halves and preserving unresolved transients. This bounded exploratory
+screen cannot prove chaos, global attraction or an exact mathematical cycle.
+CPU only, two threads, one-hour hard analysis limit; no new rented execution.
+Trajectories checkpoint every 64 updates; preserve any failed gates and attempt.
