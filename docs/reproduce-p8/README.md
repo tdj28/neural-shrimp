@@ -58,6 +58,13 @@ The token IDs must be exactly:
 - Vector: the `philosophy` entry of `docs/steering-vectors/vectors-l12/vectors.npz` in
   https://github.com/tdj28/neural-shrimp (SHA-256 `b630bb7bef06bde87f8e6a7ca5e8672f83d24bc0585bf19048e9e494a4357f41`;
   896 numbers, norm 188.99). How it was built is in the paper's section on the soft-token map.
+- To build it yourself instead: `python tools/build_philosophy_vector.py vectors.npz` (the 16 texts are in the
+  script; it reads the residual stream after layer 12 at each text's last token, takes the mean over the eight
+  philosophical texts minus the mean over the eight neutral ones, and rescales it to the mean residual norm over all
+  tokens of the 16 texts). The published file was built in float32 with batched, padded inputs, so a rebuild agrees
+  with it to about 2e-6 relative (cosine 1.0000000000), not bit for bit. With the rebuilt vector the loop is the same,
+  with the same tokens and phase; its states differ from the reference states by at most 3e-7. Use the published file
+  to match the reference to rounding level and to use the proof's exact inputs.
 - Strength `alpha = 0.071674`.
 - Add `alpha * v` to the **output of decoder layer 12** (counting from 0, of 24), at **every position**: all 37
   prompt tokens and the fed-back soft token. A forward hook on `model.model.layers[12]` does this.

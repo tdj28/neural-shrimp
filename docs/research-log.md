@@ -33207,3 +33207,11 @@ invented, no computation or controller was restarted, and no deadline changed.
 The link is inside the archive tree. The operational receipt is
 `runpod/long-context/lcm1-20261024/progress-link-amendment.json` outside Git.
 The initial checkpoint and first cell have been hash-verified locally.
+
+## 2026-10-24 19:19 UTC: Reproduction kit: independent rebuild of the steering vector
+
+- Added `tools/build_philosophy_vector.py` (standalone, float64, one text at a time) and a paragraph in
+  `docs/reproduce-p8/README.md`. Check on the local CPU: raw difference norm 8.0957, mean residual norm 188.9948;
+  against the published vectors.npz (float32, batched) cosine 1.0000000000, relative difference 1.63e-6.
+  `tools/recreate_p8.py` with the rebuilt vector reaches the same period-8 loop (same tokens and phase, q=8 residual
+  1.6e-14), at most 3.0e-7 from the reference states.
