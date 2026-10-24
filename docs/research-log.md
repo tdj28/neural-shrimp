@@ -33172,3 +33172,22 @@ Chunked prefill is opt-in, leaving existing full-prefix behavior unchanged. A ti
 LCP1 completed all four diagnostic cells. Exact pod vlm54savcazwzd, source e9cc1644fbca84c537a7577193e7ed5ac2bfc64c, independently absent by lookup and inventory after 575 seconds worker wall time. Archive and every raw manifest hash match; all four saved state/growth arrays have expected shapes and finite values. Output prefix has exactly 32767 token IDs plus one feedback position, versus 37 prefix tokens for baseline. Chunked/full short-prefill relative logit discrepancy 1.2595880889421096e-06; repeated calls exactly agree. Float32, TF32 off. Single-trajectory peak allocation 3106790912 bytes at maximum context versus 1990477824 bytes short. Step times 0.10953712101581914 and 0.009234386328444089 seconds respectively. Four three-trajectory cells each required 106.36–106.41 seconds including prefix loading, 256 settling and 512 measurement updates. All four twin-growth means are negative; this short corner pilot does not classify the map or exclude intermediate chaotic windows. Repeated prose preceding the unchanged short-prefix suffix is a disclosed content confound. Data and derived results are backed up under /archive/neural-shrimp-backups/20261024-lcp1 with matching hashes. Receipt: docs/long-context-qwen-pilot-receipt.json.
 
 A proposed exploratory 16-by-16 map over log10 temperature [-0.3,0.3] and steering [0,0.1], using the pilot horizons and offsets, projects 7.57 GPU hours for the maximum-context arm by multiplying the largest measured cell time by 256. Setup/retrieval, a short-context control arm and runtime margin are additional. This is an estimate for the tested repeated-prose prefix, not a general maximum-context bound. Full map approval is still required; no full map launched. Cost: see private ledger.
+
+## 2026-10-24 — LCM1 approved paired context maps, before outcomes
+
+After LCP1 demonstrated maximum-context feasibility, the human approved the
+quoted 16-by-16 scan and matched short-prompt control. See
+`docs/long-context-qwen-map-plan.md`. Reuse the qualified float32 soft-token
+path; 256 settling and 512 measured updates at each of 256 settings per arm.
+The question is whether the maximum-context repeated-prose prompt retains
+regions of finite-window expansion or recurring embedding states, and how
+its map differs from the short prompt. A uniformly contracting map would be
+informative but would not establish absence of chaos at longer horizons or
+other prompts. Four pilot corners had negative mean growth; the interior is
+unmeasured. This is exploratory and content is confounded with prefix length.
+
+New retrieval barrier requires local per-file hash verification before every
+next cell and at final completion. Interrupted/missing/corrupt retrieval and
+missing acknowledgments are tested locally. Exact source will be bound in
+runtime and controller records; raw data outside Git under LCM1/map-01.
+One approved rental, no automatic retry; cost: see private ledger.
