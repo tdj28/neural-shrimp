@@ -109,12 +109,15 @@ class SoftLoop:
                     self.sm.steer_extra = {self.extra[0]: self.extra_rows[s0:s0 + n]}
                 with torch.no_grad():
                     # logits_to_keep=1: the prefix logits are not needed (all of them cost B x L0 x vocab floats)
-                    if self.prefix_embeds is not None:
-                        self.model(inputs_embeds=self.prefix_embeds.repeat(n, 1, 1), past_key_values=cache,
-                                   use_cache=True, logits_to_keep=1)
-                    else:
-                        self.model(input_ids=self.prefix_ids.repeat(n, 1), past_key_values=cache, use_cache=True,
-                                   logits_to_keep=1)
+                    chunk = getattr(self, "prefill_chunk_size", self.L0)
+                    if not isinstance(chunk, int) or chunk <= 0:
+                        raise ValueError("positive integer prefill chunk required")
+                    if chunk < self.L0 and self.hybrid:
+                        raise ValueError("chunked prefill is qualified only for attention models")
+                    for lo in range(0, self.L0, chunk):
+                        hi = min(lo + chunk, self.L0)
+                        kwargs = {"inputs_embeds": self.prefix_embeds[:, lo:hi].repeat(n, 1, 1)} if self.prefix_embeds is not None else {"input_ids": self.prefix_ids[:, lo:hi].repeat(n, 1)}
+                        self.model(**kwargs, past_key_values=cache, use_cache=True, logits_to_keep=1)
                 parts.append(cache)
         finally:
             self.sm.steer = None

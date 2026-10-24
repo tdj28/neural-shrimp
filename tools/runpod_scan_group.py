@@ -105,6 +105,10 @@ def validate(c):
 
 def validate_orbit_job(arguments, source_commit=None):
     job = shlex.split(arguments)
+    if len(job) == 7 and job[2] == "long_context_pilot.py":
+        if not 0 < float(job[1]) <= 35 or job[3] != "--source-commit" or job[4] != source_commit or job[5] != "--out" or not job[6].startswith("llm-soft-loop/pod64/") or ".." in Path(job[6]).parts:
+            raise ValueError("invalid bounded long-context pilot")
+        return
     allowed = {"baby_shrimp_orbits.py": 90, "baby_shrimp_geometry.py": 195, "baby_shrimp_crossing.py": 75,
                "baby_shrimp_transect.py": 45, "baby_shrimp_saddle_memory.py": 120,
                "baby_shrimp_memory_scan.py": 75, "huginn_chaos_map.py": 720}
