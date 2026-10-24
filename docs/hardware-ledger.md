@@ -240,3 +240,15 @@ was idle at launch; the human explicitly selected and approved RunPod.
 48 targeted CPU tests passed. Cost: see private ledger. Status: running,
 not audited or complete. Controller records and artifacts outside Git under
 `runpod/long-context/lcm1-20261024`.
+
+## 2026-10-24 — PCP1 local prompt-control diagnostics
+
+Local zeta CPU only (Intel Core i9-14900K), effective float64, two threads per
+job and at most three concurrent task jobs. No local GPU or new rental used.
+Torch 2.14.1+cu130, Transformers 5.19.0, NumPy 2.5.3, SciPy 1.18.1.
+Pinned Qwen revision and exact source commits are in the prompt-control
+receipts. Coarse continuation attempt 03 completed in 789.95 seconds;
+attractor diagnosis completed in 1363.10 seconds or less. Earlier failed
+qualification/iteration attempts remain preserved. Nine roots, four boundary
+refinements and three period-two trajectories were audited; independent
+hash-verified backup resides on physical disk sda, separate from source nvme1n1.

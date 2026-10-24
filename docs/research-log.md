@@ -33288,3 +33288,25 @@ fixed-point multiplier moduli ranged from 0.3484056711666171 to
 was checked; all data and both preceding failed attempts have an independently
 hashed copy on the separate archive disk. See docs/prompt-control-receipt.json.
 Crossing refinement and attractor qualification remain separate ongoing stages.
+
+PCP1 follow-up closeout: four Newton/eigenpair bisections bracketed the
+real-minus-one crossing in [0.640625, 0.6484375], with all next-largest
+estimated moduli below one. Fresh trajectories at s=0.75, 0.875 and 1 each
+passed primitive period-two full-state recurrence and composed-map derivative
+checks. Two Arnoldi starts agreed on leading two-step multiplier moduli
+0.5770232794813033, 0.6722664464419283 and 0.6907689935447855. Their inferred
+cycle Lyapunov rates are negative. This path demonstrates a prompt-dependent
+response, loss of fixed-point stability and numerically stable alternation;
+it does not demonstrate chaos in these three trajectories. No cycle-branch
+connection, flip normal-form nondegeneracy, interval proof, global basin claim
+or shrimp-specific mechanism is asserted.
+
+Independent saved-history audit recomputed all lags 1..64 over 128 positions
+for all three trajectories and verified all final manifests and state arrays.
+A second physical-disk copy was independently hashed on /archive (sda), apart
+from /data2 (nvme1n1). Both scientific figures were visually inspected. See
+`docs/prompt-control-followup-receipt.json`. Local adversarial review checked
+the additive-offset alternative at a common state, the distinction between
+one directional derivative and an operator norm, the distinction between
+fixed-point and cycle multipliers, intermediate soft prompts versus text, and
+absence of a general semantic or prompt-length claim. No paid review used.
