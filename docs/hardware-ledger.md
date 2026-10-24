@@ -226,3 +226,17 @@ each run card in `docs/research-log.md` records its command and commit.
 - **HPC3 closeout verified:** all 22 settings independently audited on local CPU; separate-physical-disk backup verified 621 files / 274603203506 bytes. No local GPU or additional rental used. Scientific figures and raw data remain outside Git. [Audit receipt](huginn-transition-audit-receipt.json).
 
 - **LCP1 maximum-context Qwen pilot completed:** NVIDIA A100-SXM4-80GB, driver 595.91.07, Torch 2.14.1+cu126 / CUDA 12.6, Transformers 5.19.0, NumPy 2.5.3; float32, TF32 off. Exact pod vlm54savcazwzd terminated and independently absent. Worker wall 575 seconds; four diagnostic cells and short/maximum timing completed. Source e9cc1644fbca84c537a7577193e7ed5ac2bfc64c. [Receipt](long-context-qwen-pilot-receipt.json). No local GPU used. Cost: see private ledger.
+
+## 2026-10-24 — LCM1 paired context maps launched
+
+One task-owned NVIDIA A100-SXM4-80GB RunPod, `q0778v0k33bvbw`, created
+2026-10-24T18:21:34Z. Execution source
+`3e3ce65d2b5ddfcc8c61d98180b78ff830b9a9ff`; plan
+`docs/long-context-qwen-map-plan.md`. Maximum resource lifetime 780 minutes;
+no automatic retry. Dedicated collector starts before rental and acknowledges
+only fully verified local checkpoints. Independent controller watchdog active.
+Runtime versions will be recorded from the worker during closeout. Local GPU
+was idle at launch; the human explicitly selected and approved RunPod.
+48 targeted CPU tests passed. Cost: see private ledger. Status: running,
+not audited or complete. Controller records and artifacts outside Git under
+`runpod/long-context/lcm1-20261024`.

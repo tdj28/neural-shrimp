@@ -33191,3 +33191,9 @@ next cell and at final completion. Interrupted/missing/corrupt retrieval and
 missing acknowledgments are tested locally. Exact source will be bound in
 runtime and controller records; raw data outside Git under LCM1/map-01.
 One approved rental, no automatic retry; cost: see private ledger.
+
+LCM1 launched at 2026-10-24T18:21:34Z on exact pod `q0778v0k33bvbw`,
+source `3e3ce65d2b5ddfcc8c61d98180b78ff830b9a9ff`. Targeted CPU tests:
+48 passed. Collector identity and controller identity are recorded externally
+in `runpod/long-context/lcm1-20261024/launch.json`. A thirty-minute follow-up
+monitors this run only, with no authority for new spending or retries.
