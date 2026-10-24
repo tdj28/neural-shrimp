@@ -1,5 +1,5 @@
 {
-  "status": "running; first-setting retrieval and end-to-end timing gates passed; final audit pending",
+  "status": "execution and retrieval complete; independently verified termination; scientific audit and backup pending",
   "source": "e2c94998ec26e6347dc0cd30781e3c1efe5e1cb2",
   "pod_id": "h4fdwbaw1d5eok",
   "name": "neural-shrimp-hpc3-20261023",
@@ -102,5 +102,14 @@
       "path": "/data2/neural-shrimp-data/runpod/huginn-chaos/hpc3-20261023/workers/neural-shrimp-hpc3-20261023/20261024T001350Z/incremental/environment/libraries.txt",
       "sha256": "877dd5f3222be6472c99ff6aa981c686bf801a860275c13d81718c3d10d1c08a"
     }
+  },
+  "completion": {
+    "manifest_files": 579,
+    "manifest_sha256": "75fe8640d8a2f60ca118ec13d40ba36e2b5c28d932edb191cc5932f4782aa171",
+    "settings": 22,
+    "termination_receipt": "/data2/neural-shrimp-data/audits/huginn-chaos/hpc3-complete-20261024-01/termination.json",
+    "termination_receipt_sha256": "88cb5f874c27e4b87c3adb842145227421f607d4d434e765f79acedbcc8ea328",
+    "audit_pid": 1743984,
+    "backup_pid": 1744064
   }
 }
