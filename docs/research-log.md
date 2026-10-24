@@ -33197,3 +33197,13 @@ source `3e3ce65d2b5ddfcc8c61d98180b78ff830b9a9ff`. Targeted CPU tests:
 48 passed. Collector identity and controller identity are recorded externally
 in `runpod/long-context/lcm1-20261024/launch.json`. A thirty-minute follow-up
 monitors this run only, with no authority for new spending or retries.
+
+LCM1 startup monitoring amendment: the generic runner samples
+`progress.jsonl`, whereas this worker emits JSON to its tool stdout log.
+Before the inactivity deadline, linked `map-01/progress.jsonl` relatively to
+`../../logs/lcm1.log` on the exact owned pod. This exposes actual recorded
+worker progress to the existing runner/watchdog; no numerical progress was
+invented, no computation or controller was restarted, and no deadline changed.
+The link is inside the archive tree. The operational receipt is
+`runpod/long-context/lcm1-20261024/progress-link-amendment.json` outside Git.
+The initial checkpoint and first cell have been hash-verified locally.
