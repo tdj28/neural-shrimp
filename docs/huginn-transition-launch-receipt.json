@@ -1,5 +1,5 @@
 {
-  "status": "running; native/replay/compute gates passed; first-setting retrieval/timing gate pending",
+  "status": "running; first-setting retrieval and end-to-end timing gates passed; final audit pending",
   "source": "e2c94998ec26e6347dc0cd30781e3c1efe5e1cb2",
   "pod_id": "h4fdwbaw1d5eok",
   "name": "neural-shrimp-hpc3-20261023",
@@ -55,7 +55,17 @@
   },
   "qualification": "Exploratory continuation, finite recurrence/growth candidates; no promise of cascade or proof of chaos. Local GPU unused. 64x64 map deferred.",
   "cost": "see private ledger",
-  "first_setting_retrieval_gate": "pending",
+  "first_setting_retrieval_gate": {
+    "status": "passed; independently rehashed all acknowledged files",
+    "file_count": 30,
+    "acknowledgment_epoch": 1792801956.0518193,
+    "timing_gate": {
+      "phase": "retrieval_throughput_gate",
+      "chunk_start": -1,
+      "projected_remaining": 23503.58285056314,
+      "remaining": 33172.76790555299
+    }
+  },
   "runtime": {
     "source": "e2c94998ec26e6347dc0cd30781e3c1efe5e1cb2",
     "plan_sha256": "23a77d426689ba0508b841fadb4b62b9fa7cc16fda6cbdcd311596ed40ceed12",
