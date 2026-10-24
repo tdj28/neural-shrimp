@@ -33233,3 +33233,10 @@ crossing or chaos claim: report absent crossings if all estimates stay inside
 the unit circle. No claim that one directional derivative measures the whole
 operator difference. Retain raw outputs/failures outside Git under
 `audits/prompt-control/pcp1-20261024-01`; source bound at launch.
+
+PCP1 local amendment: first attempt stopped at its precision gate before any
+fixed-point result. Central-difference relative errors decreased from 0.3512
+to 0.005665 under three halvings, consistent with second-order truncation,
+but the chosen smallest step was too coarse. Preserve attempt 01. Extend
+the stencil to ten halvings (0.1 to 0.00009765625), require final error below
+1e-6, and rerun locally as attempt 02; scientific coordinates unchanged.

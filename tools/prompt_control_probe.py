@@ -33,8 +33,8 @@ def main():
    cache_change=[float(t.sqrt(((k-bk)**2).sum()+((v-bv)**2).sum())/t.sqrt((bk**2).sum()+(bv**2).sum())) for (k,v),(bk,bv) in zip(cache,base_cache)]
    y=F(common);j=J(common,u);images.append(y.numpy());derivatives.append(j.numpy())
    fd=[]
-   for h in [.1,.05,.025,.0125]:fd.append(float(((F(common+h*u)-F(common-h*u))/(2*h)-j).norm()/j.norm()))
-   assert fd[-1]<1e-4 and fd[0]>fd[-1]*20,('finite difference gate',fd)
+   for h in [.1/(2**k) for k in range(11)]:fd.append(float(((F(common+h*u)-F(common-h*u))/(2*h)-j).norm()/j.norm()))
+   assert fd[-1]<1e-6 and fd[0]>fd[-1]*20,('finite difference gate',fd)
    x=common.clone() if previous is None else previous.clone();converged=False
    for iteration in range(512):
     nxt=F(x);res=float((nxt-x).norm()/x.norm());x=nxt
