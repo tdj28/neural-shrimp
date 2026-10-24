@@ -33240,3 +33240,16 @@ to 0.005665 under three halvings, consistent with second-order truncation,
 but the chosen smallest step was too coarse. Preserve attempt 01. Extend
 the stencil to ten halvings (0.1 to 0.00009765625), require final error below
 1e-6, and rerun locally as attempt 02; scientific coordinates unchanged.
+
+PCP1 adaptive continuation amendment: after six qualified points, the leading
+multiplier at s=0.625 was real -0.9436970826. At s=0.75, plain iteration failed
+its fixed-point gate after 512 updates; no multipliers were computed there.
+Attempt 02 and its manifest are retained. Switch to Newton-Krylov continuation
+for s=0.75, 0.875 and 1, importing only the six hash-verified qualified rows.
+This follows fixed points beyond possible loss of attraction, rather than
+mistaking iterative nonconvergence for absence of a fixed point. Exact float64
+JVPs, GMRES convergence, backtracking and final residual are mandatory gates.
+A CPU unit test recovers the fixed point of an explicitly unstable linear map.
+New attempt 03 is locally bounded to 30 minutes. The adaptation was made after
+seeing the near-minus-one multiplier and failed iterative convergence; any
+crossing found is exploratory and must be classified from its multipliers.
