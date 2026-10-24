@@ -372,6 +372,117 @@ position while leaving the evolving state $x_n\in\mathbb{R}^{896}$ the same size
 maximum-context prefix leaves one position for feedback; successive iterations do not
 consume further context slots.
 
+\paragraph{A fixed prompt supplies a state-dependent response.}
+The fast-weight view of attention interprets input-dependent keys and values as
+temporary computational weights, distinct from the trained parameters
+\cite{wen2026mita}. For a fixed prefix bank in one head, with keys and values stored
+as columns, the normalized retrieval operation is
+\begin{equation}
+ A_P(q)=V_P\operatorname{softmax}(K_P^{\top}q/\sqrt{d_k}),\qquad
+ D_qA_P=\frac{1}{\sqrt{d_k}}V_P(\operatorname{diag}a-aa^{\top})K_P^{\top},
+ \label{eq:prompt-attention}
+\end{equation}
+where $a=\operatorname{softmax}(K_P^{\top}q/\sqrt{d_k})$.
+This is a schematic prefix-only attention operation: the actual feedback token
+also contributes a state-dependent key and value to each head's joint attention.
+Even with $K_P,V_P$ fixed, retrieval varies with the query and its derivative varies
+with both the query and the prefix. The prompt therefore does not act merely as
+an additive constant. Through the layers, it can change the state derivative
+$D_xF_{P,T,\alpha}$ that governs local amplification and stability. The softmax
+normalization remains essential; the fast-weight interpretation does not turn
+attention into a linear map or an ordinary fixed-weight MLP.
+
+Wen et al. use this perspective to develop efficient attention and evaluate their
+architecture on vision tasks; they do not test the feedback bifurcations studied
+here. Our connection is an application of their viewpoint to a fixed-prefix
+recursive system. Nor does additional prefix length guarantee stronger feedback:
+more key--value entries may be redundant, and their influence depends on the
+normalized attention weights. Prompt-induced changes in stability must be measured
+from the complete feedback map, including the output softmax and embedding readout.
+
+\paragraph{Prompt changes the rule, its stability, and the attractor (PCP1).}
+An exploratory intervention isolates prompt content from prompt length. In
+Qwen2.5-0.5B we held $T=2$, $\alpha=0$, all 37 prefix positions, the system
+instruction and initial feedback embedding fixed. We changed only the token
+\texttt{Hello} in \texttt{Hello!} to \texttt{Think}, following
+$P(s)=(1-s)P_0+sP_1$ at nine values $s=0,1/8,\ldots,1$. The endpoints are
+ordinary prompts; the intermediate points are soft embeddings, not discrete
+text. This is a content intervention, separate from the maximum-context scan.
+
+First, at the \emph{same} feedback state and in the same fixed unit direction
+$u$, the endpoint change in $F_P(x)$ was 66.12\,\%
+of its original norm, and the change in $D_xF_P(x)u$ was
+111.4\,\% of its original norm. The latter
+includes rotation of the response, not just its magnitude; it is not a change
+in the full Jacobian operator norm. The ratio of response norms along this
+one direction was 0.324. This common-state directional response is not the
+dominant multiplier at the continued fixed point: a smaller response in this
+direction does not imply stability at another state. Prefix key--value
+banks were rebuilt at every setting. The prompt therefore changes how a small
+feedback perturbation propagates, even at a common state.
+
+Second, fixed-point continuation found a stability change. The leading
+multiplier was real $-0.943697$ at $s=0.625$ and $-1.204287$ at $s=0.75$.
+Four further bisections localized the real-minus-one stability boundary to
+$s\in[0.6406250,0.6484375]$. Every refinement recorded the multiplier's modulus
+and argument and the next-largest modulus; the latter remained below one.
+This is a numerical flip-type stability crossing, not a Neimark--Sacker
+crossing. We have not computed a flip normal-form coefficient or supplied
+interval-certified existence, transversality or nondegeneracy bounds.
+
+Third, fresh trajectories at $s=0.75$, $0.875$ and $1$ settled into
+\emph{numerically stable primitive period-two cycles}. Each used 512 settling
+updates followed by 256 saved full-state updates. We tested lags 1--64 over
+128 positions, checked composed-map closure below $10^{-10}$ relative error,
+and rejected period one with separation above $10^{-8}$. The estimated
+largest two-step Floquet multiplier moduli were respectively
+0.577023, 0.672266 and 0.690769, all below one. These are multipliers
+of the \emph{two-step} map. The corresponding largest cycle Lyapunov estimates are
+$\lambda_{\max}=\tfrac12\log|\mu_{\max}|$, namely
+-0.274936, -0.198550 and
+-0.184975 per feedback update. These are Floquet-derived
+asymptotic rates, not finite-window twin measurements. The fixed point's
+unstable one-step multiplier does not describe the stability of the new cycle. This gives a concrete
+prompt-controlled change from a fixed point to alternation, \emph{not evidence
+of chaos} at the three tested post-crossing settings. It also does not prove
+that this cycle connects continuously to the fixed point at the bracketed
+boundary; that stronger branch statement would require cycle continuation.
+
+All calculations used effective float64 normalization and rotary operations.
+One-step and composed-map JVPs were checked against successively finer central
+differences, and leading multipliers were estimated from two independent
+Arnoldi starts with residual gates. Initial coarse finite-difference checks
+failed and were retained; smaller steps resolved truncation error. Plain
+fixed-point iteration subsequently failed at $s=0.75$, as expected when a
+root loses attraction. A disclosed Newton--Krylov amendment recovered the
+unstable fixed point rather than treating nonconvergence as its absence.
+The raw evidence, unsuccessful attempts and a separately hash-verified disk
+backup are bound by \href{\repourl/blob/c2ba0404b03c0fb6b031b3756443d3d0a2fa8a14/docs/prompt-control-receipt.json}{\nolinkurl{docs/prompt-control-receipt.json}} and
+\href{\repourl/blob/c2ba0404b03c0fb6b031b3756443d3d0a2fa8a14/docs/prompt-control-followup-receipt.json}{\nolinkurl{docs/prompt-control-followup-receipt.json}}. These numerical tests are
+not rigorous spectral enclosures, global basin guarantees, or a general
+claim about the meanings of the words \texttt{Hello} and \texttt{Think}.
+
+The common-state comparison is important: changing an additive constant alone in
+$F_P(x)=G(x)+b(P)$ would change $F_P(x)$ but leave $D_xF_P(x)=DG(x)$ unchanged at
+fixed $x$. A measured change in the common-state JVP therefore distinguishes
+prompt-dependent feedback gain from that restricted additive-forcing model.
+It does not identify which head or layer causes the change; that would require
+controlled interventions on their key--value banks. Comparing derivatives only
+at different attracting states would not make this distinction, since $DG(x)$
+can vary with $x$ even when the map changes only through an additive term.
+
+A smooth prompt path also provides a continuation parameter. If
+$F_{P(s),T,\alpha}(x_*(s))=x_*(s)$ and $I-D_xF$ is invertible, implicit
+differentiation gives
+\begin{equation}
+ \frac{dx_*}{ds}=(I-D_xF)^{-1}\partial_s F.
+\end{equation}
+This identity separates how the prompt perturbs the update from how the loop
+responds to that perturbation. Its inverse can be large for non-normal maps,
+so eigenvalue distance alone is not a quantitative sensitivity bound. The real-minus-one bracket above supplies numerical evidence for a local
+stability crossing. Changing the derivative, or moving a fixed point, alone
+would not establish that crossing or the nature of the resulting attractor.
+
 \paragraph{How we steer.} Steering adds one fixed vector to the network's internal state while it runs; no weight is
 changed. The state it changes is the residual stream, the $d$-dimensional vector carried at each token position, to
 which every attention and MLP block adds its output. Our main direction, philosophy, is built in three steps from 16
