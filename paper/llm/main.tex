@@ -340,6 +340,38 @@ prefix included; the steering vector $v$ is described in the next paragraph. Pos
 autonomous map of $\mathbb{R}^{896}$. As $T\to0$ it reduces, where the argmax is unique, to greedy decoding of the
 same fixed-prefix, one-token-window system. It is not ordinary generation with a growing context.
 
+\paragraph{The prompt is a control, not just an initial condition.}
+The dependence on the fixed prefix is suppressed in \eqref{eq:map}. Writing it explicitly gives
+\begin{equation}
+ x_{n+1}=F_{P,T,\alpha}(x_n)
+ =E^{\top}\operatorname{softmax}\!\left(z_\alpha([P;x_n])/T\right),
+ \label{eq:prompt-control}
+\end{equation}
+where $P=(e_{t_1},\ldots,e_{t_L})$ is the ordered sequence of prefix embeddings and
+$[P;x_n]$ denotes sequence concatenation, not vector addition. At fixed $P$, $T$ and
+$\alpha$, the same map is applied at every iteration. Every feedback embedding can attend
+to the entire prefix. Causal attention makes the prefix keys and values independent of
+$x_n$: we compute them once for each steering setting and restore the cache to that
+prefix after every update. The previous feedback position is replaced, not retained as
+an additional history token.
+
+Changing $x_0$ selects a trajectory of one map; changing $P$ changes the map itself,
+including its state derivative and potentially its attractors and their basins. Prompt
+choice is therefore another control knob, alongside temperature and steering, even
+though it is held constant within each trajectory. Ordinary token edits are discrete
+changes, unlike the continuously varied scalar parameters $T$ and $\alpha$; calling the
+prompt a control does not by itself define a smooth bifurcation parameter.
+
+The prefix is naturally an $L\times d$ array of generally dense embeddings, not a
+single sparse vector whose dimension equals the maximum context length. One can flatten
+it into $Ld$ coordinates, or pad it to a capacity-sized array together with an attention
+mask, but unused positions are absent or masked rather than active zero-valued inputs.
+The context limit bounds the number of token positions, not the embedding dimension.
+For the one-token map, increasing $L$ changes the fixed conditioning and the feedback
+position while leaving the evolving state $x_n\in\mathbb{R}^{896}$ the same size. A
+maximum-context prefix leaves one position for feedback; successive iterations do not
+consume further context slots.
+
 \paragraph{How we steer.} Steering adds one fixed vector to the network's internal state while it runs; no weight is
 changed. The state it changes is the residual stream, the $d$-dimensional vector carried at each token position, to
 which every attention and MLP block adds its output. Our main direction, philosophy, is built in three steps from 16
