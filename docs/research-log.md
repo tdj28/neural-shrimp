@@ -33277,3 +33277,14 @@ both halves and preserving unresolved transients. This bounded exploratory
 screen cannot prove chaos, global attraction or an exact mathematical cycle.
 CPU only, two threads, one-hour hard analysis limit; no new rented execution.
 Trajectories checkpoint every 64 updates; preserve any failed gates and attempt.
+
+PCP1 coarse continuation closeout: all nine settings passed root, derivative
+and eigenpair gates. Endpoint common-state map change was 0.6611853075460455
+relative to its original norm; the fixed-direction JVP vector change was
+1.114412325871905, while the response-norm ratio was 0.3236064264145854.
+These are different statistics, not an operator-norm increase. Estimated
+fixed-point multiplier moduli ranged from 0.3484056711666171 to
+1.4188192448419505. Every manifest hash and saved point's shape/finiteness
+was checked; all data and both preceding failed attempts have an independently
+hashed copy on the separate archive disk. See docs/prompt-control-receipt.json.
+Crossing refinement and attractor qualification remain separate ongoing stages.
