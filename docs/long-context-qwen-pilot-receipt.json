@@ -1,0 +1,82 @@
+{
+  "status": "pilot complete; raw hashes and arrays audited; separate filesystem copy hash verified",
+  "source": "e9cc1644fbca84c537a7577193e7ed5ac2bfc64c",
+  "pod_id": "vlm54savcazwzd",
+  "termination_direct_absent": true,
+  "termination_inventory_absent": true,
+  "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/pod64/lcp1/pilot-01",
+  "manifest_sha256": "00627a23dfe7ee7b87dc887dfe96e54c0e92be713922c99740cd408f6b8bd32e",
+  "archive_sha256": "0b7b51f8d136816671a3b839800c4515570aab18fd6847d78325b959f6710bd0",
+  "runtime": {
+    "source": "e9cc1644fbca84c537a7577193e7ed5ac2bfc64c",
+    "torch": "2.14.1+cu126",
+    "gpu": "NVIDIA A100-SXM4-80GB",
+    "dtype": "torch.float32",
+    "prefix_tokens": 32767,
+    "feedback_tokens": 1,
+    "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+  },
+  "gate": {
+    "prefill_relative_error": 1.2595880889421096e-06,
+    "repeat_max_error": 0.0
+  },
+  "timings": [
+    {
+      "label": "short",
+      "prefill_seconds": 0.011560201004613191,
+      "step_seconds": 0.009234386328444089,
+      "peak_bytes": 1990477824
+    },
+    {
+      "label": "maximum",
+      "prefill_seconds": 10.82110596599523,
+      "step_seconds": 0.10953712101581914,
+      "peak_bytes": 3106790912
+    }
+  ],
+  "cells": [
+    {
+      "index": 0,
+      "log_temperature": -0.3,
+      "alpha": 0.0,
+      "seconds": 106.40683101600735,
+      "growth_mean": [
+        -5.487515600689221,
+        -5.153716337339233
+      ]
+    },
+    {
+      "index": 1,
+      "log_temperature": -0.3,
+      "alpha": 0.1,
+      "seconds": 106.367436437984,
+      "growth_mean": [
+        -0.5698614500506665,
+        -0.5677830105414614
+      ]
+    },
+    {
+      "index": 2,
+      "log_temperature": 0.3,
+      "alpha": 0.0,
+      "seconds": 106.37421729799826,
+      "growth_mean": [
+        -0.1599323989939876,
+        -0.15652944036992267
+      ]
+    },
+    {
+      "index": 3,
+      "log_temperature": 0.3,
+      "alpha": 0.1,
+      "seconds": 106.36473502102308,
+      "growth_mean": [
+        -1.4735386566026136,
+        -1.474681027350016
+      ]
+    }
+  ],
+  "backup": "/archive/neural-shrimp-backups/20261024-lcp1",
+  "qualification": "Maximum-context feasibility with repeated prose prefix; short diagnostic runs do not classify sustained chaos. Full map remains unapproved.",
+  "cost": "see private ledger"
+}
