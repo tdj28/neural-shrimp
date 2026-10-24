@@ -76,6 +76,10 @@ HF_HUB_OFFLINE=0 uv run python tools/explore_llm_soft_loop.py scan --device cpu 
     --alpha 0.0625 0.0775 --log-temperature -0.17 -0.125 --out llm-soft-loop/example
 ```
 
+To reproduce one proved result with nothing but torch and transformers, see
+[`docs/reproduce-p8/`](docs/reproduce-p8/): a standalone script that finds the certified period-8 loop of
+Qwen2.5-0.5B-Instruct in float64 in a few minutes on a CPU, with its expected output and reference states.
+
 Outputs and downloaded model weights go to `../neural-shrimp-data/` unless `NEURAL_SHRIMP_DATA` points elsewhere.
 The tools work offline by default; `HF_HUB_OFFLINE=0` lets the first run download the model, at the revision pinned in
 `docs/model-revisions.json`. `docs/steering-vectors/vectors-l12` holds the philosophy and gratitude directions of

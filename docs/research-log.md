@@ -33154,3 +33154,15 @@ All 24 measured shards for ascending settings 1/2 and descending setting 19 pass
 The human approved one bounded RunPod pilot for Qwen2.5-0.5B-Instruct, not the full map. Plan: docs/long-context-qwen-pilot-plan.md. One-hour absolute resource lifetime, 40-minute controller runtime, 35-minute tool timeout, 30-minute numerical deadline, with retrieval reserve. Local GPU remains unavailable to this task. The sequence is short-prefix agreement/repeatability, short and maximum-context timing, then up to four short diagnostic cells if within the deadline. Raw token IDs, repeated-prose construction and unchanged short-prefix suffix are saved; this is a context stress test with a content confound. Float32 with TF32 disabled, two offsets 0.001/0.0003. No inference of chaos from the short pilot. Atomic stage outputs and per-file manifest; preserve failure outputs, verify retrieval and exact termination. Cost: see private ledger.
 
 Chunked prefill is opt-in, leaving existing full-prefix behavior unchanged. A tiny Qwen CPU test compares full versus chunked prefill with steering, two batch rows, unequal last chunk, and exact repeated-call cache reset. Together with existing controller tests, 42 tests pass. Remote actual-model equivalence is a mandatory gate before maximum-context work. No rental or local GPU used in preparation.
+
+## 2026-10-24 18:11 UTC: Reproduction kit for the certified period-8 orbit
+
+- Human request: instructions that let an independent researcher recreate one proved result. Added
+  `tools/recreate_p8.py` (standalone: torch, transformers, numpy; float64 with RMSNorm and rotary patched) and
+  `docs/reproduce-p8/` (instructions, expected output, the eight reference states, 56 KB).
+- Check on the local CPU (torch 2.14.1, transformers 5.19.0): from the fixed start at alpha 0.071674,
+  log10 T -0.115, the chat template gives the certificate's 37 prefix IDs; |x_t - x_(t-8)| is 9.7e-8 at step 50,
+  below 1e-12 from step 71 and 7.2e-15 at step 101; distances 1, 2 and 4 steps back are 0.46 to 0.48; the leading
+  tokens cycle " This is there is a is a ." (IDs 1096 374 1052 374 264 374 264 13). A rerun with 4 instead of 8
+  threads differs from the reference states by at most 1.6e-15.
+- Not compared here with the certificate's interval centers.
