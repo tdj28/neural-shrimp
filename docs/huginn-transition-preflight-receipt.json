@@ -1,7 +1,7 @@
 {
-  "status": "prepared; paid launch awaits explicit scope/ceiling approval",
+  "status": "approved for one bounded launch; live qualification pending",
   "plan": "docs/huginn-chaos-transition-plan.json",
-  "plan_sha256": "0cc07edd547d85ed21c496b171f1099c5fd4b578b1e19f857645ca37c44116c9",
+  "plan_sha256": "23a77d426689ba0508b841fadb4b62b9fa7cc16fda6cbdcd311596ed40ceed12",
   "tests": [
     {
       "path": "/data2/neural-shrimp-data/audits/huginn-chaos/hpc3-preflight-20261023-01/tests-01.txt",
@@ -44,5 +44,6 @@
     "sha256": "a4831ba35313aaf533139e9b7aeebe8d5d469dc1a1e1f094b9b8d31d7ad6c89c"
   },
   "verification": "Actual synthetic worker outputs through collector/final gates; fault tests use simulated transport/provider boundaries. No live rental or local GPU used. Does not guarantee provider durability.",
-  "cost": "see private ledger"
+  "cost": "see private ledger",
+  "preapproval_plan_sha256": "0cc07edd547d85ed21c496b171f1099c5fd4b578b1e19f857645ca37c44116c9"
 }

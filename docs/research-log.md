@@ -33123,3 +33123,8 @@ Validation: 99 tests passed in the expanded synthetic worker/collector/lifecycle
 Measured HPC2 retry coarse-setting median was 414.3484577060008 seconds and maximum 536.103661125002 seconds for 16384 total updates. Scaling the median to the new total yields approximately 3.80 compute hours for 22 settings. Raw state/growth arrays alone total 274058706944 bytes, before small metadata. A conservative sequential transfer allowance at 12–15 MB/s adds approximately 5.08–6.35 hours; overlap may reduce wall time, but is not required for the quote. Proposed resource lifetime 690 minutes, retrieval reserve 90 minutes, numerical deadline 34200 seconds. New scope and ceiling approval is pending; no launch is authorized by this preparation receipt. Cost: see private ledger.
 
 Final recovery-path check: 81 focused tests passed after requiring a gated numerical failure to enter boundary recovery immediately, preventing a first-setting throughput refusal from idling until the resource deadline. The local audit review is complete; live network/provider behavior remains untested for the new protocol until a separately approved launch.
+
+
+## 2026-10-23: HPC3 explicit launch approval
+
+The human approved the proposed fixed 22-setting bidirectional transition sweep and its separately quoted hard ceiling. One new task-owned rental is authorized, with 690-minute hard lifetime, 90-minute retrieval reserve and 34200-second internal numerical deadline. Scope and safeguards are unchanged from the prepared plan. No automatic numerical retry or additional rental is authorized. The first complete setting must pass verified retrieval and the end-to-end timing gate before proceeding. Local GPU remains unused; the 64-by-64 map remains deferred. Cost: see private ledger.
