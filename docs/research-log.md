@@ -33215,3 +33215,21 @@ The initial checkpoint and first cell have been hash-verified locally.
   against the published vectors.npz (float32, batched) cosine 1.0000000000, relative difference 1.63e-6.
   `tools/recreate_p8.py` with the rebuilt vector reaches the same period-8 loop (same tokens and phase, q=8 residual
   1.6e-14), at most 3.0e-7 from the reference states.
+
+## 2026-10-24 — PCP1 prompt-dependent derivative and stability pilot
+
+Human requested a mechanistic test and paper/blog discussion after reading Wen
+et al., arXiv:2602.01219v6. New exploratory local CPU run, no rental: Qwen2.5-0.5B,
+float64 with existing effective-precision patches, two CPU threads, 30-minute
+wall guard. Interpolate only the user token Hello to Think at fixed prefix
+length/positions, nine embedding-space fractions, temperature 2 and steering 0.
+Intermediate inputs are soft prompts, not ordinary textual edits. At a common
+feedback state, compare maps and exact JVPs; qualify JVPs by central-difference
+convergence. Measure per-layer prefix KV change. Continue fixed points from the
+previous prompt fraction, require relative residual below 1e-11, then estimate
+three leading multipliers using two Arnoldi starts and residual checks. Refuse
+stability analysis if convergence or precision gates fail. No guaranteed
+crossing or chaos claim: report absent crossings if all estimates stay inside
+the unit circle. No claim that one directional derivative measures the whole
+operator difference. Retain raw outputs/failures outside Git under
+`audits/prompt-control/pcp1-20261024-01`; source bound at launch.
