@@ -33253,3 +33253,14 @@ A CPU unit test recovers the fixed point of an explicitly unstable linear map.
 New attempt 03 is locally bounded to 30 minutes. The adaptation was made after
 seeing the near-minus-one multiplier and failed iterative convergence; any
 crossing found is exploratory and must be classified from its multipliers.
+
+PCP1 refinement amendment: Newton continuation recovered the fixed point at
+s=0.75 with relative residual 5.80e-13 or less and leading real multiplier
+-1.2042872326 (two Arnoldi starts agree); at s=0.625 it was -0.9436970826.
+Refine this exploratory real-minus-one bracket with four bisections, using
+Newton roots and recording multiplier modulus/argument and next-largest
+modulus at every step. No normal-form coefficients or stable doubled orbit
+are claimed. Bind a hash-verified snapshot of the two completed endpoint
+states while the remaining coarse settings finish independently. Two CPU
+threads per process, four total; available memory exceeds their combined
+observed usage. The refinement has a 20-minute local wall limit; no rental.
