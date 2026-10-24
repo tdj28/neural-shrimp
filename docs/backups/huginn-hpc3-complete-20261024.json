@@ -1,0 +1,36 @@
+{
+  "backup_script_sha256": "299c1ee4a2a0bf89dbebb8ef2ac5b3208b636489554e16b7a2728df5927b6809",
+  "bytes": 274603203506,
+  "completed_utc": "2026-10-24T07:37:20.015451+00:00",
+  "destination": "/archive/neural-shrimp-backups/20261024T064621Z-huginn-hpc3-complete",
+  "destination_inventory_complete": true,
+  "destination_private_mode": "0700",
+  "elapsed_seconds": 3058.18,
+  "file_count": 621,
+  "hash_mismatches": 0,
+  "io_priority": "idle (ionice class 3)",
+  "manifest_sha256": "dee5dfdb20146eb391976d23e6bf5a3542841c3ec673b2ee5e6e6f8208d415c1",
+  "physical_storage": {
+    "basis": "lsblk mount ancestry and differing filesystem device IDs checked during this snapshot",
+    "destination": "sda",
+    "distinct_physical_disks_verified": true,
+    "source": "nvme1n1"
+  },
+  "scope": "HPC3 complete evidence, controller records and inputs. Scientific audit stored separately. Private same-machine separate-disk snapshot; not offsite or continuous.",
+  "selected_roots": [
+    "runpod/huginn-chaos/hpc3-20261023",
+    "explore/llm-soft-loop/hpc3-input-20261023"
+  ],
+  "source": "/data2/neural-shrimp-data",
+  "source_commit_at_copy": "796c6668c0daf7fe7e90ee4127987fff4eaa129c",
+  "source_inventory_after_sha256": "687e8e1252898529dcb4f1c42d9097453fd32385e25eb3d1e86b33a83f5c7b2c",
+  "source_inventory_before_sha256": "687e8e1252898529dcb4f1c42d9097453fd32385e25eb3d1e86b33a83f5c7b2c",
+  "source_inventory_stable": true,
+  "started_utc": "2026-10-24T06:46:21.851372+00:00",
+  "status": "verified",
+  "symlink_count": 0,
+  "verification": "Every copied file independently SHA-256 verified, followed by a second source SHA-256 pass; exact source inventories stable and destination inventory complete. Existing source files were not changed.",
+  "verified_copies": 621,
+  "verified_sources_again": 621,
+  "worker_count": 1
+}
