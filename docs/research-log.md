@@ -33343,3 +33343,16 @@ Receipt: `docs/long-context-lcm1-partial-receipt.json`. External audit root:
 `/data2/neural-shrimp-data/audits/long-context/lcm1-partial-20261025-01`.
 No new spending or GPU work. The uncomputed short cells are unavailable, not
 classified as contracting or nonchaotic.
+
+## 2026-10-25 — LCM1 repair preparation and CPU validation run card
+
+Prepare missing short-context cells only, with no new rental authorized. The
+repaired measurement preserves the base trajectory when a perturbed twin reaches
+zero distance or becomes nonfinite. It records separate status codes and masks
+that twin's remaining growth values; it never substitutes a finite exponent.
+Nonfinite base states produce explicit partial-cell status. Ordinary valid
+measurements retain the original renormalization rule. New output is separate
+from the immutable first attempt. Local CPU validation will exercise short-grid
+index 49 (the failed setting), using original settling/measurement lengths and
+float32; CPU behavior need not reproduce CUDA rounding. Synthetic tests inject
+zero and nonfinite twins and base states. Remote execution remains approval-gated.

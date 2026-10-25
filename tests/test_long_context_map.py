@@ -44,3 +44,48 @@ def test_scope():
  source='a'*40
  validate_orbit_job(f'lcm1 700 long_context_map.py --source-commit {source} --out llm-soft-loop/pod64/lcm1/map-01',source)
  with pytest.raises(ValueError):validate_orbit_job(f'lcm1 701 long_context_map.py --source-commit {source} --out llm-soft-loop/pod64/lcm1/map-01',source)
+
+@pytest.mark.parametrize('fault,expected', [('collapse',1),('nan',2),('inf',2)])
+def test_twin_failure_preserves_base_and_masks_growth(fault,expected):
+ import torch
+ import numpy as np
+ from long_context_map import measure_cell
+ class Loop:
+  def step(self,x,temps):
+   y=x.clone()
+   y[0]+=1
+   y[1]=y[0] if fault=='collapse' else float(fault)
+   y[2]=y[0]+.25
+   return y,None
+ loop=Loop();loop.torch=torch
+ out=measure_cell(loop,torch.ones(3,1,2),[1]*3,[.1,.1],lambda:None,steps=4)
+ assert out['states'].shape==(4,1,2)
+ assert np.isfinite(out['states']).all()
+ assert out['growth_status'][:,0].tolist()==[expected,3,3,3]
+ assert np.isnan(out['growth'][:,0]).all()
+ assert np.isfinite(out['growth'][:,1]).all()
+ assert out['cell_status']=='complete_base_censored_growth'
+
+
+def test_base_failure_is_explicit_partial():
+ import torch
+ from long_context_map import measure_cell
+ class Loop:
+  def step(self,x,temps):return x*float('nan'),None
+ loop=Loop();loop.torch=torch
+ out=measure_cell(loop,torch.ones(3,1,2),[1]*3,[.1,.1],lambda:None)
+ assert out['cell_status']=='nonfinite_base' and out['failed_step']==0
+ assert len(out['states'])==0
+
+
+def test_valid_growth_matches_original_algorithm():
+ import torch
+ import numpy as np
+ from long_context_map import measure_cell
+ class Loop:
+  def step(self,x,temps):return x*.5,None
+ loop=Loop();loop.torch=torch
+ x=torch.tensor([[[1.,1.]],[[1.125,1.]],[[1.,1.25]]])
+ out=measure_cell(loop,x,[1]*3,[.125,.25],lambda:None,steps=8)
+ np.testing.assert_allclose(out['growth'],np.log(.5),rtol=1e-6)
+ assert (out['growth_status']==0).all()
