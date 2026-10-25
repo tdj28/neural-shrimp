@@ -42,20 +42,21 @@ def collect_checkpoint(read, write, out, source):
 
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--source',required=True);p.add_argument('--name',required=True);a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--root',type=Path,required=True);p.add_argument('--source',required=True);p.add_argument('--name',required=True);p.add_argument('--approval',default='LCM1-user-approved-20261024');p.add_argument('--relative-output',default='llm-soft-loop/pod64/lcm1/map-01');p.add_argument('--hard-minutes',type=int,default=780);a=p.parse_args()
+ if not a.relative_output.startswith('llm-soft-loop/pod64/') or '..' in Path(a.relative_output).parts or not 0<a.hard_minutes<=780:p.error('Invalid bounded collection scope')
  out=a.root/'incremental'/'data';out.mkdir(parents=True,exist_ok=False)
- remote='/root/neural-shrimp-data/explore/llm-soft-loop/pod64/lcm1/map-01'
+ remote='/root/neural-shrimp-data/explore/'+a.relative_output
  startup=time.time();pod=None;base=None;last=None
  (a.root/'collector-ready.json').write_text(json.dumps(dict(source=a.source,time=startup))+'\n')
- while time.time()<startup+780*60:
+ while time.time()<startup+a.hard_minutes*60:
   try:
    if pod is None:
-    matches=[r for r in (json.loads(x) for x in rp.LEDGER.read_text().splitlines()) if r.get('event')=='created' and r.get('name')==a.name and r.get('commit')==a.source and r.get('approval')=='LCM1-user-approved-20261024']
+    matches=[r for r in (json.loads(x) for x in rp.LEDGER.read_text().splitlines()) if r.get('event')=='created' and r.get('name')==a.name and r.get('commit')==a.source and r.get('approval')==a.approval]
     if not matches:
      if time.time()>startup+600:raise TimeoutError('No owned creation within startup allowance')
      time.sleep(2);continue
     if len(matches)!=1:raise ValueError('ambiguous ownership')
-    pod=matches[0];deadline=datetime.fromisoformat(pod['time']).timestamp()+780*60
+    pod=matches[0];deadline=datetime.fromisoformat(pod['time']).timestamp()+a.hard_minutes*60
    if time.time()>=deadline:break
    if base is None:
     state=rp.pod_status(pod['pod_id'])

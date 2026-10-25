@@ -46,14 +46,19 @@ def measure_cell(loop,x,temps,radii,guard,steps=512):
  return dict(states=np.array(states),growth=np.array(growth),growth_status=np.array(codes,dtype=np.uint8),cell_status='complete' if all(active) else 'complete_base_censored_growth',failed_step=-1)
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--out',required=True);p.add_argument('--source-commit',required=True);p.add_argument('--short-indices',type=int,nargs='+');p.add_argument('--device',choices=['cpu','cuda'],default='cuda');p.add_argument('--local-no-ack',action='store_true');a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--out',required=True);p.add_argument('--source-commit',required=True);p.add_argument('--short-indices',type=int,nargs='+');p.add_argument('--short-recovery',action='store_true');p.add_argument('--device',choices=['cpu','cuda'],default='cuda');p.add_argument('--local-no-ack',action='store_true');a=p.parse_args()
+ if a.short_recovery:
+  if a.short_indices is not None:p.error('Choose short-recovery or explicit indices')
+  a.short_indices=list(range(48,256))
  if a.local_no_ack and a.device!='cpu':p.error('No-ack mode is restricted to local CPU validation')
  if a.short_indices is not None and (not a.short_indices or len(set(a.short_indices))!=len(a.short_indices) or any(i<0 or i>=256 for i in a.short_indices)):p.error('Unique indices in 0..255 required')
- out=DATA/'explore'/a.out;out.mkdir(parents=True,exist_ok=False);start=time.monotonic();deadline=start+60*690
+ out=DATA/'explore'/a.out;out.mkdir(parents=True,exist_ok=False);start=time.monotonic();deadline=start+60*(85 if a.short_recovery else 690)
  def guard():
   if time.monotonic()>deadline:raise TimeoutError('Map numerical deadline reached')
  def emit(phase,**kw):
-  print(json.dumps(dict(phase=phase,chunk_start=0,**kw)),flush=True)
+  line=json.dumps(dict(phase=phase,chunk_start=0,**kw))
+  with (out/'progress.jsonl').open('a') as f:f.write(line+'\n')
+  print(line,flush=True)
  def save(name,**kw):
   tmp=out/(name+'.tmp')
   with tmp.open('wb') as f:np.savez(f,**kw)
@@ -80,7 +85,7 @@ def main():
   assert len(long_ids)==32767 and loop.model.config.max_position_embeddings==32768
   record('prompt.json',dict(token_ids=long_ids,text=loop.sm.tok.decode(long_ids),short_token_ids=short[0].tolist(),construction='Repeated prose token IDs, cut to exact length, followed by unchanged original chat prefix; filler/content confound disclosed.'))
   record('runtime.json',dict(source=a.source_commit,torch=t.__version__,gpu=t.cuda.get_device_name() if a.device=='cuda' else None,dtype=str(loop.dtype),prefix_tokens=32767,feedback_tokens=1,model_revision=loop.sm.engine.revision))
-  loop.prefill_chunk_size=256;timings=[]
+  loop.prefill_chunk_size=256;timings=[];cell_statuses=[]
   record('selection.json',dict(short_indices=a.short_indices,local_no_ack=a.local_no_ack,device=a.device,growth_status_codes={'0':'measured','1':'zero_distance','2':'nonfinite_twin_or_distance','3':'disabled'}))
   for label,prefix in ([] if a.short_indices is not None else [('short',short),('maximum',t.tensor([long_ids],device=loop.device))]):
    guard();loop.prefix_ids=prefix;loop.L0=prefix.shape[1];t.cuda.reset_peak_memory_stats();tic=time.monotonic();x=loop.prepare(rows);t.cuda.synchronize();prefill=time.monotonic()-tic;tic=time.monotonic()
@@ -96,8 +101,9 @@ def main():
     t.manual_seed(7+i);direction=t.randn_like(x[0]);direction/=direction.norm();radii=[float(x[0].norm())*e for e in [.001,.0003]]
     x[1]=x[0]+radii[0]*direction;x[2]=x[0]+radii[1]*direction;measurement=measure_cell(loop,x,temps,radii,guard)
     save(f'{label}-cell-{i:03d}.npz',**measurement,log_temperature=logT,alpha=alpha,seconds=time.monotonic()-tic);emit('cell_complete',cell_index=i,step=len(measurement['states']),status=measurement['cell_status'],seconds=time.monotonic()-tic)
+    cell_statuses.append(measurement['cell_status'])
     checkpoint()
-  record('result.json',dict(success=True,seconds=time.monotonic()-start,timings=timings,requested_short_indices=a.short_indices,cells_per_arm=256 if a.short_indices is None else None,qualification='Exploratory finite-window map; repeated filler confounds length and content.'))
+  record('result.json',dict(success=all(s!='nonfinite_base' for s in cell_statuses),cell_statuses=cell_statuses,seconds=time.monotonic()-start,timings=timings,requested_short_indices=a.short_indices,cells_per_arm=256 if a.short_indices is None else None,qualification='Exploratory finite-window map; repeated filler confounds length and content.'))
   checkpoint(final=True)
  except BaseException as e:
   record('failure.json',dict(error=repr(e),seconds=time.monotonic()-start));raise

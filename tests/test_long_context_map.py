@@ -89,3 +89,12 @@ def test_valid_growth_matches_original_algorithm():
  out=measure_cell(loop,x,[1]*3,[.125,.25],lambda:None,steps=8)
  np.testing.assert_allclose(out['growth'],np.log(.5),rtol=1e-6)
  assert (out['growth_status']==0).all()
+
+
+def test_recovery_scope_is_bounded():
+ from runpod_scan_group import validate_orbit_job
+ source='a'*40
+ cmd=f'lcm1r 90 long_context_map.py --source-commit {source} --out llm-soft-loop/pod64/lcm1/recovery-01 --short-recovery'
+ validate_orbit_job(cmd,source)
+ with pytest.raises(ValueError):validate_orbit_job(cmd.replace('lcm1r 90','lcm1r 91'),source)
+ with pytest.raises(ValueError):validate_orbit_job(cmd.replace('--short-recovery','--local-no-ack'),source)

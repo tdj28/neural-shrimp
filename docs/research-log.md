@@ -33356,3 +33356,13 @@ from the immutable first attempt. Local CPU validation will exercise short-grid
 index 49 (the failed setting), using original settling/measurement lengths and
 float32; CPU behavior need not reproduce CUDA rounding. Synthetic tests inject
 zero and nonfinite twins and base states. Remote execution remains approval-gated.
+
+LCM1 repair validation completed: all 54 map/prefill/controller tests pass.
+The two-thread CPU model run at short index 49 completed all 256 settling and
+512 measured steps in 200.83 seconds for the cell, with finite full states and
+both growth columns. It did not reproduce the historical CUDA failure. Saved
+manifest hashes independently verified; receipt
+`docs/long-context-repair-validation.json`. This supports the repaired model
+path, while injected tests exercise the actual zero/nonfinite handling.
+The follow-up proposal is 207 missing settings plus one overlap, with mandatory
+retrieval and a 120-minute resource ceiling. No new rental is authorized.
