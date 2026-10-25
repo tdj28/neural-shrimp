@@ -1,0 +1,87 @@
+{
+  "status": "partial_scientific_failure",
+  "source": "3e3ce65d2b5ddfcc8c61d98180b78ff830b9a9ff",
+  "manifest_sha256": "3d78779a4685404d1f36bcb98f058e4ae040e0a791aa07c3378c842e19c05921",
+  "manifest_files_verified": 310,
+  "manifest_is_final": false,
+  "archive_sha256": "0a51b75ee81345d3670f5b71816e37e3599c2d934ac1647dc86b1d4b9d108858",
+  "data": "/data2/neural-shrimp-data/runpod/long-context/lcm1-20261024/incremental/data",
+  "backup": "/archive/neural-shrimp-backups/20261025-lcm1-partial-01",
+  "backup_files_rehashed": true,
+  "summary": {
+    "maximum": {
+      "cells": 256,
+      "growth_both_offsets_and_halves_above_001": 66,
+      "recurrence_candidates": 171,
+      "minimum_growth": -5.487515600689221,
+      "maximum_growth": 0.6395712995791882,
+      "lags": {
+        "0": 85,
+        "1": 41,
+        "2": 61,
+        "3": 12,
+        "4": 37,
+        "6": 8,
+        "8": 5,
+        "10": 1,
+        "12": 1,
+        "14": 1,
+        "18": 1,
+        "30": 1,
+        "48": 1,
+        "60": 1
+      }
+    },
+    "short": {
+      "cells": 49,
+      "growth_both_offsets_and_halves_above_001": 0,
+      "recurrence_candidates": 47,
+      "minimum_growth": -7.6930182406213135,
+      "maximum_growth": -0.13845598873950848,
+      "lags": {
+        "0": 2,
+        "1": 8,
+        "2": 1,
+        "3": 4,
+        "5": 34
+      }
+    }
+  },
+  "recurrence_threshold": 0.0001,
+  "recurrence_positions": 128,
+  "recurrence_lags": [
+    1,
+    64
+  ],
+  "limitations": [
+    "No final success manifest",
+    "207 short cells unavailable",
+    "Failed distance check does not distinguish zero from nonfinite",
+    "Repeated filler confounds length and content",
+    "Finite recurrence and growth do not prove stable primitive cycles or chaos"
+  ],
+  "termination": {
+    "time": "2026-10-25T03:01:03+00:00",
+    "pod": "q0778v0k33bvbw",
+    "direct_absent": true,
+    "inventory_absent": true
+  },
+  "backup_physical_devices": {
+    "source": "nvme1n1",
+    "destination": "sda"
+  },
+  "direction_matches_original": true,
+  "source_plan_sha256": "31ecaec0f6a273afea1b9c33c70f10f3e5cc9ba9d6119a9bf023eea0a5c9d597",
+  "audit_artifacts": {
+    "failure.json": "2b644541099ecdf441bc4dd3124a6c892de986fc4d9c6da4f964e28b9bb9e53a",
+    "summary.json": "fea5b48ca66858576db480dbe44f4ff65e90f5dadb23fd17b77611758e07055f",
+    "cells.json": "1613c9eaf10032f31bdfc5dc1a032457703391822d9d9d6dfa29402baaf8cb57",
+    "termination.json": "19f02b8b88e62d563c01da996d5d1719415017a1c37aa1acda5cbc98062ded3c",
+    "lcm1.log": "899ffba668bbef6c17730b88013af3a10aba1e059e0534eb836da4efa2fb50ba",
+    "audit_lcm1_partial.py": "239b65f8d36ed7775dc41da7552cd38f095e7c38efe5b19d9e6c66d5fea6256d",
+    "growth-map.png": "70fff818bc135bdee4483c61bfab5a35788fa5e5d67bfc02613542c4c85e262f",
+    "plot_lcm1.py": "d63357f88fa5a05c5555a8de7717e85951e3e5344c51be1893e8288ca6876118",
+    "maps.png": "f8f5afdd3e7e456814d70b6f5669ab27874c971f13433f89d7e7c960e82edb0c"
+  },
+  "collector_closeout": "Sent SIGTERM to identity-verified collector after independently verified pod absence; partial status preserved."
+}

@@ -252,3 +252,14 @@ attractor diagnosis completed in 1363.10 seconds or less. Earlier failed
 qualification/iteration attempts remain preserved. Nine roots, four boundary
 refinements and three period-two trajectories were audited; independent
 hash-verified backup resides on physical disk sda, separate from source nvme1n1.
+
+### 2026-10-25 — LCM1 partial closeout
+
+The existing NVIDIA A100-SXM4-80GB run (torch 2.14.1+cu126, float32;
+source 3e3ce65d2b5ddfcc8c61d98180b78ff830b9a9ff) stopped at a numerical
+perturbation-distance assertion after 256 maximum-context and 49 short-prefix
+cells. Saved completed evidence and supplemental archive verified; no final
+scientific success manifest. Pod q0778v0k33bvbw independently absent by direct
+lookup and inventory at 03:01 UTC. CPU-only offline audit and independently
+rehashed sda backup completed. See `long-context-lcm1-partial-receipt.json`.
+Cost: see private ledger.

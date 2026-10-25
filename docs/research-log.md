@@ -33310,3 +33310,36 @@ the additive-offset alternative at a common state, the distinction between
 one directional derivative and an operator norm, the distinction between
 fixed-point and cycle multipliers, intermediate soft prompts versus text, and
 absence of a general semantic or prompt-length claim. No paid review used.
+
+## 2026-10-25 — LCM1 partial scientific failure; recovered evidence audited
+
+The maximum-prefix Qwen map completed all 256 cells; the short-prefix control
+completed 49 before the perturbation-distance assertion failed in
+`long_context_map.py:70`. The combined assertion requires a finite, positive
+norm; the failure record does not distinguish zero from nonfinite. No numerical
+retry was launched. Worker wrapper exit zero describes packaging, not scientific
+success: the scientific log records exit one. All 305 completed cell files and
+five metadata files passed the saved checkpoint manifest hashes; the final
+success manifest does not exist. The supplemental archive passed its remote hash.
+Exact pod q0778v0k33bvbw was independently absent by direct lookup and inventory.
+
+Behavioral result: the maximum-context feedback dynamics show both contraction
+and finite-window expansion. Of 256 cells, 66 have growth above 0.001 per update
+at both offsets and in both halves. A separate full-state recurrence screen
+(final 128 positions, lags 1–64, worst relative residual below 1e-4) finds 171
+candidates. These are not verified primitive stable cycles or proof of chaos.
+All 49 recovered short-prefix cells have a negative smaller mean growth estimate;
+47 pass the recurrence screen. Missing control cells prevent a full paired-map
+comparison. Repeated filler also confounds context length with content.
+
+CPU audit checked every saved state/growth shape and finiteness, axes, source,
+model revision, prefix lengths/suffix, original steering vector and prefill gate.
+Two readable figures were visually inspected. Saved arrays, archive and audit
+artifacts were independently rehashed on the separate physical disk /archive
+(sda; source /data2 on nvme1n1). The orphan collector was stopped only after
+process-start identity and pod absence checks. Failure evidence remains intact.
+
+Receipt: `docs/long-context-lcm1-partial-receipt.json`. External audit root:
+`/data2/neural-shrimp-data/audits/long-context/lcm1-partial-20261025-01`.
+No new spending or GPU work. The uncomputed short cells are unavailable, not
+classified as contracting or nonchaotic.
