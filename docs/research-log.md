@@ -33366,3 +33366,10 @@ manifest hashes independently verified; receipt
 path, while injected tests exercise the actual zero/nonfinite handling.
 The follow-up proposal is 207 missing settings plus one overlap, with mandatory
 retrieval and a 120-minute resource ceiling. No new rental is authorized.
+
+## 2026-10-26 06:16 UTC: arXiv identifier added to the README and the full report
+
+The article was announced as arXiv:2610.31692 (nlin.CD). The README's paper section and citation and the full report's
+title page (and PDF metadata) now give the identifier with a link; the README's page count of the report is corrected
+to 197 (it already had 197 pages at a625ec3a). Report rebuilt with latexmk (197 pages, no warnings). The blog post was
+updated by the human. No scientific content changed.

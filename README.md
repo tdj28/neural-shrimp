@@ -20,8 +20,8 @@ used for low-dimensional dynamical systems. Its main findings:
 
 ## The paper
 
-- **arXiv version:** a focused article with the central results (link to be added when the preprint is announced).
-- **Full report:** [`paper/llm/main.pdf`](paper/llm/main.pdf), 195 pages, with source in `paper/llm/`. It has every
+- **arXiv version:** a focused article with the central results, [arXiv:2610.31692](https://arxiv.org/abs/2610.31692).
+- **Full report:** [`paper/llm/main.pdf`](paper/llm/main.pdf), 197 pages, with source in `paper/llm/`. It has every
   result, the methods, the test designs fixed before their data, the controls, and the failed or inconclusive attempts.
 - The tag `arxiv-v1` marks the state of this repository at the arXiv submission.
 
@@ -118,5 +118,5 @@ their own licenses ([`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)).
 
 ## Citation
 
-Timothy D. Jones, *Chaos and bifurcations in continuous language-model feedback*, arXiv (2026); identifier to be added
-when the preprint is announced.
+Timothy D. Jones, *Chaos and bifurcations in continuous language-model feedback*, arXiv:2610.31692 [nlin.CD] (2026),
+https://arxiv.org/abs/2610.31692.
