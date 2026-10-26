@@ -33441,3 +33441,12 @@ computation and no paid call.
    Codex's receipts cite paths inside those worktrees, and removing them is the human's decision.
 
 Full report rebuilt with latexmk (197 pages, no errors or undefined references).
+
+Addendum 21:58 UTC: three further places in the full report still counted the proofs as one or three orbits:
+- the introduction's "in one case proved" (now "in a few cases");
+- the limitations paragraph of the Discussion;
+- the conclusion.
+
+All three now name four orbits, as in the article and the blog. The blog post and its provenance.json, re-bound at
+paper 1b718635, pass scripts/check_provenance.py (4933/4933 numbers, 89 pinned URLs resolved). They are left
+uncommitted for the human.

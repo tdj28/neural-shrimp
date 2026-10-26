@@ -528,7 +528,7 @@ step of Soft Thinking \cite{zhang2025softthinking}, and related methods feed bac
 \cite{hao2024coconut} or iterate a block to a fixed point \cite{geiping2025recurrent}; continuous feedback of this kind
 is studied because it can carry more than one token's worth of information. We also hold the prefix and the window
 fixed. That simplification is deliberate: it makes the loop an autonomous map whose orbits, exponents and bifurcations
-can be computed, and in one case proved, much as low-dimensional maps made the routes to turbulence tractable.
+can be computed, and in a few cases proved, much as low-dimensional maps made the routes to turbulence tractable.
 This fixed-prefix, fixed-window soft-token map differs both from ordinary autoregressive generation, whose context grows,
 and from recurrent-depth (looped) transformers, which repeatedly update hidden states through a shared block
 \cite{dehghani2019universal,giannou2023looped,geiping2025recurrent}; dynamical methods apply to both kinds of loop, but
@@ -4701,7 +4701,8 @@ OLMo-2 7B and Llama-3.1 8B have maps but no continued orbits. The size compariso
 offset per label, and part of the 70B-class maps predate a precision fix and were rechecked only in samples. The maps
 use one prompt, apart from 22 variants of the 0.5B standard plane (more in the size tests), and steering uses contrastive vectors, checked against random and
 sparse-autoencoder directions in two models. Chaos labels are finite-horizon estimates: a longer horizon check kept 86
-and 92 of 96 chaotic labels in two maps, near the accumulation of a cascade transient chaos makes labels less reliable (on one line only 135 of 235 chaotic labels held), the chaotic cells are numerically validated (twin exponents agree with automatic-differentiation tangents, across precisions and horizons) but not yet established by a computer-assisted proof, and three periodic orbits have such proofs: the period-8 orbit and a coexisting period-2 and period-3 pair. The Feigenbaum ratios are
+and 92 of 96 chaotic labels in two maps, near the accumulation of a cascade transient chaos makes labels less reliable (on one line only 135 of 235 chaotic labels held), the chaotic cells are numerically validated (twin exponents agree with automatic-differentiation tangents, across precisions and horizons) but not yet established by a computer-assisted proof, and four periodic orbits have such proofs: the period-8 orbit, a coexisting period-2 and period-3 pair, and the
+3-cycle at the start of the cascade. The Feigenbaum ratios are
 finite-order values. All orbit, bifurcation and chaos results concern the soft-token map, not sampled generation with
 a growing context. Appendix~\ref{sec:limits} gives the details.
 
@@ -4837,7 +4838,7 @@ where such windows were first found. A small retained-feedback term changes a mo
 in a period-18 window, supporting a conditional local reconnection interpretation without changing the sampled
 centers' state period or token cycle. Two coupled copies drift apart at approximately the rate the loop's Lyapunov exponent predicts.
 None of this rests on a simplified model of the network: the orbits, multipliers and normal forms are those of the full
-transformer in float64, and three of its periodic orbits are proved to exist with interval arithmetic. For the expected-embedding
+transformer in float64, and four of its periodic orbits are proved to exist with interval arithmetic. For the expected-embedding
 feedback studied here with a fixed prompt, the derivative factorization applies to smooth networks with a linear output
 head followed by softmax: its factors are inverse temperature, an embedding covariance for tied embeddings or a
 cross-covariance for untied embeddings, and the network's Jacobian. Chaos with embedded periodic windows appears in all
