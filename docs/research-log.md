@@ -33373,3 +33373,71 @@ The article was announced as arXiv:2610.31692 (nlin.CD). The README's paper sect
 title page (and PDF metadata) now give the identifier with a link; the README's page count of the report is corrected
 to 197 (it already had 197 pages at a625ec3a). Report rebuilt with latexmk (197 pages, no warnings). The blog post was
 updated by the human. No scientific content changed.
+
+## 2026-10-26 21:47 UTC: four loose ends from an outside check, rechecked and closed
+
+Another agent listed four loose ends. Each was rechecked against the raw records before anything changed. No new
+computation and no paid call.
+
+1. **Model count.** The two claims tables of the full report said "chaos in 15 models". Table tab:scale and the
+   appendix text agree that the regular-grid sweeps find unsteered chaos in 11 of the 15 models, none in Qwen2.5-72B,
+   Llama-3.3-70B, OLMo-2-13B or Qwen3.5-35B-A3B. Steering drives Llama-3.3-70B and Qwen2.5-72B into chaos
+   (multi-offset tests, Appendix sec:size). No chaos was found in OLMo-2-13B, which was not steered, or in the
+   mixture of experts, whose steered hostility cells are labeled irregular because routing jumps were not excluded.
+   Both rows now read 13 of 15 models, 11 of them without steering.
+2. **Stale range.** The Discussion said a 1e-6 perturbation grows to order one "within roughly 15 to 50 steps at the
+   largest exponents we measured (those of the unsteered 7B and 8B models, 0.30 to 0.88 per step)". Qwen2.5-14B's
+   largest unsteered exponent, 1.139 (upperset, pod bza7lx1vzbwla7), was already in tab:scale at arxiv-v1, so the
+   superlative was false there too. It now reads "within roughly 12 to 50 steps at the largest unsteered exponents of
+   the chaotic 7B to 14B models (0.30 to 1.14 per step)": ln(1e6)/1.139 = 12.1 and ln(1e6)/0.30 = 46. The article
+   scoped the same sentence to the 7B and 8B models, which is true; it is aligned with the report for its next
+   version.
+3. **Cascade 3-cycle proof.** Codex released it on 19 October at 01:25 UTC (Task 34, the first rung of a planned
+   ladder of certified orbits along log10 T = -0.14798), in
+   codex/certificate-ladder-task34/cascade-p3-certificate-release.json (already in the arxiv-v1 tree). It was not
+   recorded here or cited anywhere.
+   - **Statement.** At exact binary64 alpha = .0650 and log10 T = -.14798, 4.8e-4 below the cut's first flip, the
+     exact map has a primitive period-3 orbit. It is unique as an ordered shooting root in its three-phase product
+     box of radius 2^-640, and locally attracting.
+   - **Recheck today.** All 9 files bound by the release match their SHA-256: the domain definition (1951e04a...),
+     the six assembly outputs including the 2.0 GB conditional-gates.json, and the independent report (1b5530c3...).
+     The independent exact-rational audit reports witness_arithmetic_consistent: true, with all three conditional
+     gates true: root existence and local uniqueness, primitive period, local attraction. It checked 3 phase rows,
+     9 scalar blocks and 3,211,264 row-norm entries; by design it recomputed no dense products. Its
+     certificate_passed: false is the helper default; the release record carries the release.
+   - **Power bounds** (rounded up): 36.994, 19.375 and 5.520 at powers 1, 2 and 4 (failed, retained), and
+     0.446646514 at power 8 (passed).
+   - **Not covered.** Token labels, fixed-start reachability, larger basins and the later cascade. The period-6
+     rung's phase stage closed operationally on 19 October with its saved audit held, so no period-6 certificate
+     exists.
+   - **Now cited** in the full report (abstract, introduction, Sec. cascade, both claims tables, limitations,
+     Appendix evidence, data availability) and in the README. Its native evidence, under
+     neural-shrimp-data/codex/certificate-ladder, is not in the Zenodo record doi:10.5281/zenodo.23488416.
+4. **Pod records of 19 October.** Six of that day's twenty pods lack "terminated" in this log:
+   - np8esudkcyksy4 (P6S-CUSP);
+   - fdh3e7hw8pa7wl and x4tuzuj05nev3a (DSS6 tries 1 and 2);
+   - bm3xrzajo080d3 (KITE-UT);
+   - rvt6x51ybmnlk3 (KITE-C);
+   - t3zfkme692w69k (PV-P14B).
+
+   Each job's orchestrator log (neural-shrimp-data/runpod/<job>-orchestrator.log) records
+   {"terminated": true, "in_inventory": false} for its pod. A read-only inventory query at 2026-10-26T21:46:57Z lists
+   none of the six. The account's two running pods belong to other projects and were not touched. This entry is the
+   missing termination record for each.
+5. **Branches.** All nine local codex/* branches were merged into main (none ahead; GitHub has only main). The five
+   checked out nowhere were deleted; their tips stay reachable from main:
+   - codex/llm-cusp-crosscheck 7a55b5cea724bef4e39b2f1254f78437347aa08d
+   - codex/llm-hostile-fold-crosscheck 11b734c94a179148747f39f13eb33fa7b2fd7364
+   - codex/llm-independent-crosscheck 50e4d236e999742028eb15e32de9dc5512217a62
+   - codex/llm-literature-task3 afa214780391c2197993336ee9c0f332a53c741b
+   - codex/llm-p8-certificate d279c3c52fa19061e1a963c6894f094faba08467
+
+   The other four are checked out in Codex's clean worktrees under ~/.codex/worktrees and stay:
+   - codex/llm-return-map eec70ac3
+   - codex/llm-fresh-prediction 36c5d614
+   - codex/llm-misalignment-audit d28d2cb2
+   - codex/llm-loop-gain 36713c41
+
+   Codex's receipts cite paths inside those worktrees, and removing them is the human's decision.
+
+Full report rebuilt with latexmk (197 pages, no errors or undefined references).

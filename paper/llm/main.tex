@@ -89,8 +89,9 @@ late finite-order doubling ratios approach Feigenbaum's constant numerically (4.
 floor of the computation), periodic windows accumulate on folds with distances close to a $1/N^2$ law, passage times
 predicted in advance from fold normal forms came within one iterate of the return map in 42 of 48 cases at four new folds, over two frozen stages (24 and 18 of
 24) (the six
-misses, at a period-6 fold, 3.1 to 5.2\,\% short), and interval arithmetic proves an attracting period-8 orbit and, at one parameter cell, two coexisting
-attracting orbits of periods 2 and 3. In a smaller period-18 window, retaining about 0.645\,\% of the previous feedback
+misses, at a period-6 fold, 3.1 to 5.2\,\% short), and interval arithmetic proves an attracting period-8 orbit, two coexisting
+attracting orbits of periods 2 and 3 at one parameter cell, and the attracting 3-cycle at the start of a
+period-doubling cascade. In a smaller period-18 window, retaining about 0.645\,\% of the previous feedback
 state as a third control changes the selected return pair's trace-saddle height through a numerical sign bracket
 as its center is followed in steering and temperature, supporting a conditional local reconnection interpretation. The sampled centers keep their state period and six-token readout, and the
 multipliers remain nonzero. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled
@@ -210,7 +211,7 @@ Appendix~\ref{sec:evidence}.}
 Claim & Evidence & Where \\
 \midrule
 The loop's derivative factorizes into a readout covariance (a cross-covariance for untied embeddings) and the network's Jacobian & identity & Sec.~\ref{sec:theory} \\
-Chaotic regimes with periodic windows in 15 models; 74--92\,\% of sampled labels last $10^5$ steps & numerical & Secs.~\ref{sec:maps}, \ref{sec:sizemain} \\
+Chaotic regimes with periodic windows; chaos in 13 of 15 models, 11 of them without steering; 74--92\,\% of sampled labels last $10^5$ steps & numerical & Secs.~\ref{sec:maps}, \ref{sec:sizemain} \\
 Chaotic float64 loops separate on the Lyapunov schedule when only the batch layout changes & numerical & Sec.~\ref{sec:consequences} \\
 With fixed matrix shapes the runs are bitwise identical; injected displacements grow on the Lyapunov schedule (Qwen2.5-0.5B, 448 cells; a secondary criterion failed) & frozen & Sec.~\ref{sec:consequences} \\
 The batch layout changes long-feedback answers (bfloat16 pipelines, Soft Thinking, reasoning models) & frozen & Sec.~\ref{sec:consequences} \\
@@ -223,6 +224,7 @@ A period-5 window is a shrimp in a two-parameter plane (boundary organization) &
 Retained feedback changes a period-18 family's trace-saddle height sign, supporting conditional contour reconnection while the sampled centers keep their period and readout & exploratory; numerical & Sec.~\ref{sec:memoryunfolding} \\
 An attracting period-8 orbit exists & proof & App.~\ref{sec:evidence} \\
 Attracting orbits of periods 2 and 3 coexist at one parameter cell, with certified token loops and basin neighborhoods & proof & App.~\ref{sec:evidence} \\
+An attracting 3-cycle exists where the crescent's period-doubling cascade begins & proof & App.~\ref{sec:evidence} \\
 No accuracy information beyond first-token uncertainty; no edge-of-chaos advantage & frozen; bounded nulls & Sec.~\ref{sec:consequences} \\
 Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
 \bottomrule
@@ -287,7 +289,8 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   knowledge the first proof of a periodic orbit of a full transformer language-model map. A second proof of
   the same kind shows that at one parameter cell a period-2 and a period-3 orbit coexist, each unique in its box and
   locally attracting, each with a certified, if tiny, neighborhood of its basin: two different attracting behaviors
-  under identical settings (Appendix~\ref{sec:evidence}).
+  under identical settings. A third proves the attracting 3-cycle at the start of the crescent's period-doubling
+  cascade (Appendix~\ref{sec:evidence}).
 \item \emph{Beyond the one-token loop} (Sections~\ref{sec:beyond} to~\ref{sec:dialogue}). The chaos is not an
   artifact of the one-token window: with a memory of 8 or 16 soft tokens Qwen2.5-7B is chaotic at more temperatures
   than with one, and in Soft Thinking's growing context a tiny early perturbation grows exponentially inside its
@@ -2004,8 +2007,9 @@ the primary forecast.}
 \label{sec:cascade}
 The crescent of Figure~\ref{fig:cross512} is a closed region in which the period-3 loop ``\textbackslash
 n\textbackslash nThe existence'' doubles inward. Along the cut $\log_{10}T=-0.14798$, the map's cells show period 3
-over 25 columns, period 6 over about 14, period 12 over 4 and period 24 in one column, followed by a chaotic core. The
-doubled loops repeat the same leading tokens twice and four times, with alternating probabilities. Locating the flips
+over 25 columns, period 6 over about 14, period 12 over 4 and period 24 in one column, followed by a chaotic core. At
+$\alpha=0.0650$, inside the period-3 band, a computer-assisted proof shows that the 3-cycle exists and attracts
+(Appendix~\ref{sec:evidence}). The doubled loops repeat the same leading tokens twice and four times, with alternating probabilities. Locating the flips
 along this cut in float64 (Appendix~\ref{sec:methods}), in the steering coordinate $\alpha$, gives
 Table~\ref{tab:cascade}. The first two ratios, $\delta_2=2.844$ and $\delta_3=2.859$ (indexed as in
 Table~\ref{tab:cascade}), are far from Feigenbaum's $4.6692$, even though from the second flip on the orbits are
@@ -4597,7 +4601,7 @@ the project repository.}
 Steering's growth is readout-side & crossover along orbits; logit bias & partly prospective & \codelink{tools/crossover.py} \\
 \addlinespace[3pt]
 \multicolumn{4}{l}{\textsc{Chaos and its consequences}} \\
-\rowcolor{black!7} Chaos in 15 models & tangent exponents; 74--92\,\% last $10^5$ steps & numerical & \codelink{tools/explore_llm_soft_loop.py} \\
+\rowcolor{black!7} Chaos in 13 of 15 models (11 unsteered) & tangent exponents; 74--92\,\% last $10^5$ steps & numerical & \codelink{tools/explore_llm_soft_loop.py} \\
 Batch layout splits chaotic loops & paired float64 runs, 4 models & numerical & \codelink{tools/repro_noise.py} \\
 \rowcolor{black!7} Batch layout changes answers & arithmetic, GSM8K, reasoning & prospective & \codelink{tools/pi_harness.py} \\
 Chaos does not predict accuracy & regression on newly drawn problems & prospective & \codelink{tools/bpc_analyze.py} \\
@@ -4611,6 +4615,7 @@ Feigenbaum ratios & flips by continuation & numerical & \codelink{tools/llm_feig
 Crossing window families & eight maps; independent audit & numerical & \codelink{tools/sheets_analyze.py} \\
 \rowcolor{black!7} Attracting period-8 orbit & interval arithmetic & \textbf{proof} & \codelink{codex/certify-llm} \\
 Coexisting attracting 2- and 3-cycles & interval arithmetic & \textbf{proof} & \codelink{codex/coexistence-task33} \\
+\rowcolor{black!7} Attracting 3-cycle where the cascade begins & interval arithmetic & \textbf{proof} & \codelink{codex/certificate-ladder-task34} \\
 \addlinespace[3pt]
 \multicolumn{4}{l}{\textsc{Beyond the one-token loop}} \\
 \rowcolor{black!7} Steering history changes a decision & new instances & prospective & \codelink{tools/c12_steering_history.py} \\
@@ -4721,8 +4726,8 @@ shortens the laminar phases of the bottleneck, by an amount that depends on how 
 \paragraph{What this suggests for interpretability and alignment.} Our results come from open models of 0.5B to
 72B parameters and the soft-token loop, but they suggest three things about models whose outputs feed back into their inputs, as in
 self-dialogue, agent loops and pipelines of model calls. First, where the loop is chaotic, a perturbation of
-$10^{-6}$ grows to order one, while the loop stays in that regime, within roughly 15 to 50 steps at the largest exponents we measured (those of the
-unsteered 7B and 8B models, 0.30 to 0.88 per step), and more slowly at smaller ones. Even a complete mechanistic account of what a single forward pass does would then not predict a long trajectory:
+$10^{-6}$ grows to order one, while the loop stays in that regime, within roughly 12 to 50 steps at the largest
+unsteered exponents of the chaotic 7B to 14B models (0.30 to 1.14 per step), and more slowly at smaller ones. Even a complete mechanistic account of what a single forward pass does would then not predict a long trajectory:
 that would require knowing the state to far more digits than any interpretability description, which summarizes the
 state by a few features, can supply. Stepwise summaries can be
 inconclusive: every step of the period-8 orbit expands some direction while the cycle contracts, so the ordered
@@ -4843,8 +4848,9 @@ The code, the designs of the tests fixed in advance with their audits, the run c
 hash-bound records of every computation are in the project repository, \url{https://github.com/tdj28/neural-shrimp};
 the links in this paper point to its tag \texttt{arxiv-v1}. The interval-arithmetic certificates are in the
 repository, with the verification code, the exact map and input specifications, and the release records and hashes of
-the native evidence. The complete native evidence of both proofs is archived at Zenodo,
-\href{https://doi.org/10.5281/zenodo.23488416}{doi:10.5281/zenodo.23488416}. Bulky raw trajectories and model states
+the native evidence. The complete native evidence of the period-8 and coexistence proofs is archived at Zenodo,
+\href{https://doi.org/10.5281/zenodo.23488416}{doi:10.5281/zenodo.23488416}; that of the proof of the cascade's
+3-cycle is kept outside the repository, whose release record holds its checksums. Bulky raw trajectories and model states
 are kept outside the repository, which holds their checksums.
 
 \section*{Acknowledgments}
@@ -6500,8 +6506,8 @@ above; Section~\ref{sec:sizemain} adds ten for Qwen2.5-7B and -14B, and four for
 model, and OLMo-2-7B and -32B), and steering uses contrastive vectors, checked against norm-matched random and sparse-autoencoder
 directions in two models. The soft-token loop is one inference scheme: Appendix~\ref{sec:bridge} extends it to memories of up to sixteen soft tokens and to the growing context of Soft Thinking, but sampled decoding of discrete tokens is a different system. The evidence consists of numerical
 validation, cross-checks and prospectively frozen passage tests (including failed all-row criteria), with
-computer-assisted proofs for only three orbits at two parameter points (the period-8 orbit and a coexisting period-2
-and period-3 pair). Chaos labels are finite-horizon estimates (300
+computer-assisted proofs for only four orbits at three parameter points (the period-8 orbit, a coexisting period-2
+and period-3 pair, and the 3-cycle at the start of the cascade). Chaos labels are finite-horizon estimates (300
 measured steps after 300 to 500 transient steps), and the chaotic cells are numerically validated (twin exponents agree with automatic-differentiation tangents, across precisions and horizons) but not yet established by a computer-assisted proof. A computer-assisted proof of chaos, such as a horseshoe verified by covering
 relations, would need enclosures of the map over boxes many orders of magnitude larger than the period-8 proof's
 (radius $2^{-640}$). That proof is unaffected, but its ball arithmetic does not scale to large boxes: in a separate
@@ -6638,6 +6644,18 @@ from the raw maps as the set whose omission reproduces both totals (\repo{docs/r
   about which orbit a start outside them reaches, including the fixed start of the maps, nor about the trapping of
   the whole box or the window's global organization. The record is
   \path{codex/coexistence-task33/pair-certificate-release.json}.
+\item Rung 3: the 3-cycle at the start of the cascade. At $\alpha=0.0650$ and $\log_{10}T=-0.14798$, on the cut of
+  Table~\ref{tab:cascade} and $4.8\times10^{-4}$ below its first flip, the same map has a primitive period-3 orbit: it
+  is the unique multiple-shooting root in its product of three boxes of coordinate radius $2^{-640}$ around refined
+  centers, and it is locally attracting. The construction is that of the period-8 proof, with point enclosures at
+  2048 bits and derivative enclosures at 1024 bits, in 42 pieces that cover every phase and all 896 directions. The
+  bounds on the first, second and fourth powers of the enclosed monodromy failed the sufficient condition for
+  attraction and stay in the record; the eighth power passes, with an induced infinity-norm bound of at most $0.447$
+  (for a 3-cycle, a bound on the derivative over 24 steps). An independent exact-rational audit rechecked the scalar
+  and separation witnesses and every saved row norm (3\,211\,264 entries); it did not recompute the enclosures of the
+  model or the dense products. The proof does not certify the orbit's token loop, which starts reach it, or the later
+  orbits of the cascade: a certificate of the 6-cycle on the same cut was begun and not completed. The record is
+  \path{codex/certificate-ladder-task34/cascade-p3-certificate-release.json}.
 \item Rung 2: the 2-cycle's fold and its normal form. An independent reimplementation of the forward map and solver
   recovers $\alpha_c$, $a$ and $b$ (to $6\times10^{-15}$, $3\times10^{-12}$ and $2\times10^{-6}$ relatively), and $ab$
   also follows from the stable-branch multipliers. The same reimplementation reproduces all 18 fixed-entrance counts
