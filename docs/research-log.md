@@ -33450,3 +33450,80 @@ Addendum 21:58 UTC: three further places in the full report still counted the pr
 All three now name four orbits, as in the article and the blog. The blog post and its provenance.json, re-bound at
 paper 1b718635, pass scripts/check_provenance.py (4933/4933 numbers, 89 pinned URLs resolved). They are left
 uncommitted for the human.
+
+## 2026-10-28 07:05 UTC: Run cards LF3 (LFM3 soft-token maps) and TK (top-k loops of Qwen2.5-0.5B)
+
+Both exploratory (adaptive protocol), on the human's request; paid runs approved in session with hard ceilings
+recorded in the private ledger.
+
+**LF3.** Does the one-token soft loop of a third architecture class show the chaos that every dense model up to 9B
+shows without steering (Table tab:scale; the Qwen3.5 hybrids)? LFM3 (Liquid AI, released 27 October 2026) has 24
+layers: 13 gated short convolutions of width 7, 5 sliding-window attention layers (256 tokens) and 6 global attention
+layers, with sandwich norms, gated attention heads and a tied 128K vocabulary. Both checkpoints run, the pretrained
+LiquidAI/LFM3-1.7B-Base (545fc8f4) and the post-trained LiquidAI/LFM3-1.7B (40ebe0aa): the study's first base and
+post-trained pair at small size (its small models are all Instruct checkpoints).
+- **Setup.** One pod (H100 or H200), job set lfm3, two-hour hard lifetime. Float64; every stored tensor is bfloat16,
+  so the cast is exact. The paper's prompt goes through each model's chat template with thinking off: 40 tokens,
+  ending in an empty think block, as for Qwen3.5. Concept vectors at layer 12 of 24 (philosophy,
+  hostility-vs-kindness, 3 random). Then, ordered so that a deadline cuts the least important rows:
+  - an unsteered sweep of 160 temperatures over log10 T -1..1.2 (1000 + 2000 steps, twin 1e-6, max period 64);
+  - philosophy (alpha -0.12..0.12, log10 T -1..0.3) and hostility-vs-kindness (alpha 0..0.12, log10 T -0.3..0.3)
+    maps at 32x32 (300 + 300 steps, max period 32), as for the dense Qwen3.5 controls;
+  - run D (stack-resolved gain split, 24 temperatures over -0.3..0.9, knockouts).
+- **Code.** The model code ships with the checkpoint (trust_remote_code). It was read in full before first use, and
+  tools/lfm3_float64.py pins its three files by SHA-256 (identical in both repositories); the loader refuses any other
+  code, for the tokenizer too. That code computes in float32 at every RMSNorm, in the rotary tables, in the rotary
+  application (queries and keys cast to float32) and in the eager softmax:
+  - lfm3_float64.prepare patches the first three for float64 inputs and requires sdpa;
+  - the width-7 convolution's Triton kernel takes only 16- and 32-bit inputs, so float64 runs the PyTorch path
+    (checked);
+  - keep_float64_norms now refuses rotary modules without inv_freq, which it used to skip silently.
+
+  The soft loop treats LFM3 as hybrid: transformers caches its "conv" layers in the linear-attention layer class, so
+  their states are saved after the prefix and restored after every step. damping_locate reads LFM3's post-norms,
+  whose outputs are what the residual stream adds.
+- **Gates.** tests/test_lfm3_float64.py on a tiny random LFM3 built from the reviewed code: patched paths, and central
+  differences shrinking like h^2 (ratios within 0.6-1.6 of (h ratio)^2 down to h = 1e-4). Real-model CPU gates in
+  tools/lfm3_precision_check.py, LFM3-1.7B-Base (explore/llm-soft-loop/lfm3/precision), all passed:
+  - all 363 floating module outputs of a prefix forward are float64;
+  - hidden_states[13] equals decoder layer 12's output exactly, so the concept vectors read layer 12;
+  - a cached soft-loop step with the restored prefix state equals full recomputation to 8.2e-16 relative, and
+    repeats bit for bit;
+  - patched float64 differs from stock float64 by 1.5e-7 and from stock float32 by 7.8e-7 (relative, logits), so the
+    stock float64 model kept float32 islands;
+  - central differences of the one-step soft map at log10 T -0.5, 0 and 0.3, from h = 0.1 down to 1e-5: successive
+    differences shrink in the ratios 11.4 and 8.8 that h^2 predicts for steps of 3.33 and 3 (observed 11.2-12.1 and
+    8.8). Float64 rounding takes over only below h = 1e-5, near 1e-9.
+- **Labels** as in the paper: chaotic when the exponent is above 1e-3 and no period up to 64 (32 in maps).
+
+**TK.** Does the loop stay chaotic when only the k most probable tokens are kept? And what does sampled top-k decoding
+do?
+- **Two variants, in principle.**
+  - Top-1 is greedy decoding with a one-token memory: a map on a finite set, so every orbit ends in a cycle (Appendix
+    sec:bridge).
+  - Feeding back a sampled token makes the map piecewise constant for fixed noise. An infinitesimal offset then
+    vanishes at the next step, or flips a token with probability proportional to its size, so no exponent can be
+    positive.
+  - The deterministic top-k soft token is piecewise smooth, discontinuous where the top-k set changes, so chaos is
+    possible for k >= 2.
+- **Setup.** One pod (H100), job set topk, one-hour hard lifetime. Qwen2.5-0.5B-Instruct (7ae55760) in float64, on one
+  grid: two lines, alpha 0 and alpha 0.0743 along philosophy at layer 12, each over 128 temperatures in log10 T -1..0.3.
+  k = 20 is Qwen2.5's shipped top-k and 50 the Hugging Face default. Ordered as above:
+  - **Deterministic top-k** for k = whole vocabulary (the paper's map), 1, 2, 3, 5, 10, 20, 50: 500 + 1500 steps,
+    twin 1e-6, max period 64. Per cell, the steps where trajectory and twin have different top-k sets are counted. A
+    positive cell whose twin crossed a set boundary is called irregular, not chaotic, as for the mixtures of experts.
+  - **Twin divergence**, never renormalized, at offsets 1e-2 to 1e-10: 32 repeats of 200 steps, from a steered chaotic
+    cell (-0.0476, 0.0743), an unsteered chaotic cell (0.2008, 0) and a periodic cell (-0.5, 0); soft and sampled,
+    whole vocabulary and k = 20.
+  - **Sampled top-k** for k = whole vocabulary, 2, 3, 5, 10, 20, 50: one uniform number per cell and step, shared by
+    trajectory and twin, by inverse CDF in rank order. Before every step the twin gets a fresh offset of 1e-6 in a
+    random direction, and the token-flip fraction is counted (300 + 1000 steps).
+  - **Sampled k = 20** at flip offsets 1e-2, 1e-4 and 1e-8.
+- **Expected readings, fixed now (not frozen predictions).**
+  - k = 1 is periodic everywhere.
+  - The sampled flip fraction is proportional to the offset.
+  - Chaotic soft cells reach the divergence threshold after a number of steps linear in log(1/offset); sampled
+    twins reach it with probability of order the offset.
+- **Code.** tools/topk_loop.py; tests/test_topk_loop.py (4 pass on the cached 0.5B: whole vocabulary equals
+  SoftLoop.step, top-1 is greedy, top-k weights live on k tokens, shared noise draws equal tokens, set switches
+  counted).

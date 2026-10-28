@@ -1,5 +1,5 @@
 {
- "note": "Hugging Face revision (commit hash) of every model the study loaded. Each repository's current revision was last modified before the study began on 2026-09-08, so every download during the study, local or on a pod, received it; the local cache and the pod logs agree where they record it. tools/explore_llm_attractors.py pins these revisions.",
+ "note": "Hugging Face revision (commit hash) of every model the study loaded. Each repository's current revision was last modified before the study began on 2026-09-08, so every download during the study, local or on a pod, received it (the two LFM3 checkpoints, released on 2026-10-27, are pinned at first use instead); the local cache and the pod logs agree where they record it. tools/explore_llm_attractors.py pins these revisions.",
  "checked": "2026-10-19T16:32Z",
  "source": "https://huggingface.co/api/models/<model>",
  "models": [
@@ -244,6 +244,26 @@
    "evidence": [
     "host: current revision, last modified 2025-07-29, before the study began (2026-09-08)",
     "local cache: the only snapshot"
+   ]
+  },
+  {
+   "model": "LiquidAI/LFM3-1.7B-Base",
+   "revision": "545fc8f4c7b5fa9f405105274cd29c4f8f44b526",
+   "host_last_modified": "2026-10-27T17:35:24.000Z",
+   "evidence": [
+    "host: current revision at 2026-10-28T07:18Z, last modified 2026-10-27, after the study began; pinned at first use",
+    "model code from the checkpoint (trust_remote_code): its three files are pinned by SHA-256 in tools/lfm3_float64.py",
+    "local cache: the only snapshot"
+   ]
+  },
+  {
+   "model": "LiquidAI/LFM3-1.7B",
+   "revision": "40ebe0aa6662c9d40389c2f5d565b6a2c6aebacd",
+   "host_last_modified": "2026-10-27T05:58:29.000Z",
+   "evidence": [
+    "host: current revision at 2026-10-28T07:18Z, last modified 2026-10-27, after the study began; pinned at first use",
+    "model code from the checkpoint (trust_remote_code): its three files are pinned by SHA-256 in tools/lfm3_float64.py",
+    "pod logs: snapshot path (run LF3)"
    ]
   }
  ]

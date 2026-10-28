@@ -1742,6 +1742,98 @@ sys.exit(1 if missing else 0)" >> "$LOGS/setup-$1.log" 2>&1 && { ok=1; break; }
       done
     fi
     ;;
+  lfm3)        # LFM3 study (run LF3; float64, one GPU; exploratory): JOBARGS MODEL [MODEL...] from lfm3-1.7b-base,
+               # lfm3-1.7b. Pinned checkpoints with their own model code (Engine refuses code other than the reviewed
+               # files, tools/lfm3_float64.py), concept vectors at layer 12 of 24, then for every model in turn: an
+               # unsteered sweep of 160 temperatures over log10 T -1..1.2 (1000 + 2000 steps); philosophy and
+               # hostility-vs-kindness maps at 32x32 with the ranges and steps of the dense Qwen3.5 controls (moe);
+               # run D. Ordered so that a deadline cuts the least important rows. Into lfm3/MODEL-* (vectors too, so
+               # that results.tgz carries them), damping/d1/MODEL
+    getlfm() {   # $1 key, $2 repo, $3 revision: the whole pinned repository (resumed up to 5 times; every file the
+                 # load needs checked non-empty before use)
+      local ok=0
+      for attempt in 1 2 3 4 5; do
+        log "download $2 $3 (attempt $attempt)"
+        HF_HUB_DISABLE_XET=1 HF_HUB_OFFLINE=0 HF_HUB_DOWNLOAD_TIMEOUT=120 $PY -c "
+import sys
+from pathlib import Path
+from huggingface_hub import snapshot_download
+p = Path(snapshot_download('$2', revision='$3', cache_dir='$NEURAL_SHRIMP_DATA/models/hf/hub', max_workers=8))
+need = ['model.safetensors', 'config.json', 'modeling_lfm3.py', 'configuration_lfm3.py', 'lfm3_conv.py',
+        'tokenizer.json', 'tokenizer_config.json', 'chat_template.jinja']
+missing = [s for s in need if not (p / s).exists() or (p / s).stat().st_size == 0]
+print('missing', missing)
+sys.exit(1 if missing else 0)" >> "$LOGS/setup-$1.log" 2>&1 && { ok=1; break; }
+        sleep 20
+      done
+      log "download $([ $ok = 1 ] && echo done || echo FAILED) $(du -shL $NEURAL_SHRIMP_DATA/models/hf/hub | cut -f1), free $(df -h --output=avail / | tail -1)"
+      local refs="$NEURAL_SHRIMP_DATA/models/hf/hub/models--${2/\//--}/refs"
+      mkdir -p "$refs" && printf %s "$3" > "$refs/main"
+      [ $ok = 1 ]
+    }
+    MODELS_OK=()
+    for model in "${JOBARGS[@]}"; do
+      case $model in
+        lfm3-1.7b-base) REPO=LiquidAI/LFM3-1.7B-Base; MREV=545fc8f4c7b5fa9f405105274cd29c4f8f44b526 ;;
+        lfm3-1.7b)      REPO=LiquidAI/LFM3-1.7B;      MREV=40ebe0aa6662c9d40389c2f5d565b6a2c6aebacd ;;
+        *) log "unknown model $model"; continue ;;
+      esac
+      getlfm $model $REPO $MREV || { log "skip $model: incomplete download"; continue; }
+      TOOL=explore_llm_phase_map.py run vectors-$model 20 vectors --model $model --layer 12 --device cuda \
+        --dtype float64 --contrasts hostility:kindness --random 3 --out $D/lfm3/vectors-$model-l12
+      MODELS_OK+=("$model")
+    done
+    for model in "${MODELS_OK[@]}"; do
+      run sweep-$model 30 scan --device cuda --dtype float64 --chunk 160 --tol 1e-8 --eps 1e-6 --model $model \
+        --layer 12 --vectors $D/lfm3/vectors-$model-l12 --concept hostility-vs-kindness --alpha 0 0 \
+        --log-temperature -1 1.2 --resolution 160 1 --transient 1000 --samples 2000 --max-period 64 \
+        --out $D/lfm3/$model-alpha0
+    done
+    for model in "${MODELS_OK[@]}"; do
+      run phil-$model 30 scan --device cuda --dtype float64 --chunk 256 --tol 1e-8 --eps 1e-6 --model $model \
+        --layer 12 --vectors $D/lfm3/vectors-$model-l12 --concept philosophy --alpha -0.12 0.12 \
+        --log-temperature -1 0.3 --resolution 32 32 --transient 300 --samples 300 --max-period 32 \
+        --out $D/lfm3/$model-phil
+    done
+    for model in "${MODELS_OK[@]}"; do
+      run host-$model 30 scan --device cuda --dtype float64 --chunk 256 --tol 1e-8 --eps 1e-6 --model $model \
+        --layer 12 --vectors $D/lfm3/vectors-$model-l12 --concept hostility-vs-kindness --alpha 0 0.12 \
+        --log-temperature -0.3 0.3 --resolution 32 32 --transient 300 --samples 300 --max-period 32 \
+        --out $D/lfm3/$model-host
+    done
+    for model in "${MODELS_OK[@]}"; do
+      TOOL=damping_locate.py run damping-$model 20 --model $model --device cuda --weights native \
+        --log-temperature -0.3 0.9 --n 24 --transient 500 --record 500 --eps 1e-7 --knockout-every 25 \
+        --knockout-cells 2 7 12 17 22 --threads 16 --out $D/damping/d1/$model
+    done
+    ;;
+  topk)        # top-k loops of Qwen2.5-0.5B (run TK; float64, one GPU; exploratory; tools/topk_loop.py). One grid of
+               # two lines, alpha 0 and 0.0743 along philosophy at layer 12, x 128 temperatures over log10 T -1..0.3:
+               # the deterministic top-k soft token for k = 0 (whole vocabulary, the paper's map), 1, 2, 3, 5, 10,
+               # 20, 50 (500 + 1500 steps); twin divergence at offsets 1e-2..1e-10 from a steered and an unsteered
+               # chaotic cell and a periodic one (soft and sampled, whole vocabulary and k = 20); sampled top-k with
+               # shared noise for k = 0, 2, 3, 5, 10, 20, 50 (300 + 1000 steps, flip offset 1e-6); and sampled k = 20
+               # at flip offsets 1e-2, 1e-4, 1e-8. Ordered so that a deadline cuts the least important rows. Into topk/*
+    TK="--device cuda --dtype float64 --model qwen0.5b --layer 12 --vectors llm-phase-map/vectors-l12 --concept philosophy"
+    GRID="--chunk 256 --alpha 0 0.0743 --resolution 128 2 --log-temperature -1 0.3 --record 128 --max-period 64 --tol 1e-8"
+    for k in 0 1 2 3 5 10 20 50; do
+      TOOL=topk_loop.py run tk-soft-k$k 6 scan $TK $GRID --transient 500 --samples 1500 --eps 1e-6 --top-k $k \
+        --out $D/topk/soft-k$k
+    done
+    CELLS="--cells -0.0476 0.0743 --cells 0.2008 0 --cells -0.5 0"
+    TOOL=topk_loop.py run tk-div-soft 4 divergence $TK $CELLS --top-k 0 --out $D/topk/divergence-soft
+    TOOL=topk_loop.py run tk-div-soft-k20 4 divergence $TK $CELLS --top-k 20 --out $D/topk/divergence-soft-k20
+    TOOL=topk_loop.py run tk-div-samp-k20 4 divergence $TK $CELLS --top-k 20 --sample --out $D/topk/divergence-sampled-k20
+    TOOL=topk_loop.py run tk-div-samp 4 divergence $TK $CELLS --top-k 0 --sample --out $D/topk/divergence-sampled
+    for k in 0 2 3 5 10 20 50; do
+      TOOL=topk_loop.py run tk-samp-k$k 4 scan $TK $GRID --sample --transient 300 --samples 1000 --eps 1e-6 \
+        --top-k $k --out $D/topk/sampled-k$k
+    done
+    for e in 1e-2 1e-4 1e-8; do
+      TOOL=topk_loop.py run tk-samp-k20-e$e 4 scan $TK $GRID --sample --transient 300 --samples 1000 --eps $e \
+        --top-k 20 --out $D/topk/sampled-k20-eps$e
+    done
+    ;;
   upperset)    # upper-temperature extension of the scaling sweeps (exploratory; run SCU): JOBARGS MODEL [MODEL...]. For
                # each model: pinned checkpoint, an unsteered float64 sweep (bf16 storage, layers over all GPUs) of 64
                # temperatures over log10 T 0.61..1.2 (the wide sweeps end at 0.6), settings as in scaleset, into

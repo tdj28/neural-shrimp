@@ -50,7 +50,10 @@ MODELS ={"qwen0.5b": "Qwen/Qwen2.5-0.5B-Instruct", "qwen1.5b": "Qwen/Qwen2.5-1.5
           # mixture-of-experts study (run MOE): OLMoE (64 experts, top 8; float64: olmoe_float64) and dense Qwen3.5
           # controls for Qwen3.5-35B-A3B (4B: about its active size; 9B)
           "olmoe-1b-7b": "allenai/OLMoE-1B-7B-0125-Instruct",
-          "qwen3.5-4b": "Qwen/Qwen3.5-4B", "qwen3.5-9b": "Qwen/Qwen3.5-9B"}
+          "qwen3.5-4b": "Qwen/Qwen3.5-4B", "qwen3.5-9b": "Qwen/Qwen3.5-9B",
+          # LFM3 (run LF3): short convolutions with sliding-window and global attention; model code from the
+          # checkpoint (trust_remote_code, pinned by hash in tools/lfm3_float64.py); pretrained base and post-trained
+          "lfm3-1.7b-base": "LiquidAI/LFM3-1.7B-Base", "lfm3-1.7b": "LiquidAI/LFM3-1.7B"}
 # Hugging Face revision (commit hash) of each model, as listed in docs/model-revisions.json: each repository's
 # revision was unchanged on the host from before the study began, so every download of the study received it
 REVISIONS = {
@@ -77,7 +80,10 @@ REVISIONS = {
     "allenai/OLMoE-1B-7B-0125-Instruct": "b89a7c4bc24fb9e55ce2543c9458ce0ca5c4650e",
     "Qwen/Qwen3.5-4B": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
     "Qwen/Qwen3.5-9B": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "LiquidAI/LFM3-1.7B-Base": "545fc8f4c7b5fa9f405105274cd29c4f8f44b526",
+    "LiquidAI/LFM3-1.7B": "40ebe0aa6662c9d40389c2f5d565b6a2c6aebacd",
 }
+REMOTE_CODE = {"LiquidAI/LFM3-1.7B-Base", "LiquidAI/LFM3-1.7B"}     # repositories whose model code is their own
 PROMPTS = {
     "open": "You are an AI talking with another AI. You have complete freedom. Feel free to pursue whatever you want.",
     "task": "You are an AI collaborating with another AI on one task: planning a three-day trip to Kyoto. "
@@ -173,10 +179,17 @@ class Engine:
         self.name = MODELS[model]
         self.revision = REVISIONS[self.name]
         self.weights = weights
-        self.tok = AutoTokenizer.from_pretrained(self.name, revision=self.revision, cache_dir=CACHE)
+        remote = self.name in REMOTE_CODE
+        if remote:          # the checkpoint's own code (its config class runs for the tokenizer too) must be the reviewed code
+            import lfm3_float64
+
+            lfm3_float64.verify_remote_code(Path(CACHE) / ("models--" + self.name.replace("/", "--")) / "snapshots"
+                                            / self.revision)
+        self.tok = AutoTokenizer.from_pretrained(self.name, revision=self.revision, cache_dir=CACHE,
+                                                 trust_remote_code=remote)
         if weights not in ("native", "bf16"):
             raise SystemExit(f"weights must be native or bf16, not {weights!r}")
-        if (weights == "bf16" or device == "auto") and (dtype != "float64" or model.startswith("qwen3.5")):
+        if (weights == "bf16" or device == "auto") and (dtype != "float64" or model.startswith(("qwen3.5", "lfm3"))):
             raise SystemExit("bf16 weight storage and device 'auto' are for float64 dense models only")
         if weights == "bf16" or device == "auto":
             # large dense models: decoder linear weights stay in their stored bfloat16 and compute in float64 (exact,
@@ -225,6 +238,19 @@ class Engine:
             repo = Path(CACHE) / ("models--" + self.name.replace("/", "--"))
             ckpt = repo / "snapshots" / self.revision                                      # the pinned revision
             self.float64_patch["restored_exact"] = qwen35_float64.restore_exact_tensors(self.model, ckpt)
+        elif model.startswith("lfm3"):
+            # LFM3: the checkpoint's own model code (verified above); every tensor is stored in bfloat16, so loading
+            # it and casting on the device is exact; float64 runs then patch the code's float32 paths
+            # (tools/lfm3_float64.py)
+            import lfm3_float64
+
+            self.model = AutoModelForCausalLM.from_pretrained(self.name, dtype="auto", revision=self.revision,
+                                                              cache_dir=CACHE, trust_remote_code=True)
+            if device is not None:
+                self.model = self.model.to(device)
+            self.model = self.model.to(getattr(torch, dtype))
+            if dtype == "float64":
+                self.float64_patch = lfm3_float64.prepare(self.model)
         elif dtype == "float64" and device is not None and str(device).startswith("cuda"):
             # large models: load in the checkpoint's own dtype, move to the GPU, then cast there (bf16 -> float64 is
             # exact, so the weights equal a direct float64 load; host memory needs only the stored size)
@@ -236,7 +262,7 @@ class Engine:
                                                               revision=self.revision, cache_dir=CACHE)
         self.model.eval()
         self.model.requires_grad_(False)                # inference only; forward-mode JVPs need no parameter graph
-        if dtype == "float64" and not model.startswith("qwen3.5"):
+        if dtype == "float64" and not model.startswith(("qwen3.5", "lfm3")):
             keep_float64_norms(self.model)
 
 
@@ -297,6 +323,8 @@ def keep_float64_norms(model):
 
     if getattr(model.config, "model_type", "").startswith("qwen3_5"):
         raise SystemExit("Qwen3.5 norms are zero-centred and its linear attention casts to float32: use qwen35_float64")
+    if getattr(model.config, "model_type", "") == "lfm3":
+        raise SystemExit("LFM3 keeps rotary tables per layer type and casts queries and keys to float32: use lfm3_float64")
 
     def forward(self, hidden_states):
         variance = hidden_states.pow(2).mean(-1, keepdim=True)
@@ -314,8 +342,10 @@ def keep_float64_norms(model):
 
     for m in model.modules():
         name = type(m).__name__
-        if not (name.endswith("RotaryEmbedding") and hasattr(m, "inv_freq")):
+        if not name.endswith("RotaryEmbedding"):
             continue
+        if not hasattr(m, "inv_freq"):                # tables kept some other way would silently stay float32
+            raise SystemExit(f"{name} has no inv_freq buffer: its float32 tables are not rebuilt in float64")
         rope_type = getattr(m, "rope_type", "default")
         if rope_type not in ("default", "llama3"):
             raise SystemExit(f"{name}: rope type {rope_type!r} is not rebuilt in float64")

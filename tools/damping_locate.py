@@ -55,10 +55,19 @@ class Probe:
         self.handles = []
         for l, layer in enumerate(self.layers):
             self.handles.append(layer.register_forward_pre_hook(self._pre(l), with_kwargs=True))
-            attn = layer.self_attn if hasattr(layer, "self_attn") else layer.linear_attn     # hybrid models
+            if hasattr(layer, "operator_norm"):
+                # LFM3: the operator is attention or a short convolution ("attn" here), the MLP is feed_forward, and
+                # with sandwich norm the residual stream adds the outputs of the post-norms, which are read instead
+                sandwich = getattr(layer, "use_sandwich_norm", False)
+                attn = layer.post_operator_norm if sandwich else getattr(layer, "self_attn", None) or layer.conv
+                mlp = layer.post_ffn_norm if sandwich else layer.feed_forward
+            else:
+                attn = layer.self_attn if hasattr(layer, "self_attn") else layer.linear_attn     # hybrid models
+                mlp = layer.mlp
             self.handles.append(attn.register_forward_hook(self._sub("attn", l)))
-            self.handles.append(layer.mlp.register_forward_hook(self._sub("mlp", l)))
-        self.handles.append(model.model.norm.register_forward_hook(self._norm))
+            self.handles.append(mlp.register_forward_hook(self._sub("mlp", l)))
+        final_norm = model.model.norm if hasattr(model.model, "norm") else model.model.embedding_norm      # LFM3
+        self.handles.append(final_norm.register_forward_hook(self._norm))
 
     def _pre(self, l):
         def hook(module, args, kwargs):

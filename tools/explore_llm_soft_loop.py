@@ -53,9 +53,9 @@ class SoftLoop:
             messages = spec.get("messages")
         else:
             messages = [{"role": "system", "content": ela.PROMPTS[prompt]}, {"role": "user", "content": opener}]
-        # reasoning models (Qwen3.5) open a <think> block by default; without thinking the prefix ends at the start
-        # of the reply, as for every other model
-        extra = {"enable_thinking": False} if str(model).startswith("qwen3.5") else {}
+        # reasoning models (Qwen3.5, LFM3) open a <think> block by default; without thinking the prefix ends at the
+        # start of the reply, as for every other model (LFM3's template then closes an empty block, as Qwen3.5's)
+        extra = {"enable_thinking": False} if str(model).startswith(("qwen3.5", "lfm3")) else {}
         self.prefix_embeds = None
         if spec is not None and "embeds" in spec:    # a prefix of raw vectors (run PV: random soft tokens), no text
             pe = np.load(DATA / "explore" / spec["embeds"]).reshape(-1, self.E.shape[1])
@@ -77,10 +77,11 @@ class SoftLoop:
         self.steer_rows = None
         self.extra = None              # (layer, per-cell rows (n, d)): a second steering block (run TB), or None
         self.extra_rows = None
-        # hybrid models (linear-attention layers with recurrent states, e.g. Qwen3.5): the prefix state cannot be
-        # cropped back after a step, so it is saved after the prefix pass and restored after every step
+        # hybrid models (linear-attention layers with recurrent states, e.g. Qwen3.5, or short convolutions with a
+        # rolling state, LFM3): the prefix state cannot be cropped back after a step, so it is saved after the prefix
+        # pass and restored after every step
         layer_types = getattr(self.model.config.get_text_config(decoder=True), "layer_types", None) or []
-        self.hybrid = "linear_attention" in layer_types
+        self.hybrid = bool({"linear_attention", "conv"} & set(layer_types))
         self._saved = None
 
     def prepare(self, steer_rows):
