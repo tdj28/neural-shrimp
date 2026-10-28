@@ -153,7 +153,7 @@ Figure~\ref{fig:teaser} shows a small piece of the parameter plane of one
 such map, built from Qwen2.5-0.5B-Instruct. Cells with a positive finite-horizon Lyapunov exponent lie side by side
 with windows in which the model repeats a fixed loop of text. Parts of this picture have been seen
 before. Recent work has measured chaos-like sensitivity across the layers of a single forward pass
-\cite{li2025quasilyapunov} and in language-model generation \cite{jaca2026chaos}, temperature-driven changes of output statistics
+\cite{li2025quasilyapunov,islam2026numerical} and in language-model generation \cite{jaca2026chaos}, temperature-driven changes of output statistics
 \cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality,johnson2026temperature}, periodic
 attractors of paraphrasing loops \cite{wang2025attractor}, attractor states of model-to-model conversations
 \cite{ko2026attractor}, and, through their Jacobians, the stability of looped and recurrent-depth models
@@ -307,10 +307,10 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
 \end{enumerate}
 
 \paragraph{Related work.} Chaos-like sensitivity has been measured across the layers of a single forward pass
-\cite{li2025quasilyapunov} and in generation \cite{jaca2026chaos,verazuniga2026selffeeding}. Temperature-driven changes
+\cite{li2025quasilyapunov,islam2026numerical} and in generation \cite{jaca2026chaos,verazuniga2026selffeeding}. Temperature-driven changes
 of output statistics \cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}, repetition loops
 \cite{holtzman2019degeneration,xu2022loop} and behavioral attractors of paraphrasing and conversation
-\cite{wang2025attractor,ko2026attractor} have been measured in generated text, and one study fits a noisy effective
+\cite{wang2025attractor,tacheny2025geometric,ko2026attractor} have been measured in generated text, and one study fits a noisy effective
 map to a hidden-state coordinate \cite{johnson2026temperature}, but none of these computes the orbits, multipliers or
 bifurcations of the model's own map. Equilibrium, looped and recurrent-depth models have been analyzed through fixed
 points and Jacobians \cite{bai2019deq,bai2021stabilizing,geiping2025recurrent,tomihari2025recurrent,yang2026stars},
@@ -1321,7 +1321,8 @@ $a+(b+c)$ can differ in the last bit \cite{goldberg1991floating}. A matrix multi
 of products, and GPU libraries split and order those sums according to the shape of the matrices, to keep the hardware
 busy; the number of requests processed together, the batch, is part of that shape. The same request computed alone or
 in a batch therefore receives results that differ at the rounding level, about $10^{-16}$ relative in float64 and about
-$10^{-3}$ in bfloat16. In a single forward pass such differences are invisible. In a feedback loop they are not lost:
+$10^{-3}$ in bfloat16. In a single forward pass such differences can grow through the layers, but they rarely change
+which token is most likely, except near a tie \cite{islam2026numerical}. In a feedback loop they are not lost:
 each output becomes the next input, so the difference between two runs is fed back and transformed by the map's
 derivative at every step. On a periodic attractor the derivative contracts on average, the exponent is negative, and
 the difference decays until both runs follow the same orbit and write the same text. On a chaotic attractor the
@@ -4891,7 +4892,10 @@ the growth of small perturbations across the layers of a single forward pass \ci
 sensitivity to small perturbations in reasoning traces \cite{jaca2026chaos} and in token rings
 resampled by a model's own conditionals, with a test that separates the construction from the model
 \cite{verazuniga2026selffeeding}, but these studies
-measure chaos-like sensitivity without computing orbits or bifurcations. Output statistics change
+measure chaos-like sensitivity without computing orbits or bifurcations. Perturbations at the rounding level either
+vanish or are amplified through the layers of a single pass, and near a tie between the two leading tokens they change
+the predicted token \cite{islam2026numerical}; we follow such differences around the feedback loop
+(Section~\ref{sec:consequences}). Output statistics change
 abruptly with sampling temperature, and several studies analyze the changes as phase transitions or criticality
 \cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}. These analyses concern output statistics;
 they are not bifurcation analyses of a defined map. Closest to ours in subject, a study of eleven models sorts sampled
@@ -4899,7 +4903,8 @@ continuations into classes from frozen and periodic to intermittent and noisy ac
 hidden-state coordinate that predicts repetition, and steers along it \cite{johnson2026temperature}; that map is
 fitted to sampled trajectories, and no orbits, multipliers or bifurcation curves of the model's own map are computed. Repetition loops are a known failure of
 decoding \cite{holtzman2019degeneration,xu2022loop}, successive paraphrasing converges to attractor cycles
-\cite{wang2025attractor}, and multi-turn conversations between models settle into attractor states
+\cite{wang2025attractor} or contracts toward a stable region of an embedding space, while repeated negation keeps
+wandering \cite{tacheny2025geometric}, and multi-turn conversations between models settle into attractor states
 \cite{ko2026attractor}. These attractors are behavioral: they are observed in generated text rather than computed as
 invariant sets of a defined map. Feeding a model its own output during training degrades it over generations
 \cite{shumailov2024collapse}; we study the inference-time loop of a model with fixed weights. The attractors of
