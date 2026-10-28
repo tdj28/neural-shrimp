@@ -33527,3 +33527,93 @@ do?
 - **Code.** tools/topk_loop.py; tests/test_topk_loop.py (4 pass on the cached 0.5B: whole vocabulary equals
   SoftLoop.step, top-1 is greedy, top-k weights live on k tokens, shared noise draws equal tokens, set switches
   counted).
+
+## 2026-10-28 08:06 UTC: LF3 and TK results: LFM3 is chaotic without steering; keeping only the top 2 or 3 tokens removes the chaos; sampled twins merge
+
+**Receipts** (pod IDs and hashes from the orchestrator records; times from date -u):
+- **LF3.** Pod 2gol5ns7la8oti (COMMUNITY H100 NVL). Commit 4b882b37, runner rc 0, wall 1810 s.
+  - results.tgz sha256 d374c64850d77c23d38ad0db80bfa2f3f2367f34c2e00b8fb3ba435e79a05e7c, remote equal to local.
+  - Unpacked under explore/llm-soft-loop/pod64/lfm3 and pod64/damping/d1.
+  - Termination verified by direct lookup and inventory.
+- **TK.** Pod pclcd10duicdw0 (COMMUNITY H100 NVL). Commit 4b882b37, rc 0, wall 1941 s.
+  - results.tgz sha256 3623c3f11fc90e29de3c66af777e3e15f40acd7a4f452da25812e491c61bb49b, remote equal to local.
+  - Unpacked under explore/llm-soft-loop/pod64/topk.
+  - Termination verified the same way.
+- **Gates.** Every row was read with tools/lf3_tk_summary.py; the summaries are in lfm3/summary.json and
+  topk/summary.json. All exponents of the 24 scans are finite, and so are the 4 divergence arrays. Labels rest on one
+  twin offset (1e-6), in float64, with the paper's prompt only. Not in the Oct 16 manifest snapshot (the report
+  says later runs are recorded here).
+
+**LF3.** Chaotic: exponent above 1e-3 and no period.
+
+| | LFM3-1.7B-Base | LFM3-1.7B |
+|---|---|---|
+| unsteered, 160 temperatures over log10 T -1..1.2 | 3 (log10 T 0.051-0.080) | 12 (log10 T -0.073-0.177) |
+| of the 94 in [-1, 0.3] | 3 (3.2 %) | 12 (12.8 %) |
+| largest exponent, chaotic decades, intermediate-entropy breadth | 0.45, 0.042, 0.19 | 0.50, 0.166, 0.30 |
+| unresolved temperatures | 0 | 1 |
+| philosophy 32x32 | 20 (2.0 %), largest 0.50 | 162 (15.8 %), largest 0.57 |
+| hostility-vs-kindness 32x32 | 63 (6.2 %), largest 0.57 | 280 (27.3 %), largest 0.62 |
+| median network factor, 0.3-6 nats (cells) | -0.42 (8) | +0.53 (9) |
+
+- **Both checkpoints are chaotic without steering**, at a few temperatures near T = 1, like every dense model up to
+  9B. The post-trained model's share in [-1, 0.3] is about Qwen2.5-7B's (12.8 against 12.7 %). Its maps are close to
+  those of the dense hybrid Qwen3.5-4B (15.8 and 27.3 against 14.9 and 31.5 %).
+- **Post-training makes LFM3 more chaotic**: 12 chaotic temperatures against 3, and about 8 and 4 times as many chaotic
+  map cells. Its intermediate-entropy breadth is also the larger (0.30 against 0.19 decades). In the Qwen2.5-72B pair the
+  base model was the one that spread more, and it was no more chaotic.
+- **Damping.** The post-trained model's median network factor, +0.53, is the highest of the 20 models measured; the
+  next are OLMo-2-1B (+0.11) and Qwen3.5-4B (+0.05). The base model's -0.42 lies between OLMo-2-32B (-0.36) and
+  OLMo-2-7B (-0.52). With the post-norms read, the closure of the direct-contribution split is at most 2.7e-8.
+- **Steering scale.** LFM3's residual stream at layer 12 has mean norm 4.7 (sandwich norms), and its concept contrasts
+  are 1.3-2.3. Alpha up to 0.12 is therefore a gentler push, relative to the natural contrast, than in Qwen2.5-0.5B
+  (norm 189, contrast 8.1).
+- **Attractors differ.** The base model's most common loop is " are you" (period 2, 75 of 160 temperatures); the
+  post-trained model's is "! Hello" (66), the greeting echo that the post-trained Qwen models also show.
+
+**TK.** Qwen2.5-0.5B; 128 temperatures per line. Deterministic top-k soft token:
+
+| k | 1 | 2 | 3 | 5 | 10 | 20 | 50 | whole vocabulary |
+|---|---|---|---|---|---|---|---|---|
+| steered (alpha 0.0743): chaotic (irregular) | 0 | 0 | 0 | 3 | 2 | 14 (3) | 8 (8) | 22 |
+| steered: largest exponent | -69 | -0.21 | -0.64 | 0.11 | 0.24 | 0.32 | 0.37 | 0.48 |
+| unsteered: chaotic (irregular) | 0 | 0 | 0 | 0 | 0 | 0 (1) | 0 | 1 |
+
+- **k = 1** gives periodic orbits in all 256 cells, with twins coinciding exactly (the -69 floor): superstable greedy
+  cycles.
+- **k = 2 and 3** give no chaotic cell on either line. All orbits are periodic with negative exponents, including on
+  the steered line, where the whole vocabulary has 22 chaotic temperatures.
+- **Chaos returns from k = 5** and broadly grows with k. Twins at 1e-6 cross a top-k set boundary only at k = 20
+  and 50 (6 and 9 cells); positive cells with crossings are counted as irregular.
+
+**Sampled top-k** (shared noise, fresh offset before every step):
+- **Exponents.** Every cell's exponent stays at or near the floor (largest -60): the twins draw the same token and
+  merge exactly.
+- **Flip rate at offset 1e-6.**
+  - k <= 10: zero flips in 128,000 steps per line.
+  - k = 20 and 50: 7.8e-6 and 1.6e-5 per step on the unsteered line (1 and 2 flips), 0 on the steered line.
+- **Flip rate scales with the offset**, at k = 20:
+
+  | offset | 1e-2 | 1e-4 | 1e-6 | 1e-8 |
+  |---|---|---|---|---|
+  | unsteered, per step | 1.9e-2 | 2.0e-4 | 7.8e-6 | 0 |
+  | steered, per step | 4.4e-2 | 5.5e-4 | 0 | 0 |
+
+- **Whole vocabulary at 1e-6**: 4.0e-3 and 3.1e-3 per step (largest 5.1e-2). With rank-order coupling, nearly tied
+  tokens of spread distributions swap ranks under the offset. That raises the constant, not the scaling.
+
+**Divergence.** Twins are never renormalized; threshold 0.1 of the state norm; 32 repeats of 200 steps.
+- **Whole-vocabulary soft map:** every repeat from the two chaotic cells separates. The number of steps is linear in
+  log(1/delta):
+
+  | delta | 1e-2 | 1e-4 | 1e-6 | 1e-8 | 1e-10 |
+  |---|---|---|---|---|---|
+  | unsteered chaotic cell (0.2008, 0), median steps | 7 | 21 | 35 | 49 | 64 |
+  | steered chaotic cell (-0.0476, 0.0743), median steps | 3 | 9 | 18 | 33 | 47 |
+
+  For the unsteered cell that is about 14 steps per factor 100, a growth rate of 0.32 per step (its sweep exponent
+  is 0.28). From the periodic cell no repeat separates.
+- **Soft k = 20:** only delta = 1e-2 separates (27 of 32, steered cell).
+- **Sampled, whole vocabulary:** twins separate at step 1 or never. On the unsteered cell that is 26 and 16 of 32 at
+  delta = 1e-2 and 1e-4, none at 1e-6 or below; on the steered cell, 6 of 32 at 1e-2 only.
+- **Sampled k = 20:** 1 separation in 480 runs (delta = 1e-2).
