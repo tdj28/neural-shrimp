@@ -152,8 +152,8 @@ about the accuracy of ordinary sampled answers.
 Figure~\ref{fig:teaser} shows a small piece of the parameter plane of one
 such map, built from Qwen2.5-0.5B-Instruct. Cells with a positive finite-horizon Lyapunov exponent lie side by side
 with windows in which the model repeats a fixed loop of text. Parts of this picture have been seen
-before. Recent work has measured chaos-like sensitivity in language-model generation
-\cite{li2025quasilyapunov,jaca2026chaos}, temperature-driven changes of output statistics
+before. Recent work has measured chaos-like sensitivity across the layers of a single forward pass
+\cite{li2025quasilyapunov} and in language-model generation \cite{jaca2026chaos}, temperature-driven changes of output statistics
 \cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality,johnson2026temperature}, periodic
 attractors of paraphrasing loops \cite{wang2025attractor}, attractor states of model-to-model conversations
 \cite{ko2026attractor}, and, through their Jacobians, the stability of looped and recurrent-depth models
@@ -306,9 +306,9 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   noninferiority at 1.05.
 \end{enumerate}
 
-\paragraph{Related work.} Chaos-like sensitivity of generation \cite{li2025quasilyapunov,jaca2026chaos,verazuniga2026selffeeding},
-temperature-driven changes of output statistics
-\cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}, repetition loops
+\paragraph{Related work.} Chaos-like sensitivity has been measured across the layers of a single forward pass
+\cite{li2025quasilyapunov} and in generation \cite{jaca2026chaos,verazuniga2026selffeeding}. Temperature-driven changes
+of output statistics \cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}, repetition loops
 \cite{holtzman2019degeneration,xu2022loop} and behavioral attractors of paraphrasing and conversation
 \cite{wang2025attractor,ko2026attractor} have been measured in generated text, and one study fits a noisy effective
 map to a hidden-state coordinate \cite{johnson2026temperature}, but none of these computes the orbits, multipliers or
@@ -4885,12 +4885,13 @@ its content.
 \appendix
 \section{Related work in detail}
 \label{sec:related}
-Language-model generation has been studied as a dynamical system at several levels, and
+Language models have been studied as dynamical systems at several levels, and
 the closest studies differ from ours in what they compute. Lyapunov-like quantities have been used to measure
-sensitivity to small perturbations in reasoning traces \cite{li2025quasilyapunov,jaca2026chaos} and in token rings
+the growth of small perturbations across the layers of a single forward pass \cite{li2025quasilyapunov}, and
+sensitivity to small perturbations in reasoning traces \cite{jaca2026chaos} and in token rings
 resampled by a model's own conditionals, with a test that separates the construction from the model
 \cite{verazuniga2026selffeeding}, but these studies
-measure chaos-like sensitivity in generation without computing orbits or bifurcations. Output statistics change
+measure chaos-like sensitivity without computing orbits or bifurcations. Output statistics change
 abruptly with sampling temperature, and several studies analyze the changes as phase transitions or criticality
 \cite{arnold2024phase,nakaishi2024phase,sun2025phase,ruan2026criticality}. These analyses concern output statistics;
 they are not bifurcation analyses of a defined map. Closest to ours in subject, a study of eleven models sorts sampled
