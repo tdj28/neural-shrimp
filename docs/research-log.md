@@ -33617,3 +33617,14 @@ do?
 - **Sampled, whole vocabulary:** twins separate at step 1 or never. On the unsteered cell that is 26 and 16 of 32 at
   delta = 1e-2 and 1e-4, none at 1e-6 or below; on the steered cell, 6 of 32 at 1e-2 only.
 - **Sampled k = 20:** 1 separation in 480 runs (delta = 1e-2).
+
+## 2026-11-01 18:39 UTC: run card FW (exploratory): what the model writes during the fold passages and along the S-shaped branch
+
+- **Question.** Two figures of the article are hard to read without the text the model writes. In the free trajectory of the fold figure (panel d, 2-cycle " is it", log10 T = -0.115, eps = 1e-5), what is written in a laminar phase, in a burst, and on the flat stretches at u near 0.42, which recur for 50 to 80 iterates and which no text describes? Along the S-shaped branch of the kite figure, what differs between the three orbits at one alpha, and what does the plotted coordinate mean in terms of the model's probabilities?
+- **Origin.** The human asked for deep explanations of these panels in the blog post. The flat stretches were found on rereading the saved u.npy for that purpose.
+- **Design, FW1.** A rerun of passage-natural-p2-t-0.115 with the same batch and arguments (24 free rows over 6 eps, seed 0, transient 100, CPU, 8 threads, float64), for 600 G-iterates instead of 1500, adding only --record-top 8, which reads the top tokens and states without changing them. Output: explore/llm-soft-loop/passage-natural-words-p2-t-0.115.
+- **Gate, FW1.** The recorded u of each row is compared with the saved u.npy. If they agree to rounding, the words belong to the published trajectory. If not (library or thread changes can alter float64 rounding, and these trajectories are sensitive to it), they are reported as a fresh trajectory of the same system, never as the published one.
+- **Design, FW2.** tools/branch_orbit_words.py iterates each of the 124 saved orbits of kite-la-branch through one period (float64, CPU), recording top tokens, and splits the first principal coordinate into token contributions, using x = E^T p. Output: explore/llm-soft-loop/branch-words/kite-la-branch.
+- **Gate, FW2.** Each orbit must return to its saved state over 6 steps, and the saved state must equal the average of the token embeddings under the recorded distribution; both gaps are reported.
+- **Readings fixed in advance.** Laminar phases are expected to write " is it" and bursts to write something else, as the stripe texts suggest. No expectation for the flat stretches. On the branch, the article states that orbits on different sheets write the same six tokens, so the expected difference is in the probabilities, not the words.
+- **No model is retrained and no paid resource is used.** This is an illustration of published figures, one trajectory and one branch: it supports explanation, not a general claim.

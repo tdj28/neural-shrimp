@@ -1757,13 +1757,19 @@ def passage(args):
     xct = torch.as_tensor(xc, dtype=loop.state_dtype, device=loop.device)
     rt = torch.as_tensor(r, dtype=loop.state_dtype, device=loop.device)
     us, trans, count = [], [], [None] * len(rows)
+    top_ids, top_ps, full = [], [], []
     tic = time.perf_counter()
     with torch.no_grad():
         for _ in range(args.transient * p if args.natural else 0):
             X, _ = loop.step(X, temps)
         for g in range(1, args.max_g + 1):
             for _ in range(p):
-                X, _ = loop.step(X, temps)
+                X, q = loop.step(X, temps)
+                if args.record_top:                             # read only: recording leaves the states unchanged
+                    tp, ti = torch.topk(q, args.record_top, dim=1)
+                    top_ids.append(ti.cpu().numpy()); top_ps.append(tp.double().cpu().numpy())
+            if args.record_top:
+                full.append(X.reshape(len(rows), -1).double().cpu().numpy())
             d = X.reshape(len(rows), -1) - xct
             u_t = d @ lt
             u = u_t.double().cpu().numpy()
@@ -1779,6 +1785,11 @@ def passage(args):
     out.mkdir(parents=True, exist_ok=True)
     np.save(out / "u.npy", us)
     np.save(out / "transverse.npy", trans)
+    if args.record_top:                                         # (steps, rows, k) and (G, rows, d)
+        ids = np.array(top_ids)
+        np.savez_compressed(out / "top.npz", ids=ids, p=np.array(top_ps), states=np.array(full))
+        (out / "vocab.json").write_text(json.dumps({int(j): loop.sm.tok.decode([int(j)]) for j in np.unique(ids)},
+                                                   ensure_ascii=False))
     table = []
     for i, row in enumerate(rows):
         u_out = args.u_out_factor * U
@@ -2121,6 +2132,8 @@ def main():
                     help="instead of controlled entrances: this many free trajectories per eps from the decoding "
                          "start, recorded for --max-g iterates after --transient")
     ps.add_argument("--transient", type=int, default=100, help="G-iterates discarded before recording (natural)")
+    ps.add_argument("--record-top", type=int, default=0,
+                    help="also save this many most probable tokens of every loop step, and the states (top.npz)")
     ps.add_argument("--seed", type=int, default=0)
     ps.add_argument("--threads", type=int, default=8)
     ps.add_argument("--device", default="cpu")
