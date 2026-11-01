@@ -57,7 +57,7 @@ def branch():
     fig, axes = plt.subplots(3, 1, figsize=(4.9, 6.3), sharex=True, gridspec_kw={"hspace": 0.2})
     panels = ((y, "first principal coordinate\n(the article's axis)", "(a) one saved state, projected on a direction"),
               (is_p, 'probability of " is" (%)', '(b) the same orbits: how likely " is" is at that step'),
-              (nl_p, "probability of a line break (%)", "(c) the same orbits: how likely a line break is at that step"))
+              (nl_p, "probability of a single line break (%)", "(c) the same orbits: how likely a single line break is at that step"))
     good = (rho < 1)[:-1] & (rho < 1)[1:]
     for ax, (v, lab, title) in zip(axes, panels):
         k = 0
@@ -81,7 +81,7 @@ def branch():
     axes[0].plot([], [], "--", color=GRAY, lw=1.0, label="not attracting")
     axes[0].plot([], [], "o", ms=5, mfc="w", mec="k", label="fold")
     axes[0].fill_between([], [], color=GREEN, alpha=0.15, label="two attracting orbits")
-    axes[0].legend(fontsize=6.5, loc="lower right", frameon=False, ncol=2)
+    axes[0].legend(fontsize=6.5, loc="lower right", frameon=False, ncol=1)
     fig.savefig(OUT / "fig-branch-three-readings.png", dpi=300, bbox_inches="tight", pad_inches=0.03)
 
     S = np.load(src / "states.npy").reshape(len(pts), -1)
@@ -130,6 +130,29 @@ def branch():
            "largest_rest_after_three_tokens": float(np.abs(y - sum(share[:, col[t]] for t in col)).max()),
            "middle_sheet_largest_multiplier": float(rho[turns[0]:turns[1]].max()),
            "three_orbits": three}
+    c0 = float(w["mean"] @ w["axis"])                           # measure the weights from the average state: same y
+    load_c = w["token_load"] - c0
+    share_c = (prob - pbar) * load_c
+    main_tokens = [col[t] for t in col]
+    worked_c = {t: float(share_c[worked, col[t]]) for t in col}
+    total = nl_p + bl_p
+    assert (np.diff(is_p) > 0).all() and (np.diff(nl_p) < 0).all()
+    k0, k2 = three[0]["index"], three[2]["index"]
+    gaps = []
+    for st in range(6):
+        for j0, q0 in zip(ids[k0, st], p[k0, st]):
+            hit = np.nonzero(ids[k2, st] == j0)[0]
+            if len(hit):
+                gaps.append(100 * abs(float(q0) - float(p[k2, st, hit[0]])))
+    peak = int(np.argmax(bl_p))
+    rec.update({"weights_from_average": {t: float(load_c[col[t]]) for t in col}, "origin_dot_axis": c0,
+                "worked_terms_from_average": worked_c, "worked_rest_from_average": float(y[worked] - sum(worked_c.values())),
+                "largest_rest_from_average": float(np.abs(y - share_c[:, main_tokens].sum(1)).max()),
+                "line_break_total_percent": {"start": float(total[0]), "first_fold": float(total[turns[0]]), "end": float(total[-1])},
+                "blank_line_peak": {"percent": float(bl_p[peak]), "index": peak, "y": float(y[peak]),
+                                    "share_of_axis_percent": float(100 * (y[peak] - y.min()) / (y.max() - y.min()))},
+                "blank_line_start_percent": float(bl_p[0]), "blank_line_end_percent": float(bl_p[-1]),
+                "attracting_orbits_largest_gap_points": float(max(gaps)), "dashed_points": int((rho >= 1).sum())})
     (OUT / "branch.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False) + "\n")
     print(json.dumps({k: v for k, v in rec.items() if k != "three_orbits"}, indent=1, ensure_ascii=False))
 
@@ -187,8 +210,28 @@ def passage():
     ax.set_title("Each lap's move, measured (markers) and from the formula (lines)", fontsize=8, loc="left")
     ax.legend(fontsize=6.5, loc="upper center", frameon=False, ncol=2, markerscale=1.8)
     fig.savefig(OUT / "fig-passage-steps.png", dpi=300, bbox_inches="tight", pad_inches=0.03)
+    # after the fact: the per-lap residual fitted to the two lowest dropped terms that change sign across the channel
+    Xfit, Yfit, Mfit, tag = [], [], [], []
+    for i, row in enumerate(pas["rows"]):
+        e = float(row["eps"])
+        if row["entrance"] != "full" or e > 1e-4:
+            continue
+        v = np.concatenate([[row["u_in"]], V[:, i]])
+        v = v[:int(np.argmax(v > U)) + 1]
+        vv, dv = v[:-1], np.diff(v)
+        Xfit.append(np.column_stack([vv ** 3, e * vv])); Yfit.append(dv - (a * e + b * vv ** 2)); tag += [e] * len(vv)
+    Xall, Yall = np.concatenate(Xfit), np.concatenate(Yfit)
+    (c3, c1), *_ = np.linalg.lstsq(Xall, Yall, rcond=None)
+    fit = {"c3": float(c3), "c1": float(c1), "r2": float(1 - ((Yall - Xall @ [c3, c1]) ** 2).sum() / (Yall ** 2).sum()),
+           "distances": sorted(set(tag))}
+    for e, name in ((3e-6, "3e-06"), (1e-4, "1e-04")):
+        vn, mv = 0.9 * U, a * e + b * (0.9 * U) ** 2
+        fit[f"cubic_percent_of_move_at_0.9U_{name}"] = float(100 * c3 * vn ** 3 / mv)
+        fit[f"eps_u_percent_of_move_at_0.9U_{name}"] = float(100 * c1 * e * vn / mv)
+    totals = {f'{float(r["eps"]):.0e}': {"measured": r["measured_G"], "predicted": r["predicted_discrete_G"]}
+              for r in pas["rows"] if r["entrance"] == "full"}
     rec = {"source_passage_sha256": __import__("hashlib").sha256((LOOP / "passage-p2-t-0.115/passage.json").read_bytes()).hexdigest(),
-           "a": a, "b": b, "U": U, "ab": a * b, "alpha_c": 0.06279827217667086, "rows": rows}
+           "a": a, "b": b, "U": U, "ab": a * b, "alpha_c": 0.06279827217667086, "rows": rows, "residual_fit": fit, "totals": totals}
     (OUT / "passage.json").write_text(json.dumps(rec, indent=1) + "\n")
     print(json.dumps(rec, indent=0)[:2600])
 
@@ -322,6 +365,56 @@ def free():
            "state_norm_crawl": float(np.linalg.norm(z["states"][:48, pick], axis=1).mean()), "kappa": kappa,
            "worked_ratio": 0.1 / kappa}
     rec["channel_percent_of_state_norm"] = 100 * 2 * U / rec["state_norm_crawl"]
+    t_is = [i for i, x in enumerate(top) if x == " is"]
+    gaps = [(t_is[i], t_is[i + 1] - t_is[i] - 1) for i in range(len(t_is) - 1) if t_is[i + 1] - t_is[i] != 2]
+    rec["beat"] = {"gaps_other_than_one": [[a0, g] for a0, g in gaps], "beat_changes": sum(g % 2 == 0 for _, g in gaps)}
+    rec["v_over_U_after_flat"] = {str(n): float(v[n] / U) for n in range(236, 244)}
+    a0, b0 = other[0]
+    pred = lambda w0: float((np.arctan(B * U / kappa) - np.arctan(B * w0 / kappa)) / kappa)  # noqa: E731
+    rec["hidden_crawl"] = {"first_lap": a0, "last_lap": b0, "laps": b0 - a0 + 1, "entry_over_U": float(v1[a0] / U),
+                           "predicted": pred(v1[a0]), "exit_lap_reading_over_U": float(v1[233] / U)}
+    crawls, misses = {}, []
+    for i in (5, 6, 7):
+        u = old[:, i]
+        row = []
+        for a1, b1 in runs_of(np.abs(u) < U):
+            if a1 == 0 or b1 == len(u) - 1:
+                continue
+            row.append({"first": a1, "last": b1, "laps": b1 - a1 + 1, "entry_over_U": float(u[a1] / U),
+                        "next_over_U": float(u[a1 + 1] / U), "predicted": pred(u[a1])})
+        crawls[pa["rows"][i]["entrance"]] = {"complete": len(row), "within_one_lap": sum(abs(r["laps"] - r["predicted"]) <= 1 for r in row)}
+        misses += [dict(r, row=pa["rows"][i]["entrance"]) for r in row if abs(r["laps"] - r["predicted"]) > 1]
+    rec["complete_crawls"] = crawls
+    rec["complete_crawls_total"] = sum(c["complete"] for c in crawls.values())
+    rec["complete_crawls_within_one_lap"] = sum(c["within_one_lap"] for c in crawls.values())
+    rec["crawl_misses"] = misses
+    same_ending = []
+    for i in (5, 6, 7):
+        u = new[:, i]
+        tw = [vocab[str(int(j))] for j in z["ids"][:, i, 0]]
+        rr = runs_of(np.abs(u) < U)
+        for k in range(len(rr) - 1):
+            a1, b1 = rr[k][1] + 1, rr[k + 1][0]
+            text = tw[2 * a1:2 * b1]
+            while text and text[0] in (" it", " is"):
+                text = text[1:]
+            while text and text[-1] in (" it", " is"):
+                text = text[:-1]
+            if "".join(text) == " a. This":
+                same_ending.append({"row": pa["rows"][i]["entrance"], "entry_over_U": float(u[b1] / U)})
+    rec["endings_a_stop_this"] = same_ending
+    rec["one_step_reading_on_crawls"] = [float(min(v1[a1:b1 + 1].min() for a1, b1 in same)), float(max(v1[a1:b1 + 1].max() for a1, b1 in same))]
+    rec["flat_reading_range_1500"] = [float(min(np.abs(full[a1:b1 + 1]).min() for a1, b1 in flats)), float(max(np.abs(full[a1:b1 + 1]).max() for a1, b1 in flats))]
+    rec["flat_count_1500"] = len(flats)
+    rec["corr_v_p_a_laps_241_310"] = float(np.corrcoef(v[241:311], p_a[241:311])[0, 1])
+    rec["corr_v_p_a_laps_62_101"] = float(np.corrcoef(v[62:102], p_a[62:102])[0, 1])
+    rec["indeed_first_crawl_percent"] = [100 * float(p[2 * n + 1][[word(j) == " indeed" for j in ids[2 * n + 1]]].sum()) for n in (0, 47)]
+    rec["a_peaks_after_exits"] = [float(p_a[b1 + 1:b1 + 23].max()) for a1, b1 in same if b1 < N]
+    vec = np.load(LOOP / "normal-form-p2-t-0.115/vectors.npz")
+    states59, xc = z["states"][59, pick], vec["x_c"]
+    rec["ruler"] = {"length": float(np.linalg.norm(vec["l"])), "cosine_with_direction": float(abs(vec["l"] @ vec["r"]) / (np.linalg.norm(vec["l"]) * np.linalg.norm(vec["r"]))),
+                    "lap_59_reading": float(abs(v[59])), "lap_59_true_distance": float(np.linalg.norm(states59 - xc)),
+                    "flat_true_distance": float(np.linalg.norm(z["states"][200, pick] - xc))}
     for key in ("fraction_first_600_same_phase", "fraction_first_600_either_phase", "fraction_1500_same_phase", "fraction_1500_flat"):
         rec[key.replace("_phase", "") + "_percent"] = 100 * rec[key]
     (OUT / "free.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False) + "\n")
