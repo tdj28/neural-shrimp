@@ -33647,3 +33647,7 @@ One trajectory and one branch, read after the fact to explain two published figu
 - **Other free trajectories at eps = 1e-5.** One of the four settles on the text " certainly . Hello" and never enters the channel; the other two alternate like the published one.
 - **Step errors of the normal form in the controlled passages.** Lap by lap the formula is off by up to 7.0%, 7.5%, 9.3% and 14.3% at eps = 3e-6, 1e-5, 3e-5 and 1e-4: too large on the way in and too small on the way out. The errors nearly cancel over a full passage, which is why the totals match; at eps = 1e-5 the two halves take 36 and 35 laps against 35 and 36 from the formula. Not attributed to a specific dropped term.
 - **Branch coordinate.** All 124 orbits write the same six tokens. The saved state is the soft token after "The existence", x = E^T p, so the plotted coordinate is a sum over tokens. Three tokens carry it (to 2e-4): the single line break (weight -0.468), the blank line (-0.361) and " is" (+0.119). Up the axis, probability leaves the line breaks for " is", which runs from 9.9% to 12.7% and correlates with the coordinate at 0.997. The S and its folds look the same in those probabilities.
+
+## 2026-11-01 19:03 UTC: correction to the FW results entry
+
+The entry above lists five crawls. All seven crawls that follow a burst in the first 600 laps match the arctan form from their entry point, measured / predicted: 40 / 40.3, 40 / 40.1, 70 / 69.9, 47 / 47.4, 41 / 41.4, 42 / 42.6, 62 / 61.5. The two omitted rows had been cut off in the display when the entry was written.

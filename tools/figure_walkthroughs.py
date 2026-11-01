@@ -116,6 +116,7 @@ def branch():
            "y_strictly_increasing_along_branch": bool((np.diff(y) > 0).all()),
            "start": point(0), "fold_1": point(turns[0]), "fold_2": point(turns[1]), "end": point(len(pts) - 1),
            "upper_flip_alpha_between": [float(alpha[i_up]), float(alpha[i_up + 1])], "upper_flip_y": float(y[i_up]),
+           "upper_flip_p_is_percent": float(is_p[i_up]),
            "upper_flip_multiplier": flips[-1]["crossing_multiplier"][0],
            "fold_multipliers": [c["crossing_multiplier"][0] for c in crossing if "fold" in c["type"]],
            "coexistence_alpha": [lo, hi],
