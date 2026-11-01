@@ -1769,7 +1769,9 @@ its ghost, the slow bottleneck that a saddle-node bifurcation leaves behind
 oriented critical coordinate, $U=0.1/|b|$), measured on the network (markers, one shape per $\eps$) and iterated from the normal form
 $v'=v+|a|\eps+|b|v^2$ (lines), take 144, 71, 34 and 14 iterates, as predicted. (d) A free trajectory at
 $\eps=10^{-5}$ alternates between laminar phases in the bottleneck ($|u|<U$, shaded; 40 to 70 iterates each) and bursts
-away from it, the signature of type-I intermittency. Branch residuals, fold, normal form and passages in float64; branch
+away from it, the signature of type-I intermittency. Downward spikes are $u$ crossing zero. On the flat stretches near
+$|u|=0.42$ the two-step reading has slipped onto the other point of the 2-cycle, so these are laminar phases too (checked
+on the first, where $u$ read one step later crosses the channel). Branch residuals, fold, normal form and passages in float64; branch
 multipliers in float32. \repo{tools/plot_fold.py}.}
 \label{fig:fold}
 \end{figure}
@@ -1834,14 +1836,20 @@ count $N$, together with the full- and half-passage predictions.}
 \label{fig:passages}
 \end{figure}
 
+The totals of Table~\ref{tab:passages} hide a small error lap by lap: the quadratic formula overstates the move on the
+way into the channel and understates it on the way out, by up to 7.6\% at $\eps=10^{-5}$ and 14.3\% at $10^{-4}$.
+Over a full passage the two nearly cancel: at $\eps=10^{-5}$ the network takes 36 laps to the channel's middle and 35 to its
+exit, the formula 35 and 36. The formula drops terms of order $u^3$ and $\eps u$, which change sign across the channel; a fit
+to the laps at five distances, made after the fact, needs both ($R^2=0.97$).
+
 \paragraph{Natural reinjection and the window law.} Left to itself, a trajectory near the fold alternates between
 laminar phases, in which it crawls through the bottleneck close to where the 2-cycle was and moves almost
 periodically, and bursts, short excursions out of the channel after which it is reinjected into it
 (Figure~\ref{fig:fold}d). This alternation is type-I intermittency \cite{pomeau1980intermittent}, whose laminar phases lengthen as
 $\eps^{-1/2}$ toward the fold \cite{hirsch1982theory};
 laminar is the fluid-dynamics term for the smooth stretches between turbulent bursts. Free trajectories re-enter the
-channel slightly upstream of the bottleneck's middle ($v\approx-3\times10^{-4}$ to $-7\times10^{-4}$, in the same
-oriented coordinate). From each measured entry point the normal form predicts the natural laminar durations: for complete phases, which stay
+channel slightly upstream of the bottleneck's middle (median entry $v\approx-3\times10^{-4}$ to $-7\times10^{-4}$ at the
+four distances, in the same oriented coordinate; single entries spread wider). From each measured entry point the normal form predicts the natural laminar durations: for complete phases, which stay
 within $|u|<3U$ and within 0.05 of the channel in the other directions, the median signed forecast error at the four
 offsets up to $\eps=10^{-4}$ lies between $-7.7\%$ and $-4.1\%$ (signed errors $-4.88$, $-4.08$, $-7.41$ and
 $-7.69\%$), although single phases differ by up to 71\%; on average a natural passage lasts 0.60 to 0.67 of the normal
@@ -1863,6 +1871,19 @@ sides. The fold edges of periods 16--20 follow $\alpha_N-\alpha_c=C/(N+N_0)^2$ w
 Their slope, a rise of $6.13$ per lap in $1/\sqrt{\alpha_N-\alpha_c}$, is $1.74$ times the full-passage slope
 $\sqrt{ab}/\pi=3.53$ of the normal form. That corresponds to an effective passage of $0.58$ of a full one, which the
 measured natural reinjection gives independently (Table~\ref{tab:fraction}).
+\paragraph{What a free trajectory writes.} Rerun with its most probable tokens recorded, the trajectory of
+Figure~\ref{fig:fold}d came back with identical coordinates over 600 laps, so the words below are those of the plotted
+trajectory. A laminar phase writes ``it is it is''. The state stays soft: at the step that writes ``it'', that token has
+about 27\%, ``there'' 20\% and ``a'' 19\%, and over the first phase ``a'' gains only from 18.7\% to 19.1\%. When ``a''
+overtakes ``it'', at lap 58, the sentence ends, ``is a is a . This is'', the same pieces as the stripe orbits' text, and the
+state falls back into the channel. Some bursts restart the sentence after a line break in a way that shifts the text by one
+step, and the two-step reading then lands on the other point of the 2-cycle: this is what the flat stretches near $|u|=0.42$
+in Figure~\ref{fig:fold}d are. Applying one more step of the map to the saved states puts the first such stretch inside the channel for 45 laps, within
+the 40 to 70 quoted for the panel. Counting both readings, this trajectory spends 74\% of its first 600 laps in the channel,
+against 65\% by the criterion $|u|<U$ alone. Of the other three free trajectories at this distance, two alternate in the same
+way and one settles on a different loop, ``certainly . Hello''. This is one trajectory, read after the fact to explain the
+figure (run FW, \path{docs/figure-walkthroughs/}).
+
 \begin{table}[H]
 \centering\small
 \begin{tabular}{lp{0.2\linewidth}p{0.27\linewidth}c}
@@ -2876,7 +2897,8 @@ every point is an orbit converged by Newton's method, solid where its multiplier
 not, and the two open circles are folds, where a multiplier reaches $+1$; they make the branch an S, and the two
 attracting sheets overlap in the shaded interval (\repo{tools/plot_p6_kite.py}). The vertical axis is a display
 coordinate: one point of each orbit, a vector of 896 numbers, centered over the branch and projected on the direction
-in which these points vary most, their first principal component. Inside the kite, the straight edge where the gray changes abruptly (near $\log_{10}T=-0.15353$) is a basin boundary
+in which these points vary most, their first principal component. All these orbits write the same six tokens; the
+coordinate follows the probability of ``is'' after ``The existence'', from 9.9\% to 12.7\% (run FW). Inside the kite, the straight edge where the gray changes abruptly (near $\log_{10}T=-0.15353$) is a basin boundary
 of the fixed start, not a bifurcation, where we checked it: at two neighboring cells across it both attracting
 period-6 orbits exist (leading multipliers $0.18$ and $0.60$ to $0.61$), the fixed start reaches one above the edge
 and the other below (\repo{tools/kite_basin_check.py}), and at one steering strength, by strong numerical evidence, the start on the edge lies on
