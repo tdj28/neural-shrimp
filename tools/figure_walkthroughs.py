@@ -319,7 +319,11 @@ def free():
            "p_a_crawl_range": [float(p_a[0:48].min()), float(p_a[0:48].max())],
            "p_it_crawl_range": [float(p_it[0:48].min()), float(p_it[0:48].max())],
            "peak_abs_v_first_345": float(np.abs(v[:N]).max()),
-           "state_norm_crawl": float(np.linalg.norm(z["states"][:48, pick], axis=1).mean()), "kappa": kappa}
+           "state_norm_crawl": float(np.linalg.norm(z["states"][:48, pick], axis=1).mean()), "kappa": kappa,
+           "worked_ratio": 0.1 / kappa}
+    rec["channel_percent_of_state_norm"] = 100 * 2 * U / rec["state_norm_crawl"]
+    for key in ("fraction_first_600_same_phase", "fraction_first_600_either_phase", "fraction_1500_same_phase", "fraction_1500_flat"):
+        rec[key.replace("_phase", "") + "_percent"] = 100 * rec[key]
     (OUT / "free.json").write_text(json.dumps(rec, indent=1, ensure_ascii=False) + "\n")
     print(json.dumps({k: rec[k] for k in ("rerun_largest_gap_from_published", "same_phase_lengths", "other_phase_lengths", "flat_first",
                                           "fraction_first_600_same_phase", "fraction_first_600_either_phase", "fraction_1500_same_phase",

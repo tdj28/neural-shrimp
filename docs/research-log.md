@@ -33651,3 +33651,7 @@ One trajectory and one branch, read after the fact to explain two published figu
 ## 2026-11-01 19:03 UTC: correction to the FW results entry
 
 The entry above lists five crawls. All seven crawls that follow a burst in the first 600 laps match the arctan form from their entry point, measured / predicted: 40 / 40.3, 40 / 40.1, 70 / 69.9, 47 / 47.4, 41 / 41.4, 42 / 42.6, 62 / 61.5. The two omitted rows had been cut off in the display when the entry was written.
+
+## 2026-11-01 19:07 UTC: second correction to the FW results entry
+
+The step-error bounds there were rounded down. Rounded up from the raw values, as the bound rule requires, the largest lap-by-lap errors are 7.1%, 7.6%, 9.4% and 14.3% at eps = 3e-6, 1e-5, 3e-5 and 1e-4 (docs/figure-walkthroughs/passage.json).
