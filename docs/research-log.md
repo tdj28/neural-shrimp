@@ -33628,3 +33628,10 @@ do?
 - **Gate, FW2.** Each orbit must return to its saved state over 6 steps, and the saved state must equal the average of the token embeddings under the recorded distribution; both gaps are reported.
 - **Readings fixed in advance.** Laminar phases are expected to write " is it" and bursts to write something else, as the stripe texts suggest. No expectation for the flat stretches. On the branch, the article states that orbits on different sheets write the same six tokens, so the expected difference is in the probabilities, not the words.
 - **No model is retrained and no paid resource is used.** This is an illustration of published figures, one trajectory and one branch: it supports explanation, not a general claim.
+
+## 2026-11-01 18:56 UTC: FW1 and FW2 gates, and addition FW3
+
+- **FW1 gate passed.** All 24 rows of the rerun equal the saved u.npy of passage-natural-p2-t-0.115 exactly (largest gap 0.0) over the 600 recorded iterates, so the recorded words are those of the published trajectory.
+- **FW2 gates passed.** Largest return gap and largest gap between the saved state and the average of the token embeddings: 1.0e-10, the continuation's residual tolerance.
+- **New observation.** On the flat stretches of the fold figure's panel (d), the top tokens read " is it" where the laminar phases read " it is": the same two tokens, one step out of phase in the two-step sampling. Candidate reading, to be tested: a flat stretch is a passage through the same bottleneck on the other point of the vanished 2-cycle, seen at u near 0.42 because u is measured from one point of the cycle.
+- **Addition FW3 (before running).** tools/free_orbit_phase_check.py applies one step of the map, at the same parameters, to every saved state of the published row (eps = 1e-5, natural-3), and reads u again. If the reading is right, the one-step-later coordinate of the flat stretches lies inside the channel (|u| < U) and crosses it as a laminar phase does. If it stays outside, the reading is wrong and the flat stretches are something else.
