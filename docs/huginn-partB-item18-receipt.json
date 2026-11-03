@@ -1,0 +1,98 @@
+{
+ "note": "GSM8K test item 18 (\"Claire makes a 3 egg omelet ...\", the question of Geiping et al.'s latent-orbit figure) was used as a bare prompt in the exploratory dynamics runs of 12 October 2026 (huginn-fixed-spectrum-gsm-claire, huginn-ns-gsm-claire), before the design was frozen on 13 October at commit 9805ed32. Those runs computed a fixed point and its spectrum, never an answer or an accuracy, but the item is one of the test's 200 problems.",
+ "source_commit": "f5607ae4048d5df786a44e5b7b40bec23e9db093",
+ "frozen_generation": {
+  "file": "huginn-relax/test-partB/generation.json",
+  "sha256": "eeb836f73032bfaace7421d2e5f24ba91ef5b1e1f3a8d5974e88feb72bb9f316"
+ },
+ "rows": [
+  {
+   "folder": "llm-soft-loop/pod64/huginn/partB-0",
+   "sha256": "41bf6ac44846f0e308066a6ac6ea35e0a2d12d3123e15ef8f0ce73eaa2454a71"
+  },
+  {
+   "folder": "llm-soft-loop/pod64/huginn/partB-96",
+   "sha256": "d250ba05ef132cb32cee42506cbfe685781727ee8c2a56174d32dd78c3acf514"
+  },
+  {
+   "folder": "llm-soft-loop/pod64/huginn/partB-100",
+   "sha256": "a4cd009fe95a20502ee32cabffdea126890bbdb9f3635044db518ff27752c07b"
+  }
+ ],
+ "excluded": [
+  18
+ ],
+ "excluded_outcomes": {
+  "18": {
+   "1.0": true,
+   "1.05": true,
+   "1.15": false,
+   "1.20": false
+  }
+ },
+ "reproduces_frozen_output": true,
+ "all_problems": {
+  "n": 200,
+  "accuracy": {
+   "1.0": 0.33,
+   "1.05": 0.395,
+   "1.15": 0.255,
+   "1.20": 0.095
+  },
+  "1.05": {
+   "difference": 0.065,
+   "lower_one_sided_95": 0.025,
+   "mcnemar_less_p": 0.995934970676899,
+   "lost": 8,
+   "gained": 21
+  },
+  "1.15": {
+   "difference": -0.075,
+   "lower_one_sided_95": -0.125,
+   "mcnemar_less_p": 0.010036925959866494,
+   "lost": 26,
+   "gained": 11
+  },
+  "1.20": {
+   "difference": -0.235,
+   "lower_one_sided_95": -0.29,
+   "mcnemar_less_p": 2.759792394613214e-12,
+   "lost": 50,
+   "gained": 3
+  }
+ },
+ "without_excluded": {
+  "n": 199,
+  "accuracy": {
+   "1.0": 0.32663316582914576,
+   "1.05": 0.39195979899497485,
+   "1.15": 0.2562814070351759,
+   "1.20": 0.09547738693467336
+  },
+  "1.05": {
+   "difference": 0.06532663316582915,
+   "lower_one_sided_95": 0.02512562814070352,
+   "mcnemar_less_p": 0.995934970676899,
+   "lost": 8,
+   "gained": 21
+  },
+  "1.15": {
+   "difference": -0.07035175879396985,
+   "lower_one_sided_95": -0.12060301507537688,
+   "mcnemar_less_p": 0.014408359827939423,
+   "lost": 25,
+   "gained": 11
+  },
+  "1.20": {
+   "difference": -0.23115577889447236,
+   "lower_one_sided_95": -0.2864321608040201,
+   "mcnemar_less_p": 5.21338527903481e-12,
+   "lost": 49,
+   "gained": 3
+  }
+ },
+ "predictions_without_excluded": {
+  "B1_decline_pass": true,
+  "B3_noninferior_pass": true
+ }
+}

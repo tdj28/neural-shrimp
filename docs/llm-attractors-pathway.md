@@ -225,6 +225,17 @@ perturbing the last position changes no earlier output (difference exactly
   that component remains. The spectrum also predicts that the relaxed loop
   h <- (1 - lambda) h + lambda F(h) loses stability at lambda = 1.0777
   through this pair (a second pair crosses at 1.081).
+- **Correction (3 November 2026).** That pair does not explain the reported
+  orbits. It belongs to position 13, the first full stop: past the threshold,
+  positions 0-12 stay at the fixed point. Causal attention makes earlier
+  positions independent of later ones, so the pair cannot shape the
+  trajectories of " makes" (position 3) and " 3" (position 5) that Geiping
+  et al. plot for this very question (their Figures 12 and 16). Those
+  positions converge on their own blocks' spectra: at most modulus 0.884 by
+  the eight largest-magnitude estimates, about 2 % left after 32 steps. Every
+  position converges at the native step, so on this bare prompt (no chat
+  template) any orbit-like motion is a transient. The slow spiral belongs to
+  the full stop and the tokens after it.
 - **Neimark-Sacker confirmed.** Run from the fixed point, the relaxed loop
   decays for lambda up to 1.075 and settles on closed curves beyond the
   threshold. The squared amplitude is linear in lambda with intercept

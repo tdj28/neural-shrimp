@@ -4333,9 +4333,10 @@ windows thread it, most often of periods 3, 5, 6 and 7 and up to 13; fixed point
 
 \section{A second system: recurrent depth}
 \label{sec:huginn}
-Huginn-0125 iterates a recurrent block at fixed input tokens \cite{geiping2025recurrent}. For a GSM8K-style
-\cite{cobbe2021gsm8k} prompt, the native loop converges to a fixed point whose leading Jacobian pair is
-$0.588\pm0.771i$ (modulus $0.970$). To probe its stability we relax the iteration to $h\leftarrow(1-\lambda)h+\lambda F(h)$: $\lambda=1$ is the model's own
+Huginn-0125 iterates a recurrent block at fixed input tokens \cite{geiping2025recurrent}. For the GSM8K
+\cite{cobbe2021gsm8k} test question on which \citet{geiping2025recurrent} show latent orbits (``Claire makes a 3 egg
+omelet every morning for breakfast\ldots'', here without the chat template), the native loop converges at every
+position to a fixed point whose leading Jacobian pair is $0.588\pm0.771i$ (modulus $0.970$). To probe its stability we relax the iteration to $h\leftarrow(1-\lambda)h+\lambda F(h)$: $\lambda=1$ is the model's own
 loop, $\lambda<1$ takes shorter steps and $\lambda>1$ overshoots, and at the fixed point the relaxed loop has
 multipliers $1-\lambda+\lambda\mu$, so $\lambda$ acts as a bifurcation parameter we can set. For this prompt this
 predicts that the pair crosses the unit circle at
@@ -4353,6 +4354,13 @@ high-order tongues cannot be excluded. From $\lambda\approx1.094$ the circle def
 near where a second complex pair destabilizes the fixed point ($\lambda=1.0814$). Fixed-point and Jacobian stability
 of looped models has been studied before \cite{yang2026stars}; what this adds is the predicted crossing, its amplitude
 law and the rotation number.
+
+\paragraph{The reported orbits.} Because the first position to oscillate is the full stop, the critical pair belongs
+to it and to the positions after it. It cannot shape the trajectories of ``makes'' and ``3'', on which
+\citet{geiping2025recurrent} show orbits: these come earlier, and causal attention leaves earlier positions
+independent of later ones. Since every position converges at the native step, any orbit-like motion on this question
+is transient in our runs; the native loop fails to settle where its fixed point is unstable, as for 6 of the 30 ARC
+questions below.
 
 \paragraph{The spectrum predicts the relaxation response.} With the full instruction template, the GSM8K prompts'
 fixed points look different: the leading multipliers surround the origin, a real $0.914$, complex pairs of modulus
@@ -4386,9 +4394,7 @@ estimated spectral feature ranks the question's residual. This feature, $\hat\rh
 $|1-\lambda+\lambda\mu|$ over the computed Ritz values of the question's gold-answer prefill, and its Spearman
 correlation with the residual is $0.73$ at $\lambda=1$ and $0.75$ at $1.10$ over the 30 questions (development
 data). In this historical analysis the residual was the all-choice aggregate entering the 32nd recurrence call, so
-this is a predictive association across related maps and precisions, not a same-state contraction identity. It is
-consistent with the latent orbits that \citet{geiping2025recurrent} observed on some tokens of harder questions, here
-traced to the fixed point's spectrum. The item-level part of the frozen test below uses matched gold-row token IDs and
+this is a predictive association across related maps and precisions, not a same-state contraction identity. The item-level part of the frozen test below uses matched gold-row token IDs and
 a per-row residual with an explicit clock.
 
 Accuracy, however, tolerates the instability (300 training questions, 32 steps): it is $0.367$ native, $0.387$ at
@@ -4410,18 +4416,21 @@ thresholds ($\lambda_c=1.074$--$1.126$ for the GSM8K prompts; median upper stabi
 development questions). Generation breaks earlier than log-likelihood scoring, consistent with answer changes that
 compound over tokens. The collapse at $1.2$ is the one \citet{wang2026taps} reported.
 
-A frozen test on problems not read before it was frozen confirms this. Its design and analysis were pushed before any test item was read,
-after two rounds of independent review. On 200 GSM8K test problems, accuracy is $0.330$ natively, $0.395$ at
+A frozen test on problems not scored before it was frozen confirms this. Its design and analysis were pushed before
+any test item was scored, after two rounds of independent review. On 200 GSM8K test problems, accuracy is $0.330$ natively, $0.395$ at
 $\lambda=1.05$, $0.255$ at $1.15$ and $0.095$ at $1.20$. The two pre-stated predictions pass: accuracy declines at $1.20$ ($-23.5$
 points; 50 problems lost and 3 gained, exact one-sided McNemar $p=3\times10^{-12}$), and $1.05$ loses no more than
 four points (difference $+6.5$, one-sided 95\,\% lower bound $+2.5$). At $1.15$ accuracy falls by $7.5$ points
-($p=0.01$, reported descriptively). Development and test agree closely (Figure~\ref{fig:huginn-gsm8k}).
+($p=0.01$, reported descriptively). One of the 200, item 18, is the question of this section's first paragraph,
+which the dynamics runs had used as a bare prompt, without its answer, before the test was frozen; without it,
+accuracy still declines at $1.20$ (49 problems lost and 3 gained, $p=5\times10^{-12}$) and the lower bound at $1.05$
+stays at $+2.5$ points. Development and test agree closely (Figure~\ref{fig:huginn-gsm8k}).
 \begin{figure}[H]
 \centering
 \includegraphics[width=\linewidth]{fig-huginn-gsm8k.png}
 \caption{Huginn-0125 chain-of-thought accuracy on GSM8K against the relaxation strength $\lambda$ (eight examples,
 greedy decoding, 32 recurrence steps per token): development problems (blue) and the frozen test on held-out problems
-(red; design and analysis fixed before any test problem was read). Gray: the spectral thresholds
+(red; design and analysis fixed before any test problem was scored). Gray: the spectral thresholds
 $\lambda_c=1.074$--$1.126$ computed from the fixed points of five development prompts. Left: accuracy with Wilson
 95\,\% intervals. Right: paired difference from the native loop with paired-bootstrap 95\,\% intervals.}
 \label{fig:huginn-gsm8k}
