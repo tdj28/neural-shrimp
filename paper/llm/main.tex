@@ -94,7 +94,7 @@ attracting orbits of periods 2 and 3 at one parameter cell, and the attracting 3
 period-doubling cascade. In a smaller period-18 window, retaining about 0.645\,\% of the previous feedback
 state as a third control changes the selected return pair's trace-saddle height through a numerical sign bracket
 as its center is followed in steering and temperature, supporting a conditional local reconnection interpretation. The sampled centers keep their state period and six-token readout, and the
-multipliers remain nonzero. In the recurrent-depth model Huginn, a frozen test confirmed a predicted accuracy loss. The loop is not ordinary sampled
+multipliers remain nonzero. In the recurrent-depth model Huginn, a frozen test confirmed that over-relaxing its loop costs accuracy. The loop is not ordinary sampled
 generation. These results show that bifurcation theory can make quantitative predictions about continuous language-model
 feedback, with rigorous guarantees for selected periodic orbits of the full transformer.
 \end{abstract}
@@ -226,7 +226,7 @@ An attracting period-8 orbit exists & proof & App.~\ref{sec:evidence} \\
 Attracting orbits of periods 2 and 3 coexist at one parameter cell, with certified token loops and basin neighborhoods & proof & App.~\ref{sec:evidence} \\
 An attracting 3-cycle exists where the crescent's period-doubling cascade begins & proof & App.~\ref{sec:evidence} \\
 No accuracy information beyond first-token uncertainty; no edge-of-chaos advantage & frozen; bounded nulls & Sec.~\ref{sec:consequences} \\
-Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
+Huginn: over-relaxation costs accuracy & frozen & Sec.~\ref{sec:huginn} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -302,8 +302,8 @@ Huginn: a predicted accuracy loss & frozen & Sec.~\ref{sec:huginn} \\
   3B of its 35B parameters active per token damps more than a dense 9B model of its family. Two loops writing one text lock each other into periodic orbits: 60\,\% of pairs of differently steered
   0.5B agents that are each chaotic alone are periodic together (twelve such orbits verified by Newton's method). In a
   second system, the recurrent-depth model Huginn, a spectral estimate ranks held-out questions by the size of their
-  residual under relaxation, and a frozen generation test confirms the predicted accuracy loss at relaxation 1.20 and
-  noninferiority at 1.05.
+  residual under relaxation, and a frozen generation test confirms, as stated before its data, an accuracy loss at
+  relaxation 1.20 and noninferiority at 1.05.
 \end{enumerate}
 
 \paragraph{Related work.} Chaos-like sensitivity has been measured across the layers of a single forward pass
@@ -4411,12 +4411,14 @@ GSM8K generation is such a task. With eight chain-of-thought examples in the lm-
 decoding and 32 recurrence steps per token (development problems 0--119, every arm on the same problems and initial
 states), accuracy is $0.375$ natively, $0.425$ at $\lambda=1.05$ and at $1.10$, $0.29$ at $1.15$ (17 problems lost and
 7 gained, one-sided McNemar $p=0.03$) and $0.16$ at $1.20$ (29 lost, 3 gained, $p=10^{-6}$). Under-relaxation to
-$0.8$ costs nothing at 32 steps ($0.41$). The break lies between $1.10$ and $1.15$, at or just above the spectral
-thresholds ($\lambda_c=1.074$--$1.126$ for the GSM8K prompts; median upper stability limit $1.095$ for the ARC
-development questions). Generation breaks earlier than log-likelihood scoring, consistent with answer changes that
+$0.8$ costs nothing at 32 steps ($0.41$). The break lies between $1.10$ and $1.15$. It is not located at a computed
+stability edge of the scored prompts: the GSM8K thresholds above ($\lambda_c=1.074$--$1.126$) belong to five zero-shot
+prompts in the instruction template, while in the eight-shot format scored here the fixed point is already unstable
+at the native step (three development problems, float32: a real multiplier $-1.158$, stable only for
+$\lambda<0.927$). Generation breaks earlier than log-likelihood scoring, consistent with answer changes that
 compound over tokens. The collapse at $1.2$ is the one \citet{wang2026taps} reported.
 
-A frozen test on problems not scored before it was frozen confirms this. Its design and analysis were pushed before
+A frozen test on problems not scored before it was frozen confirms the cost of over-relaxation. Its design and analysis were pushed before
 any test item was scored, after two rounds of independent review. On 200 GSM8K test problems, accuracy is $0.330$ natively, $0.395$ at
 $\lambda=1.05$, $0.255$ at $1.15$ and $0.095$ at $1.20$. The two pre-stated predictions pass: accuracy declines at $1.20$ ($-23.5$
 points; 50 problems lost and 3 gained, exact one-sided McNemar $p=3\times10^{-12}$), and $1.05$ loses no more than
@@ -4431,7 +4433,9 @@ stays at $+2.5$ points. Development and test agree closely (Figure~\ref{fig:hugi
 \caption{Huginn-0125 chain-of-thought accuracy on GSM8K against the relaxation strength $\lambda$ (eight examples,
 greedy decoding, 32 recurrence steps per token): development problems (blue) and the frozen test on held-out problems
 (red; design and analysis fixed before any test problem was scored). Gray: the spectral thresholds
-$\lambda_c=1.074$--$1.126$ computed from the fixed points of five development prompts. Left: accuracy with Wilson
+$\lambda_c=1.074$--$1.126$ computed from the fixed points of five zero-shot development prompts; in the scored
+eight-shot format the fixed point is already unstable at $\lambda=1$ (see text), so the figure shows the cost of
+over-relaxation, not a fall at a computed edge. Left: accuracy with Wilson
 95\,\% intervals. Right: paired difference from the native loop with paired-bootstrap 95\,\% intervals.}
 \label{fig:huginn-gsm8k}
 \end{figure}
@@ -4651,7 +4655,7 @@ Coexisting attracting 2- and 3-cycles & interval arithmetic & \textbf{proof} & \
 \addlinespace[3pt]
 \multicolumn{4}{l}{\textsc{Beyond the one-token loop}} \\
 \rowcolor{black!7} Steering history changes a decision & new instances & prospective & \codelink{tools/c12_steering_history.py} \\
-Huginn loses accuracy as predicted & generation test & prospective & \codelink{tools/huginn_relax_eval.py} \\
+Huginn loses accuracy under over-relaxation & generation test & prospective & \codelink{tools/huginn_relax_eval.py} \\
 \bottomrule
 \end{tabular}
 \end{table*}

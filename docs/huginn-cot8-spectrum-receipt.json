@@ -1,0 +1,95 @@
+{
+ "note": "Eight-shot (cot8) GSM8K development prompts of the Huginn relaxation study: fixed points and leading multipliers from the saved spectrum files (computed in float32 by tools/explore_latent_loop.py fixed-spectrum; file modification times 2026-10-13 15:27, 18:14 and 20:09 UTC; never reported until this correction). Basis of the 2026-11-08 correction of the report's Huginn section. Recomputed independently by the qlabs-examination audit (docs/neural-shrimp-import/recomputed-huginn-dynamics.json there: rho(1) 1.15766-1.15767, lambda_up 0.92693).",
+ "created_utc": "2026-11-08T01:58:12Z",
+ "source_commit": "21548ca2dc5d93b2dd5c562778d5e9a567f121f0",
+ "rows": [
+  {
+   "file": "/data2/neural-shrimp-data/explore/huginn-relax/cot8-spectrum-0/fixed-spectrum.json",
+   "sha256": "d5db4c717d22a57fd5df316736b978d309b79345bec03490c931fcbb8cfb5569",
+   "args": {
+    "gsm8k_style": "cot8",
+    "gsm8k_split": "train",
+    "gsm8k_index": 0,
+    "dtype": "float32",
+    "lam": 1.0,
+    "fallback_lams": [
+     0.75,
+     0.5
+    ]
+   },
+   "fixed_point_residual_F": 2.258401082144701e-06,
+   "is_fixed_point": true,
+   "transient_lams": [
+    1.0,
+    0.75
+   ],
+   "spectral_radius_at_lambda_1": 1.1576677209016903,
+   "leading_multiplier": [
+    -1.1576677209016903,
+    0.0
+   ],
+   "largest_stable_lambda_on_grid": 0.92692,
+   "grid": "0.5 to 1.2, 70001 points"
+  },
+  {
+   "file": "/data2/neural-shrimp-data/explore/huginn-relax/cot8-spectrum-1/fixed-spectrum.json",
+   "sha256": "d62405202d0c6925b3cc48a68ba0c168f630ae772cf4b79a096d40de1a679379",
+   "args": {
+    "gsm8k_style": "cot8",
+    "gsm8k_split": "train",
+    "gsm8k_index": 1,
+    "dtype": "float32",
+    "lam": 1.0,
+    "fallback_lams": [
+     0.75,
+     0.5
+    ]
+   },
+   "fixed_point_residual_F": 2.2436199742514873e-06,
+   "is_fixed_point": true,
+   "transient_lams": [
+    1.0,
+    0.75
+   ],
+   "spectral_radius_at_lambda_1": 1.157664119709377,
+   "leading_multiplier": [
+    -1.157664119709377,
+    0.0
+   ],
+   "largest_stable_lambda_on_grid": 0.92692,
+   "grid": "0.5 to 1.2, 70001 points"
+  },
+  {
+   "file": "/data2/neural-shrimp-data/explore/huginn-relax/cot8-spectrum-2/fixed-spectrum.json",
+   "sha256": "058f50ca386b9b06ddc3e922c69c2fc2268d24a4c413aecbe7748282a1fc5b93",
+   "args": {
+    "gsm8k_style": "cot8",
+    "gsm8k_split": "train",
+    "gsm8k_index": 2,
+    "dtype": "float32",
+    "lam": 1.0,
+    "fallback_lams": [
+     0.75,
+     0.5
+    ]
+   },
+   "fixed_point_residual_F": 2.235968167951796e-06,
+   "is_fixed_point": true,
+   "transient_lams": [
+    1.0,
+    0.75
+   ],
+   "spectral_radius_at_lambda_1": 1.1576647930869122,
+   "leading_multiplier": [
+    -1.1576647930869122,
+    0.0
+   ],
+   "largest_stable_lambda_on_grid": 0.92692,
+   "grid": "0.5 to 1.2, 70001 points"
+  }
+ ],
+ "quoted": {
+  "leading_multiplier": "-1.158 (all three: -1.15767, -1.15766, -1.15766)",
+  "stable_only_for": "lambda < 0.927 (largest stable grid value 0.92692)"
+ }
+}

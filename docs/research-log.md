@@ -33677,3 +33677,26 @@ Prompted by a read-only review that the human relayed (3 November): the report t
 - **The six unstable ARC questions** (train 4, 6, 7, 8, 25, 27) all failed to settle within the 400-step native transient; their fixed points came from the 0.75 fallback. So did stable question 9, rho(1) 0.997, which converges slowly.
 - **Item 18 of the frozen test.** GSM8K test item 18 is this question. Part B used test problems 0-199 and was frozen on 13 October at 15:19 UTC (9805ed32), after the 12 October runs. Those runs computed a fixed point and its spectrum only: no answer, no accuracy, and a bare prompt instead of cot8. The report said the problems were "not read before it was frozen"; it now says "not scored" and discloses the item. tools/huginn_partB_exclusion.py (commit f5607ae4) first reproduces the frozen generation.json exactly, then leaves item 18 out (receipt docs/huginn-partB-item18-receipt.json). Item 18 was correct natively and at 1.05, wrong at 1.15 and 1.20. Without it, 1.20 gives -0.231 with 49 problems lost and 3 gained, p = 5.2e-12 (B1 passes); 1.05 gives +0.065 with lower bound +0.025 (B3 passes); 1.15 gives -0.070, p = 0.014.
 - **Texts.** paper/llm/main.tex names the question and the missing template, adds the paragraph 'The reported orbits', removes the ARC sentence, says 'scored' for 'read' in the test paragraph and the Figure 57 caption, and adds the item-18 disclosure: 197 pages, no undefined references. The Chaos article makes neither claim. The blog repeats the 'not read' wording and is corrected in its working tree for the human to commit.
+
+## 2026-11-08 01:58 UTC: Correction: the Huginn accuracy break is not located at a computed stability edge of the scored prompts
+
+The report said that the GSM8K accuracy break of Huginn-0125 under relaxation (between 1.10 and 1.15 on development
+problems) lies "at or just above the spectral thresholds (lambda_c = 1.074-1.126 for the GSM8K prompts ...)". Those
+thresholds belong to five zero-shot prompts in the instruction template. The test scored eight-shot chain-of-thought
+prompts, and for three development problems in that format the saved fixed-point spectra (float32,
+../neural-shrimp-data/explore/huginn-relax/cot8-spectrum-{0,1,2}/fixed-spectrum.json) show a fixed point that is already
+unstable at the native step: a real multiplier -1.15767 to -1.15766, stable only for lambda < 0.927 (largest stable
+grid value 0.92692); receipt docs/huginn-cot8-spectrum-receipt.json. These spectra were computed during the study but
+never reported. The issue was found by the qlabs-examination audit of the imported neural-shrimp data
+(docs/neural-shrimp-import/audit.md there, item H7, recomputed independently) and checked here from the original files.
+The frozen test's pre-stated predictions (accuracy declines at 1.20; 1.05 loses no more than four points) are unchanged
+and still pass; what the test establishes is the cost of over-relaxation, not the location of an edge.
+
+Changed in paper/llm/main.tex: the abstract sentence, the claims table row, the contributions item, the sentence on the
+break and the one after it, the figure caption of fig-huginn-gsm8k (the gray band shows zero-shot thresholds), and the
+evidence-table row. Not changed: the frozen design document docs/huginn-causal-test-design.md (it already names the
+zero-shot prompts and is immutable), past consult briefs and codex snapshots (historical records). The arXiv article
+(2610.31692 v1) and the Chaos article mention Huginn only as converging with an oscillatory instability and make no
+claim about the accuracy break. Requested by the human on 2026-11-08 (UTC).
+
+_commit `21548ca2dc5d` before this correction_
