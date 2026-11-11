@@ -33819,7 +33819,8 @@ edge, not an arrow; (iii) the two lines in the multiplier figure are black segme
 the retained-feedback figure names the color bar's quantity. Differences left as they are: panel titles that round
 the caption's numbers (21 % and 2 % for 20.8 % and 1.7 %; a truncated beta), fractions in one row of titles and
 percentages in the other of the direction-and-layer figure, and two figures whose panels carry no letters. The
-article stays at 36 pages. The report does not contain these four captions in that form.
+article stays at 36 pages. The report and the Research Note do not contain captions (i), (iii) and (iv) in that
+form. They share sentence (ii) and still say "arrow" for the triangle at the top edge, which is left as it is.
 
 **Research Note (blog).** The post received the same items as the report, generated from its backup by a script of
 exact, single-match replacements: the portrait-cell caveat with a new section and table, the completed rotation
