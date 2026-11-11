@@ -33700,3 +33700,44 @@ zero-shot prompts and is immutable), past consult briefs and codex snapshots (hi
 claim about the accuracy break. Requested by the human on 2026-11-08 (UTC).
 
 _commit `21548ca2dc5d` before this correction_
+
+## 2026-11-11 02:25 UTC: run card BFL (exploratory): do trajectories keep leaving the chaotic set of the portrait cell?
+
+- **Question.** At the attractor-portrait cell of the article (Qwen2.5-0.5B-Instruct, philosophy direction at layer
+  12, alpha = 0.07248, log10 T = -0.148), run BF followed 64 starts for 5000 steps in three batch layouts and saw 14
+  captures by a periodic orbit in its 192 runs: 5, 5 and 4 of 64 starts per layout (recounted from fate.npz on 11
+  November), between steps 1087 and 4741, 13 on the portrait's period-4 orbit and one on a period-8 orbit. Is the
+  chaotic set a long-lived transient that every trajectory eventually leaves, or an attractor that only some starts
+  leave? The human asked on 10 November that the article state what is known here instead of "4 or 5 of 64".
+- **Design.**
+  - Tool: tools/batch_fate_long.py (this commit), with tests/test_batch_fate_long.py. It calls run_chunk of
+    tools/batch_fate.py segment by segment, each from the final states of the previous one. With a window of one soft
+    token the state is the loop's whole memory, so the segments continue one trajectory (tested on a stand-in map:
+    bitwise equal to an uncut run).
+  - Starts: the 64 start states of run BF (SHA-256 4ef7a03b028bbf58...; the tool refuses any other), iterated as one
+    batch of 64. Float64 on the CPU, 8 threads: the local GPU is in use by other work. BF ran on the GPU, so this is
+    not a bitwise continuation of BF: device rounding differs and trajectories separate within a few hundred steps,
+    as they do between layouts. It is a new realization from the same starts.
+  - Horizon 100,000 steps in 40 segments of 2500. Capture: the criterion of BF, the first step t at which
+    |x_t - x_{t-q}| / |x_t| < 1e-9 for some q <= 64. The detector's memory restarts with each segment, so a capture
+    in the first q steps of a segment is recorded up to q steps late. Captured rows stay in the batch (the layout
+    never changes) and are checked: every recorded state within 1e-7 (relative) of a cycle state saved at capture,
+    and the same period detected again at the start of every later segment. States are recorded every 500 steps.
+  - A checkpoint is written after each segment and a restart resumes from it. Measured in three short pilots
+    (bfl-timing-20261111*, 40 to 60 steps, kept): 1.4 to 1.6 s per step with 8 or 16 threads, 2.7 s with 4; about 42
+    hours in all. No rented resource is used.
+  - Output: ../neural-shrimp-data/explore/llm-soft-loop/batch-fate/bfl1 (long.npz, long.json, checkpoint.npz,
+    run.log), a compact receipt in docs/batch-fate/.
+- **Readings fixed in advance.** BF's 14 captures in 931,328 run-steps at risk give 1.5e-5 captures per step (95 %
+  Poisson interval 0.8e-5 to 2.6e-5). At a constant rate that predicts 17 of 64 captured by step 20,000, 34 by step
+  50,000 and 50 by step 100,000 (36 to 59 over the interval).
+  - *Long transient:* captures continue through the run, including its second half, and at least 32 of the 64 starts
+    are captured by step 100,000.
+  - *Attractor at this horizon:* captures stop: fewer than 16 of 64 in all and none in the second half of the run.
+  - *Unresolved:* anything else, for example a rate that falls with time. Then we report the counts per fifth of the
+    run and draw no conclusion about the eventual fate.
+  - *Would surprise us:* a captured row that leaves its cycle, or captures spread over many different orbits.
+- **Limits.** One cell, one model, 64 starts, one realization. Captures are recurrence candidates with sampled
+  persistence, without Newton or stability verification. An interim census (after steps 20,000 and 50,000) may be
+  reported as provisional before the run ends; the article's sentence is written from BF's exact counts and does not
+  wait for this run.
