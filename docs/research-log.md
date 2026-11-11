@@ -33806,3 +33806,38 @@ bracket it). RI1 remains one model, one line and four matched pairs. The BFL cen
 entry when it ends.
 
 _commit `0399fee2e953` before this update_
+
+## 2026-11-11 07:08 UTC: After the audit: article captions corrected and committed; the two blog posts updated (uncommitted, for the author to commit)
+
+**Chaos article** (private submission repository, commit `29279a5389bf`). The audit items of the previous entry are
+committed, with draft alt text for the 27 figures (`alt-text.txt`). Writing the alt text compared every caption with
+its image and led to four caption corrections: (i) in the followed-attractor panel of the period-6 shrimp, about 90 %
+of the panel is white and the caption named only "light gray: attractor lost"; the follow file has 54,112 cells of the
+plotted window labeled -1 (not computed, never reached by the following) and 1,041 labeled 0 (lost), so the caption
+now also names the white cells; (ii) the off-scale first ratio in the ratio figure is marked by a triangle at the top
+edge, not an arrow; (iii) the two lines in the multiplier figure are black segments, not ticks; (iv) the caption of
+the retained-feedback figure names the color bar's quantity. Differences left as they are: panel titles that round
+the caption's numbers (21 % and 2 % for 20.8 % and 1.7 %; a truncated beta), fractions in one row of titles and
+percentages in the other of the direction-and-layer figure, and two figures whose panels carry no letters. The
+article stays at 36 pages. The report does not contain these four captions in that form.
+
+**Research Note (blog).** The post received the same items as the report, generated from its backup by a script of
+exact, single-match replacements: the portrait-cell caveat with a new section and table, the completed rotation
+(120 angles; the first map and eleven later ones start afresh), the Huginn wording and the corrected accuracy-break
+paragraph of 8 November, and three sections with their figures for the runs TK, RI1 and LF3 (labeled Tables U1 and
+U2 and Figures U1 to U3, linking to files at commits `0399fee2` and `3e831483`). Its manifest was updated: 11
+entries whose phrases changed were rebound and 265 entries were added for the new numbers, each bound to a phrase and
+line of the report at `3e831483`; the three figures are byte-identical copies. Checks on a scratch copy of the site:
+the pinned Hugo build with warnings as errors, the site check, the provenance check (5198 of 5198 numbers found, 110
+pinned links resolve), the three bundle verifiers and the public-repository check all pass.
+
+**Short read.** Three changes: the attractor video's caption says that some trajectories leave the chaotic set in
+longer runs; the rotation video's caption no longer says that every map continues from the previous angle; the scope
+paragraph has one sentence on the exploratory test of ordinary generation. A revision receipt of 10 November records
+them. The other posts and the glossary pages needed no change.
+
+**Not done.** The blog changes are not committed or published (the author commits that repository), and the posts'
+modification dates are unchanged. The alt text is a draft that the author has not yet reviewed. BFL is still
+running (interim reading at step 17,500: 15 of 64 starts captured; provisional).
+
+_commit `3e8314838968` before this update_
