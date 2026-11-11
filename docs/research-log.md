@@ -33741,3 +33741,68 @@ _commit `21548ca2dc5d` before this correction_
   persistence, without Newton or stability verification. An interim census (after steps 20,000 and 50,000) may be
   reported as provisional before the run ends; the article's sentence is written from BF's exact counts and does not
   wait for this run.
+
+## 2026-11-11 06:27 UTC: Report and Chaos article updated after an audit: portrait-cell caveat, completed rotation, Huginn wording, runs TK, RI1 and LF3 written up
+
+The human asked on 2026-11-10 for an audit of the Chaos article against what was found after it was last frozen
+(1 November), then for every item of the audit to be applied, with the counts at the portrait cell stated exactly
+instead of "4 or 5 of 64". This pass made no new computation except the recount of run BF recorded in the BFL run
+card above. The 100,000-step census of run BFL is still running and nothing here rests on it.
+
+**Changed in paper/llm/main.tex** (204 pages; it was 197):
+
+- *Portrait cell.* New paragraph "Whether this set is an attractor" with a table of run BF: 5, 5 and 4 of the same
+  64 starts were captured by a periodic orbit within 5000 steps in the three batch layouts (14 captures in 192 runs,
+  12 different starts, 13 on the period-4 orbit and one on a period-8 orbit, steps 1087 to 4741, none before step
+  1000). The text before it and the caption of the portrait figure now say that the set may be a long-lived chaotic
+  transient. The captures are recurrence candidates, not refined by Newton's method.
+- *Rotation.* The first run finished 103 of the 120 planned angles and a later run computed the other 17; the text
+  and the figure caption now say 120 and cite docs/morph-fill-receipt.json and docs/morph-continuity.json.
+- *Huginn.* "Found no chaotic regime" is replaced by "we have not established chaos in this loop", with what the
+  exploratory float32 maps of the relaxed loop did and did not show, in the Huginn section and in the Discussion.
+- *Feeding back only the most probable tokens (run TK)*, at the end of the appendix on sampled decoding: a table and
+  a figure (docs/lf3-tk/topk-summary.json, tools/plot_topk.py).
+- *Ordinary generation at the soft map's settings (run RI1)*, in the same appendix: one figure
+  (docs/ri/ri1-receipt.json, tools/plot_real_inference.py).
+- *A model built mostly from convolutions (run LF3)*, in the appendix on replication and scale: one figure
+  (docs/lf3-tk/lfm3-summary.json, tools/plot_lfm3.py). LFM3 is not counted among the fifteen models or the families,
+  and it is not added to the scale table or figure: its labels rest on one twin offset and no orbit was verified.
+- Sentences elsewhere were aligned with these three additions: the introduction's remark on Soft Thinking, "Memory
+  and sampling", "Other models", "What is and is not claimed", the steering sentence of the Discussion and the
+  limitations. The statement that ordinary generation "is not tested here" became a report of the one exploratory
+  test, which found no detected dependence on the soft map's regime.
+- *Code and data availability* names the reproduction kit of the period-8 orbit (tools/recreate_p8.py,
+  docs/reproduce-p8).
+- Links to files added after the tag arxiv-v1 use a new macro that points to commit 0399fee2e953.
+- paper/llm/references.bib: the LFM3 model repositories, with the two revisions pinned in docs/lf3-tk/receipt.json.
+
+**Corrections to earlier entries of this log, found while recomputing each quoted number from the stored files.**
+
+- RI1 result (2026-10-22 05:17 UTC). (i) "Split pairs almost never re-merge (3 of 960)": of the 611 pairs whose
+  texts parted, 4 came together again for 50 tokens. (ii) The median growth rates quoted for the nudge 1e-8, -0.0016
+  to +0.0013 per step, are those of the nudge 1e-3 with the plain sampler; at 1e-8 the medians run from -0.0010 to
+  +0.0009. The report states bounds that cover each case (within 0.0011 per token of zero at 1e-8, within 0.0021
+  overall). (iii) The matched cells' soft entropies agree within 0.014 %, not 0.01 %.
+- LF3 and TK results (2026-10-28 08:06 UTC). (i) That 50 is "the Hugging Face default" and that +0.53 is "the
+  highest of the 20 models measured" were not rechecked and are not used in the report. (ii) The statements about
+  twins drawing different tokens are given in the report as counts per 128,000 measured steps, recomputed from the
+  arrays. (iii) The steering scale of LFM3 was recomputed from the two vectors.json files of the run: the natural
+  contrast between the two groups of texts corresponds to alpha = 0.42 and 0.55 (philosophy, base and post-trained)
+  and 0.27 and 0.27 (hostility-vs-kindness), so the maps, which stop at 0.12, cover weak steering only.
+- Two wordings were rejected at the check. A first draft said that every other model of the report moves
+  information between positions "by attention alone"; the configuration of Qwen3.5 shows a convolution of kernel 4
+  inside its linear-attention layers, so the report says only that those models are stacks of attention blocks. A
+  release date for LFM3 could not be confirmed (the repository records show creation dates of 23 and 26 October),
+  so the reference gives the pinned revisions and the day they were used.
+
+**Chaos article** (private submission repository), the same items in short form: the caveat and the counts at the
+portrait cell, 120 angles, the Huginn wording, one sentence each on LFM3, on feeding back the most probable tokens and
+on ordinary generation, a clause naming the third proof in the introduction, the memory section rewritten as prose,
+the pointer to the reproduction kit, and the versions of the AI tools. It stays at 36 pages and its abstract at 249
+words. The family and model counts are unchanged in both documents.
+
+**Not done.** No orbit of LFM3 was verified or continued. The top-k setting 15 itself was not run (10 and 20
+bracket it). RI1 remains one model, one line and four matched pairs. The BFL census will be reported in its own
+entry when it ends.
+
+_commit `0399fee2e953` before this update_
