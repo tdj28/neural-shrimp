@@ -33,6 +33,8 @@
 % Later additions (the longer runs at the portrait cell, the completed rotation, top-k feedback, ordinary generation,
 % a further model family, the Huginn status record, the reproduction kit): one commit that contains every file cited.
 \newcommand{\laterrepo}[1]{\href{\repourl/blob/0399fee2e9537a50993482aea8ec417e70286ac4/#1}{\nolinkurl{#1}}}
+% The census of 100,000 steps at the portrait cell: its tools, receipt and figure.
+\newcommand{\censusrepo}[1]{\href{\repourl/blob/bad2d5c576e913ab9472cd3b2faefa6d769f60ad/#1}{\nolinkurl{#1}}}
 \usepackage{microtype}
 \hypersetup{pdftitle={Chaos and bifurcations in continuous language-model feedback},
   pdfsubject={Supplementary material to the article of the same title, arXiv:2610.31692}}
@@ -193,6 +195,8 @@ exponents finite-time exponents and reserve ``chaotic attractor'' and ``chaotic 
 Where we draw such sets (Figure~\ref{fig:strangeattractor}) we call them numerically observed attractors: sets that the
 tested trajectories approach and then stay near over the recorded horizon. Their invariance and attraction are
 finite-time numerical evidence, not certified; the interval-certified cycles are attractors without qualification.
+The one such set that we followed far longer, that of Figure~\ref{fig:strangeattractor}(a), proved to be a long-lived
+chaotic transient: most trajectories left it within $10^5$ steps (Section~\ref{sec:maps}).
 The loop itself is the soft-token feedback map, iterated in discrete time, not a Poincar\'e return map; by a return map
 of a scalar observable $s$ we mean the graph of $s_{n+k}$ against $s_n$.
 Each claim is stated for the system on which it was measured. The autonomous soft-token map (a fixed prefix and one
@@ -1178,14 +1182,15 @@ Split: the step of the recording at which the texts first differ. Float64; \repo
 \label{tab:chaostexts}
 \end{table}
 
-\paragraph{What the attractors look like.} The numerically observed attractors can be drawn. At the cell of strongest chaos on
+\paragraph{What the chaotic sets look like.} The chaotic sets that the trajectories approach can be drawn. At the cell of strongest chaos on
 the row $\log_{10}T=-0.148$ of Figure~\ref{fig:teaser} ($\alpha=0.07248$), 512 trajectories started near the fixed
-start and recorded for 600 steps after 400 transient steps (float64) approach, all but 14 of them, one numerically
-observed chaotic attractor; the other 14 reach a coexisting period-4 orbit. Projected on the first two principal axes
+start and recorded for 600 steps after 400 transient steps (float64) approach, all but 14 of them, one
+chaotic set; the other 14 reach a coexisting period-4 orbit. Projected on the first two principal axes
 of its states (61.6\,\% of the variance; 77.4\,\% with the third), it shows thin folded filaments, colored by the most
-probable next token, and successive magnifications show layers within layers (Figure~\ref{fig:strangeattractor}). Longer
-runs show that trajectories can leave this set for the period-4 orbit, so it may be a long-lived chaotic transient
-rather than an attractor (see the next paragraph). The loop is a map, not a
+probable next token, and successive magnifications show layers within layers (Figure~\ref{fig:strangeattractor}). Runs
+a hundred times longer show that trajectories leave this set for a periodic orbit at a steady rate, about one in
+60\,000 steps, so it is a long-lived chaotic transient rather than an attractor (see the next paragraph). The
+portrait and the quantities below describe it over horizons far shorter than that lifetime. The loop is a map, not a
 flow: one step is one pass through the network, and a typical step moves the state by 0.30 in all 896 dimensions,
 more than the mean distance (0.21) of the states from their center, so consecutive states of one trajectory usually
 lie far apart on the attractor rather than along one filament. The four leading Lyapunov exponents (QR iteration, 3000 steps) are $0.274$, $-1.052$,
@@ -1249,18 +1254,77 @@ the cell of Figure~\ref{fig:strangeattractor}(a) ($\alpha=0.07248$, $\log_{10}T=
 \end{table}
 
 How many starts are captured therefore depends on how long the trajectories are followed and on the rounding, and
-which starts are captured is not a property of the start. The set of Figure~\ref{fig:strangeattractor}(a) may be a
-long-lived chaotic transient, a chaotic saddle, rather than an attractor
-\cite{grebogi1983crises,lai2011transient}. These runs cannot tell the two apart. If trajectories keep leaving at the
-observed rate, about one capture in 67\,000 steps of an uncaptured trajectory, most of the 64 starts would be
-captured within $10^5$ steps. If the set is an attractor whose basin is finely interleaved with that of the period-4
-orbit, the captures would stop. The same kind of event occurs across the maps: of 192 sampled chaos-labeled cells in
+which starts are captured is not a property of the start. The set of Figure~\ref{fig:strangeattractor}(a) may
+therefore be a long-lived chaotic transient, a chaotic saddle, rather than an attractor
+\cite{grebogi1983crises,lai2011transient}. Runs of 5000 steps cannot tell the two apart, but they predict what longer
+runs would show. If trajectories keep leaving at the observed rate, about one capture in 67\,000 steps of an
+uncaptured trajectory, about 50 of the 64 starts are captured within $10^5$ steps (36 to 59 over the 95\,\%
+interval of that rate). If the set is an attractor whose basin is finely interleaved with that of the period-4 orbit,
+the captures stop.
+
+We therefore followed the same 64 starts for $10^5$ steps, as one batch in float64 on the CPU
+(\censusrepo{tools/batch_fate_long.py}). The prediction and the criteria for reading the outcome were written down
+before the run. By step $10^5$, 53 of the 64 starts had been captured (Figure~\ref{fig:batchfatelong}). The captures
+did not stop: 32 came in the first half of the run and 21 in the second, the first at step 899 and the last at step
+96\,913. Fifty-two are on the period-4 orbit and one is on the period-8 orbit; these are the two orbits of the
+shorter runs, and every cycle saved here lies within a relative $9\times10^{-9}$ of one of them. Every captured
+trajectory was still on its cycle at the end of the run.
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lccccccc}
+\toprule
+by step & 1000 & 2000 & 5000 & $10^4$ & $2\times10^4$ & $5\times10^4$ & $10^5$ \\
+\midrule
+starts captured, of 64 & 1 & 2 & 5 & 10 & 19 & 32 & 53 \\
+predicted from the 5000-step runs & & & & & 17 & 34 & 50 \\
+\bottomrule
+\end{tabular}
+\caption{Starts captured by a periodic orbit when the 64 starts of Table~\ref{tab:batchfate} are followed for $10^5$
+steps (one batch, float64, CPU), with the numbers predicted beforehand from the rate of the 5000-step runs
+(\censusrepo{docs/batch-fate/bfl1-receipt.json}).}
+\label{tab:batchfatelong}
+\end{table}
+
+The rate is steady. The run has 53 captures in $3.19\times10^{6}$ steps of trajectories not yet captured, one in
+about 60\,000 steps (95\,\% interval 46\,000 to 80\,000), against one in 67\,000 for the shorter runs. Taken by
+fifths of the run, the rate is 1.7, 1.2, 2.1, 1.5 and 1.9 captures per $10^5$ such steps. Neither a comparison of the
+two halves of the run (exact binomial test, $p=0.13$) nor a Kolmogorov--Smirnov test of the capture times against a
+constant rate ($p=0.57$) rejects a constant rate. Eight captures fall within 5000 steps near step 59\,000, where two
+were expected; 6.7\,\% of 2000 simulated runs at a constant rate contain a cluster as improbable. The 11 trajectories
+not captured were still on the chaotic set at the end. None of their states, recorded every 500 steps, comes within
+0.17 of the state norm of the period-4 orbit, and no two recorded states of a trajectory coincide: the closest pair
+is a relative $2.6\times10^{-7}$ apart, where a capture requires $10^{-9}$.
+
+At this cell the chaotic set of Figure~\ref{fig:strangeattractor}(a) is therefore a long-lived chaotic transient for
+these starts, not an attractor. A trajectory stays on it for about 60\,000 steps on average and then settles on a
+periodic orbit within a few hundred steps. The portrait, the Lyapunov exponents and the reconstruction above were
+measured over 600 to 6000 steps, far below that lifetime, and describe the chaotic set over such horizons. The
+statement has limits. It concerns one cell of one model, 64 starts and one realization of the rounding. The 11
+remaining trajectories were not followed further, so that every trajectory eventually leaves is an extrapolation of
+the steady rate. The captures are recurrence candidates, not refined by Newton's method or tested for stability, and
+a cycle longer than 64 steps would not have been detected. The banded set at $\alpha=0.06626$ was not followed in
+this way. The same kind of event occurs across the maps: of 192 sampled chaos-labeled cells in
 each of the two main maps, 16 and 49 ended on periodic orbits within $10^5$ steps (Section~\ref{sec:methodsbrief}).
 
 \begin{figure}[tbp]
 \centering
+\includegraphics[width=\linewidth]{fig-batch-fate-long.png}
+\caption{The 64 starts of Table~\ref{tab:batchfate} followed for $10^5$ steps at the cell of
+Figure~\ref{fig:strangeattractor}(a) (one batch, float64, CPU; \censusrepo{tools/batch_fate_long_receipt.py}). (a)
+Number of starts not yet captured by a periodic orbit, on a logarithmic axis, against the step (black). Dashed line:
+the decay at the constant rate of the 5000-step runs; band: the 95\,\% interval of that rate. Both were fixed before
+this run. (b) The step at which each start was captured. Filled circles: captures on the period-4 orbit; open
+diamond: the one capture on the period-8 orbit; gray triangles at the right: the 11 starts not captured within $10^5$
+steps. Blue open symbols: captures of the same starts in the three layouts of the 5000-step runs, which ended at the
+dotted line.}
+\label{fig:batchfatelong}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
 \includegraphics[width=\linewidth]{fig-strange-attractor.png}
-\caption{Projected geometry of a numerically observed chaotic attractor of the soft-token loop (Qwen2.5-0.5B-Instruct,
+\caption{Projected geometry of a chaotic set of the soft-token loop (Qwen2.5-0.5B-Instruct,
 philosophy direction at layer 12,
 $\log_{10}T=-0.148$, float64; \repo{tools/attractor_portrait.py}, \repo{tools/plot_attractor_portrait.py}). (a)
 298\,800 states of 498 trajectories at $\alpha=0.07248$, projected on their first two principal axes and colored by
@@ -1268,8 +1332,8 @@ the most probable next token (the return symbol in the legend marks a line break
 coordinate, $s_{n+1}$ against $s_n$. (e) Local slope of the correlation sum over the first eight principal coordinates; dashed, the
 Kaplan--Yorke dimension 1.26; no decade of distance has a constant slope. (f) One of the three bands of the chaotic
 attractor at $\alpha=0.06626$ (purple) and sampled points of the unstable manifold of the embedded period-3 saddle (black;
-\repo{tools/unstable_manifold.py}). In longer runs some trajectories leave the set of (a) for a periodic orbit (see
-text).}
+\repo{tools/unstable_manifold.py}). The set of (a) is a long-lived chaotic transient: followed for $10^5$ steps, 53 of 64
+trajectories left it for a periodic orbit (see text).}
 \label{fig:strangeattractor}
 \end{figure}
 
