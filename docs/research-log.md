@@ -33842,3 +33842,78 @@ modification dates are unchanged. The alt text is a draft that the author has no
 running (interim reading at step 17,500: 15 of 64 starts captured; provisional).
 
 _commit `3e8314838968` before this update_
+
+## 2026-11-12 10:56 UTC: BFL result: at the portrait cell, 53 of 64 trajectories left the chaotic set within 100,000 steps, at a steady rate
+
+Run card: entry of 2026-11-11 02:25 UTC. Launched 2026-11-11 02:27 UTC at commit `1c80e0dbc573` (launch.txt); the
+process ended on 2026-11-12 at 10:49 UTC after 32.4 hours of iteration on the CPU (the pilots had predicted about 42).
+The run's record names commit `14d2bd379307`, the head when it ended; the five tool modules it imports are identical
+at both commits (checked blob by blob by the receipt tool). No rented resource was used.
+
+**Gates** (tools/batch_fate_long_receipt.py, which refuses to write a receipt when one fails; all passed). The 64
+start states equal those of run BF bit for bit. The run reached step 100,000 in 40 segments. Its record agrees with
+its arrays. No captured row left its cycle: every state recorded after a capture, and every final state, lies
+within 1.5e-9 (relative) of a saved cycle state, against a tolerance of 1e-7, and every later segment detected the
+same period again. Every saved cycle is primitive.
+
+**Census.** 53 of the 64 starts were captured, 11 were not.
+
+| by step | 1000 | 2000 | 5000 | 10,000 | 20,000 | 50,000 | 100,000 |
+|---|---|---|---|---|---|---|---|
+| captured (of 64) | 1 | 2 | 5 | 10 | 19 | 32 | 53 |
+
+- Capture steps run from 899 to 96,913; 32 fall in the first half of the run and 21 in the second. Half of the starts
+  were captured by step 45,035.
+- 52 rows are on a period-4 cycle and one (start 14, step 55,103) on a period-8 cycle. Compared state by state, up
+  to a shift, these are the two cycles of run BF: every saved cycle lies within 9e-9 (relative) of BF's. No other
+  cycle occurred.
+- The 11 uncaptured rows are still far from both cycles: none of their recorded states comes within 0.17 of the
+  state norm of the period-4 cycle, and their final states lie at 0.66 or more. Their recorded states (every 500
+  steps) show no repetition: the closest pair in a row is 2.6e-7 to 1.9e-5 apart, at unrelated steps, against a
+  median of about 1.1. A cycle longer than 64 steps would not have been detected as a capture.
+- Convergence is quick once a trajectory leaves. Eight rows have a record in the 40 steps before their capture,
+  and all eight lie within 3.1e-6 of the cycle there. For the other 45 rows the last record before the capture is 91
+  to 488 steps earlier: 44 of them lie at 0.33 of the state norm or more from the cycle, and one, 103 steps before,
+  at 2.0e-5. The capture step therefore lags the departure by roughly a hundred steps, not thousands.
+
+**Rate.** 53 captures in 3,189,769 trajectory-steps at risk: 1.66e-5 per step (exact 95 % Poisson interval 1.24e-5
+to 2.17e-5), a mean lifetime on the chaotic set of about 60,000 steps (46,000 to 80,000). Run BF had given 1.50e-5
+(0.82e-5 to 2.52e-5), recomputed here from its arrays.
+
+| fifth of the run (thousand steps) | 0 to 20 | 20 to 40 | 40 to 60 | 60 to 80 | 80 to 100 |
+|---|---|---|---|---|---|
+| captures | 19 | 10 | 13 | 6 | 5 |
+| steps at risk | 1,106,491 | 812,661 | 621,685 | 391,072 | 257,860 |
+| rate per step (1e-5) | 1.72 | 1.23 | 2.09 | 1.53 | 1.94 |
+
+- A constant rate is not rejected. First half against second half: 1.42e-5 and 2.24e-5 per step, exact binomial
+  p = 0.13. Capture times against the exponential law cut at the horizon: Kolmogorov-Smirnov p = 0.57 (with the rate
+  fitted, so this p is too large rather than too small).
+- One cluster: eight captures between steps 56,769 and 61,540, where 2.1 were expected in 5000 steps. Of 2000
+  simulated constant-rate censuses, 6.7 % contain a 5000-step window as improbable, so the cluster is unusual but not
+  beyond chance. Two rows were captured one step apart (30,613 and 30,614); their states differed by more than the
+  state norm at every record around that step, so they did not travel together.
+- The rows of a batch do not interact, and nothing above suggests otherwise.
+
+**Against the readings fixed in advance.** The run card predicted, at BF's rate, 17 of 64 by step 20,000, 34 by
+50,000 and 50 by 100,000 (36 to 59). Observed: 19, 32 and 53. The criterion for a long transient (captures through
+the second half, at least 32 of 64 in all) is met; the criterion for an attractor at this horizon (fewer than 16,
+none in the second half) is not. Nothing listed under "would surprise us" happened.
+
+**Reading.** At this cell (alpha = 0.07248, log10 T = -0.148) the chaotic set of the article's portrait is a
+long-lived chaotic transient for these starts, not an attractor: trajectories leave it for the period-4 orbit at a
+steady rate of about one in 60,000 steps, and 83 % had left by step 100,000. The portrait, its exponents and its
+dimension estimate were measured over 1000 to 3000 steps, far below the lifetime, and stay valid as descriptions of
+the chaotic set over such horizons.
+
+**Limits.** One cell, one model, 64 starts drawn near the fixed start, one realization on the CPU. The 11 remaining
+trajectories were not followed further, so "every trajectory leaves" is an extrapolation of the steady rate, not an
+observation. Captures are recurrence candidates with sampled persistence; no cycle of this run was refined by
+Newton's method or tested for stability. Other chaotic cells were not tested by this run (the earlier samples of 192
+labeled cells per map, each followed once for 100,000 steps, found 16 and 49 that ended on periodic orbits).
+
+Receipt docs/batch-fate/bfl1-receipt.json; figure paper/llm/figures/fig-batch-fate-long.png (the survival curve
+against the band predicted from BF, and the capture step of every start in this run and in BF's three layouts);
+tests tests/test_batch_fate_long_receipt.py (8 pass, with the 8 of the census tool).
+
+_commit `14d2bd379307` before this update_

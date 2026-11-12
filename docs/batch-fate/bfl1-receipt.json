@@ -1,0 +1,1187 @@
+{
+ "run": "llm-soft-loop/batch-fate/bfl1",
+ "args": {
+  "model": "qwen0.5b",
+  "layer": 12,
+  "vectors": "llm-phase-map/vectors-l12",
+  "concept": "philosophy",
+  "alpha": 0.07248,
+  "log_t": -0.148,
+  "starts": 64,
+  "spread": 0.05,
+  "seed": 100,
+  "steps": 100000,
+  "segment": 2500,
+  "max_period": 64,
+  "tol": 1e-09,
+  "record_every": 500,
+  "stay_tol": 1e-07,
+  "dtype": "float64",
+  "device": "cpu",
+  "threads": 8,
+  "expect_starts_sha": "4ef7a03b028bbf58",
+  "out": "llm-soft-loop/batch-fate/bfl1"
+ },
+ "labels": "captured = recurrence candidate (relative distance below tol to a state up to max_period steps back) with sampled persistence; no Newton refinement, no stability test",
+ "source": {
+  "launch_commit": "1c80e0dbc573",
+  "commit_recorded_at_end": "14d2bd379307551eda24780d939a149aed9cd9a9",
+  "module_blobs_identical": true,
+  "module_blobs": {
+   "tools/batch_fate_long.py": "69a6f5bcd47499b3b354297f01c49937a8651276",
+   "tools/batch_fate.py": "66394910ac9930d88b4b16c6d7e9f7f6a2e9622c",
+   "tools/explore_llm_soft_loop.py": "29045001ddc242d1d636649b16bc77f645993244",
+   "tools/explore_llm_attractors.py": "143c6eed048715a50d60120b04eaef7c72231c27",
+   "tools/explore_llm_phase_map.py": "fa7339d85111b2dfdb7981b0f1c9682aa8c8ef1e"
+  }
+ },
+ "files": {
+  "long.npz": {
+   "sha256": "d77cf4f0250ec347f4d664399a9962235b7c1c00dcf7579576dec52bc123d55d",
+   "bytes": 81283240
+  },
+  "long.json": {
+   "sha256": "4d6acbd16f33ca81f47a3c527238bdd7636c558f5bc9ae48481c512fed5b1fa0",
+   "bytes": 1857
+  },
+  "run.log": {
+   "sha256": "1cd0c6a4d7dbd0fb0a5a33b23144062e1853f344d887f4ad28a030ba353a3452",
+   "bytes": 5456
+  },
+  "launch.txt": {
+   "sha256": "1935af5538593700b598541123dfe69d9d7a3e7be356ff7ea3d81d985516ca64",
+   "bytes": 56
+  }
+ },
+ "starts_sha256": "4ef7a03b028bbf5890ab567cb9fa671c128658f33a8550b98df1cbb2e3d2a90c",
+ "starts_equal_run_bf": true,
+ "steps": 100000,
+ "starts": 64,
+ "captured": 53,
+ "not_captured": 11,
+ "captured_in_second_half": 21,
+ "first_and_last_capture_step": [
+  899,
+  96913
+ ],
+ "periods": {
+  "4": 52,
+  "8": 1
+ },
+ "orbits": {
+  "period 4 of run BF": 52,
+  "period 8 of run BF": 1
+ },
+ "rows_on_another_orbit": [],
+ "reference_cycles_of_run_bf": {
+  "4": "b32_cyc_state_0",
+  "8": "b32_cyc_state_35"
+ },
+ "same_orbit_tolerance": 1e-06,
+ "largest_distance_from_cycle_after_capture": 1.415308012472289e-09,
+ "captured_by": {
+  "1000": 1,
+  "2000": 2,
+  "5000": 5,
+  "10000": 10,
+  "20000": 19,
+  "30000": 23,
+  "40000": 29,
+  "50000": 32,
+  "60000": 42,
+  "70000": 44,
+  "80000": 48,
+  "90000": 51,
+  "100000": 53
+ },
+ "fifths": [
+  {
+   "steps": [
+    0,
+    20000
+   ],
+   "captures": 19,
+   "steps_at_risk": 1106491,
+   "per_step": 1.7171400400003252e-05,
+   "interval95_per_step": [
+    1.033830475292319e-05,
+    2.6815268783555935e-05
+   ]
+  },
+  {
+   "steps": [
+    20000,
+    40000
+   ],
+   "captures": 10,
+   "steps_at_risk": 812661,
+   "per_step": 1.2305253974289402e-05,
+   "interval95_per_step": [
+    5.9008475811346105e-06,
+    2.262980017746364e-05
+   ]
+  },
+  {
+   "steps": [
+    40000,
+    60000
+   ],
+   "captures": 13,
+   "steps_at_risk": 621685,
+   "per_step": 2.091091147446054e-05,
+   "interval95_per_step": [
+    1.1134179674600162e-05,
+    3.575829546821762e-05
+   ]
+  },
+  {
+   "steps": [
+    60000,
+    80000
+   ],
+   "captures": 6,
+   "steps_at_risk": 391072,
+   "per_step": 1.5342443335242615e-05,
+   "interval95_per_step": [
+    5.63040630239662e-06,
+    3.339404002976098e-05
+   ]
+  },
+  {
+   "steps": [
+    80000,
+    100000
+   ],
+   "captures": 5,
+   "steps_at_risk": 257860,
+   "per_step": 1.93903668657411e-05,
+   "interval95_per_step": [
+    6.295999341186772e-06,
+    4.5250647945872455e-05
+   ]
+  }
+ ],
+ "rate": {
+  "captures": 53,
+  "steps_at_risk": 3189769,
+  "per_step": 1.6615623263001176e-05,
+  "interval95_per_step": [
+   1.2446242010740423e-05,
+   2.1733644326345967e-05
+  ]
+ },
+ "lifetime": {
+  "mean_steps": 60184.32075471699,
+  "interval95_steps": [
+   46011.61153575057,
+   80345.53716190437
+  ],
+  "half_of_the_starts_captured_by_step": 45035
+ },
+ "rate_of_run_bf": {
+  "captures": 14,
+  "steps_at_risk": 931328,
+  "per_step": 1.5032297965915338e-05,
+  "interval95_per_step": [
+   8.218297180263667e-06,
+   2.5221641700706493e-05
+  ]
+ },
+ "predicted_from_run_bf": {
+  "20000": {
+   "at_rate": 16.61825044647661,
+   "interval": [
+    9.700384832808481,
+    25.353730537787648
+   ],
+   "observed": 19
+  },
+  "50000": {
+   "at_rate": 33.81732195775169,
+   "interval": [
+    21.565223592615,
+    45.86577569734463
+   ],
+   "observed": 32
+  },
+  "100000": {
+   "at_rate": 49.76571790934346,
+   "interval": [
+    35.863902363363145,
+    58.86171732720287
+   ],
+   "observed": 53
+  }
+ },
+ "constant_rate_tests": {
+  "halves": {
+   "captures": [
+    32,
+    21
+   ],
+   "steps_at_risk": [
+    2250252,
+    939517
+   ],
+   "per_step": [
+    1.422062951171691e-05,
+    2.235191060938759e-05
+   ],
+   "binomial_p": 0.13048230662832014
+  },
+  "uniform": {
+   "ks_statistic": 0.1050291871447101,
+   "ks_p": 0.566592203616954
+  }
+ },
+ "densest_window": {
+  "window_steps": 5000,
+  "captures": 8,
+  "window_starts_at_step": 56769,
+  "expected_at_constant_rate": 2.051215307440758,
+  "poisson_tail_of_that_window": 0.0012843702537833016,
+  "simulated_share_with_a_window_as_improbable": 0.067,
+  "draws": 2000,
+  "seed": 0
+ },
+ "reading_under_the_run_card": "long transient",
+ "starts_captured_here_and_in_run_bf": [
+  0,
+  8,
+  9,
+  18,
+  20,
+  31,
+  32,
+  46,
+  50,
+  62,
+  63
+ ],
+ "captures_of_run_bf": {
+  "b32": {
+   "0": 3840,
+   "20": 1308,
+   "31": 4266,
+   "35": 1876,
+   "63": 2698
+  },
+  "b64": {
+   "8": 1974,
+   "18": 2314,
+   "20": 2254,
+   "32": 4523,
+   "62": 1087
+  },
+  "b1": {
+   "9": 2113,
+   "31": 4595,
+   "46": 4741,
+   "50": 3739
+  }
+ },
+ "captured_rows": {
+  "0": {
+   "capture_step": 58518,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 6.330153824261351e-10,
+   "smallest_gap_within_cycle": 0.9124525282098842,
+   "largest_distance_after_capture": 7.987885851314966e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "1": {
+   "capture_step": 12904,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 6.060429610102049e-10,
+   "smallest_gap_within_cycle": 0.9124525282078463,
+   "largest_distance_after_capture": 1.8299836117259128e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "2": {
+   "capture_step": 7692,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 3.4336415939018345e-09,
+   "smallest_gap_within_cycle": 0.9124525281743409,
+   "largest_distance_after_capture": 2.6055538545315895e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "3": {
+   "capture_step": 8642,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 1.320702560765494e-10,
+   "smallest_gap_within_cycle": 0.8590278986709172,
+   "largest_distance_after_capture": 7.603068566443949e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "4": {
+   "capture_step": 8715,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 7.632281113258283e-10,
+   "smallest_gap_within_cycle": 0.9124525282129584,
+   "largest_distance_after_capture": 1.345743900305506e-09,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "5": {
+   "capture_step": 56769,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 3.8283156100472323e-10,
+   "smallest_gap_within_cycle": 0.8590278986668406,
+   "largest_distance_after_capture": 4.2259408458462374e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "6": {
+   "capture_step": 59963,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 8.696223415275265e-10,
+   "smallest_gap_within_cycle": 0.9124525282139379,
+   "largest_distance_after_capture": 1.415308012472289e-09,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "7": {
+   "capture_step": 4453,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 7.724992862926205e-10,
+   "smallest_gap_within_cycle": 0.9124525282130441,
+   "largest_distance_after_capture": 4.315088090551444e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "8": {
+   "capture_step": 16478,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.5037344640428548e-09,
+   "smallest_gap_within_cycle": 0.8590278986323322,
+   "largest_distance_after_capture": 7.90674410223858e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "9": {
+   "capture_step": 91137,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.6296216493912108e-09,
+   "smallest_gap_within_cycle": 0.9124525281817403,
+   "largest_distance_after_capture": 2.786691605888027e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "10": {
+   "capture_step": 86871,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.203333235875812e-09,
+   "smallest_gap_within_cycle": 0.85902789863722,
+   "largest_distance_after_capture": 2.969037599928084e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "13": {
+   "capture_step": 53591,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 4.155771297502575e-10,
+   "smallest_gap_within_cycle": 0.8590278986663055,
+   "largest_distance_after_capture": 2.8727251433293247e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "14": {
+   "capture_step": 55103,
+   "period": 8,
+   "orbit": "period 8 of run BF",
+   "distance_to_reference": 8.933705427820734e-09,
+   "smallest_gap_within_cycle": 0.03094507219054423,
+   "largest_distance_after_capture": 9.75508906631022e-10,
+   "tokens": [
+    525,
+    498,
+    525,
+    498,
+    525,
+    498,
+    525,
+    498
+   ]
+  },
+  "15": {
+   "capture_step": 32524,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.8931166151178016e-09,
+   "smallest_gap_within_cycle": 0.9124525281793149,
+   "largest_distance_after_capture": 1.947146841728694e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "16": {
+   "capture_step": 19988,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 6.129322947368293e-10,
+   "smallest_gap_within_cycle": 0.9124525282083665,
+   "largest_distance_after_capture": 1.997212376011788e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "17": {
+   "capture_step": 8881,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.864992512511935e-09,
+   "smallest_gap_within_cycle": 0.9124525281795736,
+   "largest_distance_after_capture": 3.2780406865958564e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "18": {
+   "capture_step": 59037,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 3.029673463779847e-09,
+   "smallest_gap_within_cycle": 0.9124525281780587,
+   "largest_distance_after_capture": 3.6217185212914214e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "19": {
+   "capture_step": 18978,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 6.132655496906059e-10,
+   "smallest_gap_within_cycle": 0.9124525282083928,
+   "largest_distance_after_capture": 7.23654590870483e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "20": {
+   "capture_step": 9405,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 6.56182388022729e-10,
+   "smallest_gap_within_cycle": 0.9124525282116339,
+   "largest_distance_after_capture": 3.9951358677148136e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "21": {
+   "capture_step": 79031,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 6.511110322297653e-10,
+   "smallest_gap_within_cycle": 0.9124525282112516,
+   "largest_distance_after_capture": 1.2243668194604657e-09,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "22": {
+   "capture_step": 17980,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.033307476296686e-10,
+   "smallest_gap_within_cycle": 0.8590278986697826,
+   "largest_distance_after_capture": 2.293840974045549e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "23": {
+   "capture_step": 45035,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.1414041838914378e-09,
+   "smallest_gap_within_cycle": 0.8590278986382266,
+   "largest_distance_after_capture": 2.766660504708499e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "25": {
+   "capture_step": 1766,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 5.918549255935697e-10,
+   "smallest_gap_within_cycle": 0.9124525282067759,
+   "largest_distance_after_capture": 6.421983838642892e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "26": {
+   "capture_step": 96913,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 4.2448890978944273e-10,
+   "smallest_gap_within_cycle": 0.8590278986661574,
+   "largest_distance_after_capture": 4.0322553876681407e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "27": {
+   "capture_step": 42366,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 6.046637293561483e-10,
+   "smallest_gap_within_cycle": 0.9124525282077425,
+   "largest_distance_after_capture": 6.909457667968956e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "29": {
+   "capture_step": 4848,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.234159296780655e-09,
+   "smallest_gap_within_cycle": 0.8590278986367148,
+   "largest_distance_after_capture": 1.9612293892131105e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "30": {
+   "capture_step": 37626,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.630457363412611e-09,
+   "smallest_gap_within_cycle": 0.9124525281817323,
+   "largest_distance_after_capture": 6.190367764438511e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "31": {
+   "capture_step": 3008,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 6.469322626507586e-10,
+   "smallest_gap_within_cycle": 0.9124525282109359,
+   "largest_distance_after_capture": 2.238837430512308e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "32": {
+   "capture_step": 899,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 3.431053893901736e-09,
+   "smallest_gap_within_cycle": 0.9124525281743656,
+   "largest_distance_after_capture": 1.397071546716483e-09,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "33": {
+   "capture_step": 13802,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 3.011106098570749e-10,
+   "smallest_gap_within_cycle": 0.8590278986681649,
+   "largest_distance_after_capture": 6.497698069095747e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "34": {
+   "capture_step": 72094,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 3.2082167632257603e-10,
+   "smallest_gap_within_cycle": 0.8590278986678473,
+   "largest_distance_after_capture": 6.368722611817806e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "37": {
+   "capture_step": 23108,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.9370140222011492e-09,
+   "smallest_gap_within_cycle": 0.9124525281789105,
+   "largest_distance_after_capture": 2.0006371882041442e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "38": {
+   "capture_step": 11018,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 3.4563525539064328e-09,
+   "smallest_gap_within_cycle": 0.9124525281741328,
+   "largest_distance_after_capture": 1.0017401982711466e-09,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "39": {
+   "capture_step": 64955,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 6.241561530940313e-10,
+   "smallest_gap_within_cycle": 0.9124525282092126,
+   "largest_distance_after_capture": 1.0796168423349655e-09,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "40": {
+   "capture_step": 50828,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 3.369574930267709e-09,
+   "smallest_gap_within_cycle": 0.912452528174931,
+   "largest_distance_after_capture": 2.5274945125969357e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "41": {
+   "capture_step": 17201,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 6.02906286025773e-10,
+   "smallest_gap_within_cycle": 0.9124525282076094,
+   "largest_distance_after_capture": 3.082288620265044e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "43": {
+   "capture_step": 59607,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.8095730078450603e-09,
+   "smallest_gap_within_cycle": 0.9124525281800837,
+   "largest_distance_after_capture": 9.906727910111703e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "44": {
+   "capture_step": 39404,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.6567520528954335e-10,
+   "smallest_gap_within_cycle": 0.8590278986687399,
+   "largest_distance_after_capture": 2.1480904446406944e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "45": {
+   "capture_step": 30614,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.1593283305266953e-09,
+   "smallest_gap_within_cycle": 0.8590278986379363,
+   "largest_distance_after_capture": 5.654655282090118e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "46": {
+   "capture_step": 81149,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 5.992463471020818e-10,
+   "smallest_gap_within_cycle": 0.9124525282073337,
+   "largest_distance_after_capture": 3.0194578933205676e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "47": {
+   "capture_step": 43699,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.449965857110025e-09,
+   "smallest_gap_within_cycle": 0.8590278986332057,
+   "largest_distance_after_capture": 3.7749403713875063e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "48": {
+   "capture_step": 29930,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.5534602290595366e-09,
+   "smallest_gap_within_cycle": 0.8590278986315207,
+   "largest_distance_after_capture": 8.231976450543705e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "49": {
+   "capture_step": 26385,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.5326312986787297e-09,
+   "smallest_gap_within_cycle": 0.8590278986318597,
+   "largest_distance_after_capture": 5.737086973919871e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "50": {
+   "capture_step": 58741,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.094882286650396e-10,
+   "smallest_gap_within_cycle": 0.8590278986696566,
+   "largest_distance_after_capture": 5.029046337488458e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "52": {
+   "capture_step": 81790,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 3.1955921368928543e-10,
+   "smallest_gap_within_cycle": 0.8590278986678666,
+   "largest_distance_after_capture": 6.377180164221592e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "53": {
+   "capture_step": 61540,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.613373504579857e-09,
+   "smallest_gap_within_cycle": 0.9124525281818884,
+   "largest_distance_after_capture": 1.6063458093717937e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "54": {
+   "capture_step": 79192,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 9.062473062054834e-10,
+   "smallest_gap_within_cycle": 0.9124525282142744,
+   "largest_distance_after_capture": 2.680904800027213e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "55": {
+   "capture_step": 19833,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.530854014522888e-09,
+   "smallest_gap_within_cycle": 0.859027898631889,
+   "largest_distance_after_capture": 5.728848233219185e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "59": {
+   "capture_step": 58428,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.518591553390466e-09,
+   "smallest_gap_within_cycle": 0.8590278986320912,
+   "largest_distance_after_capture": 2.5549612373419896e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "60": {
+   "capture_step": 24480,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.19585837640248e-09,
+   "smallest_gap_within_cycle": 0.85902789863734,
+   "largest_distance_after_capture": 1.8945026095837644e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "61": {
+   "capture_step": 30613,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 7.728866052114661e-10,
+   "smallest_gap_within_cycle": 0.9124525282130492,
+   "largest_distance_after_capture": 4.315916570003957e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  },
+  "62": {
+   "capture_step": 74260,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 2.584600239403447e-09,
+   "smallest_gap_within_cycle": 0.8590278986310141,
+   "largest_distance_after_capture": 2.6927138289559514e-10,
+   "tokens": [
+    481,
+    358,
+    12824,
+    30
+   ]
+  },
+  "63": {
+   "capture_step": 37977,
+   "period": 4,
+   "orbit": "period 4 of run BF",
+   "distance_to_reference": 3.4276256778678918e-09,
+   "smallest_gap_within_cycle": 0.9124525281743973,
+   "largest_distance_after_capture": 4.452409001176932e-10,
+   "tokens": [
+    358,
+    12824,
+    30,
+    481
+   ]
+  }
+ },
+ "uncaptured_rows": {
+  "11": {
+   "nearest_recorded_state_to_period_4": 0.23841573342985853,
+   "nearest_recorded_state_to_period_8": 0.8691853538693525,
+   "final_state_to_period_4": 0.782455511814788,
+   "nearest_pair_of_recorded_states": {
+    "steps": [
+     4000,
+     19000
+    ],
+    "distance": 1.8966916228834936e-05
+   },
+   "median_distance_between_recorded_states": 1.1274392777439515
+  },
+  "12": {
+   "nearest_recorded_state_to_period_4": 0.237832268979345,
+   "nearest_recorded_state_to_period_8": 0.8690857784631711,
+   "final_state_to_period_4": 0.700105615541171,
+   "nearest_pair_of_recorded_states": {
+    "steps": [
+     23500,
+     76000
+    ],
+    "distance": 1.3865044401996831e-05
+   },
+   "median_distance_between_recorded_states": 1.0934895595386278
+  },
+  "24": {
+   "nearest_recorded_state_to_period_4": 0.18932625005329443,
+   "nearest_recorded_state_to_period_8": 0.869100306758926,
+   "final_state_to_period_4": 0.7366164043116009,
+   "nearest_pair_of_recorded_states": {
+    "steps": [
+     27000,
+     35000
+    ],
+    "distance": 2.5568109407676e-07
+   },
+   "median_distance_between_recorded_states": 1.083445139537094
+  },
+  "28": {
+   "nearest_recorded_state_to_period_4": 0.20505398690572774,
+   "nearest_recorded_state_to_period_8": 0.8691181103337704,
+   "final_state_to_period_4": 0.7757198835707023,
+   "nearest_pair_of_recorded_states": {
+    "steps": [
+     53500,
+     59500
+    ],
+    "distance": 2.0160108805316008e-06
+   },
+   "median_distance_between_recorded_states": 1.0881567587481347
+  },
+  "35": {
+   "nearest_recorded_state_to_period_4": 0.22976859446656583,
+   "nearest_recorded_state_to_period_8": 0.8691024583718594,
+   "final_state_to_period_4": 0.7555330352050958,
+   "nearest_pair_of_recorded_states": {
+    "steps": [
+     13000,
+     82000
+    ],
+    "distance": 1.3898937686470388e-05
+   },
+   "median_distance_between_recorded_states": 1.1592988231101224
+  },
+  "36": {
+   "nearest_recorded_state_to_period_4": 0.21949237903119836,
+   "nearest_recorded_state_to_period_8": 0.8690904643567919,
+   "final_state_to_period_4": 0.731673364424194,
+   "nearest_pair_of_recorded_states": {
+    "steps": [
+     3000,
+     30500
+    ],
+    "distance": 4.6962282144507924e-07
+   },
+   "median_distance_between_recorded_states": 1.095319029169092
+  },
+  "42": {
+   "nearest_recorded_state_to_period_4": 0.22154119163271296,
+   "nearest_recorded_state_to_period_8": 0.8690938963766626,
+   "final_state_to_period_4": 0.710182066676299,
+   "nearest_pair_of_recorded_states": {
+    "steps": [
+     34500,
+     52500
+    ],
+    "distance": 3.589783487456165e-06
+   },
+   "median_distance_between_recorded_states": 1.1354859506001167
+  },
+  "51": {
+   "nearest_recorded_state_to_period_4": 0.18191418115198218,
+   "nearest_recorded_state_to_period_8": 0.869296610984404,
+   "final_state_to_period_4": 0.7816458673053391,
+   "nearest_pair_of_recorded_states": {
+    "steps": [
+     57000,
+     62000
+    ],
+    "distance": 2.7741777712951994e-06
+   },
+   "median_distance_between_recorded_states": 1.1148010258374978
+  },
+  "56": {
+   "nearest_recorded_state_to_period_4": 0.1793611368697907,
+   "nearest_recorded_state_to_period_8": 0.8690827197838279,
+   "final_state_to_period_4": 0.6669310976967117,
+   "nearest_pair_of_recorded_states": {
+    "steps": [
+     44000,
+     87500
+    ],
+    "distance": 2.1312192709011506e-06
+   },
+   "median_distance_between_recorded_states": 1.115118323309078
+  },
+  "57": {
+   "nearest_recorded_state_to_period_4": 0.2507279726645973,
+   "nearest_recorded_state_to_period_8": 0.8691117852619521,
+   "final_state_to_period_4": 0.6662129120446825,
+   "nearest_pair_of_recorded_states": {
+    "steps": [
+     15500,
+     85500
+    ],
+    "distance": 3.571854256231917e-06
+   },
+   "median_distance_between_recorded_states": 1.1516947367081594
+  },
+  "58": {
+   "nearest_recorded_state_to_period_4": 0.23073835190626094,
+   "nearest_recorded_state_to_period_8": 0.8691123999008368,
+   "final_state_to_period_4": 0.7656042162453895,
+   "nearest_pair_of_recorded_states": {
+    "steps": [
+     16000,
+     74000
+    ],
+    "distance": 1.0097173755226177e-05
+   },
+   "median_distance_between_recorded_states": 1.0745042288875128
+  }
+ },
+ "iteration_seconds": 116526.3,
+ "software": {
+  "torch": "2.14.1+cu130",
+  "transformers": "5.19.0",
+  "numpy": "2.5.3"
+ },
+ "limits": "one cell, one model, 64 starts, one realization on the CPU; states recorded every 500 steps; a cycle longer than 64 steps would not be detected",
+ "figure": {
+  "path": "paper/llm/figures/fig-batch-fate-long.png",
+  "sha256": "f047369ada955686738cbe59cbcb644f0c70a92a2f0682ad6fc93ad7a9f04061"
+ }
+}
