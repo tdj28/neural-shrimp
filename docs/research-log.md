@@ -33917,3 +33917,52 @@ against the band predicted from BF, and the capture step of every start in this 
 tests tests/test_batch_fate_long_receipt.py (8 pass, with the 8 of the census tool).
 
 _commit `14d2bd379307` before this update_
+
+## 2026-11-12 11:13 UTC: Report, article and blog posts carry the BFL result: the portrait cell's chaotic set is a long-lived transient
+
+Document update after the BFL result of the entry above. No new computation.
+
+**Report** (`paper/llm/main.tex`, commit `3bde65ce`, 205 pages, no undefined references). The paragraph "Whether
+this set is an attractor" now gives the prediction made from the 5000-step runs, the run of 100,000 steps, the census
+(Table `tab:batchfatelong`), the rate with its interval and by fifths, the two tests against a constant rate, the
+cluster near step 59,000, the state of the 11 uncaptured trajectories, the conclusion and its limits, with the figure
+`fig:batchfatelong`. "Terms and scope", the paragraph that introduces the portrait (retitled "What the chaotic sets
+look like") and the caption of `fig:strangeattractor` say that the set of panel (a) is a long-lived chaotic
+transient. A macro `\censusrepo` pins the links of this passage to commit `bad2d5c5`.
+
+**Chaos article** (private article repository, commit `2aa4ce4`; still 36 pages, abstract unchanged at 249 words).
+The caption of the portrait figure and the paragraph on it state the result in two sentences: within 100,000 steps,
+53 of the 64 starts left the set, all but one for the period-4 orbit, at a steady rate of about one in 60,000 steps.
+The author's own uncommitted change to the conflict-of-interest line was left in the working tree and is not part of
+the commit. The arXiv record is still version 1, which predates both the 5000-step runs and this result.
+
+**Wording decisions.** The captions of the two portrait figures and the report's paragraph title say "chaotic set"
+where they said "numerically observed chaotic attractor". The words "attractor" and "chaos-labeled" elsewhere were
+left: the maps label cells by a finite-horizon exponent, which the report and the article already state, and the
+samples of 192 labeled cells per map (16 and 49 ended on periodic orbits within 100,000 steps) already show that
+some labeled cells are long transients. The banded set at alpha = 0.06626 is still called an attractor; it was not
+followed in this way, which the report says.
+
+**Blog** (the site's repository; edited in place and left uncommitted for the author).
+- Research Note: the portrait introduction, the caption of Figure 4, the two video captions, the status paragraph,
+  the section "Whether this set is an attractor" (prediction, census, Table U3, rate, Figure U4, conclusion, limits)
+  and one row of the receipts table. `provenance.json`: 40 new entries with ids `nov12-0001` to `nov12-0040` bound
+  to the report at `3bde65ce`, two entries of 10 November rebound to the new sentences (`nov10-0042`,
+  `nov10-0043`), the new figure as a byte-identical copy (sha256 `f047369a...`), 5238 entries in all. A scan of
+  every changed line found no number without an entry other than dates, citation years and "float64".
+- Short read: the caption of the attractor video now gives the result (53 of 64 starts within 100,000 steps, about
+  one in 60,000 steps) in place of the 5000-step counts; receipt `revision-20261112.receipt.json`.
+- Checks on a scratch copy of the site with the pinned Hugo 0.160.1: render to memory with `--panicOnWarning`, the
+  full blog build with the search index, `check_site.py`, `check_provenance.py` (5238 of 5238 and 6 of 6 numbers
+  matched, every pinned link resolves), `verify_memory_update.py`, `verify_walkthroughs.py`; in the repository
+  itself `check_public_repo.py`, `check_python_syntax.py` and `check_provenance.py`. All pass. The built `blog/`
+  directory of the repository was not regenerated.
+- Generators, the pinned copy of the report source and the outputs are kept outside Git under
+  `neural-shrimp-data/blog-generator/nov12-census/`; the pages before this edit are under
+  `neural-shrimp-data/blog-bundle-backup/` with the suffix `.before-nov12-census`.
+
+**Open.** The 11 uncaptured trajectories were not followed further. No other chaotic cell has been followed with
+many starts for 100,000 steps, so how typical this lifetime is across the chaotic regions is not known beyond the
+two samples of 192 cells.
+
+_commit `3bde65ceb3d6` before this update_
