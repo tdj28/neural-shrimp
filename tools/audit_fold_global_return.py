@@ -245,18 +245,21 @@ def render(out, rows, summary, width):
     fig.colorbar(matplotlib.cm.ScalarMappable(norm=norm, cmap=cmap), ax=axes,
                  shrink=.72, label='Updates to re-entry')
     counts = summary['counts']
-    text = (f"{counts.get('return', 0)} returned · {counts.get('outside_recurrence_candidate', 0)} outside-channel recurrence candidates · "
+    cycle_verified = summary.get('cycle_verification', {}).get('status') == 'numerically attracting primitive period-three orbit'
+    alternative = 'approached a numerically attracting 3-cycle' if cycle_verified else 'outside-channel recurrence candidates'
+    text = (f"{counts.get('return', 0)} returned · {counts.get('outside_recurrence_candidate', 0)} {alternative} · "
             f"{counts.get('unresolved_at_horizon', 0)} unresolved · 128 trials in total\n"
             "Plots show returned trials. Eight observed exits with 16 conditions each; both cycle phases checked.\n"
             "Qwen2.5-0.5B · α = αc + 0.00001 · log₁₀T = −0.115 · Patched float64 CPU\n"
-            "Channel entry requires |v| < U and transverse remainder < 0.05 for three same-phase readings.\n"
-            "A finite first-return study; it does not establish permanent trapping, escape, or chaos.")
+            "Channel entry requires |v| < U and transverse remainder < 0.05 for three same-phase readings.\n" +
+            ("Cycle closure and local stability checked numerically. One parameter setting; no interval proof or chaos claim."
+             if cycle_verified else "A finite first-return study; it does not establish permanent trapping, escape, or chaos."))
     fig.supxlabel(text, fontsize=10)
     fig.savefig(out / 'global-returns.png', dpi=180)
     plt.close(fig)
     fig, ax = plt.subplots(figsize=(11, 6.5), layout='constrained')
     styles = {'return': ('#0072b2', 'o', 'Returned to channel'),
-              'outside_recurrence_candidate': ('#d55e00', 's', 'Recurrence outside channel (candidate)'),
+              'outside_recurrence_candidate': ('#d55e00', 's', 'Approached attracting 3-cycle (numerically checked)' if cycle_verified else 'Recurrence outside channel (candidate)'),
               'unresolved_at_horizon': ('#555555', '>', 'Unresolved at horizon')}
     for kind, (color, marker, label) in styles.items():
         rr = [r for r in rows if r['kind'] == kind]
@@ -271,11 +274,12 @@ def render(out, rows, summary, width):
     ax.set_ylim(128, -1)
     ax.set_xlabel('Model updates since starting at the exit sample')
     ax.set_ylabel('Eight observed exits; sixteen nearby starting states per exit')
-    ax.set_title('Every trial: return, outside recurrence, or unresolved', loc='left', fontsize=17, fontweight='bold')
+    ax.set_title('Two observed destinations after leaving the channel' if cycle_verified else 'Every trial: return, outside recurrence, or unresolved', loc='left', fontsize=17, fontweight='bold')
     ax.legend(loc='lower right', fontsize=10)
     ax.grid(axis='x', alpha=.2)
-    fig.supxlabel('Return time marks the first of three same-phase channel readings. Recurrence time marks detection.\n'
-                  'Full states checked in float64; finite recurrence does not establish an attracting orbit.', fontsize=10)
+    fig.supxlabel('Return time marks the first of three same-phase channel readings. Recurrence time marks detection.\n' +
+                  ('Period-three closure and all Floquet multipliers checked in float64; no interval-certified proof.'
+                   if cycle_verified else 'Full states checked in float64; finite recurrence does not establish an attracting orbit.'), fontsize=10)
     fig.savefig(out / 'all-trial-outcomes.png', dpi=180)
     plt.close(fig)
 
