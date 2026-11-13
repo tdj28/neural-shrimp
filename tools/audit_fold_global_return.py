@@ -241,7 +241,7 @@ def render(out, rows, summary, width):
     axes[0].set_xlabel('Starting exit position, v / U')
     axes[1].set_title('B  How long the excursion takes', loc='left', fontsize=13, fontweight='bold')
     axes[1].set_xlabel('Model updates from exit sample to re-entry')
-    axes[1].legend(fontsize=9, loc='lower right')
+    axes[1].legend(fontsize=9, loc='upper right')
     fig.colorbar(matplotlib.cm.ScalarMappable(norm=norm, cmap=cmap), ax=axes,
                  shrink=.72, label='Updates to re-entry')
     counts = summary['counts']
