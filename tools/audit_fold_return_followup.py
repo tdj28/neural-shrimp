@@ -54,6 +54,17 @@ def verify_manifest(run):
         assert hashlib.sha256(content).hexdigest() == expected
     for name, expected in json.loads((run/'parent-bindings.json').read_text()).items():
         assert sha(name) == expected
+    plan = json.loads((run/'plan.json').read_text())
+    committed_plan = json.loads(subprocess.check_output(
+        ['git','show',f"{metadata['source_commit']}:docs/fold-return-autonomous-plan.json"], cwd=ROOT))
+    assert plan == committed_plan
+    parent = Path(plan['parent_curve'])
+    parent_metadata = json.loads((parent/'metadata.json').read_text())
+    for key in ('model_revision','prefix_ids','direction_sha256'):
+        assert metadata[key] == parent_metadata[key], key
+    with np.load(parent/'inputs.npz') as original, np.load(run/'inputs.npz') as copied:
+        assert original.files == copied.files
+        for key in original.files: assert np.array_equal(original[key],copied[key]),key
     return {'files': len(manifest), 'bytes_per_disk': total, 'manifest_sha256': sha(run/'manifest.json'),
             'backup': str(backup), 'source_commit': metadata['source_commit'],
             'plan_sha256': sha(run/'plan.json')}
@@ -131,7 +142,7 @@ def audit(args):
                'outcomes': {k: sum(r['outcome']['kind']==k for r in rows) for k in sorted({r['outcome']['kind'] for r in rows})}}
     if fresh:
         model = json.loads((run/'frozen-model.json').read_text())
-        predictions = []; actual = []; errors = []; autonomous = []
+        predictions = []; actual = []; errors = []; autonomous = []; first_predictions = []; first_actual = []
         for row, events in zip(rows, events_by_row):
             forecasts = {method: rollout(model, events[0]['v_over_U'], 128, method) for method in ('piecewise','nearest')} if events else {}
             autonomous.append({'row': row['row'], 'forecasts': forecasts, 'observed_events': events})
@@ -147,11 +158,48 @@ def audit(args):
                     a = {'kind': 'reference_p3'}
                 else: continue
                 predictions.append(p); actual.append(a)
+                if j == 0:
+                    first_predictions.append(p); first_actual.append(a)
         summary['one_cycle_route'] = score_route(predictions, actual)
+        summary['first_departure_route'] = score_route(first_predictions, first_actual)
+        equal_row_mse = [np.mean([r['position']**2 for r in errors if r['row']==i])
+                         for i in sorted({r['row'] for r in errors})]
         summary['one_cycle_return_errors'] = {
             'n': len(errors), 'coordinate_RMSE_U': float(np.sqrt(np.mean([r['position']**2 for r in errors]))) if errors else None,
+            'equal_trajectory_coordinate_RMSE_U': float(np.sqrt(np.mean(equal_row_mse))) if errors else None,
             'time_MAE_updates': float(np.mean([abs(r['time']) for r in errors])) if errors else None,
             'mixed_branch_predictions': sum(not r['resolved'] for r in errors)}
+        summary['autonomous'] = {}
+        for method in ('piecewise','nearest'):
+            horizons = []
+            for horizon in (1,2,4,8):
+                position = []; timing = []; missed_return = 0; eligible_rows = 0
+                for a in autonomous:
+                    e = a['observed_events']; forecast = a['forecasts'].get(method,[])
+                    if len(e) <= horizon: continue
+                    eligible_rows += 1
+                    if len(forecast)<horizon or forecast[horizon-1]['kind']!='return':
+                        missed_return += 1; continue
+                    position.append(forecast[horizon-1]['next_q']-e[horizon]['v_over_U'])
+                    timing.append(forecast[horizon-1]['elapsed']-(e[horizon]['exit']-e[0]['exit']))
+                horizons.append({'cycles':horizon,'observed_returning_rows':eligible_rows,
+                                 'predicted_returning_rows':len(position),'premature_terminal_or_abstention':missed_return,
+                                 'coordinate_RMSE_U':float(np.sqrt(np.mean(np.square(position)))) if position else None,
+                                 'elapsed_MAE_updates':float(np.mean(np.abs(timing))) if timing else None})
+            terminal = []
+            for a in autonomous:
+                e = a['observed_events']; forecast = a['forecasts'].get(method,[])
+                row = rows[a['row']]
+                if not e: continue
+                captured = row['outcome']['kind']=='reference_p3'
+                predicted = bool(forecast and forecast[-1]['kind']=='reference_p3')
+                terminal.append({'row':a['row'],'observed_P3':captured,'predicted_P3':predicted,
+                                 'observed_cycles_to_P3':len(e) if captured else None,
+                                 'predicted_cycles_to_P3':len(forecast) if predicted else None,
+                                 'observed_horizon':row['valid_through'],
+                                 'predicted_horizon_cycles':len(forecast),
+                                 'note':'Different finite horizons; terminal agreement is descriptive, not an uncensored fate accuracy.'})
+            summary['autonomous'][method] = {'horizons':horizons,'terminal_comparison':terminal}
         summary['survival'] = [{'updates': t, 'not_yet_p3': sum(r['capture']['first_128_match_start'] is None or r['capture']['first_128_match_start']>t for r in rows),
                                 'total': len(rows)} for t in plan['validation']['survival_horizons']]
         write_json(out/'autonomous.json', autonomous)

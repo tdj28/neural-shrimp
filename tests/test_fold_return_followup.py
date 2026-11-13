@@ -7,6 +7,8 @@ sys.path.insert(0, str(Path(__file__).parents[1]/'tools'))
 from fold_return_followup import Engine
 from audit_fold_return_followup import departures
 from fold_return_surrogate import DepartureDetector
+from fold_return_growth import summarize_window
+from fold_return_study_controller import owned_process_active
 
 
 def test_independent_departure_extraction_matches_stream_with_phase_switches():
@@ -53,3 +55,22 @@ def test_backup_failure_prevents_any_further_model_updates(tmp_path):
     e = fake_engine(tmp_path, backup_fail=True)
     with pytest.raises(IOError): e.run_batch(e.orbit[:2], 'sample', 130, False)
     assert e.calls == 128
+
+
+def test_growth_excludes_frozen_padding_and_declares_short_windows():
+    logs = np.ones((12,3))*.2
+    logs[8:,0] = 1000.  # Frozen padding must never contribute.
+    result = summarize_window(logs, np.array([8,12,3]), 4, 16)
+    assert result[0]['mean'] == pytest.approx(.2)
+    assert result[0]['measured_updates'] == 4
+    assert result[1]['measured_updates'] == 8 and not result[1]['full_planned_window']
+    assert result[2]['mean'] is None and result[2]['measured_updates'] == 0
+
+
+def test_monitor_rejects_pid_reuse_without_signalling_any_process():
+    import os
+    pid = os.getpid()
+    command = [v.decode() for v in Path(f'/proc/{pid}/cmdline').read_bytes().split(b'\0') if v]
+    assert owned_process_active(pid,command)
+    with pytest.raises(ValueError): owned_process_active(pid,['unrelated-command'])
+    assert not owned_process_active(2147483647,command)
