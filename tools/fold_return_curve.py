@@ -35,6 +35,20 @@ def reconstruct(v, curve, centre, right):
     return centre+np.asarray(v)[:,None]*right+design@curve['coef']
 
 
+def development_crossvalidation(states, groups, centre, left, right):
+    records={}
+    for degree in (2,3,5,7):
+        predicted=np.zeros_like(states)
+        for group in np.unique(groups):
+            train=groups!=group;test=~train
+            curve=fit_curve(states[train],centre,left,right,degree)
+            predicted[test]=reconstruct((states[test]-centre)@left,curve,centre,right)
+        error=np.linalg.norm(predicted-states,axis=1)/np.linalg.norm(states,axis=1)
+        records[str(degree)]={'median_relative_state_error':float(np.median(error)),
+                              'max_relative_state_error':float(error.max())}
+    return records
+
+
 def prepare(args):
     run,out=Path(args.run),Path(args.out);out.mkdir(parents=True,exist_ok=False)
     plan=json.loads((run/'plan.json').read_text());meta=json.loads((run/'metadata.json').read_text())
@@ -135,7 +149,8 @@ def audit(args):
     for path in sorted(parent.glob('updates-*.npz')):
         assert sha(path)==sha(Path(pm['backup'])/path.name)
         parent_replay_files.append({'path':path.name,'sha256':sha(path)})
-        with np.load(path) as z:original.append(z['states'])
+        with np.load(path) as z:
+            original.append(z['states']);parent_valid=z['valid_through'].copy()
         if sum(len(a) for a in original)>needed:break
     original=np.concatenate(original);assert len(original)>needed
     replay_errors=[]
@@ -144,8 +159,10 @@ def audit(args):
         hist=x[:length+1,i];ret=independent_return(hist,d['centre'],d['left'],d['right'],plan['width'])
         if length+1<len(x):assert np.all(x[length+1:,i]==hist[-1])
         if row['kind']=='original':
-            truth=original[row['parent_update']:row['parent_update']+length+1,row['parent_row']]
-            error=float(np.max(np.linalg.norm(hist-truth,axis=1)/np.linalg.norm(truth,axis=1)))
+            count=min(length,int(parent_valid[row['parent_row']])-row['parent_update'])+1
+            assert count>1
+            truth=original[row['parent_update']:row['parent_update']+count,row['parent_row']]
+            error=float(np.max(np.linalg.norm(hist[:count]-truth,axis=1)/np.linalg.norm(truth,axis=1)))
             replay_errors.append(error)
             assert error<1e-7,('heldout saved-state replay',i,error)
         if o['kind']=='return':
@@ -176,11 +193,56 @@ def audit(args):
              'max_test_initial_relative_state_error':max(r['initial_relative_state_error'] for r in test),
              'max_original_parent_trajectory_replay_relative_error':max(replay_errors),
              'parent_replay_files':parent_replay_files,'replay_gate':gate,
+             'development_crossvalidation':development_crossvalidation(d['train_states'],d['training_rows'],d['centre'],d['left'],d['right']),
              'wall_seconds':result['total_wall_seconds'],
              'limitation':'Predicts one excursion from natural exits at one parameter setting; the full network still evaluates the global map. Not a universal closed formula or indefinite itinerary guarantee.'}
     write_json(out/'rows.json',rows);write_json(out/'pairs.json',pairs);write_json(out/'audit.json',summary)
+    render(out,d,rows,pairs,summary,plan['width'])
+    write_json(out/'files.json',{p.name:{'sha256':sha(p),'bytes':p.stat().st_size} for p in out.iterdir() if p.is_file()})
     for p in out.iterdir():backup_file(p,out,backup/'audit')
     print(json.dumps(summary,indent=2))
+
+
+def render(out,data,rows,pairs,summary,width):
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    plt.rcParams.update({'font.size':11,'axes.spines.top':False,'axes.spines.right':False})
+    fig,axes=plt.subplots(1,2,figsize=(13.5,6.5),layout='constrained')
+    fig.suptitle('One coordinate predicts the next excursion from natural exits',fontsize=19,fontweight='bold')
+    v=(data['train_states']-data['centre'])@data['left']
+    w=data['train_states']-data['centre']-v[:,None]*data['right']
+    mean=w.mean(axis=0);_,_,vh=np.linalg.svd(w-mean,full_matrices=False)
+    q=np.linspace(v.min(),v.max(),300)
+    c={'mid':float(data['curve_mid']),'half':float(data['curve_half']),'coef':data['curve_coef']}
+    fit=reconstruct(q,c,data['centre'],data['right'])-data['centre']-q[:,None]*data['right']
+    axes[0].plot(q/width,(fit-mean)@vh[0],color='#bd643a',lw=2,label='Curve fitted on development exits')
+    axes[0].scatter(v/width,(w-mean)@vh[0],s=9,c='#aaaaaa',label='Development exits')
+    originals=data['seeds'][::2];tv=(originals-data['centre'])@data['left']
+    tw=originals-data['centre']-tv[:,None]*data['right']
+    axes[0].scatter(tv[1:]/width,(tw[1:]-mean)@vh[0],s=34,facecolors='none',edgecolors='#086a92',label='Held-out natural exits',zorder=3)
+    axes[0].set(xlabel='Exit position along the slow direction, v / U',ylabel='Leading transverse coordinate',title='A  Natural exits follow a narrow curved path')
+    axes[0].legend(fontsize=9)
+    for j,p in enumerate(pairs):
+        if p['split']!='test':continue
+        a,b=rows[2*j:2*j+2]
+        if a['kind']=='return':
+            axes[1].scatter(tv[j]/width,a['entry_v']/width,s=36,c='#086a92',label='Original full state' if j==1 else None)
+        if b['kind']=='return':
+            axes[1].scatter(tv[j]/width,b['entry_v']/width,s=80,facecolors='none',edgecolors='#bd643a',label='Reconstructed from v alone' if j==1 else None)
+        if a['kind']=='outside_recurrence_candidate':
+            axes[1].scatter(tv[j]/width,-1.13,marker='x',s=60,c='#883f6e')
+    axes[1].set(xlabel='Exit position v / U (the only reconstruction input)',ylabel='Next entry position, v / U',title='B  Paired network runs: observed and predicted',ylim=(-1.22,.2))
+    axes[1].axhline(-1.05,color='.7',lw=.7);axes[1].text(3.03,-1.14,'× Approaches the 3-cycle',fontsize=9,color='#883f6e')
+    axes[1].legend(fontsize=9,loc='upper right')
+    for ax in axes:ax.grid(alpha=.18)
+    text=(f"{summary['test_pairs']} held-out starting trajectories · {summary['returned_test_pairs']} return pairs · "
+          f"{summary['original_P3_test_pairs']} pairs approach the verified 3-cycle\n"
+          f"Largest return-time discrepancy: {summary['max_return_time_difference']} updates; "
+          f"largest entry discrepancy: {summary['max_return_v_over_U_error']:.2g} U.\n"
+          'The full network evaluates each excursion. This validates a scalar initial-state reduction at one setting,\n'
+          'not a universal closed formula or indefinitely accurate trajectory prediction.')
+    fig.supxlabel(text,fontsize=10);fig.savefig(out/'scalar-return-validation.png',dpi=180);plt.close(fig)
 
 
 if __name__=='__main__':

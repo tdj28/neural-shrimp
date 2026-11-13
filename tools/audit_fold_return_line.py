@@ -269,9 +269,11 @@ def render(out,rows,events,summary,channel):
     # Mark both adjacent steps for legibility; the audit retains the actual parity.
     display[channel|np.c_[channel[:,1:],np.zeros(len(rows),dtype=bool)]]=1
     for i,r in enumerate(rows):
-        if r['kind']=='reference_p3':display[i,r['first_128_match_start']:]=2
+        if r['kind']=='reference_p3':display[i,r['first_128_match_start']:r['valid_updates']+1]=2
+        display[i,r['valid_updates']+1:]=np.nan
+    cmap=ListedColormap(['#eef1f4','#db9e3b','#557c92']);cmap.set_bad('white')
     axes[0].imshow(display,origin='lower',aspect='auto',interpolation='nearest',
-                   extent=[0,channel.shape[1]-1,-.5/63,1+.5/63],cmap=ListedColormap(['#eef1f4','#db9e3b','#557c92']),vmin=0,vmax=2)
+                   extent=[0,channel.shape[1]-1,-.5/63,1+.5/63],cmap=cmap,vmin=0,vmax=2)
     axes[0].set(xlabel='Individual model updates',ylabel='Starting-state interpolation s',title='A  Complete histories, including later returns')
     axes[1].scatter([r['s'] for r in rows],[r['visit_count'] for r in rows],c=['#557c92' if r['kind']=='reference_p3' else '#ad563c' for r in rows],s=34)
     axes[1].set(xlabel='Starting-state interpolation s',ylabel='Persistent channel visits',title='B  Returns before capture or the horizon')
@@ -281,6 +283,7 @@ def render(out,rows,events,summary,channel):
     fig.supxlabel('All 64 initial states have the same slow coordinate; only transverse components change.\n'
                   'Qwen2.5-0.5B · α = αc + 0.00001 · log₁₀T = −0.115 · patched float64 CPU\n'
                   'Channel: |v| < U, transverse remainder < 0.05. P3: 128 ordered full-state matches at relative 10⁻⁹.\n'
+                  'Blank after a blue segment: simulation stopped after the cycle check; no later states are plotted.\n'
                   'Continued recurrence within the horizon does not establish permanent trapping or chaos.',fontsize=10)
     fig.savefig(out/'repeated-returns.png',dpi=180);plt.close(fig)
     returns=[r for r in events if r['next_entry'] is not None]
