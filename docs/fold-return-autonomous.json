@@ -1,0 +1,265 @@
+{
+  "study": "FGR3",
+  "status": "Training, fresh validation and extra input/error audits complete; growth audit and publication completion pending.",
+  "plan": "docs/fold-return-autonomous-plan.json",
+  "plan_sha256": "c0db76726cf280abc56908230b4d5d6b9cdb85d4709a7bcafa589fe6d5e56460",
+  "audits": {
+    "training": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-training-01",
+      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-training-01/audit",
+      "audit_sha256": "36a7f91882dd38813078108f414b31d826b2fb4cf4abee6cebfad8ae36ac04f3",
+      "audit_bytes": 1506
+    },
+    "validation": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-validation-01",
+      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-validation-01/audit",
+      "audit_sha256": "73c87104cd72069c23931ceaeff5bada43b7b831f8d9b74e2232fa8a53ddd372",
+      "audit_bytes": 16122
+    },
+    "input-bindings": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-input-bindings-01",
+      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-input-bindings-01",
+      "audit_sha256": "bf4cb520486ec8f02709d65ab6a97e840698479accf1d7a8087b11223491381d",
+      "audit_bytes": 668
+    },
+    "error-diagnostic": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-error-diagnostic-01",
+      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-error-diagnostic-01",
+      "audit_sha256": "28be6aff54621b5e9a9d1c47c4e34ade1ad8a20e09c526789594a2da92ed1968",
+      "audit_bytes": 1488
+    }
+  },
+  "training": {
+    "bindings": {
+      "files": 281,
+      "bytes_per_disk": 1688557245,
+      "manifest_sha256": "0a1dd55961e750da84a5d24dca2c2b3d8e6fab45642d7f9a72542281585f77c0",
+      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-training-01/run",
+      "source_commit": "008a12edcce015cb9c303cbf3c214d64afb8364e",
+      "plan_sha256": "5d54b887dca53534ee9ee9826e4f413784573f8b9860cd9efb4ab60a20ad2318"
+    },
+    "rows": 1025,
+    "all_saved_states_finite": true,
+    "independent_departures_agree": true,
+    "outcomes": {
+      "other_recurrence_candidate": 1,
+      "reference_p3": 29,
+      "return": 995
+    },
+    "midpoint_development_checks": [
+      {
+        "round": 1,
+        "evaluated": 256,
+        "correct": 246,
+        "capture_true_positive": 2,
+        "capture_false_positive": 3,
+        "capture_false_negative": 7,
+        "capture_precision": 0.4,
+        "capture_recall": 0.2222222222222222,
+        "always_return_correct": 247
+      },
+      {
+        "round": 2,
+        "evaluated": 255,
+        "correct": 240,
+        "capture_true_positive": 1,
+        "capture_false_positive": 11,
+        "capture_false_negative": 4,
+        "capture_precision": 0.08333333333333333,
+        "capture_recall": 0.2,
+        "always_return_correct": 250
+      },
+      {
+        "round": 3,
+        "evaluated": 256,
+        "correct": 234,
+        "capture_true_positive": 1,
+        "capture_false_positive": 12,
+        "capture_false_negative": 9,
+        "capture_precision": 0.07692307692307693,
+        "capture_recall": 0.1,
+        "always_return_correct": 246
+      }
+    ]
+  },
+  "validation": {
+    "bindings": {
+      "files": 138,
+      "bytes_per_disk": 1898374722,
+      "manifest_sha256": "e749db5e719e23f06560cdd1401de7087c03fcaed824e57d66fff9bca4683aaa",
+      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-validation-01/run",
+      "source_commit": "cb2ebb0fd66ec62539f27b92bb3e6acfc60a6df5",
+      "plan_sha256": "5d54b887dca53534ee9ee9826e4f413784573f8b9860cd9efb4ab60a20ad2318"
+    },
+    "rows": 16,
+    "all_saved_states_finite": true,
+    "independent_departures_agree": true,
+    "outcomes": {
+      "reference_p3": 14,
+      "unresolved_at_horizon": 2
+    },
+    "one_cycle_route": {
+      "evaluated": 844,
+      "correct": 825,
+      "capture_true_positive": 8,
+      "capture_false_positive": 13,
+      "capture_false_negative": 6,
+      "capture_precision": 0.38095238095238093,
+      "capture_recall": 0.5714285714285714,
+      "always_return_correct": 830
+    },
+    "first_departure_route": {
+      "evaluated": 16,
+      "correct": 16,
+      "capture_true_positive": 0,
+      "capture_false_positive": 0,
+      "capture_false_negative": 0,
+      "capture_precision": null,
+      "capture_recall": null,
+      "always_return_correct": 16
+    },
+    "one_cycle_return_errors": {
+      "n": 817,
+      "coordinate_RMSE_U": 0.32733336996005163,
+      "equal_trajectory_coordinate_RMSE_U": 0.3042307285530792,
+      "time_MAE_updates": 8.847001223990208,
+      "mixed_branch_predictions": 436
+    },
+    "survival": [
+      {
+        "updates": 4096,
+        "not_yet_p3": 8,
+        "total": 16
+      },
+      {
+        "updates": 8192,
+        "not_yet_p3": 6,
+        "total": 16
+      },
+      {
+        "updates": 16384,
+        "not_yet_p3": 2,
+        "total": 16
+      }
+    ]
+  },
+  "autonomous_rollout_horizons": {
+    "piecewise": [
+      {
+        "cycles": 1,
+        "observed_returning_rows": 16,
+        "predicted_returning_rows": 16,
+        "premature_terminal_or_abstention": 0,
+        "coordinate_RMSE_U": 0.3282118437586036,
+        "elapsed_MAE_updates": 7.8125
+      },
+      {
+        "cycles": 2,
+        "observed_returning_rows": 16,
+        "predicted_returning_rows": 16,
+        "premature_terminal_or_abstention": 0,
+        "coordinate_RMSE_U": 0.3776806069814866,
+        "elapsed_MAE_updates": 14.0
+      },
+      {
+        "cycles": 4,
+        "observed_returning_rows": 15,
+        "predicted_returning_rows": 13,
+        "premature_terminal_or_abstention": 2,
+        "coordinate_RMSE_U": 0.46977668758553126,
+        "elapsed_MAE_updates": 34.84615384615385
+      },
+      {
+        "cycles": 8,
+        "observed_returning_rows": 15,
+        "predicted_returning_rows": 12,
+        "premature_terminal_or_abstention": 3,
+        "coordinate_RMSE_U": 0.4917341160424177,
+        "elapsed_MAE_updates": 71.33333333333333
+      }
+    ],
+    "nearest": [
+      {
+        "cycles": 1,
+        "observed_returning_rows": 16,
+        "predicted_returning_rows": 16,
+        "premature_terminal_or_abstention": 0,
+        "coordinate_RMSE_U": 0.32895172905871317,
+        "elapsed_MAE_updates": 7.8125
+      },
+      {
+        "cycles": 2,
+        "observed_returning_rows": 16,
+        "predicted_returning_rows": 16,
+        "premature_terminal_or_abstention": 0,
+        "coordinate_RMSE_U": 0.30458943344991585,
+        "elapsed_MAE_updates": 18.9375
+      },
+      {
+        "cycles": 4,
+        "observed_returning_rows": 15,
+        "predicted_returning_rows": 14,
+        "premature_terminal_or_abstention": 1,
+        "coordinate_RMSE_U": 0.46786215029791445,
+        "elapsed_MAE_updates": 41.714285714285715
+      },
+      {
+        "cycles": 8,
+        "observed_returning_rows": 15,
+        "predicted_returning_rows": 14,
+        "premature_terminal_or_abstention": 1,
+        "coordinate_RMSE_U": 0.338407054787037,
+        "elapsed_MAE_updates": 81.92857142857143
+      }
+    ]
+  },
+  "post_test_diagnosis": {
+    "status": "post-test descriptive diagnostics; no refit or new model selection",
+    "raw": {
+      "files": 138,
+      "bytes_per_disk": 1898374722,
+      "manifest_sha256": "e749db5e719e23f06560cdd1401de7087c03fcaed824e57d66fff9bca4683aaa",
+      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-validation-01/run",
+      "source_commit": "cb2ebb0fd66ec62539f27b92bb3e6acfc60a6df5",
+      "plan_sha256": "5d54b887dca53534ee9ee9826e4f413784573f8b9860cd9efb4ab60a20ad2318"
+    },
+    "audit_sha256": "73c87104cd72069c23931ceaeff5bada43b7b831f8d9b74e2232fa8a53ddd372",
+    "model_sha256": "9efd1b5e5221e3d8f03dcd6f2b5a79836c83b1f018cae67eb76351a05412b2e1",
+    "natural_exits": 846,
+    "relative_reconstruction_error": {
+      "median": 1.4216589850264175e-14,
+      "maximum": 7.477785112976253e-14,
+      "percentiles_90_99": [
+        3.2429238752352314e-14,
+        5.277375512759255e-14
+      ]
+    },
+    "interval_diagnostics": [
+      {
+        "endpoints_same_return_time": false,
+        "correctly_routed_returns": 436,
+        "coordinate_RMSE_U": 0.443937389018091,
+        "time_MAE_updates": 16.373853211009173
+      },
+      {
+        "endpoints_same_return_time": true,
+        "correctly_routed_returns": 381,
+        "coordinate_RMSE_U": 0.06504899480962521,
+        "time_MAE_updates": 0.2335958005249344
+      }
+    ],
+    "limits": "Tiny state reconstruction error does not bound amplified return error. This diagnostic cannot distinguish unresolved map structure from amplified curve error or missing state information."
+  },
+  "return_figures": {
+    "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-return-figures-03",
+    "backup": "/archive/neural-shrimp-backups/20261113-fgr3-return-figures-03",
+    "receipt_sha256": "b7a3402cab2e3b3522e069013753efc20b0f5a473d07541a5fa2c6ebbce3efc2"
+  },
+  "limits": [
+    "One model, prompt, steering direction and parameter setting; constructed initial-state line, not a basin-volume sample.",
+    "Capture predictions fail on fresh events; no refit against these outcomes.",
+    "Conditional rollout errors exclude premature terminal predictions; finite network and surrogate horizons differ.",
+    "Full-state reconstruction accuracy does not bound amplified return error; unresolved structure and omitted information are not distinguished.",
+    "No growth result is asserted until its independent audit finishes."
+  ]
+}
