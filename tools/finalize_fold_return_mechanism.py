@@ -11,6 +11,7 @@ sys.path.insert(0,str(ROOT/'tools'))
 from fold_global_return import sha,write_json,backup_file
 from fold_return_curve import render as render_curve
 from audit_fold_return_cycle_map import render as render_cycle
+from audit_fold_return_line import render as render_line
 
 
 def finalize(args):
@@ -51,10 +52,9 @@ def finalize(args):
     run=Path(c['raw_path']);plan=json.loads((run/'plan.json').read_text())
     with np.load(run/'inputs.npz') as z:inputs={k:z[k] for k in z.files}
     render_curve(out,inputs,json.loads((curve/'rows.json').read_text()),json.loads((curve/'pairs.json').read_text()),c,plan['width'])
-    # Preserve scientific figures rather than regenerate or modify the audited originals.
-    import shutil
-    for source in (line/'repeated-returns.png',line/'natural-return-prediction.png'):
-        shutil.copyfile(source,out/source.name)
+    # New layout-only rendering from the audited arrays; keep earlier figures intact.
+    with np.load(line/'natural-exits.npz') as z:channel=z['channel']
+    render_line(out,rows,events,a,channel)
     render_cycle(out,json.loads((cycle/'pairs.json').read_text()),d,
                  background=events)
     receipt={'status':'completed exploratory local follow-up; bounded numerical conclusions',

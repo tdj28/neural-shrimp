@@ -96,7 +96,7 @@ def render(out,pairs,summary,background=None):
     import matplotlib.pyplot as plt
     plt.rcParams.update({'font.size':11,'axes.spines.top':False,'axes.spines.right':False})
     test=[p for p in pairs if p['split']=='test']
-    fig,axes=plt.subplots(1,2,figsize=(13.5,6.5),layout='constrained')
+    fig,axes=plt.subplots(1,2,figsize=(13.5,7.2),layout='constrained')
     fig.suptitle('From natural exits, one coordinate predicts a complete return cycle',fontsize=18,fontweight='bold')
     if background:
         groups={}
@@ -112,7 +112,7 @@ def render(out,pairs,summary,background=None):
     axes[0].scatter(q0,[p['observed_next_v'] for p in test],s=36,c='#086a92',label='Original full state')
     axes[0].scatter(q0,[p['predicted_next_v'] for p in test],s=80,facecolors='none',edgecolors='#bd643a',label='Reconstructed from v alone')
     axes[0].set(xlabel='Position at this departure, v / U',ylabel='Position at the next departure, v / U',title='A  Excursion → slow passage → next departure')
-    axes[0].legend(fontsize=9)
+    axes[0].legend(fontsize=8.5,loc='upper center',bbox_to_anchor=(.5,-.15),ncol=2)
     axes[1].scatter(q0,[max(abs(p['next_v_error']),1e-16) for p in test],s=36,c='#086a92')
     axes[1].set(xlabel='Position at this departure, v / U',ylabel='Absolute prediction error at next departure (U)',yscale='log',title='B  Residual errors, shown on a logarithmic scale')
     for ax in axes:ax.grid(alpha=.18)

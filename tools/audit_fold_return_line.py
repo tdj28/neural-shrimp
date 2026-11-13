@@ -263,7 +263,7 @@ def render(out,rows,events,summary,channel):
     import matplotlib.pyplot as plt
     from matplotlib.colors import ListedColormap
     plt.rcParams.update({'font.size':11,'axes.spines.top':False,'axes.spines.right':False})
-    fig,axes=plt.subplots(1,2,figsize=(14,7),layout='constrained',gridspec_kw={'width_ratios':[2,1]})
+    fig,axes=plt.subplots(1,2,figsize=(14,7.5),layout='constrained',gridspec_kw={'width_ratios':[2,1]})
     fig.suptitle('Does a return to the slow channel last?',fontsize=21,fontweight='bold')
     display=np.zeros(channel.shape)
     # Mark both adjacent steps for legibility; the audit retains the actual parity.
@@ -280,7 +280,8 @@ def render(out,rows,events,summary,channel):
     axes[1].grid(alpha=.18)
     from matplotlib.lines import Line2D
     axes[1].legend(handles=[Line2D([],[],color='#557c92',marker='o',ls='',label='Matched the 3-cycle'),
-                            Line2D([],[],color='#ad563c',marker='o',ls='',label='Unresolved at 4,096 updates')],fontsize=9)
+                            Line2D([],[],color='#ad563c',marker='o',ls='',label='Unresolved at 4,096 updates')],fontsize=9,
+                   loc='upper center',bbox_to_anchor=(.5,-.12))
     from matplotlib.patches import Patch
     axes[0].legend(handles=[Patch(color='#db9e3b',label='Slow channel'),Patch(color='#557c92',label='Matched attracting 3-cycle'),Patch(color='#eef1f4',label='Elsewhere')],loc='upper center',bbox_to_anchor=(.5,-.12),ncol=3,fontsize=9)
     fig.supxlabel('All 64 initial states have the same slow coordinate; only transverse components change.\n'
