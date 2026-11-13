@@ -1,0 +1,46 @@
+{
+  "name": "FGR3",
+  "status": "exploratory sequential development, then frozen fresh-trajectory evaluation",
+  "purpose": "Predict natural departures, return times and period-three capture without invoking the network in the reduced rollout; separately measure pre-capture tangent growth and finite-time survival.",
+  "parent_line": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-line-01/run",
+  "parent_curve": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-curve-01/run",
+  "reference_cycle": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-cycle-01",
+  "device": "cpu",
+  "threads": 8,
+  "batch_size": 16,
+  "dtype": "patched float64",
+  "pilot": {"normal_updates": 64, "tangent_updates": 8, "gate": "Saved one/two-step replay and composed period-three JVP versus the audited dense monodromy and convergent central differences; immutable dual-disk shards."},
+  "training": {
+    "coordinate": "q=v/U on the FGR2C degree-seven reconstructed natural exit curve",
+    "domain": [3.0, 4.12],
+    "initial_points": 257,
+    "refinement_rounds": 3,
+    "new_points_per_round": 256,
+    "maximum_points": 1025,
+    "max_updates": 1024,
+    "rule": "Refine widest intervals weighted by route changes, elapsed-time jumps and next-departure variation; development outcomes only. Preserve all rounds.",
+    "target": "First qualified natural departure after a persistent channel visit, verified P3 approach, other recurrence candidate, or censored horizon. A qualified departure requires ten same-phase inside readings and v>=3U within32 updates after the last inside reading."
+  },
+  "validation": {
+    "rows": 16,
+    "seed": 20261113,
+    "initial_rule": "One uniform draw within each of16 strata along the original FGR1 seed64-to-seed77 transverse line; generated only after the table and evaluation design are frozen.",
+    "max_updates": 16384,
+    "stop": "128 consecutive ordered full-state matches to the audited P3 at relative1e-9, another recurrence candidate through64 over128positions, or the horizon. No stopping on returns.",
+    "scores": "One-cycle route/time/coordinate error; precision and recall of rare capture outcomes; independent scalar rollouts at1,2,4,8cycles and to128cycles; comparison with nearest-neighbor and always-return baselines; abstention and unresolved-branch rates. No teacher forcing during rollouts.",
+    "survival_horizons": [4096, 8192, 16384]
+  },
+  "growth": {
+    "window_starts": [256, 4096, 12288],
+    "window_updates": 1024,
+    "alignment_updates": 256,
+    "method": "Exact forward-mode JVPs along saved full-network trajectories, normalized every update; independent first/second measurement halves. Exclude all frozen padding and report conditioning on survival.",
+    "offset_checks": [0.000001, 0.0000003],
+    "offset_check_updates": 128,
+    "control": "Audited attracting P3: negative long-window growth consistent with log(spectral radius)/3; compare composed derivatives before scientific growth measurements."
+  },
+  "storage": "All full-state updates in immutable128-update shards outside Git. Copy, fsync and rehash each shard on /archive before advancing. Exact source, input, plan, model revision, prefix, steering and per-file hashes retained. Never splice failed attempts.",
+  "local_wall_seconds_per_stage": 21600,
+  "claims": "Numerical approximations and finite-window diagnostics at one prompt and parameter setting. The sampling line is not basin volume. Finite survival or positive growth cannot establish permanent chaos. Table failure, false capture, censoring and off-domain rollouts must be reported. The curve domain slightly extends the development fit interval; disclose that extrapolation.",
+  "publication": "After independent audit and separate-disk verification, update both blog posts, the full report and the Chaos manuscript with bounded results, figures and provenance. No paid computation or review is authorized by this plan."
+}
