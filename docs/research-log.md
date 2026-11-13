@@ -34070,3 +34070,32 @@ _commit `b008bdb469c9` (dirty worktree)_
 - **Claim impact:** Exploratory extension at the same parameter setting. Exact timing and coordinate discrepancies will be reported, including any phase slip, short passage or unresolved row. It does not establish indefinite trajectory predictability or chaos.
 
 _commit `b008bdb469c9` (dirty worktree)_
+
+## 2026-11-13 UTC: FGR2D full-cycle validation and the theoretical interpretation
+
+The 58 returned FGR2C states (28 held-out original/reconstructed pairs and one control pair) were continued from their confirmed channel entries through the next slow passage. All reached the specified next natural exit; no short passage, negative-side departure, recrossing or unresolved row occurred. The independently reconstructed events agree with the runtime events. Every held-out departure-to-departure duration agrees exactly between original and reconstructed states, over 105 to 227 individual model updates. The maximum difference at the next departure is 0.001306632491476556 U, hence all differences are below 0.0014 U. This continuation took 153.851 seconds, used no GPU or rental, and its full manifest is independently verified on the separate archive disk. The three P3 pairs remain separate outcomes from FGR2C, rather than being omitted from the overall route comparison. Audit: `/data2/neural-shrimp-data/audits/fold-global-return/20261113-cycle-map-01`.
+
+The useful reduction is conditional on naturally reached exits. Write the full soft-token state as
+
+\[
+x=x_c+v r+w,\qquad l^T r=1,\qquad l^T w=0.
+\]
+
+FGR1 varied w at fixed v and changed the next destination. That falsifies a v-only rule for arbitrary nearby exit states. FGR2C instead tested whether the natural slow passage restricts the states that actually reach the exit. Its development exits admit the approximation
+
+\[
+\widehat x(v)=x_c+v r+
+\sum_{j=0}^{7} c_j T_j\!\left((v-v_0)/s_v\right),\qquad l^T c_j=0,
+\]
+
+where the vector Chebyshev coefficients, centre and scale are retained in the hash-bound input arrays. This is a fitted state-reconstruction curve, not an exact invariant-manifold proof. Its degree and fitting strategy were chosen using development trajectories only; complete odd initial-state trajectories were withheld. It agrees with the full 896-component held-out states closely enough to reproduce the tested next routes and full-cycle timing. This supports a reduced numerical return construction
+
+\[
+\widehat P(v)=l^T\bigl[F^{\tau(v)}(\widehat x(v))-x_c\bigr],
+\]
+
+where tau is the first next qualified natural-departure time, when such a departure exists. A separate terminal label records approach to the verified P3 instead. F is still the full network: this is an accurate restriction of its input state to one coordinate for the measured excursion/cycle, not an elementary substitute for computing the global dynamics. A future table or surrogate for P must itself pass held-out prediction checks.
+
+The local fold normal form and the global return have different jobs. The local law v' = v + |a| epsilon + |b| v^2 explains slow motion near the former 2-cycle. The global excursion determines whether and where the trajectory re-enters. Natural exits being nearly one-dimensional is consistent with local transverse contraction; it does not show that the global return function is a low-degree polynomial. Normal-form coefficients alone cannot determine that function: maps with identical local coefficients can differ away from the fold and send departing states to different destinations. Additional global information is therefore necessary, even when a useful scalar reduction exists.
+
+Finally, very small state-reconstruction errors grew during the excursion and grew further during the subsequent passage. Successful one-cycle prediction is not a guarantee of agreement after indefinitely many cycles. FGR2's still-running finite-horizon lifetime scan is needed to distinguish repeated visits from later P3 approach; neither outcome establishes an asymptotic chaotic attractor, a complete basin boundary, or a universal formula across prompts and parameters.

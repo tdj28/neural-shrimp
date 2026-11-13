@@ -278,11 +278,14 @@ def render(out,rows,events,summary,channel):
     axes[1].scatter([r['s'] for r in rows],[r['visit_count'] for r in rows],c=['#557c92' if r['kind']=='reference_p3' else '#ad563c' for r in rows],s=34)
     axes[1].set(xlabel='Starting-state interpolation s',ylabel='Persistent channel visits',title='B  Returns before capture or the horizon')
     axes[1].grid(alpha=.18)
+    from matplotlib.lines import Line2D
+    axes[1].legend(handles=[Line2D([],[],color='#557c92',marker='o',ls='',label='Matched the 3-cycle'),
+                            Line2D([],[],color='#ad563c',marker='o',ls='',label='Unresolved at 4,096 updates')],fontsize=9)
     from matplotlib.patches import Patch
     axes[0].legend(handles=[Patch(color='#db9e3b',label='Slow channel'),Patch(color='#557c92',label='Matched attracting 3-cycle'),Patch(color='#eef1f4',label='Elsewhere')],loc='upper center',bbox_to_anchor=(.5,-.12),ncol=3,fontsize=9)
     fig.supxlabel('All 64 initial states have the same slow coordinate; only transverse components change.\n'
                   'Qwen2.5-0.5B · α = αc + 0.00001 · log₁₀T = −0.115 · patched float64 CPU\n'
-                  'Channel: |v| < U, transverse remainder < 0.05. P3: 128 ordered full-state matches at relative 10⁻⁹.\n'
+                  'Visits: three same-phase readings with |v| < U and transverse remainder < 0.05. P3: 128 ordered matches at relative 10⁻⁹.\n'
                   'Blank after a blue segment: simulation stopped after the cycle check; no later states are plotted.\n'
                   'Continued recurrence within the horizon does not establish permanent trapping or chaos.',fontsize=10)
     fig.savefig(out/'repeated-returns.png',dpi=180);plt.close(fig)

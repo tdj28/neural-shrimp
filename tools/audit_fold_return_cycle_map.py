@@ -97,7 +97,7 @@ def render(out,pairs,summary,background=None):
     plt.rcParams.update({'font.size':11,'axes.spines.top':False,'axes.spines.right':False})
     test=[p for p in pairs if p['split']=='test']
     fig,axes=plt.subplots(1,2,figsize=(13.5,6.5),layout='constrained')
-    fig.suptitle('The next complete return cycle can be predicted from one exit coordinate',fontsize=18,fontweight='bold')
+    fig.suptitle('From natural exits, one coordinate predicts a complete return cycle',fontsize=18,fontweight='bold')
     if background:
         groups={}
         for e in background:groups.setdefault(e['row'],[]).append(e)
