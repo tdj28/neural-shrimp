@@ -89,7 +89,7 @@ def audit(args):
     print(json.dumps(summary,indent=2))
 
 
-def render(out,pairs,summary):
+def render(out,pairs,summary,background=None):
     import math
     import matplotlib
     matplotlib.use('Agg')
@@ -98,6 +98,16 @@ def render(out,pairs,summary):
     test=[p for p in pairs if p['split']=='test']
     fig,axes=plt.subplots(1,2,figsize=(13.5,6.5),layout='constrained')
     fig.suptitle('The next complete return cycle can be predicted from one exit coordinate',fontsize=18,fontweight='bold')
+    if background:
+        groups={}
+        for e in background:groups.setdefault(e['row'],[]).append(e)
+        points=[]
+        for group in groups.values():
+            for a,b in zip(group,group[1:]):
+                if b['visit']==a['visit']+1:points.append((a['exit_v_over_U'],b['exit_v_over_U']))
+        if points:
+            points=np.array(points)
+            axes[0].scatter(points[:,0],points[:,1],s=5,c='#bbbbbb',alpha=.6,label='Other measured natural return cycles',zorder=0)
     q0=[p['v0'] for p in test]
     axes[0].scatter(q0,[p['observed_next_v'] for p in test],s=36,c='#086a92',label='Original full state')
     axes[0].scatter(q0,[p['predicted_next_v'] for p in test],s=80,facecolors='none',edgecolors='#bd643a',label='Reconstructed from v alone')
