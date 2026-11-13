@@ -34155,3 +34155,27 @@ The tangent analysis keeps only genuine pre-capture states. A384-update P3 contr
 The sequential controller is active and the thread follow-up checks every30 minutes through scientific audit and publication closeout. Its completion conditions explicitly include both the technical blog and the short read, both PDFs, visual checks, separate-disk evidence, verified main pushes and blog deployment. The first257-point development grid has finished; the three planned refinement rounds are proceeding. This is not yet a validated autonomous model or a new chaos result.
 
 A separate final input audit, `tools/audit_fold_return_inputs.py`, checks the reconstructed training seeds using independent Clenshaw evaluation, every table target against its saved batch outcome, the exact stratified fresh draw and bitwise original-line initial states, and the frozen table binding. It does not modify or duplicate the active controller. The first256 completed development inputs agreed within3.470e-18 per component. Run this additional audit after both raw manifests complete, before publication. Twenty-six focused tests pass. The P3 control's planned finite averaging window was also checked offline using its already audited dense monodromy: its expected finite-window means differ from the asymptotic value by less than8.8e-5 per update, safely inside the declared control tolerance; this is a setup check, not the new tangent experiment's outcome.
+
+## 2026-11-13 23:03 UTC: Discussion sentences on the tests a one-dimensional description would have to pass (report, article, blog)
+
+Text only, at the author's request ("add it to both pdfs and the blog"); no new computation and no new result. The
+sentences were offered on 11 November in answer to a reviewer's suggestion and left out until asked for.
+
+- **Report** (`paper/llm/main.tex`, paragraph "The picture"; 210 pages, no undefined references): after "no global
+  one-dimensional reduction is established", two sentences say that such a description would have to pass two tests
+  (the position along a band at one visit determines the position at the next; every periodic orbit that the reduced
+  map allows is an orbit of the full map, which Newton's method can check), and that where both pass, kneading theory
+  would say which sequences of L and R can occur and how fast their number grows. A closing clause points to the
+  window labels of the section on cusps and shrimp-like windows as a first, approximate use of that theory.
+- **Chaos article** (private article repository, commit `4f389da`; 38 pages as before): the same two sentences in the
+  Discussion, before the sentence on the natural-exit reconstruction, with one new reference.
+- **Reference.** Milnor and Thurston, "On iterated maps of the interval" (1988), already cited in the report; title,
+  authors, book, pages 465 to 563 and year checked against the Crossref record of DOI 10.1007/BFb0082847.
+- **Blog** (Research Note, section of Figure 70; edited in place and left uncommitted for the author): the same
+  content in four sentences, linked to the post's existing reference and to its section on symbolic dynamics. No
+  numbers, so no new provenance entries. Hugo render with `--panicOnWarning`, `check_provenance.py` and
+  `check_public_repo.py` pass; the built `blog/` directory was not regenerated. Generator and backup:
+  `neural-shrimp-data/blog-generator/nov13-kneading/`, `blog-bundle-backup/index.md.before-nov13-kneading`.
+- **Not claimed.** Neither test has been run. The existing statements stand: the return maps do not prove a
+  reduction to one dimension, 10 of the 58 chaotic six-band cells fail the two-symbol coding test, and the
+  transfer-operator part of the reviewer's suggestion was left out because nothing in the papers bears on it.
