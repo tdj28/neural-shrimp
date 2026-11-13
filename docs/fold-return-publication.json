@@ -65,5 +65,57 @@
       "sha256": "e94c9b9ae6313b426a11d1791848da3764eadfc0df1fee01823e088d9677be36",
       "bytes": 664986
     }
+  },
+  "delivery": {
+    "schema": "fold-return-publication-delivery-v1",
+    "created_utc": "2026-11-13T20:29:26.208174+00:00",
+    "publication_commits": {
+      "full_report": "9ddfee4b9137f4fb259ea540c5b2c2c73a01cfe7",
+      "chaos_article": "70b2b18d558f39a3c4fd36a0ec34a31b76a9a4cf",
+      "blog": "2be56ebbcd5e5ef68657577750a0eab04fb1188d"
+    },
+    "deployment": {
+      "id": 43500956410,
+      "head_sha": "2be56ebbcd5e5ef68657577750a0eab04fb1188d",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/praxagent/praxagent-ai/actions/runs/43500956410",
+      "updated_at": "2026-11-13T20:28:09Z"
+    },
+    "live_site": {
+      "url": "https://praxagent.ai/blog/posts/2026/10/chaos-bifurcations-language-model-feedback/",
+      "http_status": 200,
+      "new_section_present": true,
+      "assets": [
+        {
+          "asset": "fig-fold-return-map.png",
+          "http_status": 200,
+          "sha256": "89f4be152e85e8069f74335c2ffd68e94b38694d0154b5a58bdde083ef993857"
+        },
+        {
+          "asset": "fig-fold-return-map-mobile.png",
+          "http_status": 200,
+          "sha256": "0e76a7a93253275e2f64bb13c8dbafe8bf37905d057500393cf26af5bd03db7d"
+        },
+        {
+          "asset": "fig-fold-return-fates.png",
+          "http_status": 200,
+          "sha256": "294e044ae2c7a70305997f002e3c6a618a196c139493f898637d0ca41bb8af8f"
+        },
+        {
+          "asset": "fig-fold-return-fates-mobile.png",
+          "http_status": 200,
+          "sha256": "9eda08eeb6ebe17549784ae0391d5e46f4424349b3a57d938f1f594764c63180"
+        }
+      ]
+    },
+    "local_validation": "All 72 math/layout and 6 search browser tests passed. Artifact staging then rejected empty Python cache directories copied by rsync; a fixture reproduced the defect and verified the corrected filters. Rebuilt artifact passed with 2363 public files. The original failed packaging log is preserved.",
+    "primary_root": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-publication-delivery-01",
+    "backup_root": "/archive/neural-shrimp-backups/20261113-fold-return-publication-delivery-01",
+    "physical_disks": [
+      "nvme0n1",
+      "sda"
+    ],
+    "manifest_sha256": "edf748f3cfa822447cb2d0e5e5e9611fd7c9cb46674ceed38ffe2438b7e0d314"
   }
 }
