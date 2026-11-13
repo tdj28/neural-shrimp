@@ -204,6 +204,7 @@ def audit(args):
 
 
 def render(out,data,rows,pairs,summary,width):
+    import math
     import matplotlib
     matplotlib.use('Agg')
     import matplotlib.pyplot as plt
@@ -236,10 +237,13 @@ def render(out,data,rows,pairs,summary,width):
     axes[1].axhline(-1.05,color='.7',lw=.7);axes[1].text(3.03,-1.14,'× Approaches the 3-cycle',fontsize=9,color='#883f6e')
     axes[1].legend(fontsize=9,loc='upper right')
     for ax in axes:ax.grid(alpha=.18)
+    e=summary['max_return_v_over_U_error']
+    scale=10**(1-math.floor(math.log10(e))) if e else 1
+    upper=math.ceil(e*scale)/scale
     text=(f"{summary['test_pairs']} held-out starting trajectories · {summary['returned_test_pairs']} return pairs · "
           f"{summary['original_P3_test_pairs']} pairs approach the verified 3-cycle\n"
           f"Largest return-time discrepancy: {summary['max_return_time_difference']} updates; "
-          f"largest entry discrepancy: {summary['max_return_v_over_U_error']:.2g} U.\n"
+          f"all entry discrepancies ≤ {upper:.2g} U.\n"
           'The full network evaluates each excursion. This validates a scalar initial-state reduction at one setting,\n'
           'not a universal closed formula or indefinitely accurate trajectory prediction.')
     fig.supxlabel(text,fontsize=10);fig.savefig(out/'scalar-return-validation.png',dpi=180);plt.close(fig)

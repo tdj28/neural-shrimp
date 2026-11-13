@@ -34055,3 +34055,18 @@ _commit `b6d1a6480930` (dirty worktree)_
 - **Claim impact:** Adaptive local diagnostic, not a confirmatory universal formula or proof of an invariant manifold. Test rows are excluded from fitting. A successful test would justify a scalar sufficient coordinate for these natural exits and one excursion, not arbitrary transverse starts or indefinite predictions.
 
 _commit `eec865dd0d4a` (dirty worktree)_
+
+## 2026-11-13 07:43 UTC: FGR2C: a tested scalar reduction for natural exits
+
+The paired reconstruction diagnostic completed and its full manifest was rehashed independently on both physical disks. The degree7 vector curve was fitted only to143 development exits from the first640 FGR2 updates. All31 heldout first natural exits chose the same route after reconstruction from v alone:28 returned and3 approached the previously verified P3. Every returned pair had identical integer entry timing. Maximum entry-position difference was4.52334103296017e-5 U, hence all were below4.6e-5 U. Heldout initial full-state reconstruction error was at most6.302e-14 relative. Original-state replay against the unfrozen parent history differed by at most8.448e-12 relative. Frozen post-stop padding was excluded. The centred, transverse-projected degree7 fit has maximum grouped development reconstruction error4.825e-14; the earlier preliminary fit used uncentred full states and was less well conditioned. The global network still computes each excursion: this is a validated one-coordinate initial-state reduction at one setting, not an elementary universal formula. Small reconstruction errors can expand greatly during an excursion, so the one-excursion result must not be extended to indefinite itineraries. All simpler fixed prediction models remain to be reported from completed FGR2. FGR2 continues unchanged through4096 updates; no conclusion about permanent capture or chaos is taken from its unfinished trajectories. Audited evidence: /data2/neural-shrimp-data/audits/fold-global-return/20261113-curve-01; paired raw manifest fff837c70cfee62bad669a500cd3c7e11a413e194678d8403219fd83a4a6acb3.
+
+_commit `b008bdb469c9` (dirty worktree)_
+
+## 2026-11-13 07:46 UTC: amendment to `FGR2C scalar exit reconstruction`
+
+- **Change:** Add FGR2D: continue the 58 returned paired states (28 heldout pairs plus one control pair) through the same local passage to their next eligible v>=3U exit. The six P3 rows are excluded, retained only as marked inactive batch padding. Use patched float64 CPU,8 threads,64 batch rows,512-update maximum and the same per-block separate-disk hash verification. Audit one complete departure-to-departure prediction as well as the already verified excursion.
+- **Why:** A prediction of re-entry alone does not validate a complete return map. The saved paired states permit a short continuation through the next slow passage without repeating their global excursion.
+- **Outcomes seen:** FGR2C audited all31 heldout routes correctly,28 integer return times exactly,maximum entry discrepancy4.52334103296017e-5 U. The main FGR2 run is still ongoing. No next-departure paired outcome has been seen.
+- **Claim impact:** Exploratory extension at the same parameter setting. Exact timing and coordinate discrepancies will be reported, including any phase slip, short passage or unresolved row. It does not establish indefinite trajectory predictability or chaos.
+
+_commit `b008bdb469c9` (dirty worktree)_
