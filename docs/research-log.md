@@ -33966,3 +33966,34 @@ many starts for 100,000 steps, so how typical this lifetime is across the chaoti
 two samples of 192 cells.
 
 _commit `3bde65ceb3d6` before this update_
+
+## 2026-11-12 — Correct the fold figure's free-trajectory presentation
+
+The human identified misleading features in panel (d): absolute value on a log
+axis made smooth crossings look like spikes, while a phase-shifted slow passage
+appeared as a high plateau outside the coordinate-only shading. The revised
+panel uses the same saved model trajectory, a signed linear coordinate v/U,
+and separate original/one-update-later readings. No model run or paid compute.
+Full states from FW and the saved FW3 phase check independently reproduce the
+coordinates within 1e-12; the original 600-interval coordinate record is exactly
+equal. Shading now requires both |v|<U and transverse remainder norm<0.05 at
+either reading. The latter is an oblique-coordinate remainder, not a full
+Euclidean distance from the cycle. White is not a chaos classification; values
+outside +/-3U are omitted, not connected. This local display criterion is
+descriptive and distinct from the earlier 3U forecast-analysis window.
+
+The original reading passes at 390/600 intervals and the shifted reading at
+55/600, with no overlap: 445/600 in total. The largest transverse remainder
+among samples within the coordinate interval is below 0.002293. The shifted
+complete interval is 180–224 (45 samples); 590–599 is horizon-censored.
+Complete highlighted intervals range from 40 to 70; the initial interval is
+also censored. No new chaos claim or extrapolation beyond saved full states.
+
+Updated the full report, journal manuscript, blog figure, alt text, and blog
+walkthrough. The walkthrough now includes the transverse check instead of
+repeating the misleading log-absolute plot. Three focused tests cover smooth
+zero crossing, rejection of a small projection with large transverse remainder,
+and both-phase interval accounting. Saved-array checks, figure and PDF visual
+review complement these tests. Hash-bound receipt: docs/fold-panel-revision.json.
+The original figure and before-edit external sources are retained outside Git
+under /data2/neural-shrimp-data/audits/fold-panel-revision/20261112-01.

@@ -16,6 +16,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+from fold_panel_data import load_panel, draw_passages
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = Path(os.environ.get("NEURAL_SHRIMP_DATA", ROOT.parent / "neural-shrimp-data"))
@@ -287,23 +288,18 @@ def free():
     p_it, p_a, p_there = percent(" it"), percent(" a"), percent(" there")
     N = 345
     fig, axes = plt.subplots(3, 1, figsize=(6.4, 6.6), sharex=True, gridspec_kw={"hspace": 0.2, "height_ratios": [1.0, 1.0, 0.9]})
+    panel = load_panel(LOOP)
     ax = axes[0]
-    ax.semilogy(np.arange(N), np.maximum(np.abs(v[:N]), 1e-6), "-", color="black", lw=0.7)
-    ax.axhspan(1e-6, U, color="#fde0c5", lw=0)
-    ax.set_ylim(1e-5, 3)
-    ax.set_ylabel(r"$|u_n|$ (log scale)")
-    ax.set_title(r"(a) the article's panel, first 345 laps: spikes up are sentence ends, spikes down are crossings of zero", fontsize=8, loc="left")
+    draw_passages(ax, panel, horizon=N, fontsize=8)
+    ax.set_xlabel("")
+    ax.set_title("(a) Signed position: slow passages cross zero smoothly; blue follows the shifted phase", fontsize=8, loc="left")
     ax = axes[1]
-    c = 3.0
-    ax.axhspan(-1, 1, color="#fde0c5", lw=0)
-    ax.axhline(0, color="0.5", lw=0.5)
-    near = lambda w: np.where(np.abs(w[:N]) <= c * U, w[:N] / U, np.nan)  # noqa: E731
-    ax.plot(np.arange(N), near(v), "-", color="black", lw=1.0, label="read every two steps, as in (a)")
-    ax.plot(np.arange(N), near(v1), "-", color=BLUE, lw=1.0, label="read one step later")
-    ax.set_ylim(-c * 1.04, c * 1.04)
-    ax.set_ylabel(r"$v_n/U$, cut off at $\pm3$")
-    ax.set_title("(b) the same numbers, linear and with the sign kept: each crawl climbs steadily across the channel", fontsize=8, loc="left")
-    ax.legend(fontsize=6.5, loc="lower right", frameon=True, framealpha=0.9, edgecolor="none")
+    for phase, color, label in [(0, 'black', 'every two updates'), (1, '#0072b2', 'one update later')]:
+        ax.semilogy(np.arange(N), panel['transverse'][phase, :N], color=color, lw=.8, label=label)
+    ax.axhline(.05, color='#a6430a', ls='--', lw=.8, label='transverse cutoff 0.05')
+    ax.set_ylabel(r"Transverse remainder $d_\perp$")
+    ax.set_title("(b) A second check: the remaining state components must also be close to the channel", fontsize=8, loc="left")
+    ax.legend(fontsize=6.5, loc='lower right', frameon=True, ncol=3)
     ax = axes[2]
     ax.plot(np.arange(N), p_it[:N], "-", color="black", lw=0.9, label='" it"')
     ax.plot(np.arange(N), p_there[:N], "-", color="0.55", lw=0.9, label='" there"')

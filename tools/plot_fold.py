@@ -8,8 +8,8 @@ layer 12), the saddle-node bifurcation behind the stripes (human request: "show 
 (c) Beyond the fold the orbit is gone but its ghost remains: controlled passages through the bottleneck from the
     channel's entrance (passage-p2-t-0.115), oriented coordinate v = sign(b) u in units of U = 0.1/|b|, measured on the
     network (one marker shape per eps) and iterated from the normal form v' = v + |a| eps + |b| v^2 (lines).
-(d) Free trajectories alternate between laminar phases in the bottleneck (|u| < U, shaded) and bursts
-    (passage-natural-p2-t-0.115, one trajectory at eps = 1e-5).
+(d) Signed local coordinates at both observation phases of one saved trajectory.
+    Vertical shading requires |v|<U AND transverse norm<0.05 at either phase.
 
 Usage: python tools/plot_fold.py [OUT.png] [OUT.json]
 """
@@ -18,6 +18,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+from fold_panel_data import load_panel, draw_passages
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
@@ -114,30 +115,14 @@ def main():
     ax.set_ylabel(r"$v_n/U$ (oriented $u$)", fontsize=7.5)
     ax.set_title(r"(c) beyond the fold ($\varepsilon=\alpha-\alpha_c>0$): the ghost", fontsize=8)
     ax.legend(fontsize=5.6, loc="lower right", frameon=False, markerscale=2.5)
-    # (d) a free trajectory: laminar phases and bursts
+    # (d) Same measured trajectory, signed and checked at both observation phases.
+    panel = load_panel(D)
     ax = axes[1, 1]
-    nat = json.loads((D / "passage-natural-p2-t-0.115" / "passage.json").read_text())
-    UN = np.load(D / "passage-natural-p2-t-0.115" / "u.npy")
-    pick = next(i for i, row in enumerate(nat["rows"]) if float(row["eps"]) == 1e-5 and row["entrance"] == "natural-3")
-    un = UN[:600, pick]
-    ax.semilogy(np.arange(len(un)), np.maximum(np.abs(un), 1e-6), "-", color="black", lw=0.6)
-    ax.axhspan(1e-6, U, color="#fde0c5", lw=0)
-    # label in the empty stretch of the band between the spike near n = 120 and the descent near n = 237
-    ax.text(180, U * 0.45, r"bottleneck" + "\n" + r"$|u|<U$", fontsize=5.8, ha="center", va="top", color="#a6430a")
-    inside = np.abs(UN[:, pick]) < U
-    runs, n = [], 0
-    for x in inside:
-        if x:
-            n += 1
-        elif n:
-            runs.append(n)
-            n = 0
-    summary["natural"] = {"eps": 1e-5, "row": pick, "laminar_runs": runs, "fraction_in_bottleneck": float(inside.mean())}
-    ax.set_ylim(1e-5, 3)
-    ax.set_xlim(0, 600)
-    ax.set_xlabel(r"two-step iterates $n$", fontsize=7.5)
-    ax.set_ylabel(r"$|u_n|$", fontsize=7.5)
-    ax.set_title(r"(d) a free orbit at $\varepsilon=10^{-5}$: laminar phases and bursts", fontsize=8)
+    draw_passages(ax, panel, fontsize=7.5)
+    ax.set_title(r"(d) Slow passages and returns ($\varepsilon=10^{-5}$)", fontsize=8)
+    ax.text(.5, .015, "Orange: either phase passes the local-channel check",
+            transform=ax.transAxes, ha='center', va='bottom', fontsize=5.5, color='#a6430a')
+    summary['natural'] = panel['receipt']
     for axx in axes.ravel():
         axx.tick_params(labelsize=6.5)
     for axx in axes[0]:
@@ -145,7 +130,7 @@ def main():
         axx.xaxis.set_major_locator(matplotlib.ticker.MaxNLocator(4))
     fig.savefig(out_png, dpi=300, bbox_inches="tight", pad_inches=0.03)
     Path(out_json).write_text(json.dumps(summary, indent=1) + "\n")
-    print(json.dumps({k: v for k, v in summary.items() if k != "natural"}, indent=1), summary["natural"]["laminar_runs"])
+    print(json.dumps({k: v for k, v in summary.items() if k != "natural"}, indent=1), summary["natural"]["phase_intervals"])
 
 
 if __name__ == "__main__":

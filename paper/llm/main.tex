@@ -1889,12 +1889,14 @@ $1\mp2\sqrt{ab(\alpha_c-\alpha)}$ (open circles: a complex leading pair). (c) Be
 its ghost, the slow bottleneck that a saddle-node bifurcation leaves behind
 \cite{strogatz1989predicted,strogatz2018nonlinear}, slows the dynamics: controlled passages from the channel's entrance $v=-U$ to its exit $v=U$ ($v$ the
 oriented critical coordinate, $U=0.1/|b|$), measured on the network (markers, one shape per $\eps$) and iterated from the normal form
-$v'=v+|a|\eps+|b|v^2$ (lines), take 144, 71, 34 and 14 iterates, as predicted. (d) A free trajectory at
-$\eps=10^{-5}$ alternates between laminar phases in the bottleneck ($|u|<U$, shaded; 40 to 70 iterates each) and bursts
-away from it, the signature of type-I intermittency. Downward spikes are $u$ crossing zero. On the flat stretches near
-$|u|=0.42$ the two-step reading has slipped onto the other point of the 2-cycle, so these are laminar phases too (checked
-on the first, where $u$ read one step later crosses the channel). Branch residuals, fold, normal form and passages in float64; branch
-multipliers in float32. \repo{tools/plot_fold.py}.}
+$v'=v+|a|\eps+|b|v^2$ (lines), take 144, 71, 34 and 14 iterates, as predicted. (d) The same free trajectory at $\eps=10^{-5}$, now shown as signed position $v/U$ on a linear axis.
+Black samples every two updates; blue reads each saved state one update later, recovering passages hidden by a
+one-step phase shift. The dashed lines are $v/U=\pm1$; zero is the channel's middle, not a fixed point.
+Orange \emph{time intervals} satisfy both $|v|<U$ and transverse remainder norm $<0.05$ at either reading;
+white intervals fail this local criterion, not a test for chaos. Values outside $|v|\le3U$ are omitted, leaving gaps
+rather than connecting distant excursions. Complete highlighted passages last 40--70 two-update intervals;
+the first and last are censored by the displayed horizon. All traces in (d) come from saved model states,
+not the normal form. Branch residuals, fold, normal form and passages in float64; branch multipliers in float32. \repo{tools/plot_fold.py}.}
 \label{fig:fold}
 \end{figure}
 \paragraph{The fold.} At $\log_{10}T=-0.115$ the 2-cycle ``is it'' dies in a fold at $\alpha_c=0.06279827$ (float64
@@ -1964,6 +1966,22 @@ Over a full passage the two nearly cancel: at $\eps=10^{-5}$ the network takes 3
 exit, the formula 35 and 36. The formula drops terms of order $u^3$ and $\eps u$, which change sign across the channel; a fit
 to the laps at five distances, made after the fact, needs both ($R^2=0.97$).
 
+\paragraph{Reading the free trajectory.}
+The coordinate $u=\ell^\top(x-x_c)$ is a signed projection of the feedback state $x$ relative to one point $x_c$
+of the fold's 2-cycle; it is neither a token probability nor the full state-space distance.
+Panels (c,d) use $v=-u$, oriented from entrance to exit, and $U=0.1/|b|\simeq0.00393$.
+The sign is retained on a linear axis, so crossing $v=0$ is smooth. Beyond the fold the local increment
+$\Delta v=|a|\eps+|b|v^2$ is smallest there but remains positive: the trajectory slows, passes through, then accelerates
+out of the channel. No fixed point remains to capture it.
+Because a burst can shift the alternation by one update, panel (d) shows both $v(x)$ and $v(F(x))$ as separate
+traces at each two-update interval. Orange shading requires, at either reading, both $|v|<U$ and
+$d_\perp=\|(x-x_c)-u q\|<0.05$, with $q$ the normalized right critical eigenvector and $\ell^\top q=1$.
+This transverse remainder is checked from the saved states, including the one-update-later states;
+a small projection alone is insufficient. White means only that neither reading meets this local-channel criterion.
+The view omits $|v|>3U$, so the gaps denote excursions outside the displayed coordinate range, not missing data.
+The shading covers 445 of the 600 intervals (390 at the original reading and 55 at the shifted reading).
+This is a descriptive check on one trajectory, not an independent proof of chaos.
+
 \paragraph{Natural reinjection and the window law.} Left to itself, a trajectory near the fold alternates between
 laminar phases, in which it crawls through the bottleneck close to where the 2-cycle was and moves almost
 periodically, and bursts, short excursions out of the channel after which it is reinjected into it
@@ -1999,10 +2017,11 @@ trajectory. A laminar phase writes ``it is it is''. The state stays soft: at the
 about 27\%, ``there'' 20\% and ``a'' 19\%, and over the first phase ``a'' gains only from 18.7\% to 19.1\%. When ``a''
 overtakes ``it'', at lap 58, the sentence ends, ``is a is a . This is'', the same pieces as the stripe orbits' text, and the
 state falls back into the channel. Some bursts restart the sentence after a line break in a way that shifts the text by one
-step, and the two-step reading then lands on the other point of the 2-cycle: this is what the flat stretches near $|u|=0.42$
-in Figure~\ref{fig:fold}d are. Applying one more step of the map to the saved states puts the first such stretch inside the channel for 45 laps, within
-the 40 to 70 quoted for the panel. Counting both readings, this trajectory spends 74\% of its first 600 laps in the channel,
-against 65\% by the criterion $|u|<U$ alone. Of the other three free trajectories at this distance, two alternate in the same
+step. Reading only every two updates then follows the other phase of the almost-repeating cycle.
+The blue trace in Figure~\ref{fig:fold}d applies one further update to each saved state and exposes those
+passages directly: the first lasts 45 intervals, and the next is cut off by the 600-interval horizon.
+Both readings together satisfy the coordinate and transverse criterion for 445 of 600 intervals (74\%),
+compared with 390 (65\%) at the original reading alone. Of the other three free trajectories at this distance, two alternate in the same
 way and one settles on a different loop, ``certainly . Hello''. This is one trajectory, read after the fact to explain the
 figure (run FW, \path{docs/figure-walkthroughs/}).
 

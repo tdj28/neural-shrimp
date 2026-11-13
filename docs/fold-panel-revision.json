@@ -1,0 +1,111 @@
+{
+ "a": -4.834227003692353,
+ "b": -25.42851228205931,
+ "alpha_c": 0.06279827217667086,
+ "branch_points": 27,
+ "turn_index": 19,
+ "passages": {
+  "3e-06": {
+   "measured": 144,
+   "normal_form": 144
+  },
+  "1e-05": {
+   "measured": 71,
+   "normal_form": 71
+  },
+  "3e-05": {
+   "measured": 34,
+   "normal_form": 34
+  },
+  "0.0001": {
+   "measured": 14,
+   "normal_form": 14
+  }
+ },
+ "natural": {
+  "source": "saved model trajectory and saved one-step phase check; no new simulation",
+  "horizon": 600,
+  "row": 7,
+  "epsilon": 1e-05,
+  "width": 0.00393259341682185,
+  "transverse_limit": 0.05,
+  "coordinate": "v=sign(b)*l.T@(x-x_c); transverse=norm(x-x_c-v*sign(b)*r)",
+  "max_projection_discrepancy": 6.106226635438361e-16,
+  "phase_samples": [
+   390,
+   55
+  ],
+  "either_phase_samples": 445,
+  "phase_intervals": [
+   [
+    [
+     0,
+     47
+    ],
+    [
+     62,
+     101
+    ],
+    [
+     116,
+     155
+    ],
+    [
+     241,
+     310
+    ],
+    [
+     339,
+     385
+    ],
+    [
+     400,
+     440
+    ],
+    [
+     455,
+     496
+    ],
+    [
+     511,
+     572
+    ]
+   ],
+   [
+    [
+     180,
+     224
+    ],
+    [
+     590,
+     599
+    ]
+   ]
+  ],
+  "endpoint_intervals_are_censored": true,
+  "max_transverse_when_coordinate_inside": 0.0022925429320454975,
+  "white_means": "Neither observation phase passes the stated local-channel criterion; not a chaos label",
+  "input_hashes": {
+   "normal-form-p2-t-0.115/normal-form.json": "95a7703047c407670eea964d11b64b9149df8b57b95ccbd5da8ec54f17061b80",
+   "normal-form-p2-t-0.115/vectors.npz": "52dab35af115715de22e193667be2b672eb028ca51307ef9925681ed7ff4edac",
+   "passage-natural-words-p2-t-0.115/passage.json": "81b14c4123b3cc4e042f057a0902e98eb11f55f09eebe076a84e97e4f325e682",
+   "passage-natural-words-p2-t-0.115/top.npz": "01357f220b238f36f7b5821b6af64de30c24b6dfc140e651237d197e1929bab0",
+   "passage-natural-words-p2-t-0.115/phase-check.npz": "6e624be35f6170275d6089fdc5bdbe9d935590d05a86b1e178d30b38a379801d",
+   "passage-natural-words-p2-t-0.115/u.npy": "b78e9d26492398305344e7a71c97d0bf68df650012585a9eafb3ecebac6e7b63",
+   "passage-natural-words-p2-t-0.115/transverse.npy": "3df5ccaca85ed772d226e94de03d9b4d7ccabc242b3d6919052a1982fdefa092",
+   "passage-natural-p2-t-0.115/u.npy": "2691378c057ee7b6a5322cae9950c4d638957e2d567635a19077c3d8db1f3172"
+  }
+ },
+ "revision_date": "2026-11-12",
+ "change": "Signed linear local coordinate, separate phase readings, joint coordinate/transverse time shading. Same saved trajectory, no new model run.",
+ "figure_sha256": {
+  "fig-fold.png": "0c8c8fb4bdf4c69c00427a00d83b0547afdbc7c455af6de4ae3fce5a97b96248",
+  "fig-free-orbit-words.png": "f53393e40871f75adbdfcc47b40355341ca3c56b72953b73736d5749933c9145"
+ },
+ "generator_sha256": {
+  "tools/plot_fold.py": "9f79f5951b18c199320b24baa7dfcf08d8b1f5f2e375c95c5d916e49de623f5e",
+  "tools/fold_panel_data.py": "163bdd7b81c046419047947c5ec3c3b77c3d04257b266a68f2517139799c9b06",
+  "tools/figure_walkthroughs.py": "c94c1efe62d48a1081276ff71ad0c9efa383842a7c1d97c27b0ad2ff7918de33"
+ },
+ "audit_root": "/data2/neural-shrimp-data/audits/fold-panel-revision/20261112-01"
+}
