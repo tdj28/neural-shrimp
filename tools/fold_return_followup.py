@@ -163,9 +163,18 @@ class Engine:
         started = time.monotonic()
         for step in range(1, horizon+1):
             active = np.zeros(B, dtype=bool); active[:n] = [o is None for o in outcomes]
-            new, ids, probs = self.step(x)
+            try:
+                new, ids, probs = self.step(x)
+            except BaseException:
+                if states:
+                    self.evidence.save(f'{name}/interrupted-prefix-{step-1:05d}.npz', {
+                        'states': np.array(states), 'top_ids': np.array(top_ids),
+                        'top_probabilities': np.array(top_probs), 'valid_through': valid.copy()})
+                raise
             x[active] = new[active]; valid[active] = step
-            if not np.isfinite(x).all(): raise ValueError('Nonfinite network state')
+            if not np.isfinite(x).all():
+                self.evidence.save(f'{name}/nonfinite-{step:05d}.npz', {'states': x, 'valid_through': valid})
+                raise ValueError('Nonfinite network state')
             delta = x[:n]-d['centre']; v = delta@d['left']
             transverse = np.linalg.norm(delta-v[:, None]*d['right'], axis=1)
             for i in np.flatnonzero(active[:n]):
