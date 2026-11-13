@@ -1,0 +1,69 @@
+{
+  "schema": "fold-return-publication-closeout-v1",
+  "created_utc": "2026-11-13T20:19:10.733606+00:00",
+  "evidence_commit": "cf0688bc659decd2a914b61d4451dc77b0cc1eef",
+  "scope": "Publication integration of completed FGR1/FGR2; no new numerical execution.",
+  "primary_root": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-publication-closeout-01",
+  "backup_root": "/archive/neural-shrimp-backups/20261113-fold-return-publication-01",
+  "physical_disks": {
+    "primary": "nvme0n1",
+    "backup": "sda",
+    "verification": "Host lsblk parent chains are distinct."
+  },
+  "file_count": 57,
+  "bytes_per_copy": 50269530,
+  "verification": "Each source and each of two copies independently SHA-256 rehashed; files fsynced.",
+  "checks": {
+    "figure_reproduction": "Byte-identical regeneration of all publication PDF/PNG figures and figure receipts.",
+    "claims": "New receipt-derived numbers, conservative bounds, alt text and figure hashes pass the publication verifier.",
+    "existing_blog_provenance": "5253 of 5253 numbered claims matched in the updated main-post manifest; 118 referenced figures present.",
+    "pdf_builds": "latexmk success; 210-page report, 38-page journal article; no undefined citations or references.",
+    "pdf_visual": "Report pages 56-60 and title; journal pages 18-22 and staged-source page 21 inspected. New figures and captions fit.",
+    "pdf_warnings": "Full report retains one 15.80841pt overfull table box. REVTeX reports float-placement warnings; included new figure placement visually checked.",
+    "blog_preview": "Hugo succeeds; targeted Chromium math/layout test passes; desktop 1280px and mobile 390px have no overflow or KaTeX errors and load the intended figure variants.",
+    "public_content": "Site and public-repository checks pass. Full report PDF contains no Praxagent text."
+  },
+  "manifest_sha256": "9a909199c89225e8f04d513e1e2032a90df854b585af3c2d98e8ae0589bd6170",
+  "published_artifacts": {
+    "blog/blog-source/content/posts/2026/10/chaos-bifurcations-language-model-feedback/fig-fold-return-fates.receipt.json": {
+      "sha256": "bbcbe4077623cd15bc92da320122b710867035bbceedcaabb74f6c6287517fa7",
+      "bytes": 4324
+    },
+    "blog/blog-source/content/posts/2026/10/chaos-bifurcations-language-model-feedback/fig-fold-return-map.receipt.json": {
+      "sha256": "873499f5781d9e8ca14e7aaf790debcc5e0e2bdbc11c85080b53fb376560ea1a",
+      "bytes": 4328
+    },
+    "blog/blog-source/content/posts/2026/10/chaos-bifurcations-language-model-feedback/index.md": {
+      "sha256": "93f6123232e51be203e19c3ef516b09c4fd7f8de1dcf3089cb32612fbceeba97",
+      "bytes": 968136
+    },
+    "journal/figures/fig-fold-return-map.receipt.json": {
+      "sha256": "873499f5781d9e8ca14e7aaf790debcc5e0e2bdbc11c85080b53fb376560ea1a",
+      "bytes": 4328
+    },
+    "journal/main.pdf": {
+      "sha256": "2e9789165a2ea4811a8eac73a1b0f23bf20c863d871758fe9b6a04a9b930d64c",
+      "bytes": 9289531
+    },
+    "journal/main.tex": {
+      "sha256": "ef781e9a8a4af24edf1e78a7f507546e80ffe1d81d9bab4ec96244fe5aff4c1c",
+      "bytes": 186884
+    },
+    "research/paper/llm/figures/fig-fold-return-fates.receipt.json": {
+      "sha256": "bbcbe4077623cd15bc92da320122b710867035bbceedcaabb74f6c6287517fa7",
+      "bytes": 4324
+    },
+    "research/paper/llm/figures/fig-fold-return-map.receipt.json": {
+      "sha256": "873499f5781d9e8ca14e7aaf790debcc5e0e2bdbc11c85080b53fb376560ea1a",
+      "bytes": 4328
+    },
+    "research/paper/llm/main.pdf": {
+      "sha256": "12594566de12521aad5c2f30d7084af75ec62770a48c8ccec8aff976d0af7ba1",
+      "bytes": 27723690
+    },
+    "research/paper/llm/main.tex": {
+      "sha256": "e94c9b9ae6313b426a11d1791848da3764eadfc0df1fee01823e088d9677be36",
+      "bytes": 664986
+    }
+  }
+}

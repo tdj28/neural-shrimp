@@ -99,8 +99,9 @@ attracting orbits of periods 2 and 3 at one parameter cell, and the attracting 3
 period-doubling cascade. In a smaller period-18 window, retaining about 0.645\,\% of the previous feedback
 state as a third control changes the selected return pair's trace-saddle height through a numerical sign bracket
 as its center is followed in steering and temperature, supporting a conditional local reconnection interpretation. The sampled centers keep their state period and six-token readout, and the
-multipliers remain nonzero. In the recurrent-depth model Huginn, a frozen test confirmed that over-relaxing its loop costs accuracy. The loop is not ordinary sampled
-generation. These results show that bifurcation theory can make quantitative predictions about continuous language-model
+multipliers remain nonzero. In the recurrent-depth model Huginn, a frozen test confirmed that over-relaxing its loop costs accuracy. At one post-fold setting of Qwen2.5-0.5B-Instruct, natural exit states admit an accurate one-coordinate reconstruction, while the full
+network still computes their global returns and some repeated passages end in period-3 capture. The loop is not
+ordinary sampled generation. These results show that bifurcation theory can make quantitative predictions about continuous language-model
 feedback, with rigorous guarantees for selected periodic orbits of the full transformer.
 \end{abstract}
 
@@ -1985,7 +1986,9 @@ This is a descriptive check on one trajectory, not an independent proof of chaos
 \paragraph{Natural reinjection and the window law.} Left to itself, a trajectory near the fold alternates between
 laminar phases, in which it crawls through the bottleneck close to where the 2-cycle was and moves almost
 periodically, and bursts, short excursions out of the channel after which it is reinjected into it
-(Figure~\ref{fig:fold}d). This alternation is type-I intermittency \cite{pomeau1980intermittent}, whose laminar phases lengthen as
+(Figure~\ref{fig:fold}d). This is the slow-passage and reinjection pattern associated with type-I intermittency \cite{pomeau1980intermittent};
+the finite alternation alone does not establish persistent chaos. Section~\ref{sec:global-return} tests the global
+return and shows that repeated passages can precede periodic capture. In the local theory the laminar phases lengthen as
 $\eps^{-1/2}$ toward the fold \cite{hirsch1982theory};
 laminar is the fluid-dynamics term for the smooth stretches between turbulent bursts. Free trajectories re-enter the
 channel slightly upstream of the bottleneck's middle (median entry $v\approx-3\times10^{-4}$ to $-7\times10^{-4}$ at the
@@ -2165,6 +2168,131 @@ Measured $G$-iterates for the full-channel, midpoint and full-plus-transverse en
 the primary forecast.}
 \label{tab:prospective2}
 \end{table}
+
+\subsection{Global return, a natural exit curve, and eventual capture}
+\label{sec:global-return}
+The local fold calculation explains why a trajectory slows near the vanished 2-cycle. It does not specify where
+the trajectory goes after leaving that neighborhood. To separate these questions, an exploratory follow-up kept
+the model, prompt and philosophy direction fixed at $\log_{10}T=-0.115$ and
+$\alpha=\alpha_c+10^{-5}$. All runs used the patched float64 map. We first changed the state at the exit, then
+followed repeated returns, and finally tested whether naturally reached exit states could be reconstructed from one
+coordinate. The completed studies and their separate-disk checks are bound by
+\href{https://github.com/tdj28/neural-shrimp/blob/cf0688bc659decd2a914b61d4451dc77b0cc1eef/docs/fold-global-return.json}{the exit-perturbation receipt}
+and \href{https://github.com/tdj28/neural-shrimp/blob/cf0688bc659decd2a914b61d4451dc77b0cc1eef/docs/fold-return-mechanism.json}{the repeated-return and reconstruction receipt}.
+
+\paragraph{The same slow coordinate need not give the same destination.}
+Write the full state as $x=x_c+v r+w$, with $\ell_v^\top r=1$, $\ell_v^\top w=0$ and
+$v=\ell_v^\top(x-x_c)$. Here $r$ and $\ell_v$ are the right and left critical directions oriented so that the
+passage moves toward increasing $v$; this is the oriented coordinate used above, with
+$U=0.1/|b|=0.0039325934$. The remainder $w$ contains the transverse components. Of 128 controlled exit states,
+123 returned within 13 to 68 individual updates of $F$; the other five approached the same period-3 orbit.
+A matched pair held $v$ equal to numerical precision while changing $w$ by about 0.286\,\% of the original full-state
+norm: one returned, the other approached period 3. Thus a rule based on $v$ alone cannot describe arbitrary nearby
+states, even though the local passage itself is nearly one-dimensional.
+
+The alternative destination is numerically an attracting \emph{primitive} 3-cycle: its relative $F^3$ closure
+residual is below $8.6\times10^{-15}$, its lag-1 and lag-2 relative residuals exceed 1.75 and 2.91, and the spectral
+radius of the complete composed float64 derivative is 0.65065064. Independent directional derivatives and central
+differences check that composed derivative. These are numerical checks, not a new interval certificate. The
+leading-token readout is `` certainly'', ``.'', ``Hello''; the full probability distributions remain soft.
+
+\paragraph{A return does not settle the long-time fate.}
+We next interpolated 64 initial states between the matched returning and period-3-bound exits, keeping the same
+$v$ while varying $w$. Every history continued through subsequent returns until it matched the reference 3-cycle
+for 128 ordered full-state comparisons at relative tolerance $10^{-9}$, or reached 4096 individual updates.
+A persistent channel visit requires three consecutive same-phase readings with $|v|<U$ and $\|w\|<0.05$;
+these are local observation thresholds, not boundaries of chaos. Of the 64 starts, 63 returned at least once.
+Twenty-seven approached period 3, including 26 that returned first; their histories contained zero to 27 persistent
+visits. The other 37 made 29 to 34 visits and remained unresolved at the horizon
+(Fig.~\ref{fig:fold-return-fates}). The line is a constructed sample, not a basin-volume sample or a population
+escape-probability estimate. Repeated slow passages can precede periodic capture. They do not by themselves establish
+persistent chaos, or even a chaotic saddle; the distinction between an attracting chaotic set and a nonattracting
+chaotic set requires additional evidence \cite{lai2011transient}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-fold-return-fates.pdf}
+\caption{Repeated returns and later period-3 approach at one parameter setting. (a) All 64 starts, in their
+interpolation order $s$. Orange denotes the checked slow channel, pale gray the other recorded states, and blue
+the final reference-cycle matching interval. Both adjacent updates are colored for visibility when a same-phase
+channel reading passes. White after a blue interval is uncomputed time after the stopping check, not evidence of
+continued residence. (b) Counts of persistent channel visits before stopping: circles approach period 3;
+triangles are unresolved at 4096 updates. The 27 captured histories include 26 that first returned to the channel.
+No finite-horizon survivor is labeled permanently trapped or chaotic from this figure.}
+\label{fig:fold-return-fates}
+\end{figure}
+
+\paragraph{Natural departures admit a much stronger reduction.}
+The perturbations above are artificial departures. States that actually emerge after a slow passage are much more
+restricted. Define a natural departure as the first same-phase reading with $v\ge3U$ and $\|w\|<0.05$ after at
+least 20 updates spent in the local passage. This departure surface lies beyond the narrower $|v|<U$ observation
+band; the two should not be confused. The histories supplied 1515 eligible exits. Complete initial-state
+trajectories, not individual visits, were divided into development and held-out sets, with endpoints retained as
+controls. The same-parameter neighboring initial states make this an exploratory interpolation test, not a test of
+transfer to new parameters or prompts.
+
+From 143 development exits in the first 640 updates we fitted a full-state reconstruction curve
+\begin{equation}
+  \widehat x(v)=x_c+v r+\sum_{j=0}^{7} c_j T_j\!\left(\frac{v-v_0}{s_v}\right),
+  \qquad \ell_v^\top c_j=0,
+\end{equation}
+where $T_j$ are Chebyshev polynomials and $v_0,s_v$ center and scale the fitting interval. The vector coefficients
+reconstruct all 896 components. The degree was chosen by grouped development-only comparisons before the paired
+held-out excursions. On the first eligible exits of 31 held-out trajectories, the maximum relative state error was
+below $6.4\times10^{-14}$. This is evidence for an accurately fitted natural exit curve, not an exact invariant
+manifold or conjugacy.
+
+We then advanced each original state and its reconstruction through the \emph{unchanged full network}. All 31 pairs
+had the same next destination: 28 returned and three approached period 3. Every returning pair had the same integer
+re-entry time, with entry-coordinate differences below $4.6\times10^{-5}U$. Continuing those pairs through the
+next slow passage gave identical departure-to-departure times, spanning 105 to 227 individual updates, and
+next-departure coordinate differences below $0.0014U$ (Fig.~\ref{fig:fold-return-map}). All original full-cycle
+controls also reproduced their event times in the stored parent trajectories. The success tests loss of transverse
+information on the natural exit curve; it does not test a fitted scalar simulator.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-fold-return-map.pdf}
+\caption{One-coordinate state reconstruction followed by full-network evolution. (a) The coordinate of the next
+natural departure against the current one. Filled circles are the original held-out states; open circles start
+from their scalar reconstructions. Gray points give the other measured adjacent natural return cycles for context.
+(b) Absolute next-departure differences, on a logarithmic scale. All 28 returning pairs have identical complete-cycle
+times and differences below $0.0014U$. The three period-3 pairs have no next channel departure and are checked
+separately, not dropped from the destination comparison. Both members of every pair use the full network.}
+\label{fig:fold-return-map}
+\end{figure}
+
+\paragraph{What remains unsolved.}
+The construction defines a numerical return evaluation
+\begin{equation}
+ \widehat P(v)=\ell_v^\top\left[F^{\tau(v)}(\widehat x(v))-x_c\right],
+ \label{eq:measured-global-return}
+\end{equation}
+where $\tau(v)$ is the first next qualified natural-departure time, when one exists. A separate label records
+period-3 approach or unresolved evolution. Equation~\eqref{eq:measured-global-return} still calls the full network.
+Local fold coefficients cannot supply the missing global function: two maps can agree near the fold and differ
+outside it. Local transverse contraction is consistent with the observed exit curve, but does not make the global
+return a low-degree polynomial or guarantee accuracy after repeated composition.
+
+Simpler fitted predictors did considerably worse. On 777 returned test exits from wholly withheld trajectories,
+the entry-coordinate root-mean-square error, with initial trajectories weighted equally, was $0.2645U$ for a
+constant baseline, $0.2142U$ for scalar linear interpolation and $0.1913U$ for an eight-neighbor predictor using the
+slow coordinate and three transverse principal components. These predict the \emph{entry}, not the next departure
+in Fig.~\ref{fig:fold-return-map}. A nearest-neighbor destination classifier found six of nine test period-3 events
+but falsely called 14 returns period-3 events; its 97.84\,\% accuracy was below always predicting return
+(98.85\,\%). One censored test exit was excluded. These failures remain part of the result.
+
+An autonomous approximation would require a separately validated rule $v_{k+1}=P(v_k)$ together with a return-time
+function and an escape label, or additional coordinates if a single-valued scalar rule fails. A useful next test
+would resolve the steep return branches adaptively, freeze the resulting fit, and test both single-cycle errors and
+multi-cycle survival and timing on fresh trajectories and neighboring parameter settings. Fine-scale structure
+should be measured, not smoothed away. Persistent chaos is a different question: longer unbiased ensembles and
+tangent growth can distinguish candidate transients from long-lived expansion numerically, while a rigorous claim
+would need certified invariant-set and expansion or symbolic-dynamics arguments for the full map. A chaotic saddle
+can produce transient chaos even when typical trajectories eventually settle into a periodic orbit
+\cite{lai2011transient}. Neither a validated scalar surrogate nor such an invariant-set certificate is supplied by
+the present return experiment.
+
 
 \section{A period-doubling cascade to chaos}
 \label{sec:cascade}
@@ -4809,6 +4937,12 @@ Huginn loses accuracy under over-relaxation & generation test & prospective & \c
 \bottomrule
 \end{tabular}
 \end{table*}
+\paragraph{Local delay, global return and long-time fate.} The return study of Section~\ref{sec:global-return}
+separates these three questions. The normal form predicts the local delay. Natural departures admit an accurate
+one-coordinate state reconstruction for the tested next cycle, but its excursion is still evaluated through the
+full network. Period-3 capture after repeated visits prevents those visits alone from establishing persistent
+chaos. An autonomous return surrogate and an invariant-set classification remain distinct open tasks.
+
 \paragraph{What theory allows, and what is new.} Chaos and periodic windows occur in many nonlinear feedback systems:
 random recurrent networks become chaotic above a critical gain \cite{sompolinsky1988chaos,doyon1994bifurcations},
 and periodic windows, shrimp-shaped domains and doubling cascades are found in low-dimensional maps and in

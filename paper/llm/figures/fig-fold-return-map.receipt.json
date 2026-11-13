@@ -1,0 +1,73 @@
+{
+  "figure_id": "fig-fold-return-map",
+  "description": "Original and scalar-reconstructed states, each advanced through the unchanged full network.",
+  "alt_text": "Reconstructed natural exit states reproduce the next departure of all 28 returning held-out pairs; both trajectories use the full network.",
+  "sources": {
+    "/data2/neural-shrimp/docs/fold-return-mechanism.json": "5e3bbed19e25a9eca0ed4bffccd88c94d0478689df19115c181cd0b2474d0eee",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-line-01/rows.json": "befef2b4fd69e3ec76cf6d5b276ab2a4405faf0681fa3d697fcbf3bf7580cb5b",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-line-01/events.json": "0dbb4e8acebd4fe19934abc4c2706290c35569fb819b39c90caec420dca26e35",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-line-01/natural-exits.npz": "8660c2f11a610e1388010712ba43062361e15140c14f4b4fd941fe62bdfb99da",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-line-01/audit.json": "2ea719461bd9df626dcf1c792e3e2bb44893eb38be2ddfcc5210809cf36e3fa4",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-curve-01/rows.json": "67763af3fa4624b0590de5ce7dc3f42d9872dbc12899c622297956311c8f63a7",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-curve-01/pairs.json": "7cb301461042547f3f4e639b6e658356c44f1de432fdfccf7da72d2a61eb60be",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-curve-01/audit.json": "a9b5334a467e79ccbe8c211e7f5fa500497a553fd32b12bcf58570950d7721b2",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-cycle-map-01/rows.json": "2058ee32ea796852a1666dcd2608251a633471c97098960682a7471804c334db",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-cycle-map-01/pairs.json": "12224d3a05e3aa52462f4ff6a4a353c75a0056e1d014bec08d9f863e45e0de1b",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-cycle-map-01/audit.json": "2d9167b525748467f966b3671bac14d60a02bc897983f5ec090258f086ab330c"
+  },
+  "generator": {
+    "path": "tools/publish_fold_return_figures.py",
+    "sha256": "c9f0c22d324b297a7fee82c7e9fabb6866b29d5a343ba5adf9963c786a774608"
+  },
+  "matplotlib": "3.11.1",
+  "claims": {
+    "line_starts": 64,
+    "horizon": 4096,
+    "captured": 27,
+    "unresolved": 37,
+    "returned_at_least_once": 63,
+    "returned_then_captured": 26,
+    "heldout_routes": 31,
+    "heldout_returning_pairs": 28,
+    "heldout_P3_pairs": 3,
+    "max_entry_error_U": 4.52334103296017e-05,
+    "max_next_departure_error_U": 0.001306632491476556,
+    "max_cycle_time_error": 0,
+    "cycle_duration_range": [
+      105,
+      227
+    ],
+    "max_initial_relative_reconstruction_error": 6.301741255467102e-14,
+    "constant_entry_rmse_U": 0.26452289732273393,
+    "interpolation_entry_rmse_U": 0.21424451508912729
+  },
+  "selection": "All test returning pairs; gray background is all adjacent eligible exit pairs.",
+  "uncertainty": "Finite deterministic exploratory sample, no population confidence interval.",
+  "limits": [
+    "One fixed model, prompt, steering direction and parameter setting.",
+    "Exploratory adaptive analyses with complete initial-state trajectories held out; not a confirmatory population study.",
+    "The line sample is not a basin-volume or escape-probability estimate.",
+    "No rigorous error enclosure, global basin-boundary proof, or guaranteed indefinite scalar iteration.",
+    "Full network evaluates the return; no standalone scalar simulator.",
+    "No persistent-chaos claim from returns."
+  ],
+  "outputs": {
+    "fig-fold-return-map-mobile.pdf": {
+      "sha256": "593818211738050fbf63cc4d9889beac01613b3017256c43833da21e9f28bf3f",
+      "bytes": 104480
+    },
+    "fig-fold-return-map-mobile.png": {
+      "sha256": "0e76a7a93253275e2f64bb13c8dbafe8bf37905d057500393cf26af5bd03db7d",
+      "bytes": 287534
+    },
+    "fig-fold-return-map.pdf": {
+      "sha256": "03e364cbc4843632cee66fa6a12c1a9f555b06ea3b5716c3345db83dd6d81944",
+      "bytes": 104347
+    },
+    "fig-fold-return-map.png": {
+      "sha256": "89f4be152e85e8069f74335c2ffd68e94b38694d0154b5a58bdde083ef993857",
+      "bytes": 300107
+    }
+  },
+  "accessibility": "Captions describe all categories; open and filled markers distinguish reconstruction; triangle and circle distinguish final outcomes."
+}
