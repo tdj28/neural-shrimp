@@ -34099,3 +34099,9 @@ where tau is the first next qualified natural-departure time, when such a depart
 The local fold normal form and the global return have different jobs. The local law v' = v + |a| epsilon + |b| v^2 explains slow motion near the former 2-cycle. The global excursion determines whether and where the trajectory re-enters. Natural exits being nearly one-dimensional is consistent with local transverse contraction; it does not show that the global return function is a low-degree polynomial. Normal-form coefficients alone cannot determine that function: maps with identical local coefficients can differ away from the fold and send departing states to different destinations. Additional global information is therefore necessary, even when a useful scalar reduction exists.
 
 Finally, very small state-reconstruction errors grew during the excursion and grew further during the subsequent passage. Successful one-cycle prediction is not a guarantee of agreement after indefinitely many cycles. FGR2's still-running finite-horizon lifetime scan is needed to distinguish repeated visits from later P3 approach; neither outcome establishes an asymptotic chaotic attractor, a complete basin boundary, or a universal formula across prompts and parameters.
+
+## 2026-11-13 08:03 UTC: FGR2 figure-layout revision preserved
+
+The completed scientific audits passed. Visual inspection prompted moving legends outside the measured points. The second closeout render attempted to reuse the first closeout backup filenames; the immutable-backup conflict guard correctly refused that copy. No raw data were changed or lost, and no model execution was repeated. Preserve both render attempts, give each visual closeout its own backup subdirectory, and produce the corrected final render in attempt03. This is an artifact-naming correction, not a changed scientific result.
+
+_commit `ce22982b4620` (dirty worktree)_

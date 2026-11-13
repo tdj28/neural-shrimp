@@ -78,7 +78,7 @@ def finalize(args):
              'storage':{'primary_physical_disk':'nvme0n1','independent_backup_physical_disk':'sda','raw_and_figures_outside_git':True},
              'figures':{p.name:{'path':str(p),'sha256':sha(p),'bytes':p.stat().st_size} for p in out.glob('*.png')}}
     write_json(out/'receipt.json',receipt)
-    backup=Path(a['backup_path']).parent/'closeout'
+    backup=Path(a['backup_path']).parent/'closeout'/out.name
     for path in out.iterdir():backup_file(path,out,backup)
     write_json(ROOT/'docs/fold-return-mechanism.json',receipt)
     print(json.dumps({'line':line_summary,'excursion_max_error_U':c['max_return_v_over_U_error'],
