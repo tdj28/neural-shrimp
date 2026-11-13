@@ -291,3 +291,20 @@ The exact model revision, numerical precision gates, execution-source commits,
 raw manifests and independent audit hashes are in `fold-return-mechanism.json`.
 All immutable state blocks were hash-verified on primary nvme0n1 and separate
 physical disk sda before further execution. No rented resources or paid review.
+
+## FGR3 autonomous-return study, started 13 November 2026
+
+Local zeta Intel Core i9-14900K; one inference process at a time, eight
+Torch/OMP threads and sixteen fixed batch rows. CPU-only patched float64
+Qwen2.5-0.5B-Instruct with the math attention backend. The occupied RTX 2000
+Ada is left to the other project. The representative pilot measured
+0.3428963 seconds per ordinary batch update and1.6882567 seconds per exact
+JVP update; composed derivative and saved-state replay gates passed.
+Pilot raw source f6f5edb5429ac63bbcf601a816061ebf8d23d1e9; training source
+008a12edcce015cb9c303cbf3c214d64afb8364e; sequential controller source
+a0a05bc7c3b79a2d9f06ab44f2fd3c4ab90d2416. Exact runtime metadata and process
+launch identities are external under the dated FGR3 roots. Training is
+running; this entry is not a completion receipt. Primary /data2 resolves
+to nvme0n1 and /archive to sda, independently checked again at launch.
+Immutable blocks are synchronously copied and rehashed before advancement.
+No rented resource, GPU execution or paid review is involved.

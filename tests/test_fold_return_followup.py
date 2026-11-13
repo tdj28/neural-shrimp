@@ -9,6 +9,7 @@ from audit_fold_return_followup import departures
 from fold_return_surrogate import DepartureDetector
 from fold_return_growth import summarize_window
 from fold_return_study_controller import owned_process_active
+from audit_fold_return_inputs import independent_curve
 
 
 def test_independent_departure_extraction_matches_stream_with_phase_switches():
@@ -74,3 +75,13 @@ def test_monitor_rejects_pid_reuse_without_signalling_any_process():
     assert owned_process_active(pid,command)
     with pytest.raises(ValueError): owned_process_active(pid,['unrelated-command'])
     assert not owned_process_active(2147483647,command)
+
+
+def test_independent_clenshaw_input_binding_matches_polynomial_definition():
+    rng = np.random.default_rng(19)
+    d = {'curve_mid':.014,'curve_half':.003,'curve_coef':rng.normal(size=(8,10))*.001,
+         'centre':rng.normal(size=10),'right':rng.normal(size=10)}
+    q = np.array([3.,3.2,3.7,4.12]); width = .004
+    z = (q*width-d['curve_mid'])/d['curve_half']
+    expected = d['centre']+q[:,None]*width*d['right']+np.polynomial.chebyshev.chebvander(z,7)@d['curve_coef']
+    assert np.max(abs(independent_curve(q,d,width)-expected))<1e-14
