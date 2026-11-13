@@ -1,0 +1,216 @@
+{
+  "source_commit": "8cb4d9b23b6cc2db7a5f3fdd6e5df7a6ddf292bf",
+  "plan_sha256": "f46de349d880896520f5a20f895960a667c27b9c3304618e4afc9ec61c3b34eb",
+  "manifest_sha256": "fa6ab7f4f191f183dc36b6910a50fb193c8074833ac641106266a6122812d8c9",
+  "raw_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-01/run",
+  "backup_path": "/archive/neural-shrimp-backups/20261113-fold-global-return-01",
+  "all_manifest_hashes_verified_on_both_disks": true,
+  "files_verified_per_disk": 9,
+  "bytes_per_disk": 360028599,
+  "counts": {
+    "return": 123,
+    "outside_recurrence_candidate": 5
+  },
+  "actual_model_updates_across_rows": 4174,
+  "batch_iterations": 384,
+  "wall_seconds": 653.9913981409627,
+  "return_updates_range": [
+    13,
+    68
+  ],
+  "entry_v_over_U_range": [
+    -0.9713695213771313,
+    0.06841110307226622
+  ],
+  "phase_at_return_counts": {
+    "0": 91,
+    "1": 32
+  },
+  "baseline_replay": [
+    {
+      "anchor": 0,
+      "saved_return_updates": 14,
+      "measured_return_updates": 14,
+      "agrees": true
+    },
+    {
+      "anchor": 1,
+      "saved_return_updates": 14,
+      "measured_return_updates": 14,
+      "agrees": true
+    },
+    {
+      "anchor": 2,
+      "saved_return_updates": 37,
+      "measured_return_updates": 37,
+      "agrees": true
+    },
+    {
+      "anchor": 3,
+      "saved_return_updates": 19,
+      "measured_return_updates": 19,
+      "agrees": true
+    },
+    {
+      "anchor": 4,
+      "saved_return_updates": 42,
+      "measured_return_updates": 42,
+      "agrees": true
+    },
+    {
+      "anchor": 5,
+      "saved_return_updates": 14,
+      "measured_return_updates": 14,
+      "agrees": true
+    },
+    {
+      "anchor": 6,
+      "saved_return_updates": 14,
+      "measured_return_updates": 14,
+      "agrees": true
+    },
+    {
+      "anchor": 7,
+      "saved_return_updates": 14,
+      "measured_return_updates": 14,
+      "agrees": true
+    }
+  ],
+  "status": "completed exploratory first-return pilot and numerical cycle verification",
+  "finalizer_commit": "0b347d2dd1968352512768eb41d9ed0268d3630e",
+  "physical_disks": {
+    "primary": "/dev/nvme0n1",
+    "backup": "/dev/sda"
+  },
+  "audit_path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-01",
+  "cycle_path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-cycle-01",
+  "figures_path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-final-01",
+  "audit_sha256": "5866dab3fca83e803741ec035017cd41e5a4ee49be11203f52e1c3d166b8c55a",
+  "rows_sha256": "a11628db70c1cc2a60b5763cf0782fa7cb94a3cb71af43d950914b5615faa90c",
+  "cycle_verification_sha256": "764d248a6f3f6aaac1bb68d3c36e552e68d4c61bd853dec97895c88f27aad0b9",
+  "cycle_manifest_sha256": "c7eff52e649d0c71435cacb8dcf4c7fc2ca56cb281b2628e2aa9abdd6bf99325",
+  "cycle_status": "numerically attracting primitive period-three orbit",
+  "cycle_spectral_radius": 0.6506506416018686,
+  "cycle_closure_relative_residual": 8.557442570195264e-15,
+  "cycle_lag1_lag2_relative_residuals": [
+    1.7554802241926577,
+    2.918542845192849
+  ],
+  "cycle_leading_multipliers": [
+    [
+      0.6222412499811776,
+      0.19016330939165121
+    ],
+    [
+      0.6222412499811776,
+      -0.19016330939165121
+    ],
+    [
+      -0.14221156884915653,
+      0.0
+    ],
+    [
+      0.022366897469279435,
+      0.0
+    ],
+    [
+      0.0012561297828662505,
+      0.0020408329191845373
+    ],
+    [
+      0.0012561297828662505,
+      -0.0020408329191845373
+    ],
+    [
+      0.0010063329625381934,
+      0.0
+    ],
+    [
+      0.0001831125900586256,
+      0.0
+    ]
+  ],
+  "cycle_max_phase_match_relative_error": 2.283677012237254e-14,
+  "cycle_readout_top1": [
+    {
+      "id": 7838,
+      "text": " certainly",
+      "probability": 0.39177506054478617
+    },
+    {
+      "id": 13,
+      "text": ".",
+      "probability": 0.3523711054925306
+    },
+    {
+      "id": 9707,
+      "text": "Hello",
+      "probability": 0.08183460739046365
+    }
+  ],
+  "cycle_derivative_precision": {
+    "composed_dense_vs_direct_JVP_relative_error": 1.3085417768045538e-14,
+    "finite_difference_h": [
+      0.00014098671702443354,
+      4.229601510733006e-05,
+      1.4098671702443356e-05
+    ],
+    "finite_difference_relative_errors": [
+      0.0005331710585964377,
+      4.799199060604137e-05,
+      5.332533916089797e-06
+    ],
+    "observed_convergence_orders": [
+      1.999885848640435,
+      1.9999845492996153
+    ],
+    "passed": true
+  },
+  "matched_control": {
+    "baseline_row": 64,
+    "perturbed_row": 77,
+    "baseline_return_updates": 42,
+    "relative_full_state_change": 0.00286115172324148,
+    "slow_coordinate_change": -2.482822974991805e-17,
+    "baseline_v_over_U": 3.453557690384187,
+    "perturbed_outcome": "numerically attracting period-three orbit"
+  },
+  "grouped_holdout_predictions": {
+    "constant": {
+      "entry_v_over_U_RMSE": 0.3359297575651741,
+      "return_updates_RMSE": 7.913260654082294,
+      "entry_v_over_U_MAE": 0.2584462708340122,
+      "return_updates_MAE": 4.92032967032967
+    },
+    "critical_quadratic": {
+      "entry_v_over_U_RMSE": 0.32598994449523633,
+      "return_updates_RMSE": 7.903203240022012,
+      "entry_v_over_U_MAE": 0.26436816444792016,
+      "return_updates_MAE": 4.249985645386886
+    },
+    "critical_plus_three_transverse_PCs_quadratic": {
+      "entry_v_over_U_RMSE": 0.33212718898915083,
+      "return_updates_RMSE": 8.272558268620447,
+      "entry_v_over_U_MAE": 0.27891104475322187,
+      "return_updates_MAE": 4.818009742812832
+    }
+  },
+  "holdout_groups": [
+    3,
+    7
+  ],
+  "holdout_rows": 32,
+  "all_holdout_rows_returned": true,
+  "figures_sha256": {
+    "all-trial-outcomes.png": "1f40ef9f3d5132ecd44893d017fd86daf91b45e29ac877c93b29d0a2b498473e",
+    "global-returns.png": "2d9d9b7e2a6ddf1c1d63491ac586e0d55f26f832858aa6a553d9afbc3be53b4c"
+  },
+  "limitations": [
+    "One parameter setting, eight exits from one original trajectory.",
+    "Designed perturbations are not a random population sample or basin-volume estimate.",
+    "First-return stopping does not establish sustained reinjection or the later fate of returned rows.",
+    "Cycle verification uses floating-point numerics, not interval-certified bounds.",
+    "Period three in this high-dimensional map does not establish chaos.",
+    "Neither tested polynomial return model gave a reliable held-out predictor."
+  ]
+}

@@ -263,3 +263,16 @@ scientific success manifest. Pod q0778v0k33bvbw independently absent by direct
 lookup and inventory at 03:01 UTC. CPU-only offline audit and independently
 rehashed sda backup completed. See `long-context-lcm1-partial-receipt.json`.
 Cost: see private ledger.
+
+## FGR1 fold global-return pilot, 13 November 2026
+
+Local zeta Intel Core i9-14900K, 8 bounded Torch/OMP threads, CPU only.
+Qwen2.5-0.5B-Instruct with patched float64 RMSNorm and rotary calculations.
+128 trajectories in one fixed batch; 384 batch iterations, with explicit
+per-row stopping and immutable state/readout shards. First-return run wall
+time 653.9914 seconds; separate full float64 period-three monodromy check
+190.9734 seconds. Arrays and plots remain outside Git. Primary data on
+/dev/nvme0n1 (/data2); independently rehashed backup on /dev/sda (/archive).
+The manifest, library versions, model revision, source and plan bindings,
+precision gates and numerical findings are in `docs/fold-global-return.json`
+and the linked external receipts. No GPU or rented instance was used.
