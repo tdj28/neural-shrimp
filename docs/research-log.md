@@ -34006,3 +34006,9 @@ under /data2/neural-shrimp-data/audits/fold-panel-revision/20261112-01.
 - **Would surprise us:** Very small transverse perturbations change the return branch or produce unresolved/recurrence outcomes; a critical-coordinate-only predictor fails while full exit-state information predicts withheld anchors.
 
 _commit `840e6c9a2d93` (dirty worktree)_
+
+## 2026-11-13 03:25 UTC: FGR1 prediction comparison fixed before inspecting new outcomes
+
+The independent offline auditor will compare a training-mean baseline, a quadratic model of the critical exit coordinate alone, and a quadratic model of that coordinate plus three principal components of the transverse exit remainder. PCA, centering, scaling and ridge fitting (penalty0.01, unpenalized intercept) use only development anchor groups; complete groups3 and7 remain the grouped holdout. Targets are first-return position v/U and number of model updates. Report all three models and errors even if transverse information does not help. This is an exploratory grouped holdout from one existing source trajectory, not a confirmatory population sample. The auditor independently derives persistent entries from full saved states, checks frozen padding, validates all eight unperturbed replays against the old trajectory, and rehashes both disk copies. The saved input hashes exactly match docs/fold-panel-revision.json. The attempted main push failed with SSH public-key authentication; preserve local commits and a separate-disk source archive.
+
+_commit `8cb4d9b23b6c` (dirty worktree)_

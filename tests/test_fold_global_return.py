@@ -6,6 +6,9 @@ import pytest
 spec = importlib.util.spec_from_file_location("fold_global_return", Path(__file__).parents[1] / "tools/fold_global_return.py")
 m = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
+audit_spec = importlib.util.spec_from_file_location("audit_fold_global_return", Path(__file__).parents[1] / "tools/audit_fold_global_return.py")
+audit = importlib.util.module_from_spec(audit_spec)
+audit_spec.loader.exec_module(audit)
 
 
 def test_return_requires_persistent_same_phase_and_rejects_graze():
@@ -47,3 +50,29 @@ def test_backup_detects_corruption_and_preserves_original(tmp_path):
     with pytest.raises(ValueError):
         m.backup_file(f, source, dest)
     assert f.read_bytes() == b'science'
+
+
+def test_independent_return_rejects_transverse_false_positive():
+    # Projection alone says all five samples are inside, but the first one is
+    # far across the channel. No three-sample same-phase visit is present.
+    x = np.array([[.2, .2], [4., 0.], [.2, .001], [4., 0.], [.2, .001]])
+    assert audit.independent_return(x, np.zeros(2), np.array([1., 0.]), np.array([1., 0.]), 1.) is None
+    x = np.vstack([x, [4., 0.], [.3, .001]])
+    ret = audit.independent_return(x, np.zeros(2), np.array([1., 0.]), np.array([1., 0.]), 1.)
+    assert ret['entry_update'] == 2 and ret['confirmed_update'] == 6
+
+
+def test_prediction_check_can_detect_missing_transverse_information():
+    rng = np.random.default_rng(4)
+    x = rng.normal(size=(128, 5))
+    rows = [{'split': 'test' if i // 16 in (3, 7) else 'development'} for i in range(128)]
+    outcomes = [{'kind': 'return', 'entry_v': float(a[1]), 'entry_update': float(10 + 2*a[1])} for a in x]
+    left = right = np.array([1., 0., 0., 0., 0.])
+    # Only three transverse dimensions; keep the fourth null to make the
+    # synthetic return coordinate completely observable by the proposed model.
+    x[:, 4] = 0.
+    result = audit.prediction_checks(x, rows, outcomes, np.zeros(5), left, right, 1.)
+    scores = result['models']
+    assert result['test_rows'] == 32
+    assert scores['critical_plus_three_transverse_PCs_quadratic']['entry_v_over_U_RMSE'] < .02
+    assert scores['critical_quadratic']['entry_v_over_U_RMSE'] > .2
