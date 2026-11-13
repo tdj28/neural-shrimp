@@ -276,3 +276,18 @@ time 653.9914 seconds; separate full float64 period-three monodromy check
 The manifest, library versions, model revision, source and plan bindings,
 precision gates and numerical findings are in `docs/fold-global-return.json`
 and the linked external receipts. No GPU or rented instance was used.
+
+## FGR2 repeated returns and scalar reconstruction, 13 November 2026
+
+Local zeta Intel Core i9-14900K CPU only; patched float64 Qwen2.5-0.5B-Instruct.
+Eight bounded Torch/OMP threads per job, at most two task inference processes
+concurrently, nice levels 10 and 15. The occupied RTX 2000 Ada was not used.
+FGR2: 64 rows, 4,096 batch updates, 205,568 retained valid row-updates;
+wall time 2,274.434046 seconds. FGR2C: 32 original/reconstructed pairs,
+first-return/P3 stopping, 363.345435 seconds. FGR2D: 29 returning pairs
+continued through the next passage, 153.850955 seconds. Inactive and stopped
+rows are explicitly marked and excluded from scientific recurrence evidence.
+The exact model revision, numerical precision gates, execution-source commits,
+raw manifests and independent audit hashes are in `fold-return-mechanism.json`.
+All immutable state blocks were hash-verified on primary nvme0n1 and separate
+physical disk sda before further execution. No rented resources or paid review.

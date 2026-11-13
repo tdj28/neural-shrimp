@@ -1,0 +1,411 @@
+{
+  "status": "completed exploratory local follow-up; bounded numerical conclusions",
+  "source": "ae91be34c9d9ae94bc0a2a0b8f8aa5fc36e41baa",
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "source_parameters": {
+    "run": "llm-soft-loop/smoke-curve-p2-float64-cpu",
+    "index": 0,
+    "log10_temperature": -0.115,
+    "alpha": 0.06279827217667086,
+    "period": 2,
+    "model": "qwen0.5b",
+    "layer": 12,
+    "prompt": "open",
+    "opener": "Hello!",
+    "window": 1,
+    "vectors": "llm-phase-map/vectors-l12",
+    "concept": "philosophy"
+  },
+  "epsilon": 1e-05,
+  "U": 0.00393259341682185,
+  "bindings": {
+    "line": {
+      "audit_path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-line-01",
+      "audit_sha256": "2ea719461bd9df626dcf1c792e3e2bb44893eb38be2ddfcc5210809cf36e3fa4",
+      "raw_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-line-01/run",
+      "manifest_sha256": "14897a3de16f38751633f35dcd8150ad1959d4aa33f6fb790ebbc4ef808ff52b",
+      "plan_sha256": "d3e5a02ba2127119ddab57209ba6b3eb1943aa1313296d5feefa017dc432dd1f",
+      "backup_path": "/archive/neural-shrimp-backups/20261113-fold-return-line-01/run",
+      "execution_source": "1d520955077cb89e905771cf6a4b99b95d207f33"
+    },
+    "scalar_excursion": {
+      "audit_path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-curve-01",
+      "audit_sha256": "a9b5334a467e79ccbe8c211e7f5fa500497a553fd32b12bcf58570950d7721b2",
+      "raw_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-curve-01/run",
+      "manifest_sha256": "fff837c70cfee62bad669a500cd3c7e11a413e194678d8403219fd83a4a6acb3",
+      "plan_sha256": "fb7174abb72a5b499c48f8fd2b856d5df9a5670048094b42c62a5b267367d6d0",
+      "backup_path": "/archive/neural-shrimp-backups/20261113-fold-return-curve-01/run",
+      "execution_source": "709beb41310850d4cc5cb0210f5aa27544012eef"
+    },
+    "complete_cycle": {
+      "audit_path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-cycle-map-01",
+      "audit_sha256": "2d9167b525748467f966b3671bac14d60a02bc897983f5ec090258f086ab330c",
+      "raw_path": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-cycle-map-01/run",
+      "manifest_sha256": "d2dd4bec77877e9bc79df14de47ecab9e212c349a51de08251e9959bfa6d231a",
+      "plan_sha256": "87a59582245fbf95c7ff30f6500818082afb16c941a95755dba61447d4822967",
+      "backup_path": "/archive/neural-shrimp-backups/20261113-fold-return-cycle-map-01/run",
+      "execution_source": "781453d5b1a3fa599650b747f4d024bbb97811d5"
+    }
+  },
+  "line_scan": {
+    "counts": {
+      "reference_p3": 27,
+      "unresolved_at_horizon": 37
+    },
+    "returned_at_least_once": 63,
+    "returned_then_P3": 26,
+    "total_channel_visits": 1552,
+    "natural_exits": 1515,
+    "wall_seconds": 2274.4340453220066,
+    "retained_valid_updates": 205568,
+    "initial_line_prediction": {
+      "label": "one or more channel visits within each retained trajectory",
+      "adjacent_route_changes": [
+        {
+          "left_row": 62,
+          "right_row": 63,
+          "s_interval": [
+            0.9841269841269841,
+            1.0
+          ]
+        }
+      ],
+      "nearest_neighbor_route_accuracy": 1.0,
+      "train_label_counts": {
+        "1": 31
+      },
+      "test_label_counts": {
+        "1": 31
+      },
+      "confusion_actual_rows_predicted_columns": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          31
+        ]
+      ]
+    },
+    "capture_detection_updates_range": [
+      384,
+      3712
+    ],
+    "unresolved_visit_range": [
+      29,
+      34
+    ],
+    "captured_visit_range": [
+      0,
+      27
+    ]
+  },
+  "simple_prediction_comparisons": {
+    "status": "exploratory, complete starting trajectories held out",
+    "train_exits": 711,
+    "test_exits": 787,
+    "train_initial_rows": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24,
+      26,
+      28,
+      30,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      44,
+      46,
+      48,
+      50,
+      52,
+      54,
+      56,
+      58,
+      60,
+      62
+    ],
+    "test_initial_rows": [
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15,
+      17,
+      19,
+      21,
+      23,
+      25,
+      27,
+      29,
+      31,
+      33,
+      35,
+      37,
+      39,
+      41,
+      43,
+      45,
+      47,
+      49,
+      51,
+      53,
+      55,
+      57,
+      59,
+      61
+    ],
+    "transverse_PC_variance_fraction": [
+      0.9999980457828572,
+      1.9542128755905332e-06,
+      4.266872988660242e-12,
+      4.89600747893786e-16,
+      3.073924788067492e-19
+    ],
+    "state_curve_interpolation_RMSE": 8.714010163849814e-07,
+    "state_curve_error_over_test_spread": 0.0008469214184565108,
+    "state_curve_max_relative_error": 6.387636996825419e-05,
+    "v_over_U_range": [
+      3.0003587370731895,
+      4.106886543401925
+    ],
+    "test_exits_beyond_train_v_range": 4,
+    "return_train_exits": 690,
+    "return_test_exits": 777,
+    "target_order": [
+      "next_entry_v_over_U",
+      "individual_updates_to_entry"
+    ],
+    "models": {
+      "constant": {
+        "RMSE": [
+          0.26603978362124237,
+          8.246197331130787
+        ],
+        "MAE": [
+          0.19875578017455486,
+          5.475640236509814
+        ],
+        "equal_row_RMSE": [
+          0.26452289732273393,
+          8.190200648330784
+        ]
+      },
+      "v_linear_interpolation": {
+        "RMSE": [
+          0.21902660915281522,
+          5.730050736652763
+        ],
+        "MAE": [
+          0.09631263401899658,
+          2.122019744620664
+        ],
+        "equal_row_RMSE": [
+          0.21424451508912729,
+          5.613826322084748
+        ]
+      },
+      "v_quadratic": {
+        "RMSE": [
+          0.2480168122088712,
+          7.580562847479901
+        ],
+        "MAE": [
+          0.17675833544755618,
+          4.81914823317275
+        ],
+        "equal_row_RMSE": [
+          0.24825636444447466,
+          7.557721545380649
+        ]
+      },
+      "v_plus_three_transverse_PCs_quadratic": {
+        "RMSE": [
+          0.2392491696115197,
+          7.151728808108845
+        ],
+        "MAE": [
+          0.16118516831805393,
+          4.09964665557835
+        ],
+        "equal_row_RMSE": [
+          0.23816043769739495,
+          7.178233437724128
+        ]
+      },
+      "four_coordinate_neighbor_3": {
+        "RMSE": [
+          0.2118653857261143,
+          5.4793430754270265
+        ],
+        "MAE": [
+          0.09689417523550599,
+          2.0515747820047805
+        ],
+        "equal_row_RMSE": [
+          0.20699292512963194,
+          5.359796130192824
+        ]
+      },
+      "four_coordinate_neighbor_8": {
+        "RMSE": [
+          0.19568516919352114,
+          5.204352385983652
+        ],
+        "MAE": [
+          0.09163808081120421,
+          2.0329077225964296
+        ],
+        "equal_row_RMSE": [
+          0.19127749686825252,
+          5.105021831043301
+        ]
+      }
+    },
+    "route_counts_train": {
+      "1": 690,
+      "0": 16
+    },
+    "route_counts_test": {
+      "1": 777,
+      "0": 9
+    },
+    "nearest_neighbor_route_accuracy": 0.9783715012722646,
+    "route_confusion_rows_actual_cols_predicted": [
+      [
+        6,
+        3
+      ],
+      [
+        14,
+        763
+      ]
+    ],
+    "route_label_order": [
+      "P3 before another channel visit",
+      "channel return"
+    ]
+  },
+  "scalar_reconstruction": {
+    "status": "audited paired scalar-curve reconstruction test",
+    "execution_source": "709beb41310850d4cc5cb0210f5aa27544012eef",
+    "manifest_sha256": "fff837c70cfee62bad669a500cd3c7e11a413e194678d8403219fd83a4a6acb3",
+    "plan_sha256": "fb7174abb72a5b499c48f8fd2b856d5df9a5670048094b42c62a5b267367d6d0",
+    "hash_verified_on_separate_disks": true,
+    "test_pairs": 31,
+    "all_test_routes_agree": true,
+    "returned_test_pairs": 28,
+    "original_P3_test_pairs": 3,
+    "max_return_time_difference": 0,
+    "max_return_v_over_U_error": 4.52334103296017e-05,
+    "max_test_initial_relative_state_error": 6.301741255467102e-14,
+    "max_original_parent_trajectory_replay_relative_error": 8.447811994993875e-12,
+    "development_crossvalidation": {
+      "2": {
+        "median_relative_state_error": 2.652708268122493e-07,
+        "max_relative_state_error": 1.0939871367549788e-06
+      },
+      "3": {
+        "median_relative_state_error": 5.114422987601116e-09,
+        "max_relative_state_error": 2.5404879615665467e-08
+      },
+      "5": {
+        "median_relative_state_error": 2.7471622360067567e-12,
+        "max_relative_state_error": 2.003145518625136e-11
+      },
+      "7": {
+        "median_relative_state_error": 1.3852264579487633e-14,
+        "max_relative_state_error": 4.824218118770912e-14
+      }
+    },
+    "wall_seconds": 363.3454342240002,
+    "limitation": "Predicts one excursion from natural exits at one parameter setting; the full network still evaluates the global map. Not a universal closed formula or indefinite itinerary guarantee."
+  },
+  "complete_return_cycle": {
+    "status": "audited one complete return cycle",
+    "execution_source": "781453d5b1a3fa599650b747f4d024bbb97811d5",
+    "analysis_source": "0ccd7104a310cb6c23d1849c5f9cd64b624da8a7",
+    "analysis_sha256": "687f71864bfd4067fa09b8137bbf2f8eb0e5a95a42afd407248588e0bd673a4f",
+    "manifest_sha256": "d2dd4bec77877e9bc79df14de47ecab9e212c349a51de08251e9959bfa6d231a",
+    "plan_sha256": "87a59582245fbf95c7ff30f6500818082afb16c941a95755dba61447d4822967",
+    "all_manifest_hashes_verified_on_separate_disks": true,
+    "files_per_disk": 7,
+    "bytes_per_disk": 69494698,
+    "heldout_returning_pairs": 28,
+    "control_pairs": 1,
+    "excluded_P3_pairs": 3,
+    "max_complete_cycle_time_error": 0,
+    "max_next_departure_v_over_U_error": 0.001306632491476556,
+    "complete_cycle_updates_range": [
+      105,
+      227
+    ],
+    "wall_seconds": 153.85095427703345,
+    "limits": [
+      "Same parameter setting and natural exit curve as FGR2C.",
+      "One complete cycle only; accuracy under indefinite iteration is untested.",
+      "Full network still evaluates the global excursion and local passage."
+    ]
+  },
+  "full_cycle_replay_against_original_line": {
+    "pairs": 29,
+    "all_departure_times_match": true,
+    "max_departure_coordinate_difference_U": 1.7237953287008168e-09
+  },
+  "interpretation": [
+    "Arbitrary transverse changes at fixed slow coordinate can change the next destination (FGR1).",
+    "After a sufficiently long slow passage, sampled natural exit states admit an accurate one-coordinate reconstruction.",
+    "The reconstructed full state predicts the tested next excursion and complete return cycle when evolved through the actual network.",
+    "The global return function remains nonlinear and is evaluated by the network, not derived solely from local fold coefficients.",
+    "A return is compatible with later approach to P3; the finite-horizon scan does not establish permanent recurrence or chaos."
+  ],
+  "limits": [
+    "One fixed model, prompt, steering direction and parameter setting.",
+    "Exploratory adaptive analyses with complete initial-state trajectories held out; not a confirmatory population study.",
+    "The line sample is not a basin-volume or escape-probability estimate.",
+    "No rigorous error enclosure, global basin-boundary proof, or guaranteed indefinite scalar iteration."
+  ],
+  "storage": {
+    "primary_physical_disk": "nvme0n1",
+    "independent_backup_physical_disk": "sda",
+    "raw_and_figures_outside_git": true
+  },
+  "figures": {
+    "repeated-returns.png": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-mechanism-03/repeated-returns.png",
+      "sha256": "2e623f3fff5e9f91a5ce4dfa49ea3fe251c36884d67e5ddd7f2e287b6dda1745",
+      "bytes": 223786
+    },
+    "complete-return-map.png": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-mechanism-03/complete-return-map.png",
+      "sha256": "b24263d995efcfdd06ceb05fa18243a632c382965694e0b3a77e7f440e464ac7",
+      "bytes": 315945
+    },
+    "scalar-return-validation.png": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-mechanism-03/scalar-return-validation.png",
+      "sha256": "27016aeaf3a60ec922e5163c0f04c214e6d10431a69950c25ffa69ddeae8692c",
+      "bytes": 274259
+    },
+    "natural-return-prediction.png": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-mechanism-03/natural-return-prediction.png",
+      "sha256": "62b63e895acdac19bcdc0c52bb6dbdde07a6c476d9f07c31674964c82da96d94",
+      "bytes": 318572
+    }
+  }
+}
