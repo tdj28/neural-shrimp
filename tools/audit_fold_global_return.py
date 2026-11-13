@@ -3,6 +3,8 @@ import argparse
 from collections import Counter
 import json
 from pathlib import Path
+import hashlib
+import subprocess
 import sys
 
 import numpy as np
@@ -108,6 +110,15 @@ def audit(args):
     assert gate['passed'] and max(gate['one_update_max_abs'], gate['two_updates_max_abs']) < 1e-11
     assert sha(run / 'plan.json') == metadata['plan_sha256']
     assert sha(run / 'inputs.npz') == plan['inputs_sha256']
+    assert plan['epsilon'] == 1e-5 and plan['source']['log10_temperature'] == -.115
+    assert plan['source']['model'] == 'qwen0.5b' and plan['source']['layer'] == 12
+    assert plan['source']['concept'] == 'philosophy' and plan['source']['window'] == 1
+    original = json.loads((ROOT / 'docs/fold-panel-revision.json').read_text())['natural']['input_hashes']
+    assert original == plan['input_hashes']
+    source_hashes = {'fold_global_return.py': metadata['source_sha256'], **metadata['runtime_source_sha256']}
+    for name, digest in source_hashes.items():
+        content = subprocess.check_output(['git', 'show', metadata['source_commit'] + ':tools/' + name], cwd=ROOT)
+        assert hashlib.sha256(content).hexdigest() == digest
     with np.load(run / 'inputs.npz') as z:
         data = {k: z[k] for k in z.files}
     n, d = data['seeds'].shape
@@ -163,6 +174,19 @@ def audit(args):
     returned = [r for r in audited if r['kind'] == 'return']
     prediction = prediction_checks(data['seeds'], plan['rows'], result['outcomes'],
                                    data['centre'], data['left'], data['right'], plan['width'])
+    matched = []
+    for r in audited:
+        if r['condition'] not in ('exit_transverse', 'random_transverse'):
+            continue
+        base = audited[16*r['anchor']]
+        gap = abs(r['exit_v_over_U'] - base['exit_v_over_U'])
+        assert gap < 1e-10
+        matched.append({'row': r['id'], 'anchor': r['anchor'], 'condition': r['condition'],
+                        'exit_v_over_U_gap': gap, 'baseline_outcome': base['kind'], 'outcome': r['kind'],
+                        'return_time_difference': r.get('entry_update', 0) - base.get('entry_update', 0)
+                        if r['kind'] == base['kind'] == 'return' else None,
+                        'entry_v_over_U_difference': r['entry_v_over_U'] - base['entry_v_over_U']
+                        if r['kind'] == base['kind'] == 'return' else None})
     summary = {'status': 'audited exploratory first returns', 'source_commit': metadata['source_commit'],
                'plan_sha256': sha(run / 'plan.json'), 'manifest_sha256': sha(run / 'manifest.json'),
                'raw_path': str(run), 'backup_path': str(backup), 'all_manifest_hashes_verified_on_both_disks': True,
@@ -173,7 +197,7 @@ def audit(args):
                'return_updates_range': [min(r['entry_update'] for r in returned), max(r['entry_update'] for r in returned)] if returned else None,
                'entry_v_over_U_range': [min(r['entry_v_over_U'] for r in returned), max(r['entry_v_over_U'] for r in returned)] if returned else None,
                'phase_at_return_counts': dict(Counter(r['entry_update'] % 2 for r in returned)),
-               'baseline_replay': saved_baseline, 'prediction': prediction,
+               'baseline_replay': saved_baseline, 'prediction': prediction, 'matched_critical_coordinate': matched,
                'limitations': plan['limitations'] + ['First-return stopping cannot determine later escape or sustained intermittency.']}
     write_json(out / 'rows.json', audited)
     write_json(out / 'audit.json', summary)
@@ -182,7 +206,7 @@ def audit(args):
     for p in sorted(out.iterdir()):
         if p.is_file():
             backup_file(p, out, backup / 'audit')
-    print(json.dumps({k:v for k,v in summary.items() if k not in ('prediction', 'baseline_replay', 'replay_gate')}, indent=2))
+    print(json.dumps({k:v for k,v in summary.items() if k not in ('prediction', 'baseline_replay', 'replay_gate', 'matched_critical_coordinate')}, indent=2))
 
 
 def render(out, rows, summary, width):
@@ -218,13 +242,41 @@ def render(out, rows, summary, width):
     axes[1].set_title('B  How long the excursion takes', loc='left', fontsize=13, fontweight='bold')
     axes[1].set_xlabel('Model updates from exit sample to re-entry')
     axes[1].legend(fontsize=9, loc='lower right')
+    fig.colorbar(matplotlib.cm.ScalarMappable(norm=norm, cmap=cmap), ax=axes,
+                 shrink=.72, label='Updates to re-entry')
     counts = summary['counts']
-    text = (f"{counts.get('return', 0)} / 128 returned  ·  8 observed exits with 16 conditions each  ·  Both cycle phases checked\n"
+    text = (f"{counts.get('return', 0)} returned · {counts.get('outside_recurrence_candidate', 0)} outside-channel recurrence candidates · "
+            f"{counts.get('unresolved_at_horizon', 0)} unresolved · 128 trials in total\n"
+            "Plots show returned trials. Eight observed exits with 16 conditions each; both cycle phases checked.\n"
             "Qwen2.5-0.5B · α = αc + 0.00001 · log₁₀T = −0.115 · Patched float64 CPU\n"
             "Channel entry requires |v| < U and transverse remainder < 0.05 for three same-phase readings.\n"
             "A finite first-return study; it does not establish permanent trapping, escape, or chaos.")
     fig.supxlabel(text, fontsize=10)
     fig.savefig(out / 'global-returns.png', dpi=180)
+    plt.close(fig)
+    fig, ax = plt.subplots(figsize=(11, 6.5), layout='constrained')
+    styles = {'return': ('#0072b2', 'o', 'Returned to channel'),
+              'outside_recurrence_candidate': ('#d55e00', 's', 'Recurrence outside channel (candidate)'),
+              'unresolved_at_horizon': ('#555555', '>', 'Unresolved at horizon')}
+    for kind, (color, marker, label) in styles.items():
+        rr = [r for r in rows if r['kind'] == kind]
+        if rr:
+            when = [r['entry_update'] if kind == 'return' else r['valid_updates'] for r in rr]
+            ax.scatter(when, [r['id'] for r in rr], s=23, c=color, marker=marker,
+                       label=f"{label}: {len(rr)}")
+    for i in range(8):
+        if i % 2 == 0:
+            ax.axhspan(i*16-.5, (i+1)*16-.5, color='.94', zorder=-2)
+    ax.set_yticks(np.arange(8)*16+7.5, [f'Exit {i+1}' for i in range(8)])
+    ax.set_ylim(128, -1)
+    ax.set_xlabel('Model updates since starting at the exit sample')
+    ax.set_ylabel('Eight observed exits; sixteen nearby starting states per exit')
+    ax.set_title('Every trial: return, outside recurrence, or unresolved', loc='left', fontsize=17, fontweight='bold')
+    ax.legend(loc='lower right', fontsize=10)
+    ax.grid(axis='x', alpha=.2)
+    fig.supxlabel('Return time marks the first of three same-phase channel readings. Recurrence time marks detection.\n'
+                  'Full states checked in float64; finite recurrence does not establish an attracting orbit.', fontsize=10)
+    fig.savefig(out / 'all-trial-outcomes.png', dpi=180)
     plt.close(fig)
 
 
