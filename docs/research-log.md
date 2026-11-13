@@ -34046,3 +34046,12 @@ _commit `fe55e656ac56` (dirty worktree)_
 - **Would surprise us:** A robust simple return law despite transverse perturbations; or all apparently recurrent paths eventually approaching the same P3.
 
 _commit `b6d1a6480930` (dirty worktree)_
+
+## 2026-11-13 07:31 UTC: amendment to `FGR2 repeated-return line scan`
+
+- **Change:** Add FGR2C: fit a degree7 Chebyshev full-state exit curve from development exits in the first640 saved updates, constrained to preserve the critical coordinate. At the first eligible natural exit of each of31 heldout odd starting rows and row0 control, compare the original state and its scalar-coordinate reconstruction in64 paired float64 CPU trajectories,8 threads,first-return stopping,1024-update bound. Reuse the tested FGR1 runner and per-block separate-disk backup. Verify first-return timing/location, capture route and original-state replay against parent histories. Original FGR2 continues unchanged. Also report all fixed simpler predictive models and all degree2/3/5/7 development reconstruction checks.
+- **Why:** Development-only crossvalidation found that natural exits lie very close to a smooth one-dimensional curve. The global excursion could amplify the discarded error, so state reconstruction alone does not establish predictive sufficiency.
+- **Outcomes seen:** At640 saved updates,143 development exits give degree2/3/5/7 maximum crossvalidated relative full-state reconstruction errors1.094e-6,2.541e-8,2.004e-11,2.251e-13. Development return plots have a smooth14-update branch above aboutv/U3.6 and more complicated shorter-coordinate branches. No heldout return prediction has been inspected. At768 updates,6 rows matchedP3 and58 remain active; this includes later capture after return.
+- **Claim impact:** Adaptive local diagnostic, not a confirmatory universal formula or proof of an invariant manifold. Test rows are excluded from fitting. A successful test would justify a scalar sufficient coordinate for these natural exits and one excursion, not arbitrary transverse starts or indefinite predictions.
+
+_commit `eec865dd0d4a` (dirty worktree)_

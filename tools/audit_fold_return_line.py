@@ -169,6 +169,11 @@ def audit(args):
     assert sha(prior/'inputs.npz')==plan['prior_inputs_sha256']
     assert sha(cycle/'verification.json')==plan['cycle_verification_sha256']
     assert sha(cycle/'orbit-and-monodromy.npz')==plan['cycle_arrays_sha256']
+    prior_meta=json.loads((prior/'metadata.json').read_text())
+    prior_plan=json.loads((prior/'plan.json').read_text())
+    assert plan['source']==prior_plan['source']
+    for key in ('direction_sha256','prefix_text','prefix_ids','model_revision'):
+        assert meta[key]==prior_meta[key],key
     cv=json.loads((cycle/'verification.json').read_text())
     assert cv['model_revision']==meta['model_revision'] and cv['spectral_radius']<1
     gate=json.loads((run/'replay-gate.json').read_text())
