@@ -33997,3 +33997,12 @@ and both-phase interval accounting. Saved-array checks, figure and PDF visual
 review complement these tests. Hash-bound receipt: docs/fold-panel-revision.json.
 The original figure and before-edit external sources are retained outside Git
 under /data2/neural-shrimp-data/audits/fold-panel-revision/20261112-01.
+
+## 2026-11-13 03:20 UTC: run (exploratory)
+
+- **Question:** FGR1: which states exiting the Qwen 0.5B fold channel return, where, and after how many model updates?
+- **Setup:** Exploratory local CPU study approved in conversation. First re-audit the saved 600-pair, two-phase row-7 trajectory; take the first eight eligible exits at v>=3U before the next return, with transverse remainder<0.05. At each exit use 16 conditions: baseline, critical and exit-transverse displacements +/-0.05U,+/-0.2U,+/-0.5U, random transverse +/-0.2U, and combined +0.2U critical/transverse. Same alpha_c+1e-5, log10T=-0.115, fixed prompt and direction. Reserve complete anchor groups 3 and 7 for prediction checks. Patched float64 CPU, 8 threads, 128 rows. Stop each row on first three consecutive same-parity channel readings, full-state outside-channel recurrence (lags1..64,128 positions,1e-9 relative), or4096 model updates. Retain every actual state/readout; mark post-stop padding explicitly. Hash-verify every completed shard on /data2 and separate physical disk /archive. Saved-state replay must pass before new trajectories. No permanent escape, attraction or chaos claim. Local commit suffices under the adaptive protocol; remote access remains an unresolved infrastructure issue from the previous task.
+- **Output:** `/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-01`
+- **Would surprise us:** Very small transverse perturbations change the return branch or produce unresolved/recurrence outcomes; a critical-coordinate-only predictor fails while full exit-state information predicts withheld anchors.
+
+_commit `840e6c9a2d93` (dirty worktree)_
