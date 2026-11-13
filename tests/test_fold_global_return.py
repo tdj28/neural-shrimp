@@ -9,6 +9,9 @@ spec.loader.exec_module(m)
 audit_spec = importlib.util.spec_from_file_location("audit_fold_global_return", Path(__file__).parents[1] / "tools/audit_fold_global_return.py")
 audit = importlib.util.module_from_spec(audit_spec)
 audit_spec.loader.exec_module(audit)
+cycle_spec = importlib.util.spec_from_file_location("verify_fold_return_cycle", Path(__file__).parents[1] / "tools/verify_fold_return_cycle.py")
+cycle = importlib.util.module_from_spec(cycle_spec)
+cycle_spec.loader.exec_module(cycle)
 
 
 def test_return_requires_persistent_same_phase_and_rejects_graze():
@@ -76,3 +79,13 @@ def test_prediction_check_can_detect_missing_transverse_information():
     assert result['test_rows'] == 32
     assert scores['critical_plus_three_transverse_PCs_quadratic']['entry_v_over_U_RMSE'] < .02
     assert scores['critical_quadratic']['entry_v_over_U_RMSE'] > .2
+
+
+def test_composed_monodromy_column_orientation():
+    matrices = np.array([[[.5, 1.], [0., .2]], [[.3, 0.], [.4, .1]], [[.7, .2], [0., .9]]])
+    def product(rows):
+        for J in matrices:
+            rows = rows @ J.T
+        return rows
+    dense = cycle.dense_from_row_products(product, 2, 1)
+    assert np.allclose(dense, matrices[2] @ matrices[1] @ matrices[0], atol=1e-15)

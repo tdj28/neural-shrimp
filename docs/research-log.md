@@ -34012,3 +34012,12 @@ _commit `840e6c9a2d93` (dirty worktree)_
 The independent offline auditor will compare a training-mean baseline, a quadratic model of the critical exit coordinate alone, and a quadratic model of that coordinate plus three principal components of the transverse exit remainder. PCA, centering, scaling and ridge fitting (penalty0.01, unpenalized intercept) use only development anchor groups; complete groups3 and7 remain the grouped holdout. Targets are first-return position v/U and number of model updates. Report all three models and errors even if transverse information does not help. This is an exploratory grouped holdout from one existing source trajectory, not a confirmatory population sample. The auditor independently derives persistent entries from full saved states, checks frozen padding, validates all eight unperturbed replays against the old trajectory, and rehashes both disk copies. The saved input hashes exactly match docs/fold-panel-revision.json. The attempted main push failed with SSH public-key authentication; preserve local commits and a separate-disk source archive.
 
 _commit `8cb4d9b23b6c` (dirty worktree)_
+
+## 2026-11-13 03:34 UTC: amendment to `FGR1 exploratory local first-return pilot`
+
+- **Change:** Add a bounded local float64 numerical verification of the outside-channel period-three candidate shared by five stopped trajectories. Check lag1/2 separation and lag3 closure, phase-match all candidates, compute the complete896x896 derivative of the composed three-step map in64-row AD blocks, compare a dense product with an independent JVP and central differences at three scales, then compute all Floquet multipliers and residuals. Retain failures; no stability claim unless precision and closure gates pass.
+- **Why:** At the256-update checkpoint, independent full-state checks found three period-three recurrence candidates; by384 updates all five outstanding trajectories met that recurrence test. This may identify an alternative destination of exit states.
+- **Outcomes seen:** All128 first-return outcomes:123 returned and5 outside-channel period-three recurrence candidates; prior saved baselines reproduced exactly in return timing. No Floquet result has been seen.
+- **Claim impact:** Adaptive exploratory numerical check, not an interval proof and no implication that period three proves chaos in this high-dimensional map.
+
+_commit `fe55e656ac56` (dirty worktree)_
