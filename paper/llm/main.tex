@@ -99,8 +99,8 @@ attracting orbits of periods 2 and 3 at one parameter cell, and the attracting 3
 period-doubling cascade. In a smaller period-18 window, retaining about 0.645\,\% of the previous feedback
 state as a third control changes the selected return pair's trace-saddle height through a numerical sign bracket
 as its center is followed in steering and temperature, supporting a conditional local reconnection interpretation. The sampled centers keep their state period and six-token readout, and the
-multipliers remain nonzero. In the recurrent-depth model Huginn, a frozen test confirmed that over-relaxing its loop costs accuracy. At one post-fold setting of Qwen2.5-0.5B-Instruct, natural exit states admit an accurate one-coordinate reconstruction, while the full
-network still computes their global returns and some repeated passages end in period-3 capture. The loop is not
+multipliers remain nonzero. In the recurrent-depth model Huginn, a frozen test confirmed that over-relaxing its loop costs accuracy. At one post-fold setting of Qwen2.5-0.5B-Instruct, natural exit states admit an accurate one-coordinate reconstruction, but a frozen autonomous return table
+fails fresh-trajectory tests and repeated passages often end in period-3 capture. The loop is not
 ordinary sampled generation. These results show that bifurcation theory can make quantitative predictions about continuous language-model
 feedback, with rigorous guarantees for selected periodic orbits of the full transformer.
 \end{abstract}
@@ -2224,8 +2224,8 @@ No finite-horizon survivor is labeled permanently trapped or chaotic from this f
 
 \paragraph{Natural departures admit a much stronger reduction.}
 The perturbations above are artificial departures. States that actually emerge after a slow passage are much more
-restricted. Define a natural departure as the first same-phase reading with $v\ge3U$ and $\|w\|<0.05$ after at
-least 20 updates spent in the local passage. This departure surface lies beyond the narrower $|v|<U$ observation
+restricted. Define a natural departure as the first same-phase reading with $v\ge3U$ and $\|w\|<0.05$ after ten
+consecutive same-phase readings inside the local channel. This departure surface lies beyond the narrower $|v|<U$ observation
 band; the two should not be confused. The histories supplied 1515 eligible exits. Complete initial-state
 trajectories, not individual visits, were divided into development and held-out sets, with endpoints retained as
 controls. The same-parameter neighboring initial states make this an exploratory interpolation test, not a test of
@@ -2262,7 +2262,7 @@ separately, not dropped from the destination comparison. Both members of every p
 \label{fig:fold-return-map}
 \end{figure}
 
-\paragraph{What remains unsolved.}
+\paragraph{Evaluating the global return with the network.}
 The construction defines a numerical return evaluation
 \begin{equation}
  \widehat P(v)=\ell_v^\top\left[F^{\tau(v)}(\widehat x(v))-x_c\right],
@@ -2282,16 +2282,146 @@ in Fig.~\ref{fig:fold-return-map}. A nearest-neighbor destination classifier fou
 but falsely called 14 returns period-3 events; its 97.84\,\% accuracy was below always predicting return
 (98.85\,\%). One censored test exit was excluded. These failures remain part of the result.
 
-An autonomous approximation would require a separately validated rule $v_{k+1}=P(v_k)$ together with a return-time
-function and an escape label, or additional coordinates if a single-valued scalar rule fails. A useful next test
-would resolve the steep return branches adaptively, freeze the resulting fit, and test both single-cycle errors and
-multi-cycle survival and timing on fresh trajectories and neighboring parameter settings. Fine-scale structure
-should be measured, not smoothed away. Persistent chaos is a different question: longer unbiased ensembles and
-tangent growth can distinguish candidate transients from long-lived expansion numerically, while a rigorous claim
-would need certified invariant-set and expansion or symbolic-dynamics arguments for the full map. A chaotic saddle
-can produce transient chaos even when typical trajectories eventually settle into a periodic orbit
-\cite{lai2011transient}. Neither a validated scalar surrogate nor such an invariant-set certificate is supplied by
-the present return experiment.
+\paragraph{An autonomous table tested on fresh trajectories.}
+A further experiment (FGR3) tested the missing step directly. It held the same model, prefix, direction and
+parameter setting fixed and constructed a numerical table for the next departure, elapsed time and terminal
+outcome. On $q=v/U\in[3,4.12]$, 257 initial points were followed by three rounds of 256 adaptive midpoints,
+for 1025 full-network evaluations from $\widehat x(Uq)$. Refinement used development outcomes only: changes
+of destination, return time and next-departure coordinate. Each evaluation stopped at the next qualified
+natural departure, 128 ordered matches to the reference 3-cycle, another recurrence candidate, or 1024
+individual updates. The domain slightly extends the earlier fitted interval, approximately
+$[3.004729,4.086054]$; these endpoint extrapolations are part of the tested construction.
+
+The resulting table contained 995 returns, 29 period-3 approaches and one other recurrence candidate. The
+last had lag-3 recurrence below $7.4\times10^{-10}$ but a reference-cycle matching error just above $10^{-9}$;
+it is not evidence of a distinct attractor. Between adjacent samples with the same return label and integer
+return time, the table interpolated the next departure linearly. Otherwise it used the nearest endpoint and
+flagged the interval as unresolved. It abstained outside the sampled domain. This defines a standalone
+piecewise numerical model, including a return-time function and terminal labels; evaluating it does not call
+$F$. No assertion of smoothness across a flagged interval is made.
+
+The complete table and test design were frozen and backed up before drawing 16 fresh initial states,
+one uniform draw in each stratum of the original transverse interpolation line. Each fresh full-network
+trajectory continued for up to 16\,384 individual updates. Neither the new trajectories nor their outcomes
+were used to refit the table. The experiment distinguishes two tests: resetting the predictor to each
+\emph{observed} departure tests a single journey, whereas autonomous iteration supplies each subsequent input
+from the table's own preceding prediction. Whole trajectories, not successive returns, are the independent
+sampling units; the line is a constructed test set, not a sample of basin volume.
+
+There were 844 completed next-outcome comparisons: 830 returns and 14 period-3 approaches. The table found
+8 of the 14 capture events, missed 6, and falsely predicted capture on 13 returns. Capture precision was
+38.1\,\% and recall 57.1\,\%. Its 825 correct labels were fewer than the 830 obtained by always predicting
+return. Two final censored exits were excluded. Among the 817 correctly routed returns, next-departure RMSE
+was $0.3273U$ and elapsed-time mean absolute error was 8.85 individual updates; weighting initial trajectories
+equally gave coordinate RMSE $0.3042U$. These are reset-at-observed-exit scores, not autonomous prediction
+accuracy. The first departure of every fresh trajectory returned, so the perfect first-event destination
+score contains no test of capture.
+
+Autonomous iteration also failed to give reliable multi-cycle forecasts (Fig.~\ref{fig:fold-autonomous-test}).
+At 1, 2, 4 and 8 cycles, next-departure RMSE was $0.3282U$, $0.3777U$, $0.4698U$ and $0.4917U$,
+respectively. Those errors use 16, 16, 13 and 12 still-predicted returns, against 16, 16, 15 and 15 observed
+returning trajectories. Thus the later errors exclude two and three premature terminal predictions,
+respectively; they must not be read as scores on all survivors. Corresponding elapsed-time mean absolute
+errors were 7.81, 14.00, 34.85 and 71.33 individual updates. A nearest-sample baseline gave no consistent
+advantage to the piecewise interpolation; its eight-cycle coordinate error was $0.3384U$ on 14 continuing
+predictions. The unequal continuing subsets are disclosed rather than treated as a paired significance test.
+The 128-cycle surrogate horizon and the network's fixed update horizon are different, so their final labels
+do not supply an uncensored long-time fate accuracy. Neither autonomous method left the sampled domain, so
+no out-of-domain abstentions occurred in these rollouts. The timing errors above concern returns; a capture
+time in the table is the time of its finite matching check, not a mathematically exact time of entering a basin.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-fold-autonomous-test.pdf}
+\caption{An autonomous return model at the fold setting, trained before fresh trajectories were generated.
+(a) All 1025 development states: blue dots are the 995 next departures; the separated top strip marks 29
+reference-period-3 approaches and one other recurrence candidate. It is a terminal category, not a value of
+$q$. Fine changes in the input can produce widely separated next departures. (b) Unassisted predictions
+from the first natural departure of each fresh trajectory. Red: the frozen piecewise table; blue: the
+nearest-sample baseline. Each subsequent input is the model's own output. Fractions show the table's
+continuing predictions over observed continuing returns; baseline counts are stated separately. Coordinate
+errors are conditional on continuing predictions, excluding premature terminal outcomes. The table does
+not replace the network reliably.}
+\label{fig:fold-autonomous-test}
+\end{figure}
+
+\paragraph{Where the approximation fails.}
+A disclosed post-test diagnostic evaluated the already fitted state curve, without refitting it, at all
+846 fresh natural departures. Maximum relative full-state reconstruction error remained below
+$7.5\times10^{-14}$. The table's failures therefore coexist with an extremely accurate description of the
+natural exit states. On the 381 correctly routed returns whose bracketing training samples agreed on
+integer return time, coordinate RMSE was $0.06505U$ and time error 0.234 updates. On the other 436 correctly
+routed returns, the corresponding errors were $0.4439U$ and 16.37 updates. Endpoint agreement is only a
+sampling criterion, not a proof that the intervening branch is resolved. These post-test subsets help locate
+the difficulty but do not validate a newly selected predictor. Tiny state error can also be amplified by the
+global excursion. This experiment cannot distinguish unresolved fine structure, amplified reconstruction
+error and residual dependence on information omitted from the scalar description. It establishes the
+failure of this frozen table, not the impossibility of a better one-dimensional model.
+
+
+\paragraph{Expansion before capture, rather than evidence of permanent residence.}
+Fourteen of the 16 fresh trajectories approached the reference 3-cycle; two remained unresolved at 16\,384
+updates. Eight had not yet matched that cycle at 4096 updates and six at 8192. For this survival count,
+capture begins at the first state of a run of 128 ordered reference-cycle matches, rather than at the later
+checkpoint that detects it. These are finite observations on the specified starting-state line, not a fitted
+escape law, a basin-volume estimate or an infinite-time survival probability.
+
+We measured tangent growth along the saved full-network trajectories in windows beginning at updates
+256, 4096 and 12\,288. Each complete window used 256 alignment updates followed by 768 measured updates.
+Writing $e_n$ for a unit tangent vector, the calculation propagated
+\begin{equation}
+ d_n=DF(x_n)e_n,\qquad e_{n+1}=\frac{d_n}{\|d_n\|},\qquad
+ \widehat\lambda=\frac1m\sum_{n\in\mathcal W}\log\|d_n\|,
+ \label{eq:fgr3-tangent}
+\end{equation}
+with exact forward-mode Jacobian--vector products in the patched float64 implementation. Here $m$ counts
+genuine measured updates; frozen post-capture padding never enters the average. The two measurement halves
+were checked separately. Later windows are necessarily conditional on surviving without capture to their
+end, and are not independent trajectories.
+
+There were 15, 8 and 3 complete windows at the three starting times. All 26 had positive growth in both
+measurement halves, with complete-window means from 0.02744 to 0.11295 per individual update
+(Fig.~\ref{fig:fold-growth-capture}). The independent final-state recurrence check found no candidate through
+lag 64 in those windows; absence of a short recurrence is not itself evidence of chaos. The 26 windows
+cover 15 distinct trajectories, of which 13 subsequently matched the attracting 3-cycle. The remaining
+fresh trajectory had only 83 measured updates after alignment before its first matching interval; its
+mean was negative, $-0.1244$. One survivor at the last planned start matched the cycle during alignment
+and supplied no measured rate. Both truncations remain in the record.
+
+The attracting-cycle control used 16 initial tangent directions on the same reference 3-cycle, with 129
+alignment and 255 measured updates. All means were negative, from $-0.14335$ to $-0.14317$, within
+$8.8\times10^{-5}$ of $\log(0.65065064)/3$ when evaluated using the unrounded spectral radius. As an
+independent local derivative check, relative finite offsets $10^{-6}$ and $3\times10^{-7}$ were compared
+with the JVP for the first 128 updates of each window. Maximum relative vector discrepancies over eligible
+updates were below $1.5\times10^{-5}$ and $4.5\times10^{-6}$, respectively. These are directional-derivative
+checks at the recorded states, not independently evolved full-window twin exponents. The AD primal replay
+was bitwise equal to every eligible saved trajectory update; the reference-cycle control's maximum absolute
+primal discrepancy was below $6.5\times10^{-16}$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-fold-growth-capture.pdf}
+\caption{Finite-time expansion and later capture in the fresh FGR3 trajectories. (a) Number not yet matched to
+the reference period-3 orbit. Each downward step is the beginning of 128 ordered full-state matches; the plus
+at the horizon marks two unresolved histories. (b) Exact tangent-growth averages: filled red points use
+complete 768-update measurement windows after alignment; the open point is the 83-update truncated window.
+Vertical spans join the two measurement-half means, not confidence intervals. Blue points are the reference
+3-cycle control with 16 initial tangent directions and a different, 255-update measurement length. The
+horizontal placement within each group separates trajectories for visibility, not time. A late trajectory
+captured during alignment has no measured rate to plot. Every complete network window expands in both
+halves, yet 13 of the 15 contributing trajectories later approach period 3.}
+\label{fig:fold-growth-capture}
+\end{figure}
+
+The observed combination of repeated passages, positive finite-time tangent growth and eventual periodic
+capture is consistent with chaotic transients \cite{lai2011transient}. It does not prove a nonattracting
+chaotic invariant set, nor show that either survivor stays chaotic forever. We have separated three results:
+the local normal form predicts passage delay; a one-coordinate curve accurately reconstructs natural exit
+states; and the tested autonomous return table fails on fresh prediction. A reliable autonomous return
+model and an invariant-set classification remain open. All full-state shards, input reconstructions,
+source/plan bindings, independent audits and separate-physical-disk copies accompany the
+\href{https://github.com/tdj28/neural-shrimp/blob/6343dc481f275afcb73b81b338a1597cbf2f21ed/docs/fold-return-autonomous.json}{compact FGR3 receipt}.
+
 
 
 \section{A period-doubling cascade to chaos}
@@ -4945,8 +5075,9 @@ Huginn loses accuracy under over-relaxation & generation test & prospective & \c
 \paragraph{Local delay, global return and long-time fate.} The return study of Section~\ref{sec:global-return}
 separates these three questions. The normal form predicts the local delay. Natural departures admit an accurate
 one-coordinate state reconstruction for the tested next cycle, but its excursion is still evaluated through the
-full network. Period-3 capture after repeated visits prevents those visits alone from establishing persistent
-chaos. An autonomous return surrogate and an invariant-set classification remain distinct open tasks.
+full network. A separate frozen autonomous table failed fresh capture and multi-cycle prediction tests despite
+accurate state reconstruction. Period-3 capture after repeated visits prevents those visits alone from establishing
+persistent chaos. A reliable autonomous return model and an invariant-set classification remain distinct open tasks.
 
 \paragraph{What theory allows, and what is new.} Chaos and periodic windows occur in many nonlinear feedback systems:
 random recurrent networks become chaotic above a critical gain \cite{sompolinsky1988chaos,doyon1994bifurcations},
