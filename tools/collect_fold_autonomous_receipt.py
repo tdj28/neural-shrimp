@@ -56,6 +56,20 @@ def main():
                           'outside_domain_abstentions': all_kinds.get('outside_domain', 0),
                           'limits':'128-cycle surrogate cap and fixed network update cap differ; these terminal counts are not fate accuracy.'}
     validation = audits['validation']
+    g = audits['growth']
+    full = [r for w in g['windows'] if w['start'] is not None for r in w['rows'] if r['full_planned_window']]
+    assert full
+    control = next(w for w in g['windows'] if w['start'] is None)
+    growth_summary = {
+        'complete_windows_by_start': {str(w['start']):sum(r['full_planned_window'] for r in w['rows'])
+                                     for w in g['windows'] if w['start'] is not None},
+        'complete_window_mean_range': [min(r['mean'] for r in full), max(r['mean'] for r in full)],
+        'distinct_positive_trajectories':len(g['distinct_rows_positive_both_halves_without_recurrence']),
+        'positive_then_P3_trajectories':len(g['positive_rows_that_later_match_P3']),
+        'control_mean_range':[min(r['mean'] for r in control['rows']),max(r['mean'] for r in control['rows'])],
+        'control_max_error':control['max_control_error'],
+        'offset_max_relative_JVP_error':[max(r['offset_max_relative_JVP_error'][i] for w in g['windows']
+                                             for r in w['rows'] if r['offset_checked_updates']) for i in range(2)]}
     result = {'study':'FGR3', 'status':'Scientific audits complete; publication verification tracked separately.',
               'plan':'docs/fold-return-autonomous-plan.json',
               'plan_sha256':sha(Path('docs/fold-return-autonomous-plan.json')),
@@ -66,7 +80,7 @@ def main():
               'autonomous_terminal_counts':terminal,
               'input_checks':audits['input-bindings'],
               'post_test_diagnosis':audits['error-diagnostic'],
-              'growth':audits['growth'], 'figures':figures,
+              'growth':g, 'growth_summary':growth_summary, 'figures':figures,
               'limits':['One model, prefix, steering direction and parameter setting; constructed sample, not basin volume.',
                         'Capture precision/recall uses observed-departure inputs; autonomous rollouts never reset to network states.',
                         'Conditional coordinate/time errors exclude premature terminal predictions; cohorts differ from baseline.',

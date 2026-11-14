@@ -308,3 +308,18 @@ running; this entry is not a completion receipt. Primary /data2 resolves
 to nvme0n1 and /archive to sda, independently checked again at launch.
 Immutable blocks are synchronously copied and rehashed before advancement.
 No rented resource, GPU execution or paid review is involved.
+
+### FGR3 completion, 14 November 2026 UTC
+
+Training, fresh validation, exact-JVP growth and independent audits completed on
+the same local CPU path. All owned execution/audit processes exited normally.
+Training source: 008a12edcce015cb9c303cbf3c214d64afb8364e; fresh validation:
+cb2ebb0fd66ec62539f27b92bb3e6acfc60a6df5; growth:
+b48f0ab3158a8746e6ff1ae445bde4a4a2784199. Growth took 4687.757 seconds. The
+source-bound raw manifests contain 281 training files (1,688,557,245 bytes),
+138 validation files (1,898,374,722 bytes), and 42 growth files (6,556,846
+bytes) per physical-disk copy. The independent auditors rehashed every file
+on both disks; the input-binding audit additionally reconstructed all training
+and fresh initial states. `/data2` remains on nvme0n1 and `/archive` on sda.
+The completed scientific receipt is `docs/fold-return-autonomous.json`.
+No GPU, rented resource or paid review was used.

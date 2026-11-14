@@ -1,34 +1,62 @@
 {
   "study": "FGR3",
-  "status": "Training, fresh validation and extra input/error audits complete; growth audit and publication completion pending.",
+  "status": "Scientific audits complete; publication verification tracked separately.",
   "plan": "docs/fold-return-autonomous-plan.json",
   "plan_sha256": "c0db76726cf280abc56908230b4d5d6b9cdb85d4709a7bcafa589fe6d5e56460",
   "audits": {
     "training": {
       "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-training-01",
-      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-training-01/audit",
       "audit_sha256": "36a7f91882dd38813078108f414b31d826b2fb4cf4abee6cebfad8ae36ac04f3",
-      "audit_bytes": 1506
+      "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-fgr3-training-01/run",
+      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-training-01/run",
+      "manifest_sha256": "0a1dd55961e750da84a5d24dca2c2b3d8e6fab45642d7f9a72542281585f77c0",
+      "source_commit": "008a12edcce015cb9c303cbf3c214d64afb8364e"
     },
     "validation": {
       "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-validation-01",
-      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-validation-01/audit",
       "audit_sha256": "73c87104cd72069c23931ceaeff5bada43b7b831f8d9b74e2232fa8a53ddd372",
-      "audit_bytes": 16122
+      "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-fgr3-validation-01/run",
+      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-validation-01/run",
+      "manifest_sha256": "e749db5e719e23f06560cdd1401de7087c03fcaed824e57d66fff9bca4683aaa",
+      "source_commit": "cb2ebb0fd66ec62539f27b92bb3e6acfc60a6df5"
+    },
+    "growth": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-growth-01",
+      "audit_sha256": "312c66b4d4e2840b47ef5170467346da1957c8ffc21ddf5946f725f4e73434f0",
+      "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-fgr3-growth-01/run",
+      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-growth-01/run",
+      "manifest_sha256": "7cffcfd37d91bc8ba48621e244ed759f15738faf9446071df641c685a326ca62",
+      "source_commit": "b48f0ab3158a8746e6ff1ae445bde4a4a2784199"
     },
     "input-bindings": {
       "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-input-bindings-01",
-      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-input-bindings-01",
-      "audit_sha256": "bf4cb520486ec8f02709d65ab6a97e840698479accf1d7a8087b11223491381d",
-      "audit_bytes": 668
+      "audit_sha256": "bf4cb520486ec8f02709d65ab6a97e840698479accf1d7a8087b11223491381d"
     },
     "error-diagnostic": {
       "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-error-diagnostic-01",
-      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-error-diagnostic-01",
-      "audit_sha256": "28be6aff54621b5e9a9d1c47c4e34ade1ad8a20e09c526789594a2da92ed1968",
-      "audit_bytes": 1488
+      "audit_sha256": "28be6aff54621b5e9a9d1c47c4e34ade1ad8a20e09c526789594a2da92ed1968"
     }
   },
+  "audit_files": {
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-training-01/audit.json": "36a7f91882dd38813078108f414b31d826b2fb4cf4abee6cebfad8ae36ac04f3",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-training-01/events.json": "9b0caf6823dfb504642ccd03317f857c0797c228d6663f906456acb883db9f4c",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-training-01/rows.json": "1a821072fa50c169fe95e4a094e60149cc8f99d491723b7ec274ac3321be0b01",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-training-01/manifest.json": "971fe9e1ec7e7c7e7a38f28fc867e179fb8c4c8c80f0bcd4f10a3ddb3d0b075d",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-validation-01/audit.json": "73c87104cd72069c23931ceaeff5bada43b7b831f8d9b74e2232fa8a53ddd372",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-validation-01/autonomous.json": "5523107e16a49d60d7cbce09e38a1c16a43e6c288128dc873afdda3313aa88a9",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-validation-01/events.json": "e51df280bc2fd7ed890047e5ca89603367ac85a8a868e06cc574a20ad5a7861f",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-validation-01/one-cycle-errors.json": "112480e60b2f1dc0a029635fcd0903f7a99d8422e2b1304742a0e4a3f0699534",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-validation-01/rows.json": "1f3c32b037447f42fef02eb0e18ae6750f77846bd6ca779052584d16f3bf7f26",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-validation-01/manifest.json": "e82652b716181f1a294565763f6ff3b9e7364d9dc5950ba9d4e348a7c5dc4716",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-growth-01/audit.json": "312c66b4d4e2840b47ef5170467346da1957c8ffc21ddf5946f725f4e73434f0",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-growth-01/manifest.json": "7fe90a44b344540532be57b4359b1d4a50a7756db6e7a4b6eef11eeeac7b0f90",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-input-bindings-01/audit.json": "bf4cb520486ec8f02709d65ab6a97e840698479accf1d7a8087b11223491381d",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-error-diagnostic-01/audit.json": "28be6aff54621b5e9a9d1c47c4e34ade1ad8a20e09c526789594a2da92ed1968",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-error-diagnostic-01/curve-errors.json": "f39766d06a48678a970305c6539ca80f7f71ce46d249f6467588cc2e84bddd6d",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-error-diagnostic-01/points.json": "297392631fe1ae1681cc06264df13cafd87dea44eb5f7f9ab76c4f29dfde7ea3",
+    "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-error-diagnostic-01/manifest.json": "50c4ce7cc081e365d685ed742bd73800278ba457ac254517acec9c9feb5c06ff"
+  },
+  "model_sha256": "9efd1b5e5221e3d8f03dcd6f2b5a79836c83b1f018cae67eb76351a05412b2e1",
   "training": {
     "bindings": {
       "files": 281,
@@ -213,6 +241,49 @@
       }
     ]
   },
+  "autonomous_terminal_counts": {
+    "piecewise": {
+      "step_labels": {
+        "return": 1370,
+        "reference_p3": 6
+      },
+      "final_labels": {
+        "return": 10,
+        "reference_p3": 6
+      },
+      "outside_domain_abstentions": 0,
+      "limits": "128-cycle surrogate cap and fixed network update cap differ; these terminal counts are not fate accuracy."
+    },
+    "nearest": {
+      "step_labels": {
+        "return": 1281,
+        "reference_p3": 7
+      },
+      "final_labels": {
+        "return": 9,
+        "reference_p3": 7
+      },
+      "outside_domain_abstentions": 0,
+      "limits": "128-cycle surrogate cap and fixed network update cap differ; these terminal counts are not fate accuracy."
+    }
+  },
+  "input_checks": {
+    "training": {
+      "rows": 1025,
+      "maximum_initial_component_error": 3.469446951953614e-18,
+      "independent_Clenshaw_seed_check": true,
+      "table_targets_match_recorded_batch_outcomes": true
+    },
+    "validation": {
+      "rows": 16,
+      "stratified_draw_reproduced": true,
+      "fresh_initial_states_bitwise_reproduced": true,
+      "frozen_table_binding_passed": true
+    },
+    "training_manifest_sha256": "0a1dd55961e750da84a5d24dca2c2b3d8e6fab45642d7f9a72542281585f77c0",
+    "validation_manifest_sha256": "e749db5e719e23f06560cdd1401de7087c03fcaed824e57d66fff9bca4683aaa",
+    "audit_source_sha256": "65a571c9f49e577892aa2cba09a4ea56065fc5ecb05dc4b62440b1b6d271d634"
+  },
   "post_test_diagnosis": {
     "status": "post-test descriptive diagnostics; no refit or new model selection",
     "raw": {
@@ -250,16 +321,1257 @@
     ],
     "limits": "Tiny state reconstruction error does not bound amplified return error. This diagnostic cannot distinguish unresolved map structure from amplified curve error or missing state information."
   },
-  "return_figures": {
-    "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-return-figures-03",
-    "backup": "/archive/neural-shrimp-backups/20261113-fgr3-return-figures-03",
-    "receipt_sha256": "b7a3402cab2e3b3522e069013753efc20b0f5a473d07541a5fa2c6ebbce3efc2"
+  "growth": {
+    "bindings": {
+      "files": 42,
+      "bytes_per_disk": 6556846,
+      "manifest_sha256": "7cffcfd37d91bc8ba48621e244ed759f15738faf9446071df641c685a326ca62",
+      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-growth-01/run",
+      "source_commit": "b48f0ab3158a8746e6ff1ae445bde4a4a2784199",
+      "plan_sha256": "5d54b887dca53534ee9ee9826e4f413784573f8b9860cd9efb4ab60a20ad2318"
+    },
+    "windows": [
+      {
+        "name": "period3_control",
+        "start": null,
+        "primal_max_abs": 6.435824095873954e-16,
+        "rows": [
+          {
+            "row": 0,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.14318987582202616,
+            "first_half": -0.13974633550754337,
+            "second_half": -0.14660651347780213,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -1.7274946684584088e-09,
+              -1.3103239102747136e-09
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1450747203891654e-05,
+              3.4635043519350174e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 1,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.14331000688562337,
+            "first_half": -0.13755330642477812,
+            "second_half": -0.14902173312411826,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              6.424983244292929e-09,
+              2.8845178301889135e-09
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1426521862750998e-05,
+              3.455533903266099e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 2,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.14329459899463598,
+            "first_half": -0.13817156149584559,
+            "second_half": -0.1483776127629671,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -3.4084325115514135e-08,
+              -1.0345052177797385e-08
+            ],
+            "offset_max_relative_JVP_error": [
+              1.137629060268275e-05,
+              3.442111661335162e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 3,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.1433120139690469,
+            "first_half": -0.13434857922077395,
+            "second_half": -0.15220542188334893,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              2.769330939041267e-08,
+              6.022043149613173e-09
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1385816344985031e-05,
+              3.43868592212496e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 4,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.14317583741460913,
+            "first_half": -0.13873769437163855,
+            "second_half": -0.14757930746505643,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              5.266330752513621e-08,
+              1.686758597817847e-08
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1441365592587754e-05,
+              3.475313353871525e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 5,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.14333037628265627,
+            "first_half": -0.1366535544490067,
+            "second_half": -0.14995503544573044,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              2.269140832496247e-08,
+              7.23985807062229e-09
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1413712277141926e-05,
+              3.4767563545256388e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 6,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.14317601412009895,
+            "first_half": -0.13680049353374887,
+            "second_half": -0.14950172595186811,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -6.625020431975568e-09,
+              -3.0462387418052263e-09
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1433459129410006e-05,
+              3.428295787562459e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 7,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.1433065815792319,
+            "first_half": -0.1343395802621719,
+            "second_half": -0.1522035281985023,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -1.80786117073389e-08,
+              -5.064181533701636e-09
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1392991111127683e-05,
+              3.410143952059368e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 8,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.14317587135211646,
+            "first_half": -0.13681577743173456,
+            "second_half": -0.1494862770387454,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -6.784426758547359e-09,
+              -2.0329459483284674e-09
+            ],
+            "offset_max_relative_JVP_error": [
+              1.142444555304806e-05,
+              3.436757272488866e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 9,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.14317370732672408,
+            "first_half": -0.13709975950475786,
+            "second_half": -0.1492002024313311,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -4.644933671167065e-09,
+              -2.9906086892387933e-10
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1375474874169955e-05,
+              3.408718809759339e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 10,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.14334879388039937,
+            "first_half": -0.13497750756305554,
+            "second_half": -0.1516546795233889,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -4.217773207405048e-08,
+              -1.5223403196297936e-08
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1452990544585449e-05,
+              3.4627419034964972e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 11,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.14330248935190035,
+            "first_half": -0.1343380051395211,
+            "second_half": -0.15219693853137034,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -1.9135125526058066e-09,
+              -1.9274128644562565e-10
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1442492341937754e-05,
+              3.4345111160576838e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 12,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.1432199108950979,
+            "first_half": -0.1402300654369598,
+            "second_half": -0.1461863981855943,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              1.7654182472119097e-08,
+              5.667369453899872e-09
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1373676565009862e-05,
+              3.4230883535454633e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 13,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.1433276533182382,
+            "first_half": -0.13678274093721096,
+            "second_half": -0.1498214335712887,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -1.5470547705501462e-08,
+              -3.5604600975684426e-09
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1400185557906084e-05,
+              3.4360355503453605e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 14,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.14331018261181327,
+            "first_half": -0.13754602150615827,
+            "second_half": -0.14902931120883034,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              2.860676084476797e-09,
+              3.187274514151992e-09
+            ],
+            "offset_max_relative_JVP_error": [
+              1.143595690372764e-05,
+              3.408670740414108e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 15,
+            "eligible_updates": 384,
+            "measured_updates": 255,
+            "mean": -0.1433064813866323,
+            "first_half": -0.1376982483264456,
+            "second_half": -0.14887090012603632,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              2.5719454531798703e-08,
+              8.053440359102643e-09
+            ],
+            "offset_max_relative_JVP_error": [
+              1.143571204207308e-05,
+              3.448648696460152e-06
+            ],
+            "final_window_recurrence_candidate": null
+          }
+        ],
+        "expected_per_update": -0.14326080988871762,
+        "max_control_error": 8.798399168175042e-05,
+        "control_passed": true
+      },
+      {
+        "name": "window-00256",
+        "start": 256,
+        "primal_max_abs": 0.0,
+        "rows": [
+          {
+            "row": 0,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.050637851356809205,
+            "first_half": 0.03841515379063584,
+            "second_half": 0.06286054892298255,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              1.9487171147352175e-06,
+              5.81404169500019e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.0315914731721249e-05,
+              3.2340532520268013e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 1,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.06563134913939782,
+            "first_half": 0.08047517945482492,
+            "second_half": 0.0507875188239707,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              1.983769786245243e-06,
+              5.932656345291698e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              7.029744882505227e-06,
+              2.0843986498442284e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 2,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.08094891693999212,
+            "first_half": 0.06370019423327637,
+            "second_half": 0.09819763964670787,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -1.9516110089212832e-06,
+              -5.833237152300954e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              9.48553474551045e-06,
+              2.820685618166806e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 3,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.06487986778115888,
+            "first_half": 0.08162584872739019,
+            "second_half": 0.04813388683492758,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              1.4022781972106678e-06,
+              4.195557449168392e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.3830907610888643e-05,
+              4.434260115998657e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 4,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.027439622946684433,
+            "first_half": 0.023252294040877076,
+            "second_half": 0.031626951852491786,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              8.825047586982814e-07,
+              2.657968005382542e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.0363211255116416e-05,
+              3.309539288459878e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 5,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.10675112793745695,
+            "first_half": 0.1034218398512493,
+            "second_half": 0.1100804160236646,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -1.116449023303356e-07,
+              -3.870151159919219e-08
+            ],
+            "offset_max_relative_JVP_error": [
+              1.0448399721386447e-05,
+              3.2510688596058643e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 6,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.10254340232645058,
+            "first_half": 0.10186551230220427,
+            "second_half": 0.10322129235069688,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -1.725660549458394e-06,
+              -5.228560601879938e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.3327925007437947e-05,
+              3.993951494851425e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 7,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.07567004385458094,
+            "first_half": 0.10867853611849591,
+            "second_half": 0.04266155159066599,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -1.8879307530278227e-06,
+              -5.63930958066795e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.244446767353635e-05,
+              3.738019234566781e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 8,
+            "eligible_updates": 339,
+            "measured_updates": 83,
+            "mean": -0.12440311846234076,
+            "first_half": -0.10218203808177151,
+            "second_half": -0.14609512550051545,
+            "full_planned_window": false,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -1.197743230378428e-06,
+              -3.572068332710339e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              9.536181075418584e-06,
+              2.916005040493058e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 9,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.07690685183508052,
+            "first_half": 0.03312827718993245,
+            "second_half": 0.12068542648022858,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              1.8779901197297849e-06,
+              5.623427255002276e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.3608570768416748e-05,
+              4.072761107396462e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 10,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.1129475476710206,
+            "first_half": 0.0855751284027761,
+            "second_half": 0.14031996693926507,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              1.2525303558436139e-06,
+              3.765819575448552e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.0090303726782592e-05,
+              2.661259753851565e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 11,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.08012457573624761,
+            "first_half": 0.0848010194271621,
+            "second_half": 0.07544813204533314,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -2.0457629617160475e-06,
+              -6.088762383047114e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.2650178177260524e-05,
+              4.136550915492181e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 12,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.05388010810433797,
+            "first_half": 0.05606103796354922,
+            "second_half": 0.05169917824512673,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              1.9658762991827997e-06,
+              5.89624156074058e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1950627719741636e-05,
+              3.621348416043718e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 13,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.07699563878371367,
+            "first_half": 0.07251055719103973,
+            "second_half": 0.08148072037638761,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              1.962252042975269e-06,
+              5.910198851236193e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              8.114890971280175e-06,
+              2.470121539031055e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 14,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.06713606253250994,
+            "first_half": 0.06855160439025303,
+            "second_half": 0.06572052067476684,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              1.966852961412873e-06,
+              5.947343193274325e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              9.95826601011239e-06,
+              2.919753934199446e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 15,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.08318023638253447,
+            "first_half": 0.10457026546025346,
+            "second_half": 0.06179020730481547,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              2.138587397004354e-06,
+              6.424498236079663e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              4.860003885077925e-06,
+              1.4482564390304983e-06
+            ],
+            "final_window_recurrence_candidate": null
+          }
+        ]
+      },
+      {
+        "name": "window-04096",
+        "start": 4096,
+        "primal_max_abs": 0.0,
+        "rows": [
+          {
+            "row": 0,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 1,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 2,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.049387265861165486,
+            "first_half": 0.04093239400786125,
+            "second_half": 0.05784213771446972,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              1.5220604777453194e-06,
+              4.581270255240525e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              9.851825609110496e-06,
+              3.370159997137137e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 3,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.09846802260027804,
+            "first_half": 0.06452683005865949,
+            "second_half": 0.13240921514189657,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -6.934254849791334e-07,
+              -2.0524575977069054e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.119985957465242e-05,
+              3.40418228910489e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 4,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 5,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.04553742758689507,
+            "first_half": 0.043009656796655464,
+            "second_half": 0.04806519837713468,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -5.944243964194572e-07,
+              -1.785878573579906e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              8.23768004084041e-06,
+              2.3969594128566593e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 6,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.06262731642681091,
+            "first_half": 0.07796497900614781,
+            "second_half": 0.047289653847474,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -1.97275282204075e-06,
+              -5.909833572511161e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              9.76962986853571e-06,
+              2.915835944034847e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 7,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 8,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 9,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 10,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.07379162375789146,
+            "first_half": 0.08117551789076681,
+            "second_half": 0.06640772962501611,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              1.9967963856778754e-06,
+              5.999871806501578e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              9.640849306394751e-06,
+              2.847372078648625e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 11,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.08752077700413068,
+            "first_half": 0.149425022031018,
+            "second_half": 0.025616531977243354,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              1.8466182610671344e-06,
+              5.558199961708558e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              9.554644638475398e-06,
+              2.8700917260601958e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 12,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.07397081122478288,
+            "first_half": 0.09690870616088891,
+            "second_half": 0.05103291628867687,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -1.6307224607484214e-06,
+              -4.892540667229568e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.0190163776935806e-05,
+              3.0499668982035437e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 13,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 14,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.07004752568294847,
+            "first_half": 0.07185462490104867,
+            "second_half": 0.06824042646484829,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -5.81869054509603e-07,
+              -1.7570330595426424e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              9.813522723131079e-06,
+              2.8316589659245793e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 15,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          }
+        ]
+      },
+      {
+        "name": "window-12288",
+        "start": 12288,
+        "primal_max_abs": 0.0,
+        "rows": [
+          {
+            "row": 0,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 1,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 2,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 3,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.07264081593525169,
+            "first_half": 0.018482411537718037,
+            "second_half": 0.12679922033278535,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -2.0880171858805375e-06,
+              -6.321843134971124e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.4684007479008554e-05,
+              4.303651193713106e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 4,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 5,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 6,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 7,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 8,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 9,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 10,
+            "eligible_updates": 171,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -7.074880750510562e-07,
+              -2.1138493502827172e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.1346022253801914e-05,
+              3.3973417093353933e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 11,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.09817582238097655,
+            "first_half": 0.08092310188215791,
+            "second_half": 0.1154285428797952,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -1.9474328966764863e-06,
+              -5.805900084883799e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              1.005526297228437e-05,
+              3.126901463050029e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 12,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 13,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 14,
+            "eligible_updates": 1024,
+            "measured_updates": 768,
+            "mean": 0.05088615467728466,
+            "first_half": 0.06861168288746168,
+            "second_half": 0.03316062646710764,
+            "full_planned_window": true,
+            "offset_checked_updates": 128,
+            "offset_mean_log_growth_difference": [
+              -2.016684210181597e-06,
+              -6.038276830001616e-07
+            ],
+            "offset_max_relative_JVP_error": [
+              8.449037563824221e-06,
+              2.748380173397427e-06
+            ],
+            "final_window_recurrence_candidate": null
+          },
+          {
+            "row": 15,
+            "eligible_updates": 0,
+            "measured_updates": 0,
+            "mean": null,
+            "first_half": null,
+            "second_half": null,
+            "full_planned_window": false,
+            "offset_checked_updates": 0,
+            "offset_mean_log_growth_difference": null,
+            "offset_max_relative_JVP_error": null,
+            "final_window_recurrence_candidate": null
+          }
+        ]
+      }
+    ],
+    "complete_network_windows": 26,
+    "positive_complete_windows": 26,
+    "positive_in_both_halves": 26,
+    "distinct_rows_positive_both_halves_without_recurrence": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "positive_rows_that_later_match_P3": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      12,
+      13,
+      15
+    ],
+    "limits": "Finite-time derivative growth at prespecified times, conditional on survival; no invariant-set or infinite-time chaos proof."
+  },
+  "growth_summary": {
+    "complete_windows_by_start": {
+      "256": 15,
+      "4096": 8,
+      "12288": 3
+    },
+    "complete_window_mean_range": [
+      0.027439622946684433,
+      0.1129475476710206
+    ],
+    "distinct_positive_trajectories": 15,
+    "positive_then_P3_trajectories": 13,
+    "control_mean_range": [
+      -0.14334879388039937,
+      -0.14317370732672408
+    ],
+    "control_max_error": 8.798399168175042e-05,
+    "offset_max_relative_JVP_error": [
+      1.4684007479008554e-05,
+      4.434260115998657e-06
+    ]
+  },
+  "figures": {
+    "returns": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-return-figures-03",
+      "backup": "/archive/neural-shrimp-backups/20261113-fgr3-return-figures-03",
+      "receipt_sha256": "b7a3402cab2e3b3522e069013753efc20b0f5a473d07541a5fa2c6ebbce3efc2",
+      "outputs": {
+        "fig-fold-autonomous-test-mobile.pdf": {
+          "sha256": "4c3739c236c80e5448b43e14b4c808fcbd76ba89d469fc14f7336598a678031d",
+          "bytes": 77282
+        },
+        "fig-fold-autonomous-test-mobile.png": {
+          "sha256": "6716b5e568f699bbb09e2a8b866a96f6f6ba8b93f417683ff49d8635b5cac9b8",
+          "bytes": 262427
+        },
+        "fig-fold-autonomous-test.pdf": {
+          "sha256": "c9a18c9cf564041bee2d40e79c89edc29f52898f780657b6f3c22675f974b4da",
+          "bytes": 78835
+        },
+        "fig-fold-autonomous-test.png": {
+          "sha256": "5c42a5789e523822d25eb248713426c7da1a2aca209e1686e89e784ae4b8665c",
+          "bytes": 269406
+        }
+      }
+    },
+    "growth": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261114-fgr3-growth-figures-02",
+      "backup": "/archive/neural-shrimp-backups/20261114-fgr3-growth-figures-02",
+      "receipt_sha256": "bb45e0b870fee523ceec4e60e23b02aaf8ccffb38e635fad90173274664bda89",
+      "outputs": {
+        "fig-fold-growth-capture-mobile.pdf": {
+          "sha256": "cdaa60acab08c47384b01b676557d10e565993531d141ed15aae9cfca2d98a97",
+          "bytes": 29272
+        },
+        "fig-fold-growth-capture-mobile.png": {
+          "sha256": "42d29ea553e541a15efbec6da63a5dc37a2fe71171797a68df1eb3cc1ea2f93c",
+          "bytes": 193207
+        },
+        "fig-fold-growth-capture.pdf": {
+          "sha256": "8c01ed5faf35c4ca0ff30d6c75c6d931d5f23048ca8ae9c6ad888bd816b2e535",
+          "bytes": 29305
+        },
+        "fig-fold-growth-capture.png": {
+          "sha256": "bd009282b2102a16561490e1894621b1f07609557a1968de3cb488b968dfddd9",
+          "bytes": 189637
+        }
+      }
+    }
   },
   "limits": [
-    "One model, prompt, steering direction and parameter setting; constructed initial-state line, not a basin-volume sample.",
-    "Capture predictions fail on fresh events; no refit against these outcomes.",
-    "Conditional rollout errors exclude premature terminal predictions; finite network and surrogate horizons differ.",
-    "Full-state reconstruction accuracy does not bound amplified return error; unresolved structure and omitted information are not distinguished.",
-    "No growth result is asserted until its independent audit finishes."
+    "One model, prefix, steering direction and parameter setting; constructed sample, not basin volume.",
+    "Capture precision/recall uses observed-departure inputs; autonomous rollouts never reset to network states.",
+    "Conditional coordinate/time errors exclude premature terminal predictions; cohorts differ from baseline.",
+    "No refitting against fresh outcomes; endpoint agreement does not prove an interval resolved.",
+    "Positive finite-window tangent growth before capture does not certify a chaotic saddle or persistent chaos.",
+    "Finite offsets independently check local JVPs for the first 128 updates only, not full-window twin exponents."
   ]
 }

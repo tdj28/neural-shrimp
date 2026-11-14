@@ -120,7 +120,7 @@ def growth(out, sources):
     assert control['control_passed']
     for mobile in (False, True):
         fig, axes = plt.subplots(2 if mobile else 1, 1 if mobile else 2,
-                                figsize=(5.5, 8.8) if mobile else (11, 4.8), layout='constrained')
+                                figsize=(5.5, 9.8) if mobile else (11, 4.8), layout='constrained')
         a, b = axes.ravel()
         times = [0] + captures + [16384]
         survivors = [len(rows)] + [len(rows)-i-1 for i in range(len(captures))] + [len(rows)-len(captures)]
@@ -149,7 +149,7 @@ def growth(out, sources):
         b.set_xticks(range(len(ticks)),ticks)
         b.set(xlabel='Window start (individual network updates)', ylabel='Mean log tangent growth per update',
               title='(b) Growth measured before capture')
-        b.text(.5,-.18,'Filled: full window; open: truncated at capture.\nVertical spans join the two measurement-half means.',
+        b.text(.5,-.28 if mobile else -.18,'Filled: full window; open: truncated at capture.\nVertical spans join the two measurement-half means.',
                transform=b.transAxes,ha='center',va='top',fontsize=8)
         b.grid(axis='y',alpha=.15)
         save(fig,out,'fig-fold-growth-capture'+('-mobile' if mobile else ''))
