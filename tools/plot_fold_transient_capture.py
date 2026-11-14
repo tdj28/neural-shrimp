@@ -17,7 +17,7 @@ from matplotlib.patches import Patch
 import numpy as np
 
 ORANGE, RED, BLUE, INK = '#c8641e', '#a43b43', '#1f6785', '#222222'
-NEAR = 0.03       # relative distance of this or the previous state to the channel centre: a slow passage
+NEAR = 0.03       # relative distance of this or the previous state to the channel center: a slow passage
 ON = 1e-3         # relative distance to the cycle: captured
 EXAMPLE = 13      # FGR5 row shown in fig-fold-transient-capture (a)
 GROWTH = 0.0734   # mean of the 26 complete FGR3 tangent-growth windows, per update (fold-return-autonomous.json)
@@ -52,14 +52,14 @@ def twin_data(tw, orbit):
     shards = sorted((tw/'trajectories').glob('updates-*.npz'), key=lambda q: int(q.stem.split('-')[1]))
     on = np.linalg.norm(orbit, axis=1)
     with np.load(tw/'inputs.npz') as z:
-        centre = z['centre']
+        center = z['center']
     gaps, d3, dc = [], [], []
     for f in shards:
         with np.load(f) as s:
             S = s['states']
         for x in S:
             d3.append((np.linalg.norm(x[:, None, :]-orbit[None], axis=2)/on[None]).min(axis=1))
-            dc.append(np.linalg.norm(x-centre, axis=1)/np.linalg.norm(centre))
+            dc.append(np.linalg.norm(x-center, axis=1)/np.linalg.norm(center))
             ref = np.array([k-k % 4 for k in range(len(labels))])
             gaps.append(np.linalg.norm(x-x[ref], axis=1)/np.linalg.norm(x[ref], axis=1))
     gaps, d3, dc = np.array(gaps), np.array(d3), np.array(dc); steps = np.arange(1, len(gaps)+1)

@@ -2415,6 +2415,55 @@ halves, yet 13 of the 15 contributing trajectories later approach period 3.}
 \label{fig:fold-growth-capture}
 \end{figure}
 
+\paragraph{What the transient looks like.}
+The tangents in Eq.~\eqref{eq:fgr3-tangent} are exact directional derivatives of the full update. One update maps
+the state, the 896-component soft embedding, through the prefix-cached network with its steering and the softmax at
+temperature $T$, and back to the next soft embedding. Forward-mode automatic differentiation carries a tangent vector
+through every operation of that computation together with its value, so a single pass returns $DF(x)e$ without
+forming the $896\times896$ Jacobian; in float64 it costs about five times an ordinary update.
+
+The saved FGR5 trajectories show what these numbers summarize (Fig.~\ref{fig:fold-transient-capture};
+\href{https://github.com/tdj28/neural-shrimp/blob/14ff9ab15cc100861a8597127144f4c0269ff99b/docs/fold-transient-figures.json}{receipt}). In each
+slow passage the state comes close to the channel center (median closest approach $1.4\times10^{-4}$
+relative, over 2435 passages), and the leading token alternates `` it'', `` is''. Between passages the state bursts away for a few updates and other tokens appear. Eventually a burst
+lands near the attracting 3-cycle; the relative distance to the cycle then falls by the factor
+0.651 every three updates, the cycle's own contraction, down to the rounding level,
+and the readout repeats `` certainly'', ``.'', ``Hello''. All 42 captured FGR5
+trajectories, including the two labeled as other recurrence candidates, end on this same cycle.
+
+A demonstration run (descriptive, not a test) shows the sensitivity with finite nudges. Four FGR5 starts were rerun
+as one batch, each with three copies displaced by relative $10^{-12}$, $10^{-10}$ and $10^{-8}$ along one fixed
+random direction. Every nudged copy moved more than $10^{-3}$ from its unnudged copy within 99 to 386 updates,
+an average growth of 0.043 to 0.116 per update, against 0.027 to 0.113 for the complete tangent windows.
+Of the 16 copies, 15 then reached the 3-cycle, at widely different times; the four copies shown in
+Fig.~\ref{fig:fold-twins-capture} were captured after 2005, 2417, 5097 and 5845 updates. The unnudged copies, rerun in another
+batch than in FGR5, did not repeat their FGR5 histories either: one start reached the cycle after
+2297 updates in FGR5 and after 8164 in the rerun, because
+rounding differences grow in the same way.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-fold-transient-capture.pdf}
+\caption{Chaotic wandering that ends in the period-3 cycle (FGR5). (a) One fresh trajectory: relative distance of the
+state, or of the state before it, to the channel center (orange), and relative distance to the reference 3-cycle
+(blue). Quotations give the leading tokens during a slow passage, during the last burst, and on the cycle. (b) All 48
+fresh trajectories, update by update: slow passage when this or the previous state lies within 3\,\% of the channel
+center, burst otherwise, and on the cycle once within $10^{-3}$ of it. White follows the end of a run: after a
+verified capture, or at 16\,384 updates.}
+\label{fig:fold-transient-capture}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-fold-twins-capture.pdf}
+\caption{Sensitivity and capture. (a) Relative distance of three nudged copies of one FGR5 start from the unnudged
+copy; dashed lines grow at 0.0734 per update, the mean of the complete tangent windows. (b) The four copies, update
+by update, with the colors of Fig.~\ref{fig:fold-transient-capture}(b). (c) Relative distance to the 3-cycle for
+all captured FGR5 trajectories, aligned where it first falls below 0.01, and the cycle's contraction
+$\rho^{n/3}$ with $\rho=0.65065$ (dashed).}
+\label{fig:fold-twins-capture}
+\end{figure}
+
 The observed combination of repeated passages, positive finite-time tangent growth and eventual periodic
 capture is consistent with chaotic transients \cite{lai2011transient}. It does not prove a nonattracting
 chaotic invariant set, nor show that either survivor stays chaotic forever. We have separated three results:

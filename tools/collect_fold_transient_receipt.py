@@ -75,7 +75,7 @@ def main():
         'figures': figs,
         'limits': ('Descriptive. One prompt and parameter setting; the twin run has four starts. The regime colors use '
                    'fixed thresholds: a slow passage when this or the previous state lies within 3% of the channel '
-                   'centre, captured when within 1e-3 of the cycle. Unnudged copies sit in another batch than in FGR5, '
+                   'center, captured when within 1e-3 of the cycle. Unnudged copies sit in another batch than in FGR5, '
                    'so they do not reproduce the FGR5 trajectories beyond a few hundred updates.'),
     }
     write_json(Path(a.out), receipt)
