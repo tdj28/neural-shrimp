@@ -34301,3 +34301,26 @@ FGR5 completed at 11:23 UTC, after the prediction commit `22b11cd2` (11:06 UTC).
 Post-test robustness, disclosed (`tools/fold_return_fgr5_robustness.py`, audit `20261114-fgr5-robustness-01`):
 resampling whole trajectories gives 0.0127 to 0.0244 for the observed rate; the prediction stays inside, near the
 lower edge. Departures within a trajectory are not independent, which is why this check was added.
+
+## 2026-11-14 11:53 UTC: FGR4b rounding control read; zoom result final; receipt and figures
+
+FGR4b completed at 11:49 UTC. Zoom audit `20261114-fgr4-zoom-audit-02` (FGR4 + FGR4b, 4768 evaluations):
+
+- **Rounding control.** Rerunning all 466 bases inside M exactly, in other batch slots, changed the return time or
+  outcome of 9 (1.9 %). The FGR4 plan required exact replicates; that gate, as written, failed (the 16 replicates
+  kept outcome and time but 11 moved the next coordinate by up to 2.6e-8). Inside M, rounding that depends on batch
+  placement, amplified by one return, decides about 2 % of outcomes. The control is now the measured floor.
+- **Ladder.** Share of pairs with different return time: 0.91, 0.64, 0.46, 0.28, 0.17, 0.11 and 0.056 at
+  delta = 1e-3 to 1e-8 and 1e-10, against 0.019 at delta = 0. Fit over 1e-10 to 1e-4: p ~ delta^0.183 (bootstrap
+  0.160 to 0.211); unwrapped-time criterion 0.180. A smooth map with this local steepness would fall as delta^1.
+  The share at 1e-10 is about three times the rerun floor, so structure is seen down to at least 1e-10 in q.
+- **Where runs end.** 123 period-3 approaches and 23 other recurrence candidates among all evaluations; the
+  termination shares of the uniform bases sit in four bins inside M, the largest near q = 3.5 (10 of 36 starts).
+
+Post-test, descriptive (FGR5): 11 of the 48 fresh trajectories ended within their first 8 departures, faster
+than the prediction; without each trajectory's first 5, 10 or 20 departures the observed rate is 0.0155, 0.0155
+and 0.0152 (prediction 0.0130). Line starts are not yet distributed like the long-run departures.
+
+Figures (`tools/plot_fold_return_unwrap.py`, `plot_fold_return_zoom.py`, `plot_fold_return_escape_test.py`,
+`plot_fold_return_followup_article.py`) and the compact receipt `docs/fold-return-followup.json`
+(`tools/collect_fold_return_followup_receipt.py`; every run and audit manifest checked on both disks).

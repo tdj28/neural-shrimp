@@ -1,0 +1,302 @@
+{
+  "study": "FGR3 follow-up: unwrapped return, FGR4/FGR4b zoom, frozen FGR5 test",
+  "receipt_source_commit": "2a69817012d48e76585f5b445b9e34cc3d7c2501",
+  "plans": {
+    "fold-return-fgr4-plan.json": "7d0b46df19414d991df7d7aea11b24bb4861a63de4320d0786a3f2f8569ddd23",
+    "fold-return-fgr4b-plan.json": "f8ff1f925a884a7745c94776031af1d014bbf95f06b793fa3d3419b53574a40f",
+    "fold-return-fgr5-plan.json": "8953c489d133874e8ba11390ac1b112df3789f610e12523ebec59444084050ec"
+  },
+  "prediction": {
+    "file": "docs/fold-return-fgr5-prediction.json",
+    "sha256": "ef88e00f2081bf83978ccc9919cef4820af9d8fb2713799e6ba3e35c37fc4f28",
+    "committed_before_fresh_outcomes_were_read": "22b11cd26c6f87b476203e93da51a5eeb70fbe46"
+  },
+  "score": {
+    "file": "docs/fold-return-fgr5-score.json",
+    "sha256": "2442122831ca591e569373f5ed0b78b608b29f126dd4d9292ca1ec62e88fee5b"
+  },
+  "runs": {
+    "20261114-fgr4-zoom-part0": {
+      "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261114-fgr4-zoom-part0",
+      "backup": "/archive/neural-shrimp-backups/20261114-fgr4-zoom-part0",
+      "manifest_sha256": "48109c4df8d027f63136b41d331c772632fa2119f0f167c3e4833461fb764ba5",
+      "complete": {
+        "manifest_sha256": "48109c4df8d027f63136b41d331c772632fa2119f0f167c3e4833461fb764ba5",
+        "backup_manifest_sha256": "48109c4df8d027f63136b41d331c772632fa2119f0f167c3e4833461fb764ba5"
+      },
+      "source_commit": "21d95a0fe12073b5840f24750417af671f543672"
+    },
+    "20261114-fgr4-zoom-part1": {
+      "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261114-fgr4-zoom-part1",
+      "backup": "/archive/neural-shrimp-backups/20261114-fgr4-zoom-part1",
+      "manifest_sha256": "b9bd52a2c6a6ec9a0ce2887b0b77dd7f1e221aa5e714ff659d550e228efe59e5",
+      "complete": {
+        "manifest_sha256": "b9bd52a2c6a6ec9a0ce2887b0b77dd7f1e221aa5e714ff659d550e228efe59e5",
+        "backup_manifest_sha256": "b9bd52a2c6a6ec9a0ce2887b0b77dd7f1e221aa5e714ff659d550e228efe59e5"
+      },
+      "source_commit": "21d95a0fe12073b5840f24750417af671f543672"
+    },
+    "20261114-fgr4b-zoom-part0": {
+      "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261114-fgr4b-zoom-part0",
+      "backup": "/archive/neural-shrimp-backups/20261114-fgr4b-zoom-part0",
+      "manifest_sha256": "ac7daa91d4ac47f6c3b21b64b9fe23dc2de659e22efc7bf776fa1486cabfe485",
+      "complete": {
+        "manifest_sha256": "ac7daa91d4ac47f6c3b21b64b9fe23dc2de659e22efc7bf776fa1486cabfe485",
+        "backup_manifest_sha256": "ac7daa91d4ac47f6c3b21b64b9fe23dc2de659e22efc7bf776fa1486cabfe485"
+      },
+      "source_commit": "89d01e992c90feab884edd96b63f7d171f0b97c8"
+    },
+    "20261114-fgr4b-zoom-part1": {
+      "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261114-fgr4b-zoom-part1",
+      "backup": "/archive/neural-shrimp-backups/20261114-fgr4b-zoom-part1",
+      "manifest_sha256": "43dba9558b48286a7d5ba6e9573d926804f5542183eb53eabd30c479d6f0358e",
+      "complete": {
+        "manifest_sha256": "43dba9558b48286a7d5ba6e9573d926804f5542183eb53eabd30c479d6f0358e",
+        "backup_manifest_sha256": "43dba9558b48286a7d5ba6e9573d926804f5542183eb53eabd30c479d6f0358e"
+      },
+      "source_commit": "89d01e992c90feab884edd96b63f7d171f0b97c8"
+    },
+    "20261114-fgr5-fresh-01": {
+      "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261114-fgr5-fresh-01",
+      "backup": "/archive/neural-shrimp-backups/20261114-fgr5-fresh-01",
+      "manifest_sha256": "17e91c5ea37d248b4d981373fd1e59d7488b9d6eda979237bb81539096bdbe73",
+      "complete": {
+        "manifest_sha256": "17e91c5ea37d248b4d981373fd1e59d7488b9d6eda979237bb81539096bdbe73",
+        "backup_manifest_sha256": "17e91c5ea37d248b4d981373fd1e59d7488b9d6eda979237bb81539096bdbe73"
+      },
+      "source_commit": "21d95a0fe12073b5840f24750417af671f543672"
+    }
+  },
+  "audits": {
+    "unwrap": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261114-unwrap-01",
+      "backup": "/archive/neural-shrimp-backups/20261114-unwrap-01",
+      "manifest_sha256": "d829e66264c824a40eec59fba6bab2b07d9e631e6b426677d1df602c73058f45"
+    },
+    "zoom": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261114-fgr4-zoom-audit-02",
+      "backup": "/archive/neural-shrimp-backups/20261114-fgr4-zoom-audit-02",
+      "manifest_sha256": "0ac139cceb7c09333f5866d683cfea727e87e7db6ceb7f271d27ce8e63c3367f"
+    },
+    "prediction": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261114-fgr5-prediction-01",
+      "backup": "/archive/neural-shrimp-backups/20261114-fgr5-prediction-01",
+      "manifest_sha256": "4221a2da1ddf2f88f52772ab25c864b5d79ccc7af6b370f16f562a8dc3e9c784"
+    },
+    "score": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261114-fgr5-score-01",
+      "backup": "/archive/neural-shrimp-backups/20261114-fgr5-score-01",
+      "manifest_sha256": "244560f3406a3bc88638563b5bc7114cfd20ca99adc32630a9dc40be8a3e4c7a"
+    },
+    "robustness": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261114-fgr5-robustness-01",
+      "backup": "/archive/neural-shrimp-backups/20261114-fgr5-robustness-01",
+      "manifest_sha256": "ec2632081bd22fb7e2028a30b8d939a63a698023f0a545ee5efcc449f87b5a92"
+    }
+  },
+  "numbers": {
+    "unwrap": {
+      "long_runs": [
+        {
+          "lo": 3.0,
+          "hi": 3.0503125000000004,
+          "intervals": 32
+        },
+        {
+          "lo": 3.56,
+          "hi": 4.12,
+          "intervals": 328
+        }
+      ],
+      "fresh_departures": 846,
+      "long_run_returns": 366,
+      "long_run_time_correct_unwrapped": 365,
+      "long_run_time_correct_fgr3_table": 365,
+      "long_run_median_tau_error": 0.0002469277464953734,
+      "M_departures": 446,
+      "M_captures": 14,
+      "short_window_returns": 32,
+      "short_window_time_correct": 25,
+      "table_stops_in_M": 30,
+      "table_stops": 30,
+      "odd_time_table_returns": 373
+    },
+    "zoom": {
+      "evaluations": 4768,
+      "bases_inside_M": 466,
+      "levels_time_criterion": {
+        "0.001": {
+          "pairs": 466,
+          "uncertain": 426,
+          "fraction": 0.9141630901287554
+        },
+        "0.0001": {
+          "pairs": 466,
+          "uncertain": 300,
+          "fraction": 0.6437768240343348
+        },
+        "1e-05": {
+          "pairs": 466,
+          "uncertain": 213,
+          "fraction": 0.4570815450643777
+        },
+        "1e-06": {
+          "pairs": 466,
+          "uncertain": 131,
+          "fraction": 0.2811158798283262
+        },
+        "1e-07": {
+          "pairs": 466,
+          "uncertain": 78,
+          "fraction": 0.16738197424892703
+        },
+        "1e-08": {
+          "pairs": 466,
+          "uncertain": 51,
+          "fraction": 0.10944206008583691
+        },
+        "1e-10": {
+          "pairs": 466,
+          "uncertain": 26,
+          "fraction": 0.055793991416309016
+        },
+        "0.0": {
+          "pairs": 466,
+          "uncertain": 9,
+          "fraction": 0.019313304721030045
+        }
+      },
+      "alpha_time": 0.18316145513531587,
+      "alpha_time_bootstrap_95": [
+        0.16031469481051433,
+        0.21053901248802417
+      ],
+      "alpha_tau": 0.179944716232539,
+      "alpha_tau_bootstrap_95": [
+        0.157189742888088,
+        0.20716958607203978
+      ],
+      "outcome_kinds": {
+        "reference_p3": 123,
+        "other_recurrence_candidate": 23,
+        "return": 4622
+      },
+      "fgr4_replicates_same_outcome_and_time": 16,
+      "fgr4_replicates_bitwise_identical": 5,
+      "fgr4_replicate_max_next_q_shift_U": 2.5910997347722287e-08
+    },
+    "prediction": {
+      "kappa": 0.013032705648018617,
+      "kappa_bootstrap_2.5_50_97.5": [
+        0.006686654652273988,
+        0.012726271268083011,
+        0.020435180838529632
+      ],
+      "sensitivity_bins": {
+        "14": 0.014371653203056778,
+        "56": 0.012914186891041513
+      },
+      "bases_used": 1024
+    },
+    "score": {
+      "prediction_sha256": "ef88e00f2081bf83978ccc9919cef4820af9d8fb2713799e6ba3e35c37fc4f28",
+      "fresh_manifest_sha256": "17e91c5ea37d248b4d981373fd1e59d7488b9d6eda979237bb81539096bdbe73",
+      "trajectories": 48,
+      "outcomes": {
+        "other_recurrence_candidate": 2,
+        "reference_p3": 40,
+        "unresolved_at_horizon": 6
+      },
+      "departures_with_observed_next_outcome": 2417,
+      "terminations_after_a_departure": 42,
+      "terminations_before_any_departure": 0,
+      "kappa_observed": 0.01737691352916839,
+      "kappa_observed_95": [
+        0.012523750820222466,
+        0.02348853900640904
+      ],
+      "kappa_predicted": 0.013032705648018617,
+      "C1_escape_rate_passed": true,
+      "expected_terminations_calibration": 35.63438438438438,
+      "observed_terminations_95": [
+        30.2699057324777,
+        56.77179877849065
+      ],
+      "C2_calibration_passed": true,
+      "C3_pointwise_long_runs": {
+        "pairs": 1074,
+        "abstained": 0,
+        "time_correct": 1071,
+        "time_correct_fraction": 0.9972067039106145,
+        "median_tau_error": 0.00031869773825476955,
+        "p99_tau_error": 0.010869879462928791,
+        "passed": true
+      }
+    },
+    "robustness": {
+      "kappa_trajectory_bootstrap_95": [
+        0.012687794013661893,
+        0.024350670835252625
+      ],
+      "departures_per_trajectory_range": [
+        1,
+        131
+      ]
+    }
+  },
+  "figures": {
+    "fig-fold-return-unwrapped.pdf": {
+      "bytes": 54873,
+      "sha256": "a18e8b4ea4a2b083d1779f02648e0190939f89392b9e8ddf58eb42873bad2db4"
+    },
+    "fig-fold-return-unwrapped.png": {
+      "bytes": 439424,
+      "sha256": "dd5f7a992ffa3ddfe8f63c441f4f7ed506153ebd9ec701a81d119bfe2b0ac8e9"
+    },
+    "fig-fold-return-unwrapped-mobile.pdf": {
+      "bytes": 54773,
+      "sha256": "34a6755d4921e68ec8c9bf99278c86c119d8b4dc1a1f7fc18ad3264df9f83d0a"
+    },
+    "fig-fold-return-unwrapped-mobile.png": {
+      "bytes": 409565,
+      "sha256": "2d65c29b7c067d40748c96fc91cd61695a3b98750fa90a1e047fd481ff42a3b4"
+    },
+    "fig-fold-return-zoom.pdf": {
+      "bytes": 27824,
+      "sha256": "9e48ad4fe25ce1c6246ccd7cf1e9e60d8293699f5aea99b9d4a12bdcf74440bc"
+    },
+    "fig-fold-return-zoom.png": {
+      "bytes": 217801,
+      "sha256": "2fbdaf41aaa1bde9fe79e8770be590a7941cdb0da2b2b845d3407f82a5bdfab3"
+    },
+    "fig-fold-return-zoom-mobile.pdf": {
+      "bytes": 28042,
+      "sha256": "c18911c96e33599a52e34508d97cae9cd6748ed3c68026080e0662b09a100c50"
+    },
+    "fig-fold-return-zoom-mobile.png": {
+      "bytes": 214924,
+      "sha256": "53b14a2ca250aba80bd225fce8f4c9e23ce5242f675f2b21b3106a7e898b14fa"
+    },
+    "fig-fold-return-escape-test.pdf": {
+      "bytes": 27331,
+      "sha256": "6b2f89934a55f10220e4bc2347f34a82c4e0998a2c9844a2c8eeada6f72b6f87"
+    },
+    "fig-fold-return-escape-test.png": {
+      "bytes": 206267,
+      "sha256": "133e1049d7ca9b106ff13377f3f0bcb51f3cc7cfc9c17dd996e066a6d41e3ee2"
+    },
+    "fig-fold-return-escape-test-mobile.pdf": {
+      "bytes": 27267,
+      "sha256": "4041d28d07d09f10c2baca04db143af01f7af0e0bebaf7058ac75a6751083674"
+    },
+    "fig-fold-return-escape-test-mobile.png": {
+      "bytes": 204530,
+      "sha256": "b411ab7164c39b07cd087f34403a299567f7de50c16bd6934e5be781a4bb1cb8"
+    },
+    "article:fig-fold-return-followup.pdf": {
+      "bytes": 50389,
+      "sha256": "3b55ea2a656f75db1b96138da67ead7fc07b04946412173a1356b3a18e5af41e"
+    }
+  },
+  "limits": "One prompt, steering direction and parameter setting. M and the unwrapping rule were defined after the FGR3 fresh trajectories were seen; FGR5 tests them on new trajectories. An exponent measured between 1e-10 and 1e-4 in q shows structure across those scales, not an infinite fractal. Exact reruns in another batch slot change 9 of 466 outcomes inside M."
+}
