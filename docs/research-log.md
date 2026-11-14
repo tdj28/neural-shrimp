@@ -34283,3 +34283,21 @@ unchanged (the analysis tool only gained the extension input; FGR5 itself is sti
 
 Correction: the two preceding headings first carried estimated times (11:08 and 11:20 UTC); they now carry the commit
 times read from `git log` and `date -u` (11:06 and 11:08 UTC).
+
+## 2026-11-14 11:23 UTC: FGR5 frozen test, all three criteria passed
+
+FGR5 completed at 11:23 UTC, after the prediction commit `22b11cd2` (11:06 UTC). Scored with the frozen code
+(`fold_return_escape.py score`, audit `20261114-fgr5-score-01`, receipt `docs/fold-return-fgr5-score.json`).
+48 trajectories: 40 approached period 3, 2 ended as other recurrence candidates, 6 were unresolved at 16,384 updates.
+
+- **C1 passed.** 42 terminations after 2417 departures with an observed next outcome: observed rate 0.0174, exact
+  Poisson 95 % interval 0.0125 to 0.0235; predicted 0.0130. The point prediction is about 25 % below the observed
+  rate (the FGR3 development trajectories gave 14 in 844, 0.0166).
+- **C2 passed.** Expected terminations from the per-bin fractions at the observed departures: 35.6; observed 42
+  (95 % interval 30.3 to 56.8).
+- **C3 passed.** 1074 fresh returns from the two long resolved runs: return time correct for 1071 (99.7 %), median
+  unwrapped-time error 0.00032 and 99th percentile 0.011 channel steps; no abstentions.
+
+Post-test robustness, disclosed (`tools/fold_return_fgr5_robustness.py`, audit `20261114-fgr5-robustness-01`):
+resampling whole trajectories gives 0.0127 to 0.0244 for the observed rate; the prediction stays inside, near the
+lower edge. Departures within a trajectory are not independent, which is why this check was added.
