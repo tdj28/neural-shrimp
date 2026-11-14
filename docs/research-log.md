@@ -34329,3 +34329,18 @@ Correction (same day): the follow-up receipt links in the report (`5f752b3b`) an
 an invented full hash for commit `bfdb26eb`, written from memory instead of from `git log`; GitHub returned 404.
 Replaced by `bfdb26eb7b7e2b7998fe345d2f18777e2f6f6f97`, read with `git rev-parse`; all pinned links checked to
 return 200.
+
+## 2026-11-14 12:07 UTC: Follow-up published in the report and the article; blog edits left for the author
+
+- **Report** (`5f752b3b`, link fix `2a9dea2d`; 216 pages, no undefined references): three paragraphs and three
+  figures at the end of the global-return section, revised summary sentence and discussion paragraph, two new
+  references checked against Crossref (Grebogi, McDonald, Ott and Yorke 1983, DOI 10.1016/0375-9601(83)90945-3;
+  Li 1976, DOI 10.1016/0021-9045(76)90037-X).
+- **Chaos article** (private repository, `5686afa`, link fix `d89b40f`; 40 pages): three paragraphs and one
+  three-panel figure after the FGR3 results, revised Discussion sentence, the same references, alt text for the new
+  figure (later figures renumbered). The author's uncommitted conflict-of-interest line is untouched.
+- **Blog** (uncommitted, for the author): a new Research Note subsection `#return-followup` with three figures,
+  revised summary and limitation sentences, two references; one paragraph and one figure in the short read;
+  provenance extension `fold-return-followup-20261114` binding 34 displayed numbers to `fold-return-followup.json`;
+  verifier `verify_fold_followup.py`, added to the Makefile checks. All site checks pass. Generators and backups:
+  `neural-shrimp-data/blog-generator/nov14-return-followup/`, `blog-bundle-backup/*.before-nov14-followup`.
