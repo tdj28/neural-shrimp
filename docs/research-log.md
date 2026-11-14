@@ -34256,3 +34256,11 @@ First launch at 07:08 UTC failed in all three processes before any evidence dire
 committed-source check compared a relative plan path with the repository root (`ValueError ... is not in the
 subpath`). Fixed by resolving the plan path; relaunched from the next commit. Logs kept in
 `neural-shrimp-data/logs/` (overwritten by the relaunch; the failure text is recorded here).
+
+## 2026-11-14 11:08 UTC: FGR4 complete; FGR5 prediction frozen before any FGR5 outcome is read
+
+Both FGR4 parts completed (3836 evaluations; 13,943 and 14,214 s). `tools/fold_return_escape.py predict` on the 1024
+uniform bases alone (no censored base): Ulam estimate with 28 bins of the per-departure termination probability
+kappa = 0.0130, bootstrap 95 % interval 0.0067 to 0.0204 (14 bins: 0.0144; 56 bins: 0.0129, not scored). The
+prediction file is committed unchanged as `docs/fold-return-fgr5-prediction.json`; FGR5 is still running and its
+outcomes have not been read.
