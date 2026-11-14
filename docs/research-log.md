@@ -34344,3 +34344,12 @@ return 200.
   provenance extension `fold-return-followup-20261114` binding 34 displayed numbers to `fold-return-followup.json`;
   verifier `verify_fold_followup.py`, added to the Makefile checks. All site checks pass. Generators and backups:
   `neural-shrimp-data/blog-generator/nov14-return-followup/`, `blog-bundle-backup/*.before-nov14-followup`.
+
+## 2026-11-14 19:12 UTC: Run card, twin demonstration (exploratory, for a figure)
+
+At the author's request for a figure of chaotic trajectories that end in the periodic cycle. Four FGR5 fresh
+starts (rows 8, 13, 35, 40) and copies nudged by relative 1e-12, 1e-10 and 1e-8 along one fixed random direction,
+one batch of 16, followed until capture or 16,384 updates (`docs/fold-return-twins-plan.json`,
+`tools/fold_return_zoom.py twins`). Local CPU; the machine is otherwise idle. Descriptive only: the nudged copies
+should separate at roughly the measured tangent-growth rate and then each settle into the period-3 cycle at its own
+time. The same figure will use the saved FGR5 trajectories (distance to the cycle against update).

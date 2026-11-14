@@ -110,6 +110,29 @@ def execute(args):
                                              'parent_sha256': sha(prior/'inputs.npz'), 'source_commit': head})
             result = engine.run_batch(seeds, 'trajectories', spec['max_updates'], False)
             evidence.save('result.json', result)
+        elif args.mode == 'twins':
+            # Demonstration: copies of saved fresh starts, nudged along one fixed random direction by a relative
+            # amount eps (eps = 0 is the unnudged copy), followed without stopping on returns.
+            spec = plan['twins']
+            source = Path(spec['source_run'])
+            initial = source/'trajectories'/'initial.npz'
+            with np.load(initial) as z:
+                base = z['states'][spec['rows']]
+            rng = np.random.default_rng(spec['direction_seed'])
+            u = rng.normal(size=base.shape[1]); u /= np.linalg.norm(u)
+            seeds, labels = [], []
+            for row, x in zip(spec['rows'], base):
+                for eps in spec['eps']:
+                    seeds.append(x+eps*np.linalg.norm(x)*u)
+                    labels.append({'source_row': row, 'eps': eps})
+            if len(seeds) != engine.B:
+                raise ValueError('This design runs every copy in one batch')
+            evidence.save('selection.json', {'labels': labels, 'source_initial': str(initial),
+                                             'source_initial_sha256': sha(initial),
+                                             'source_manifest_sha256': sha(source/'manifest.json'),
+                                             'direction': u.tolist(), 'source_commit': head})
+            result = engine.run_batch(np.array(seeds), 'trajectories', spec['max_updates'], False)
+            evidence.save('result.json', result)
         else:
             raise ValueError(args.mode)
         evidence.save('wall.json', {'wall_seconds': time.monotonic()-started})
@@ -126,7 +149,7 @@ def execute(args):
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('mode', choices=['zoom', 'fresh'])
+    p.add_argument('mode', choices=['zoom', 'fresh', 'twins'])
     p.add_argument('--plan', required=True)
     p.add_argument('--out', required=True); p.add_argument('--backup', required=True)
     p.add_argument('--part', type=int, default=0); p.add_argument('--parts', type=int, default=1)
