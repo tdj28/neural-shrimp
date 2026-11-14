@@ -99,8 +99,9 @@ attracting orbits of periods 2 and 3 at one parameter cell, and the attracting 3
 period-doubling cascade. In a smaller period-18 window, retaining about 0.645\,\% of the previous feedback
 state as a third control changes the selected return pair's trace-saddle height through a numerical sign bracket
 as its center is followed in steering and temperature, supporting a conditional local reconnection interpretation. The sampled centers keep their state period and six-token readout, and the
-multipliers remain nonzero. In the recurrent-depth model Huginn, a frozen test confirmed that over-relaxing its loop costs accuracy. At one post-fold setting of Qwen2.5-0.5B-Instruct, natural exit states admit an accurate one-coordinate reconstruction, but a frozen autonomous return table
-fails fresh-trajectory tests and repeated passages often end in period-3 capture. The loop is not
+multipliers remain nonzero. In the recurrent-depth model Huginn, a frozen test confirmed that over-relaxing its loop costs accuracy. At one post-fold setting of Qwen2.5-0.5B-Instruct, natural exit states admit an accurate one-coordinate reconstruction. Its return is smooth on part of the exit
+range and structured at every sampled scale on the rest, where a frozen pointwise table fails; the escape rate to
+period-3 capture, estimated from single-cycle runs, passed a frozen test on fresh trajectories. The loop is not
 ordinary sampled generation. These results show that bifurcation theory can make quantitative predictions about continuous language-model
 feedback, with rigorous guarantees for selected periodic orbits of the full transformer.
 \end{abstract}
@@ -2356,7 +2357,8 @@ sampling criterion, not a proof that the intervening branch is resolved. These p
 the difficulty but do not validate a newly selected predictor. Tiny state error can also be amplified by the
 global excursion. This experiment cannot distinguish unresolved fine structure, amplified reconstruction
 error and residual dependence on information omitted from the scalar description. It establishes the
-failure of this frozen table, not the impossibility of a better one-dimensional model.
+failure of this frozen table, not the impossibility of a better one-dimensional model. The follow-up at the end
+of this section separates these causes.
 
 
 \paragraph{Expansion before capture, rather than evidence of permanent residence.}
@@ -2417,10 +2419,125 @@ The observed combination of repeated passages, positive finite-time tangent grow
 capture is consistent with chaotic transients \cite{lai2011transient}. It does not prove a nonattracting
 chaotic invariant set, nor show that either survivor stays chaotic forever. We have separated three results:
 the local normal form predicts passage delay; a one-coordinate curve accurately reconstructs natural exit
-states; and the tested autonomous return table fails on fresh prediction. A reliable autonomous return
-model and an invariant-set classification remain open. All full-state shards, input reconstructions,
+states; and the tested autonomous return table fails on fresh prediction. The follow-up below locates that
+failure and tests a statistical description; an invariant-set classification remains open. All full-state shards, input reconstructions,
 source/plan bindings, independent audits and separate-physical-disk copies accompany the
 \href{https://github.com/tdj28/neural-shrimp/blob/6343dc481f275afcb73b81b338a1597cbf2f21ed/docs/fold-return-autonomous.json}{compact FGR3 receipt}.
+
+\paragraph{A follow-up: where the return is resolved.}
+A follow-up study, one post-test diagnostic and two new computations, separates the possible causes of the table's
+failure. Its runs, audits, separate-disk copies and figure sources are bound by
+\href{https://github.com/tdj28/neural-shrimp/blob/bfdb26eb2f4e2d7caea0e36d02bb46ccbcbf3e15/docs/fold-return-followup.json}{the follow-up receipt}.
+It first removes an artifact of the coordinate. A departure is the first same-phase reading past $q=3$, so its
+recorded position wraps: a start that reaches the channel one step earlier also leaves one step earlier, and its
+next coordinate jumps from about 4.1 back to 3. Write $q_+$ for the departure coordinate, $t$ for its time in
+updates and $q_-$ for the same-phase reading two updates earlier. Then
+\begin{equation}
+ \tau=\frac{t}{2}-\frac{q_+-3}{q_+-q_-}
+ \label{eq:unwrapped-return}
+\end{equation}
+counts channel steps and passes continuously through a wrap. In the table, two adjacent samples were joined when
+both returned, their times had the same parity and their values of $\tau$ differed by less than half a step.
+
+Two long runs of joined samples remain, $q\in[3,\,3.0503]$ and $q\in[3.56,\,4.12]$. Between them lies an interval
+we call $M$, where most neighbors are not joined (Fig.~\ref{fig:fold-return-unwrapped}). On the two runs the
+return is one smooth curve. Of the 366 fresh FGR3 returns that started there, 365 had the predicted return time,
+and the median error in $\tau$ was $2.5\times10^{-4}$ channel steps. The FGR3 table did equally well on these runs.
+Its failure is confined to $M$, which holds 446 of the 846 fresh departures, all 14 fresh captures and all 30 table
+stops. Even short stretches of $M$ that looked continuous between samples hid jumps: 7 of their 32 fresh returns
+had the wrong time. The joining rule was written after the fresh trajectories had been seen, so these numbers are
+descriptive. The new computations below test it.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-fold-return-unwrapped.pdf}
+\caption{The FGR3 return with the wraps undone. (a) The unwrapped next-departure time $\tau$ of
+Eq.~\eqref{eq:unwrapped-return} against the current departure: blue dots are the 995 table returns, open orange
+circles the 830 returns of the 16 fresh trajectories. The gray band is the interval $M$ between the two long runs of
+joined samples. Red ticks mark the 30 table starts that stopped instead of returning; crosses mark the last
+departure before each fresh capture. (b) Errors in $\tau$ for fresh returns from the two long runs when the
+table is interpolated in $\tau$; the cross is the one return with the wrong time, just before a wrap. The rule
+defining $M$ was set after these trajectories were seen.}
+\label{fig:fold-return-unwrapped}
+\end{figure}
+
+\paragraph{Structure at every sampled scale.}
+A further run (FGR4) asked whether $M$ is merely steep or structured at every scale. It drew 1024 departure
+coordinates, one uniformly in each of 1024 equal strata of $[3,4.12]$, and followed each reconstructed exit state
+through the full network to its next departure or to period-3 approach, another recurrence candidate, or 1024
+updates. For the 466 coordinates inside $M$ it also evaluated partners at $q+\delta$, with $\delta$ from $10^{-3}$
+down to $10^{-8}$; an extension (FGR4b) added $\delta=10^{-10}$ and exact reruns. No evaluation reached the
+1024-update limit.
+
+For a smooth return, the share of pairs whose outcome differs falls in proportion to $\delta$ once $\delta$ is
+smaller than the spacing of the wraps. Inside $M$ it falls far more slowly (Fig.~\ref{fig:fold-return-zoom}a): from
+0.64 at $\delta=10^{-4}$ to 0.11 at $10^{-8}$ and 0.056 at $10^{-10}$, close to $\delta^{0.18}$ (bootstrap interval
+0.16 to 0.21). This is the final-state sensitivity measured by the uncertainty exponent
+\cite{grebogi1983final}. An exponent well below one means that the starts whose next outcome changes under a
+small shift form a set with structure at every sampled scale, as the starts near the stable set of a chaotic
+saddle do \cite{lai2011transient}. The comparison of unwrapped times gives the same exponent, 0.18.
+
+Rounding sets a floor. Rerunning the 466 coordinates exactly, but in other positions within a batch, changed 9
+outcomes. The order of floating-point operations depends on the batch position, and one return amplifies the
+difference; the 16 replicates planned for FGR4 kept every outcome and time but moved the next coordinate by up to
+$2.6\times10^{-8}$, so FGR4's exact-replicate gate failed as written. The share at $\delta=10^{-10}$ is still
+about three times this floor. Inside $M$, then, neither a finer table nor a repetition of the same float64
+computation fixes the next return reliably. Because these evaluations start on the reconstructed curve itself, the
+structure belongs to the return of the network, not to reconstruction error. The other two possible causes named
+above can still contribute in principle, but they are not needed to explain the failure.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-fold-return-zoom.pdf}
+\caption{Zoom of the unresolved interval $M$ (FGR4 and FGR4b). (a) Share of the 466 pairs of starts, a distance
+$\delta$ apart in $q$, whose next return time or outcome differs; bars are 95\,\% binomial intervals. The solid
+line is the fit over $10^{-10}\le\delta\le10^{-4}$; the dashed line shows the fall in proportion to $\delta$
+expected of a smooth return; the dotted line is the share changed by an exact rerun in another batch position.
+(b) Share of the 1024 uniform starts in each of 28 bins that end in period-3 approach or another recurrence
+candidate instead of returning. All endings lie in $M$ (gray).}
+\label{fig:fold-return-zoom}
+\end{figure}
+
+\paragraph{A frozen test of the escape rate.}
+Pointwise prediction fails in $M$, but the statistics of the return need not. From the 1024 uniform evaluations
+alone we formed Ulam's finite approximation of the transfer operator \cite{li1976finite}: in 28 equal bins of $q$,
+the fraction of each bin's starts that return into each other bin, and the fraction that end instead. Its largest
+eigenvalue $\lambda$ gives the long-run probability $\kappa=1-\lambda$ that a departure ends the transient. The
+estimate was $\kappa=0.0130$, with bootstrap interval 0.0067 to 0.0204.
+
+The design of the test (FGR5) and its three criteria were committed before 48 new fresh trajectories were
+generated, by the FGR3 rule with a new seed. The prediction was committed before their outcomes were read. All three
+criteria passed (Fig.~\ref{fig:fold-return-escape-test}). The trajectories made 2417 departures whose next outcome
+was observed, and 42 ended: 40 approached period 3 and 2 met another recurrence candidate. Six were still unresolved
+after 16\,384 updates. The observed rate, 0.0174, has an exact Poisson 95\,\% interval of 0.0125 to 0.0235, which
+contains the prediction. The per-bin fractions, summed over the observed departures, predicted 35.6 endings; the
+observed 42 lie inside their interval. On the two long runs, the FGR3 table, interpolated in $\tau$, gave the
+correct return time for 1071 of 1074 fresh returns, with median error $3.2\times10^{-4}$ channel steps.
+
+The point prediction lies about a quarter below the observed rate, as it did for the FGR3 trajectories (14 endings
+in 844 departures, development data). The departures of one trajectory are not independent; resampling whole
+trajectories gives an interval of 0.0127 to 0.0244, which still contains the prediction. Part of the gap is early:
+11 trajectories ended within their first eight departures, faster than predicted, because starts on the
+interpolation line are not yet distributed like long-run departures. Leaving out each trajectory's first 5 to 20
+departures gives rates of 0.0152 to 0.0155. These two checks were added after the test.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{fig-fold-return-escape-test.pdf}
+\caption{The frozen escape-rate test (FGR5). (a) Share of the 48 fresh trajectories that have not yet ended, against
+the number of departures from the slow channel (orange, Kaplan--Meier), and the survival $(1-\kappa)^n$ predicted
+from FGR4 before the trajectories were generated (blue; band from the bootstrap interval of $\kappa$). (b) The
+predicted rate and the observed rate, with the frozen Poisson interval and a post-test interval from resampling
+whole trajectories.}
+\label{fig:fold-return-escape-test}
+\end{figure}
+
+Together these results give a consistent picture of this setting. The return is predictable from one coordinate
+where it is smooth. In $M$ it has structure at every sampled scale, down to the rounding floor of float64. Its
+statistics, estimated from single-cycle network runs, nevertheless predict how fast fresh trajectories escape to
+period 3. This is the behavior of transient chaos organized by a fractal set of sensitive starts
+\cite{lai2011transient}. It is still numerical evidence at one prompt and parameter setting, not a proof of a
+chaotic saddle.
 
 
 
@@ -5075,9 +5192,11 @@ Huginn loses accuracy under over-relaxation & generation test & prospective & \c
 \paragraph{Local delay, global return and long-time fate.} The return study of Section~\ref{sec:global-return}
 separates these three questions. The normal form predicts the local delay. Natural departures admit an accurate
 one-coordinate state reconstruction for the tested next cycle, but its excursion is still evaluated through the
-full network. A separate frozen autonomous table failed fresh capture and multi-cycle prediction tests despite
-accurate state reconstruction. Period-3 capture after repeated visits prevents those visits alone from establishing
-persistent chaos. A reliable autonomous return model and an invariant-set classification remain distinct open tasks.
+full network. A frozen pointwise table predicts the return where it is smooth and fails in an interval where the
+return has structure at every sampled scale, down to the rounding floor. There the statistics still work: an escape
+rate estimated from single-cycle runs passed a frozen test on fresh trajectories. Period-3 capture after repeated
+visits prevents those visits alone from establishing persistent chaos, and an invariant-set classification
+remains open.
 
 \paragraph{What theory allows, and what is new.} Chaos and periodic windows occur in many nonlinear feedback systems:
 random recurrent networks become chaotic above a critical gain \cite{sompolinsky1988chaos,doyon1994bifurcations},
