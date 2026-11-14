@@ -34370,3 +34370,14 @@ Twin run `20261114-twins-01` completed (16 copies, 2776 s). Audits `20261114-twi
   trajectories, including the two recorded as other recurrence candidates, end within 7.8e-14 of the reference
   cycle; their distance falls by 0.651 every three updates, the cycle's own contraction.
 - Figures `fig-fold-transient-capture` and `fig-fold-twins-capture` (`tools/plot_fold_transient_capture.py`).
+
+## 2026-11-14 20:05 UTC: Transient figures published in the report; blog edits left for the author
+
+At the author's request ("how is that calculated? ... a figure that shows chaotic trajectories that eventually
+wind back into periodic"). Report `a4ef36ad` (217 pages): a paragraph on how the tangents are computed (forward-mode
+automatic differentiation through the full update, no Jacobian formed, about five times an ordinary update), the
+FGR5 series and the twin demonstration, with figures `fig-fold-transient-capture` and `fig-fold-twins-capture`.
+Blog (uncommitted): the same in the Research Note's growth section and both figures in the short read, with a plain
+sentence on the derivative computation; provenance extension `fold-transient-figures-20261114` (21 bound numbers),
+verifier `verify_fold_transient.py` added to the Makefile; all site checks pass. Generators and backups:
+`neural-shrimp-data/blog-generator/nov14-transient/`, `blog-bundle-backup/*.before-nov14-transient`.
