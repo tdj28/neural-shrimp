@@ -34251,3 +34251,8 @@ C3, on the two long resolved runs the unwrapped FGR3 table gets at least 97 % of
 error at most 0.002 and 99th percentile at most 0.05 steps. The prediction is computed after FGR4 finishes and its
 hash is committed in `docs/fold-return-fgr5-prediction.json` before the FGR5 outputs are read; the scoring code
 refuses to run otherwise. The FGR5 run is launched together with FGR4, after this card and the code are pushed.
+
+First launch at 07:08 UTC failed in all three processes before any evidence directory was created: the
+committed-source check compared a relative plan path with the repository root (`ValueError ... is not in the
+subpath`). Fixed by resolving the plan path; relaunched from the next commit. Logs kept in
+`neural-shrimp-data/logs/` (overwritten by the relaunch; the failure text is recorded here).

@@ -58,7 +58,7 @@ def check_committed(files):
 
 
 def execute(args):
-    plan_path = Path(args.plan)
+    plan_path = Path(args.plan).resolve()
     plan = json.loads(plan_path.read_text())
     head = check_committed(['tools/fold_return_zoom.py', str(plan_path.relative_to(ROOT))])
     evidence = Evidence(args.out, args.backup)
