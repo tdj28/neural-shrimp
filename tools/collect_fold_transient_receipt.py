@@ -64,6 +64,11 @@ def main():
             'twins': {k: t[k] for k in ('nudged_copies', 'nudged_that_drifted_beyond_1e-3', 'drift_time_range',
                                         'implied_growth_range', 'captured', 'outcomes', 'capture_times')},
             'twin_copies': t['copies'],
+            'unnudged_rerun_vs_fgr5': [
+                {'source_row': c['source_row'],
+                 'fgr5_first_within_1e-3': int(np.flatnonzero(d3[c['source_row'], :valid[c['source_row']]+1] < 1e-3)[0]),
+                 'rerun_first_within_1e-3': c['first_within_1e-3_of_cycle']}
+                for c in t['copies'] if c['eps'] == 0],
             'fgr3_growth_reference': {'complete_windows': 26, 'mean_per_update': 0.0734,
                                       'range_per_update': [0.02744, 0.11295],
                                       'source': 'docs/fold-return-autonomous.json at 6343dc481f275afcb73b81b338a1597cbf2f21ed'}},

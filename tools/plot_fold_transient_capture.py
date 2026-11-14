@@ -133,10 +133,11 @@ def main():
         colors = ['#6b4c9a', '#2a8a6e', '#c08a00']
         for c, k in zip(colors, range(base+1, base+4)):
             eps = labels[k]['eps']
-            x.semilogy(steps, gaps[:, k], color=c, lw=1, label=fr'nudged by $10^{{{int(round(np.log10(eps)))}}}$')
+            x.semilogy(steps[1::2], gaps[1::2, k], color=c, lw=1,      # one phase of the alternation
+                       label=fr'nudged by $10^{{{int(round(np.log10(eps)))}}}$')
             t0 = int(np.log(1/eps)/GROWTH)
             x.semilogy([0, t0], [eps, 1], '--', color=c, lw=.9, alpha=.85)
-        x.text(.02, .97, 'dashed: the growth rate measured with the\nnetwork\'s derivatives (doubling every 9.4 updates)',
+        x.text(.42, .45, 'dashed: the growth rate measured with the\nnetwork\'s derivatives (doubling every 9.4 updates)',
                transform=x.transAxes, va='top', fontsize=8)
         x.set(xlim=(0, 1000), ylim=(1e-13, 6), xlabel='Network updates', ylabel='Relative distance from the unnudged copy',
               title='(a) Copies of one start drift apart')
