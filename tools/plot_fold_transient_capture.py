@@ -51,19 +51,25 @@ def twin_data(tw, orbit):
     labels = sel['labels']; tv = np.array(res['valid_through'])
     shards = sorted((tw/'trajectories').glob('updates-*.npz'), key=lambda q: int(q.stem.split('-')[1]))
     on = np.linalg.norm(orbit, axis=1)
-    gaps, d3 = [], []
+    with np.load(tw/'inputs.npz') as z:
+        centre = z['centre']
+    gaps, d3, dc = [], [], []
     for f in shards:
         with np.load(f) as s:
             S = s['states']
         for x in S:
             d3.append((np.linalg.norm(x[:, None, :]-orbit[None], axis=2)/on[None]).min(axis=1))
+            dc.append(np.linalg.norm(x-centre, axis=1)/np.linalg.norm(centre))
             ref = np.array([k-k % 4 for k in range(len(labels))])
             gaps.append(np.linalg.norm(x-x[ref], axis=1)/np.linalg.norm(x[ref], axis=1))
-    gaps, d3 = np.array(gaps), np.array(d3); steps = np.arange(1, len(gaps)+1)
+    gaps, d3, dc = np.array(gaps), np.array(d3), np.array(dc); steps = np.arange(1, len(gaps)+1)
     for k in range(len(labels)):
         gaps[steps > min(tv[k], tv[k-k % 4]), k] = np.nan
+    # regimes per copy (columns are updates 1..H), same rules as the fresh trajectories
+    R, _ = regimes(d3.T, dc.T, tv-1)
+    for k in range(len(labels)):
         d3[steps > tv[k], k] = np.nan
-    return labels, gaps, d3, steps, tv, res['outcomes']
+    return labels, gaps, d3, steps, tv, res['outcomes'], R
 
 
 def main():
@@ -117,27 +123,32 @@ def main():
         return
     with np.load(Path(meta['cycle'])) as c:
         orbit = c['orbit']
-    labels, gaps, td3, steps, tv, outcomes = twin_data(Path(a.twins), orbit)
+    labels, gaps, td3, steps, tv, outcomes, TR = twin_data(Path(a.twins), orbit)
     slope = meta['contraction_per_update']/np.log(10)
+    base = 4*a.start
     for mobile in (False, True):
-        fig, ax = plt.subplots(2 if mobile else 1, 1 if mobile else 2, figsize=(5.6, 9.6) if mobile else (11.5, 4.6),
+        fig, ax = plt.subplots(3 if mobile else 1, 1 if mobile else 3, figsize=(5.6, 13.5) if mobile else (14, 4.4),
                                layout='constrained')
-        x, y = ax
-        base = 4*a.start
+        x, r, y = ax
         colors = ['#6b4c9a', '#2a8a6e', '#c08a00']
         for c, k in zip(colors, range(base+1, base+4)):
             eps = labels[k]['eps']
             x.semilogy(steps, gaps[:, k], color=c, lw=1, label=fr'nudged by $10^{{{int(round(np.log10(eps)))}}}$')
             t0 = int(np.log(1/eps)/GROWTH)
-            x.semilogy([0, t0], [eps, 1], '--', color=c, lw=.8, alpha=.8)
-        for k in range(base, base+4):
-            if outcomes[k]['kind'] != 'unresolved_at_horizon':
-                x.axvline(tv[k], color='#888', lw=.6, ls=':')
-        x.text(.02, .97, 'dashed: growth at the rate measured with\nthe derivatives (doubling every 9.4 updates)',
+            x.semilogy([0, t0], [eps, 1], '--', color=c, lw=.9, alpha=.85)
+        x.text(.02, .97, 'dashed: the growth rate measured with the\nnetwork\'s derivatives (doubling every 9.4 updates)',
                transform=x.transAxes, va='top', fontsize=8)
-        x.set(ylim=(1e-13, 6), xlabel='Network updates', ylabel='Relative distance from the unnudged copy',
+        x.set(xlim=(0, 1000), ylim=(1e-13, 6), xlabel='Network updates', ylabel='Relative distance from the unnudged copy',
               title='(a) Copies of one start drift apart')
         x.legend(fontsize=8, loc='lower right', frameon=False); x.spines[['top', 'right']].set_visible(False)
+        rows = TR[base:base+4]
+        H = int(np.nanmax(tv[base:base+4]))
+        r.imshow(rows[:, :H], aspect='auto', interpolation='nearest', cmap=ListedColormap([RED, ORANGE, BLUE, 'white']),
+                 vmin=-.5, vmax=3.5, extent=(0, H, 4, 0))
+        r.set_yticks([.5, 1.5, 2.5, 3.5], ['unnudged', r'$10^{-12}$', r'$10^{-10}$', r'$10^{-8}$'])
+        r.set(xlabel='Network updates', ylabel='Copy (nudge size)', title='(b) Same start, four different paths to the cycle')
+        r.legend(handles=[Patch(color=ORANGE, label='slow passage'), Patch(color=RED, label='burst'),
+                          Patch(color=BLUE, label='on the cycle')], fontsize=7.5, loc='upper right', framealpha=.95)
         caps = 0
         for j in range(len(d3)):
             hit = np.flatnonzero(d3[j, :valid[j]+1] < 1e-2)
@@ -149,7 +160,7 @@ def main():
         y.semilogy(tt, 1e-2*10**(slope*tt), '--', color=INK, lw=1.3,
                    label=fr"the cycle's own rate: $\times${np.exp(meta['contraction_per_update']*3):.3f} every 3 updates")
         y.set(xlim=(-60, 300), ylim=(1e-15, 6), xlabel='Updates after the distance first falls below 0.01',
-              ylabel='Relative distance to the 3-step cycle', title=f'(b) All {caps} captures close in at one rate')
+              ylabel='Relative distance to the 3-step cycle', title=f'(c) All {caps} fresh captures close in at one rate')
         y.legend(fontsize=8, loc='upper right', frameon=False); y.spines[['top', 'right']].set_visible(False)
         save(fig, out, 'fig-fold-twins-capture'+('-mobile' if mobile else ''))
 
