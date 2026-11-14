@@ -1,0 +1,149 @@
+{
+  "study": "FGR3",
+  "status": "Audits, publication builds, separate-disk backups, pushes and live deployment verified.",
+  "completed_at": "2026-11-14T01:12:03.690017+00:00",
+  "scientific_receipt": {
+    "path": "docs/fold-return-autonomous.json",
+    "commit": "6343dc481f275afcb73b81b338a1597cbf2f21ed",
+    "sha256": "a951826b50bc36ea7182d031fc53de8265de303cbd0e47c953ae43394c0a55ee"
+  },
+  "scientific_summary": {
+    "fresh_starts": 16,
+    "reference_period_3_approaches": 14,
+    "unresolved_at_16384_updates": 2,
+    "capture_true_positive": 8,
+    "capture_false_negative": 6,
+    "capture_false_positive": 13,
+    "complete_growth_windows_positive_in_both_halves": 26,
+    "positive_growth_trajectories_later_approaching_period_3": 13,
+    "autonomous_prediction": "Failed the fresh tests; no test-set refit."
+  },
+  "publication": {
+    "report": {
+      "commit": "a3cc94999ad0549c199a5ff121c070d1567353fe",
+      "files": {
+        "paper/llm/main.tex": {
+          "sha256": "af320c7a8ca18706c19f961e513a861c8285c18c477f31a9566666f4b6d02f4f",
+          "bytes": 676212
+        },
+        "paper/llm/main.pdf": {
+          "sha256": "bbde882228170e94b60231e0982b1455f65f90471248ef268e01bebd6c599427",
+          "bytes": 27839122
+        }
+      },
+      "pdf_pages": 213,
+      "visual_review_pages": [
+        1,
+        59,
+        60,
+        61,
+        62,
+        63
+      ]
+    },
+    "journal": {
+      "commit": "abf5acf17b7b252f0ceeb45e0a0d83e9086a468d",
+      "files": {
+        "main.tex": {
+          "sha256": "c23efce4b8ecab8ab60375966a0e02346bcfcd363bb18945ccf72acaf0702fbf",
+          "bytes": 192110
+        },
+        "main.pdf": {
+          "sha256": "239f3d9647eb10e4c909ca5bcc761cc69c49f9ec16475acbe930a5398bc98555",
+          "bytes": 9321041
+        }
+      },
+      "pdf_pages": 39,
+      "visual_review_pages": [
+        20,
+        21
+      ]
+    },
+    "blog": {
+      "commit": "4196cb2c70a2d4146385231edfa8989886691a78",
+      "posts": [
+        "https://praxagent.ai/blog/posts/2026/10/chaos-bifurcations-language-model-feedback/",
+        "https://praxagent.ai/blog/posts/2026/10/language-model-feedback-short-read/"
+      ],
+      "deployment": {
+        "id": 43538502977,
+        "head_sha": "4196cb2c70a2d4146385231edfa8989886691a78",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/praxagent/praxagent-ai/actions/runs/43538502977",
+        "created_at": "2026-11-14T01:06:08Z",
+        "updated_at": "2026-11-14T01:10:29Z"
+      },
+      "live_verified_resources": 16
+    }
+  },
+  "validation": {
+    "fold_return_publication_check": "passed; existing FGR2 check preserved",
+    "fold_autonomous_publication_check": "passed on both blog bundles and both papers",
+    "blog_ci": "make ci passed on an isolated checkout matching the exact staged release",
+    "layout_and_math_browser_tests": 72,
+    "search_browser_tests": 6,
+    "public_artifact_files": 2378,
+    "desktop_mobile_visual_review": true,
+    "full_report_contains_praxagent": false,
+    "journal_unrelated_declaration_and_working_pdf_preserved": true,
+    "blog_unrelated_working_paragraph_preserved": true
+  },
+  "evidence": {
+    "root": "/data2/neural-shrimp-data/audits/fold-global-return/20261114-fgr3-publication-complete-01",
+    "live_verification_sha256": "6b9c3a34b542148eff8026342f3d26baa6e778778fd342fd70d725b8a5126971",
+    "release_backup_receipt_sha256": "db9ee8464d914f4bd5ece47e66a511373cba3ecb4c1d61c6b5802ebe50e2b604",
+    "backup": {
+      "primary": "/data2/neural-shrimp-data/audits/fold-global-return/20261114-fgr3-publication-complete-01/final-release",
+      "backup": "/archive/neural-shrimp-backups/20261114-fgr3-publication-complete-01/final-release",
+      "separate_filesystem_devices": true,
+      "physical_disks": {
+        "primary": "nvme0n1",
+        "backup": "sda"
+      },
+      "manifest_sha256": "2e1156a52c9c079883a4f43d5b7c755b94c61eec861d0b7d8dc26927ffed1fda",
+      "verified_files": 44,
+      "verified_bytes_per_copy": 44060699,
+      "all_primary_and_backup_hashes_match": true
+    },
+    "scientific_raw_audits": {
+      "training": {
+        "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-training-01",
+        "audit_sha256": "36a7f91882dd38813078108f414b31d826b2fb4cf4abee6cebfad8ae36ac04f3",
+        "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-fgr3-training-01/run",
+        "backup": "/archive/neural-shrimp-backups/20261113-fgr3-training-01/run",
+        "manifest_sha256": "0a1dd55961e750da84a5d24dca2c2b3d8e6fab45642d7f9a72542281585f77c0",
+        "source_commit": "008a12edcce015cb9c303cbf3c214d64afb8364e"
+      },
+      "validation": {
+        "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-validation-01",
+        "audit_sha256": "73c87104cd72069c23931ceaeff5bada43b7b831f8d9b74e2232fa8a53ddd372",
+        "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-fgr3-validation-01/run",
+        "backup": "/archive/neural-shrimp-backups/20261113-fgr3-validation-01/run",
+        "manifest_sha256": "e749db5e719e23f06560cdd1401de7087c03fcaed824e57d66fff9bca4683aaa",
+        "source_commit": "cb2ebb0fd66ec62539f27b92bb3e6acfc60a6df5"
+      },
+      "growth": {
+        "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-growth-01",
+        "audit_sha256": "312c66b4d4e2840b47ef5170467346da1957c8ffc21ddf5946f725f4e73434f0",
+        "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-fgr3-growth-01/run",
+        "backup": "/archive/neural-shrimp-backups/20261113-fgr3-growth-01/run",
+        "manifest_sha256": "7cffcfd37d91bc8ba48621e244ed759f15738faf9446071df641c685a326ca62",
+        "source_commit": "b48f0ab3158a8746e6ff1ae445bde4a4a2784199"
+      },
+      "input-bindings": {
+        "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-input-bindings-01",
+        "audit_sha256": "bf4cb520486ec8f02709d65ab6a97e840698479accf1d7a8087b11223491381d"
+      },
+      "error-diagnostic": {
+        "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-fgr3-error-diagnostic-01",
+        "audit_sha256": "28be6aff54621b5e9a9d1c47c4e34ade1ad8a20e09c526789594a2da92ed1968"
+      }
+    }
+  },
+  "limits": [
+    "Positive finite-window tangent growth and subsequent capture are consistent with chaotic transients, not a proof of a chaotic invariant set or permanent chaos.",
+    "Autonomous errors condition on continuing predictions; premature terminal outcomes and unequal finite horizons remain disclosed.",
+    "The failed table does not prove that a better scalar description is impossible."
+  ]
+}
