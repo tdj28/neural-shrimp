@@ -34324,3 +34324,8 @@ and 0.0152 (prediction 0.0130). Line starts are not yet distributed like the lon
 Figures (`tools/plot_fold_return_unwrap.py`, `plot_fold_return_zoom.py`, `plot_fold_return_escape_test.py`,
 `plot_fold_return_followup_article.py`) and the compact receipt `docs/fold-return-followup.json`
 (`tools/collect_fold_return_followup_receipt.py`; every run and audit manifest checked on both disks).
+
+Correction (same day): the follow-up receipt links in the report (`5f752b3b`) and the article (`5686afa`) pinned
+an invented full hash for commit `bfdb26eb`, written from memory instead of from `git log`; GitHub returned 404.
+Replaced by `bfdb26eb7b7e2b7998fe345d2f18777e2f6f6f97`, read with `git rev-parse`; all pinned links checked to
+return 200.
