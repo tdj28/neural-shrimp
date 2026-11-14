@@ -34257,7 +34257,7 @@ committed-source check compared a relative plan path with the repository root (`
 subpath`). Fixed by resolving the plan path; relaunched from the next commit. Logs kept in
 `neural-shrimp-data/logs/` (overwritten by the relaunch; the failure text is recorded here).
 
-## 2026-11-14 11:08 UTC: FGR4 complete; FGR5 prediction frozen before any FGR5 outcome is read
+## 2026-11-14 11:06 UTC: FGR4 complete; FGR5 prediction frozen before any FGR5 outcome is read
 
 Both FGR4 parts completed (3836 evaluations; 13,943 and 14,214 s). `tools/fold_return_escape.py predict` on the 1024
 uniform bases alone (no censored base): Ulam estimate with 28 bins of the per-departure termination probability
@@ -34265,7 +34265,7 @@ kappa = 0.0130, bootstrap 95 % interval 0.0067 to 0.0204 (14 bins: 0.0144; 56 bi
 prediction file is committed unchanged as `docs/fold-return-fgr5-prediction.json`; FGR5 is still running and its
 outcomes have not been read.
 
-## 2026-11-14 11:20 UTC: FGR4 first look, and run card FGR4b (rounding control, disclosed amendment)
+## 2026-11-14 11:08 UTC: FGR4 first look, and run card FGR4b (rounding control, disclosed amendment)
 
 FGR4 zoom analysis (`fold_return_escape.py zoom`, audit `20261114-fgr4-zoom-audit-01`): of 466 bases inside M,
 the share whose partner at q + delta has a different return time is 0.91, 0.64, 0.46, 0.28, 0.17 and 0.11 for
@@ -34280,3 +34280,6 @@ above this noise. **FGR4b** (`docs/fold-return-fgr4b-plan.json`, same runner wit
 bases inside M exactly (delta = 0) in new batch positions and adds delta = 1e-10; 932 evaluations, two parts. The
 exponent is provisional until the delta = 0 control is read. The frozen FGR5 prediction and scoring path are
 unchanged (the analysis tool only gained the extension input; FGR5 itself is still running, unread).
+
+Correction: the two preceding headings first carried estimated times (11:08 and 11:20 UTC); they now carry the commit
+times read from `git log` and `date -u` (11:06 and 11:08 UTC).
