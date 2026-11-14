@@ -34219,3 +34219,35 @@ The completed scientific receipt is frozen at `6343dc481f275afcb73b81b338a1597cb
 The exact staged blog release passed `make ci`, including 72 math/layout browser tests, six search-browser tests, numeric and figure provenance, public-file safety and deployment-artifact validation. Early local release checks caught date-format and figure-receipt schema issues; those attempts are preserved and were corrected before publication. GitHub Pages run `43538502977` succeeded, and 16 live resources were independently checked, including both articles and byte-identical PNGs, scientific receipts, figure receipts and provenance. All three remote main branches were verified against their publication commits. The unrelated blog working paragraph and journal author-declaration edit and original working PDF remain preserved outside these commits.
 
 `docs/fold-return-autonomous-publication.json` binds the final source/PDF hashes, scientific receipt, deployment and verified separate-disk publication snapshot. The external closeout is `/data2/neural-shrimp-data/audits/fold-global-return/20261114-fgr3-publication-complete-01`, with matching `/archive/neural-shrimp-backups/` copy. Its final committed-file snapshot contains 44 files and 44,060,699 bytes per copy; live verification records are additionally copied and rehashed. This closeout adds no numerical rerun or test-set refit. The frozen predictor failed; the measured expansion before later periodic capture is consistent with chaotic transients, not a proof of a chaotic invariant set or persistent chaos.
+
+## 2026-11-14 07:08 UTC: Run cards FGR4 (zoom of the unresolved return) and FGR5 (frozen fresh-trajectory test)
+
+At the author's request, a follow-up to FGR3 in three steps. Local CPU only (the GPU is busy with another job); no
+paid computation.
+
+**Step 1, post-test diagnostic (no new runs), `tools/fold_return_unwrap.py`.** A departure is the first same-phase
+reading past q = 3, so its position wraps: a start that arrives one channel step earlier leaves one step earlier. With
+q- the same-phase reading before the departure, tau = t/2 - (q+ - 3)/(q+ - q-) counts channel steps and is
+continuous across a wrap. On the FGR3 table, adjacent samples are joined when both return with the same time parity
+and differ by less than 0.5 in tau. Two long runs are resolved, q in [3.0, 3.0503] and [3.56, 4.12]; on them the
+fresh FGR3 returns are predicted with the right return time in 365 of 366 cases and median tau error 0.00025 steps.
+The FGR3 table did as well there (365 of 366), so the earlier failure is confined to the interval M between the
+runs: 446 of 846 fresh departures, all 14 fresh captures and all 30 table stops lie in M. Even short windows of M
+that look continuous between samples hide jumps (7 of 32 times wrong). The rule and tolerance were written after the
+fresh trajectories were seen; these numbers are descriptive.
+
+**FGR4 (exploratory), `docs/fold-return-fgr4-plan.json`, `tools/fold_return_zoom.py zoom`.** 1024 stratified
+uniform departure coordinates on [3, 4.12], each evaluated by the full network to the next departure or
+termination, plus partners q + delta for the bases in M at delta = 1e-3 to 1e-8, and one exact replicate batch.
+Measures the uncertainty fraction p(delta) (does a fractal-like set of discontinuities fill M, or is M only steep?)
+and the per-bin termination fractions. Two parts in parallel, 6 threads each.
+
+**FGR5 (frozen confirmatory test), `docs/fold-return-fgr5-plan.json`, `tools/fold_return_zoom.py fresh`,
+`tools/fold_return_escape.py`.** 48 new fresh trajectories from the FGR1 line (the FGR3 rule with a new seed),
+16,384 updates each, no stopping on returns. Criteria, fixed now: C1, a transfer-operator (Ulam, 28 bins)
+estimate of the per-departure termination rate built from FGR4 bases alone lies inside the exact 95 % Poisson
+interval of the observed rate; C2, the per-bin termination fractions are calibrated on the observed departures;
+C3, on the two long resolved runs the unwrapped FGR3 table gets at least 97 % of return times right with median tau
+error at most 0.002 and 99th percentile at most 0.05 steps. The prediction is computed after FGR4 finishes and its
+hash is committed in `docs/fold-return-fgr5-prediction.json` before the FGR5 outputs are read; the scoring code
+refuses to run otherwise. The FGR5 run is launched together with FGR4, after this card and the code are pushed.
