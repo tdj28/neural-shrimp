@@ -1,0 +1,323 @@
+{
+  "study": "Transient-to-cycle figures at the post-fold setting: FGR5 series and twin demonstration",
+  "receipt_source_commit": "07d9d38ba97130b6d2922c7ca02a8a5f411f4ba6",
+  "plan": {
+    "file": "docs/fold-return-twins-plan.json",
+    "sha256": "1e93d09a869d61b7255d951f4bc2549f042f3205f5f529920cae9f7694445189"
+  },
+  "twin_run": {
+    "raw": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261114-twins-01",
+    "backup": "/archive/neural-shrimp-backups/20261114-twins-01",
+    "manifest_sha256": "6240cc7a8396084181845131754a1abe1258008227e22c0e085bea0a8d1e3c2b",
+    "source_commit": "89c62f5c6a636a8fa25225134276246abdb0e05f"
+  },
+  "audits": {
+    "series": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261114-fgr5-series-01",
+      "backup": "/archive/neural-shrimp-backups/20261114-fgr5-series-01",
+      "manifest_sha256": "85d4b02c7b7d0d6023db0cb209f7352bde2f083266d4d5e47c789164631267ad"
+    },
+    "twins": {
+      "path": "/data2/neural-shrimp-data/audits/fold-global-return/20261114-twins-audit-01",
+      "backup": "/archive/neural-shrimp-backups/20261114-twins-audit-01",
+      "manifest_sha256": "851b27fefe455a8e48e42f3ea0b21ea786e65fb0186566803bebd9d017b32cba"
+    }
+  },
+  "numbers": {
+    "fresh_trajectories": 48,
+    "fresh_captured_within_1e-3": 42,
+    "fresh_still_wandering_at_end": 6,
+    "fresh_rows_below_1e-12_at_stop": 42,
+    "cycle_spectral_radius": 0.6506506416018702,
+    "cycle_contraction_per_update": -0.14326080988871673,
+    "cycle_factor_per_3_updates": 0.6506506416018702,
+    "slow_passages": 2435,
+    "passage_closest_approach_median": 0.00013688733451999724,
+    "passage_closest_approach_5_95": [
+      0.00012889007775811477,
+      0.0012595408130437133
+    ],
+    "figure_start": 8,
+    "example_row": 13,
+    "example_capture_update": 2297,
+    "twins": {
+      "nudged_copies": 12,
+      "nudged_that_drifted_beyond_1e-3": 12,
+      "drift_time_range": [
+        99,
+        386
+      ],
+      "implied_growth_range": [
+        0.04275356936593719,
+        0.1162921764138407
+      ],
+      "captured": 15,
+      "outcomes": {
+        "reference_p3": 15,
+        "unresolved_at_horizon": 1
+      },
+      "capture_times": [
+        2005,
+        5097,
+        2417,
+        5845,
+        8164,
+        5305,
+        2087,
+        2108,
+        7950,
+        2938,
+        6592,
+        14614,
+        15639,
+        10409,
+        2151,
+        null
+      ]
+    },
+    "twin_copies": [
+      {
+        "source_row": 8,
+        "eps": 0.0,
+        "initial_relative_gap": 0.0,
+        "outcome": "reference_p3",
+        "valid_through": 2304,
+        "first_within_1e-3_of_cycle": 2005,
+        "final_distance_to_cycle": 5.167091202012987e-14,
+        "first_gap_above_1e-3": null,
+        "implied_growth_per_update": null
+      },
+      {
+        "source_row": 8,
+        "eps": 1e-12,
+        "initial_relative_gap": 9.999997081955654e-13,
+        "outcome": "reference_p3",
+        "valid_through": 5376,
+        "first_within_1e-3_of_cycle": 5097,
+        "final_distance_to_cycle": 5.285089532264821e-14,
+        "first_gap_above_1e-3": 386,
+        "implied_growth_per_update": 0.05368721719416168
+      },
+      {
+        "source_row": 8,
+        "eps": 1e-10,
+        "initial_relative_gap": 1.0000000060261108e-10,
+        "outcome": "reference_p3",
+        "valid_through": 2688,
+        "first_within_1e-3_of_cycle": 2417,
+        "final_distance_to_cycle": 4.425493407797063e-14,
+        "first_gap_above_1e-3": 377,
+        "implied_growth_per_update": 0.04275356936593719
+      },
+      {
+        "source_row": 8,
+        "eps": 1e-08,
+        "initial_relative_gap": 1.0000000001667403e-08,
+        "outcome": "reference_p3",
+        "valid_through": 6144,
+        "first_within_1e-3_of_cycle": 5845,
+        "final_distance_to_cycle": 3.6425273295457674e-14,
+        "first_gap_above_1e-3": 267,
+        "implied_growth_per_update": 0.04311957102985104
+      },
+      {
+        "source_row": 13,
+        "eps": 0.0,
+        "initial_relative_gap": 0.0,
+        "outcome": "reference_p3",
+        "valid_through": 8448,
+        "first_within_1e-3_of_cycle": 8164,
+        "final_distance_to_cycle": 2.2276349612481993e-14,
+        "first_gap_above_1e-3": null,
+        "implied_growth_per_update": null
+      },
+      {
+        "source_row": 13,
+        "eps": 1e-12,
+        "initial_relative_gap": 9.999972875608333e-13,
+        "outcome": "reference_p3",
+        "valid_through": 5632,
+        "first_within_1e-3_of_cycle": 5305,
+        "final_distance_to_cycle": 2.1556593229340858e-14,
+        "first_gap_above_1e-3": 365,
+        "implied_growth_per_update": 0.05677607078615455
+      },
+      {
+        "source_row": 13,
+        "eps": 1e-10,
+        "initial_relative_gap": 1.0000000056886171e-10,
+        "outcome": "reference_p3",
+        "valid_through": 2432,
+        "first_within_1e-3_of_cycle": 2087,
+        "final_distance_to_cycle": 4.332570767685231e-14,
+        "first_gap_above_1e-3": 238,
+        "implied_growth_per_update": 0.06772309097041311
+      },
+      {
+        "source_row": 13,
+        "eps": 1e-08,
+        "initial_relative_gap": 1.0000000000221297e-08,
+        "outcome": "reference_p3",
+        "valid_through": 2432,
+        "first_within_1e-3_of_cycle": 2108,
+        "final_distance_to_cycle": 5.1359585682883956e-14,
+        "first_gap_above_1e-3": 102,
+        "implied_growth_per_update": 0.11287181828402185
+      },
+      {
+        "source_row": 35,
+        "eps": 0.0,
+        "initial_relative_gap": 0.0,
+        "outcome": "reference_p3",
+        "valid_through": 8192,
+        "first_within_1e-3_of_cycle": 7950,
+        "final_distance_to_cycle": 3.9874047027281166e-14,
+        "first_gap_above_1e-3": null,
+        "implied_growth_per_update": null
+      },
+      {
+        "source_row": 35,
+        "eps": 1e-12,
+        "initial_relative_gap": 9.999988816247505e-13,
+        "outcome": "reference_p3",
+        "valid_through": 3200,
+        "first_within_1e-3_of_cycle": 2938,
+        "final_distance_to_cycle": 4.5757872247781056e-14,
+        "first_gap_above_1e-3": 371,
+        "implied_growth_per_update": 0.05585785939877739
+      },
+      {
+        "source_row": 35,
+        "eps": 1e-10,
+        "initial_relative_gap": 1.0000000064705536e-10,
+        "outcome": "reference_p3",
+        "valid_through": 6912,
+        "first_within_1e-3_of_cycle": 6592,
+        "final_distance_to_cycle": 2.349009953268063e-14,
+        "first_gap_above_1e-3": 258,
+        "implied_growth_per_update": 0.06247323895720279
+      },
+      {
+        "source_row": 35,
+        "eps": 1e-08,
+        "initial_relative_gap": 1.0000000000452987e-08,
+        "outcome": "reference_p3",
+        "valid_through": 14848,
+        "first_within_1e-3_of_cycle": 14614,
+        "final_distance_to_cycle": 4.639274945715053e-14,
+        "first_gap_above_1e-3": 138,
+        "implied_growth_per_update": 0.08342699612297268
+      },
+      {
+        "source_row": 40,
+        "eps": 0.0,
+        "initial_relative_gap": 0.0,
+        "outcome": "reference_p3",
+        "valid_through": 15872,
+        "first_within_1e-3_of_cycle": 15639,
+        "final_distance_to_cycle": 5.652982107701046e-14,
+        "first_gap_above_1e-3": null,
+        "implied_growth_per_update": null
+      },
+      {
+        "source_row": 40,
+        "eps": 1e-12,
+        "initial_relative_gap": 1.0000000757273299e-12,
+        "outcome": "reference_p3",
+        "valid_through": 10752,
+        "first_within_1e-3_of_cycle": 10409,
+        "final_distance_to_cycle": 5.704057356144398e-14,
+        "first_gap_above_1e-3": 198,
+        "implied_growth_per_update": 0.10466295877245661
+      },
+      {
+        "source_row": 40,
+        "eps": 1e-10,
+        "initial_relative_gap": 9.999999973623454e-11,
+        "outcome": "reference_p3",
+        "valid_through": 2432,
+        "first_within_1e-3_of_cycle": 2151,
+        "final_distance_to_cycle": 4.4105898365961284e-14,
+        "first_gap_above_1e-3": 192,
+        "implied_growth_per_update": 0.08394841484874126
+      },
+      {
+        "source_row": 40,
+        "eps": 1e-08,
+        "initial_relative_gap": 9.999999998843603e-09,
+        "outcome": "unresolved_at_horizon",
+        "valid_through": 16384,
+        "first_within_1e-3_of_cycle": null,
+        "final_distance_to_cycle": 0.9847225397166016,
+        "first_gap_above_1e-3": 99,
+        "implied_growth_per_update": 0.1162921764138407
+      }
+    ],
+    "unnudged_rerun_vs_fgr5": [
+      {
+        "source_row": 8,
+        "fgr5_first_within_1e-3": 1884,
+        "rerun_first_within_1e-3": 2005
+      },
+      {
+        "source_row": 13,
+        "fgr5_first_within_1e-3": 2297,
+        "rerun_first_within_1e-3": 8164
+      },
+      {
+        "source_row": 35,
+        "fgr5_first_within_1e-3": 3246,
+        "rerun_first_within_1e-3": 7950
+      },
+      {
+        "source_row": 40,
+        "fgr5_first_within_1e-3": 3976,
+        "rerun_first_within_1e-3": 15639
+      }
+    ],
+    "fgr3_growth_reference": {
+      "complete_windows": 26,
+      "mean_per_update": 0.0734,
+      "range_per_update": [
+        0.02744,
+        0.11295
+      ],
+      "source": "docs/fold-return-autonomous.json at 6343dc481f275afcb73b81b338a1597cbf2f21ed"
+    }
+  },
+  "figures": {
+    "fig-fold-transient-capture.pdf": {
+      "bytes": 67648,
+      "sha256": "065a5505d62d9421456d51e27294a23266d82b2335ed1ff5ddeec7a924aa8759"
+    },
+    "fig-fold-transient-capture.png": {
+      "bytes": 214150,
+      "sha256": "a504428b1661f923b87fb717f8fc087d610ebccbbeb2fc6e3de6c726b4b953a5"
+    },
+    "fig-fold-transient-capture-mobile.pdf": {
+      "bytes": 68152,
+      "sha256": "303203a0ebc629d9804b0874d7f721af76223f988fff782d19c3c99387734090"
+    },
+    "fig-fold-transient-capture-mobile.png": {
+      "bytes": 216186,
+      "sha256": "c239dbd48b8b0a92c031680576b0624daeb4b218a8662cd8e2b0df1f31f60855"
+    },
+    "fig-fold-twins-capture.pdf": {
+      "bytes": 138256,
+      "sha256": "3c9bbc6e2cacba76322b5116cd6a905955942d000e07e491de3063fd4e429e5f"
+    },
+    "fig-fold-twins-capture.png": {
+      "bytes": 363419,
+      "sha256": "1155c2b2a164af16809d83d26ad9a5d8dcb70a658e0fefdd88e273524722ccb7"
+    },
+    "fig-fold-twins-capture-mobile.pdf": {
+      "bytes": 141495,
+      "sha256": "78c53b17e66874446dabcba8fe74e5bdd17a708bdc503d27f0f360b3752f9065"
+    },
+    "fig-fold-twins-capture-mobile.png": {
+      "bytes": 395128,
+      "sha256": "2872456570801272b16e59959cd608b0df8f1bf0b49e3b66744256838e0bdd4a"
+    }
+  },
+  "limits": "Descriptive. One prompt and parameter setting; the twin run has four starts. The regime colors use fixed thresholds: a slow passage when this or the previous state lies within 3% of the channel centre, captured when within 1e-3 of the cycle. Unnudged copies sit in another batch than in FGR5, so they do not reproduce the FGR5 trajectories beyond a few hundred updates."
+}

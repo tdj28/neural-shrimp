@@ -34353,3 +34353,20 @@ one batch of 16, followed until capture or 16,384 updates (`docs/fold-return-twi
 `tools/fold_return_zoom.py twins`). Local CPU; the machine is otherwise idle. Descriptive only: the nudged copies
 should separate at roughly the measured tangent-growth rate and then each settle into the period-3 cycle at its own
 time. The same figure will use the saved FGR5 trajectories (distance to the cycle against update).
+
+## 2026-11-14 20:01 UTC: Twin demonstration and transient figures (descriptive)
+
+Twin run `20261114-twins-01` completed (16 copies, 2776 s). Audits `20261114-twins-audit-01` and
+`20261114-fgr5-series-01`; receipt `docs/fold-transient-figures.json`.
+
+- **Twins.** All 12 nudged copies (relative 1e-12, 1e-10, 1e-8) moved more than 1e-3 from their unnudged copy within
+  99 to 386 updates, an average growth of 0.043 to 0.116 per update (FGR3 complete tangent windows: 0.027 to
+  0.113, mean 0.0734). The gap grows mostly in bursts and changes little during slow passages. 15 of the 16 copies
+  reached the reference 3-cycle, after 2005 to 15,639 updates; one was still wandering at 16,384.
+- **Rounding.** The unnudged copies, rerun in another batch than in FGR5, reached the cycle after 2005, 8164, 7950
+  and 15,639 updates, against 1884, 2297, 3246 and 3976 in FGR5: last-digit rounding differences grow like a nudge.
+- **FGR5 series.** In 2435 slow passages (at least 20 updates, before capture) the median closest approach to the
+  channel centre is 1.4e-4 relative; the leading token alternates " it", " is" there. All 42 captured FGR5
+  trajectories, including the two recorded as other recurrence candidates, end within 7.8e-14 of the reference
+  cycle; their distance falls by 0.651 every three updates, the cycle's own contraction.
+- Figures `fig-fold-transient-capture` and `fig-fold-twins-capture` (`tools/plot_fold_transient_capture.py`).
