@@ -34264,3 +34264,19 @@ uniform bases alone (no censored base): Ulam estimate with 28 bins of the per-de
 kappa = 0.0130, bootstrap 95 % interval 0.0067 to 0.0204 (14 bins: 0.0144; 56 bins: 0.0129, not scored). The
 prediction file is committed unchanged as `docs/fold-return-fgr5-prediction.json`; FGR5 is still running and its
 outcomes have not been read.
+
+## 2026-11-14 11:20 UTC: FGR4 first look, and run card FGR4b (rounding control, disclosed amendment)
+
+FGR4 zoom analysis (`fold_return_escape.py zoom`, audit `20261114-fgr4-zoom-audit-01`): of 466 bases inside M,
+the share whose partner at q + delta has a different return time is 0.91, 0.64, 0.46, 0.28, 0.17 and 0.11 for
+delta = 1e-3 to 1e-8; a fit over delta <= 1e-4 gives p ~ delta^0.198 (bootstrap 0.175 to 0.224); the unwrapped-time
+criterion gives 0.202. 95 bases or partners approached period 3 and 19 ended as other recurrence candidates; no
+evaluation was censored. Termination fraction among bases: 0.032 inside M, 0.015 over the whole domain.
+
+**Gate not yet passed.** The 16 exact replicates reproduced every outcome and return time, but the next coordinate
+moved by up to 2.6e-8 (11 of 16 not bitwise equal) when a start sat in another batch position: rounding depends
+on batch placement and is amplified by one return. 16 rows are too few to show that the delta = 1e-8 level is
+above this noise. **FGR4b** (`docs/fold-return-fgr4b-plan.json`, same runner with `partners_only`): reruns all 466
+bases inside M exactly (delta = 0) in new batch positions and adds delta = 1e-10; 932 evaluations, two parts. The
+exponent is provisional until the delta = 0 control is read. The frozen FGR5 prediction and scoring path are
+unchanged (the analysis tool only gained the extension input; FGR5 itself is still running, unread).

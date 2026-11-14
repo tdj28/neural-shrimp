@@ -1,0 +1,39 @@
+{
+  "name": "FGR4b",
+  "status": "exploratory extension of FGR4 (disclosed amendment, 14 November 2026)",
+  "purpose": "Rounding control and a finer delta for the FGR4 uncertainty ladder: the 16 FGR4 replicates reproduced every outcome and return time but moved the next coordinate by up to 2.6e-8 when a start sat in another batch position, too close to delta = 1e-8 for a 16-row control. Reruns all 466 bases inside M exactly (delta = 0) in new batch positions and adds delta = 1e-10.",
+  "parent_line": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-line-01/run",
+  "parent_curve": "/data2/neural-shrimp-data/explore/llm-soft-loop/global-return/20261113-curve-01/run",
+  "reference_cycle": "/data2/neural-shrimp-data/audits/fold-global-return/20261113-cycle-01",
+  "device": "cpu",
+  "dtype": "patched float64",
+  "storage": "All full-state updates in immutable 128-update shards outside Git, copied, fsynced and rehashed on /archive before advancing (the FGR3 Evidence class). Never splice failed attempts.",
+  "threads": 6,
+  "batch_size": 16,
+  "local_wall_seconds_per_stage": 3600,
+  "zoom": {
+    "domain": [
+      3.0,
+      4.12
+    ],
+    "bases": 1024,
+    "seed": 20261114,
+    "base_rule": "One uniform draw in each of 1024 equal strata of the domain.",
+    "unresolved_interval": [
+      3.0503125000000004,
+      3.56
+    ],
+    "interval_source": "Complement of the two long resolved runs of the FGR3 table under the tau rule of tools/fold_return_unwrap.py (post-test diagnostic, 14 November 2026).",
+    "deltas": [
+      0.0,
+      1e-10
+    ],
+    "max_updates": 1024,
+    "part_wall_seconds": 43200,
+    "stop": "First qualified natural departure, verified period-3 approach, other recurrence candidate, or 1024 updates, as in FGR3 training.",
+    "analysis": "Uncertainty fraction p(delta) of the outcome under two criteria (return time; unwrapped departure time tau with tolerance 0.5 channel steps), exponent alpha from levels delta <= 1e-4 with at least 10 uncertain pairs, bootstrap over bases. Replicate batch must reproduce kind, time and next coordinate exactly.",
+    "partners_only": true
+  },
+  "claims": "One prompt and parameter setting; departures reconstructed on the FGR2C curve. An exponent below one indicates structure at every sampled scale between 1e-8 and 1e-4 in q, not an infinite fractal. Rounding is about 1e-16 relative; the smallest delta is about 1e-10 relative to the state norm.",
+  "publication": "Report, article and blog updates only after audit; no paid computation."
+}

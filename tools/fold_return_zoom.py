@@ -34,9 +34,14 @@ def zoom_items(spec):
     m_lo, m_hi = spec['unresolved_interval']
     items = [{'q': float(q), 'base': i, 'delta': 0.0, 'role': 'base'} for i, q in enumerate(base)]
     inside = [i for i, q in enumerate(base) if m_lo <= q < m_hi]
+    if spec.get('partners_only'):
+        # Extension run: the bases themselves come from the parent zoom; delta = 0 is an exact rerun in a new
+        # batch position (rounding control).
+        items = []
     for d in spec['deltas']:
         items += [{'q': float(base[i]+d), 'base': i, 'delta': d, 'role': 'partner'} for i in inside]
-    items += [{'q': float(base[i]), 'base': i, 'delta': 0.0, 'role': 'replicate'} for i in inside[:spec['replicates']]]
+    items += [{'q': float(base[i]), 'base': i, 'delta': 0.0, 'role': 'replicate'}
+              for i in inside[:spec.get('replicates', 0)]]
     return items, inside
 
 

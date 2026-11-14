@@ -37,7 +37,7 @@ C3 = {'time_correct_fraction': 0.97, 'median_tau_error': 0.002, 'p99_tau_error':
 def load_zoom(parts):
     records = []
     for d in parts:
-        records += json.loads((Path(d)/'records.json').read_text())
+        records += [{**r, 'run': str(d)} for r in json.loads((Path(d)/'records.json').read_text())]
     return records
 
 
@@ -113,15 +113,12 @@ def different(a, b, criterion):
     return ka[1] != kb[1] or abs(ka[2]-kb[2]) >= uw.TAU_TOL
 
 
-def add_tau(records, parts, U, centre, left):
+def add_tau(records, U, centre, left):
     cache = {}
     for r in records:
         if r['kind'] != 'return':
             continue
-        for d in parts:
-            if (Path(d)/r['batch']).exists():
-                S = cache.setdefault((d, r['batch']), uw.States(Path(d)/r['batch']))
-                break
+        S = cache.setdefault((r['run'], r['batch']), uw.States(Path(r['run'])/r['batch']))
         row = r['batch_row']
         qp = uw.q_of(S.at(r['updates'])[row], centre, left, U)
         if abs(qp-r['next_q']) > 1e-9:
@@ -135,12 +132,14 @@ def uncertainty(records, deltas, criterion, reps=BOOT, seed=BOOT_SEED):
     rows = []
     for d in deltas:
         pairs = [(base[r['base']], r) for r in records if r['role'] == 'partner' and r['delta'] == d]
+        if not pairs:
+            continue
         pairs = [(a, b) for a, b in pairs if a['kind'] in TERMINAL+('return',) and b['kind'] in TERMINAL+('return',)]
         flags = np.array([different(a, b, criterion) for a, b in pairs])
         rows.append({'delta': d, 'pairs': len(pairs), 'uncertain': int(flags.sum()),
                      'fraction': float(flags.mean()) if len(flags) else None, 'flags': flags})
     def fit(rows):
-        use = [r for r in rows if r['delta'] <= 1e-4 and r['uncertain'] >= 10]
+        use = [r for r in rows if 0 < r['delta'] <= 1e-4 and r['uncertain'] >= 10]
         if len(use) < 3:
             return None
         x = np.log10([r['delta'] for r in use]); y = np.log10([r['fraction'] for r in use])
@@ -202,6 +201,7 @@ def main():
     p.add_argument('mode', choices=['zoom', 'predict', 'score'])
     p.add_argument('--zoom', nargs='+', required=True, help='FGR4 part run directories')
     p.add_argument('--fresh', help='FGR5 run directory (score only)')
+    p.add_argument('--extra', nargs='*', default=[], help='zoom extension runs (zoom analysis only)')
     p.add_argument('--out', required=True); p.add_argument('--backup', required=True)
     args = p.parse_args()
     records = load_zoom(args.zoom)
@@ -222,8 +222,17 @@ def main():
         print(json.dumps({k: v for k, v in pred.items() if k not in ('qsd', 'termination_by_bin', 'counts')}, indent=1))
     elif args.mode == 'zoom':
         U, centre, left = geometry()
-        add_tau(records, args.zoom, U, centre, left)
         spec = plans[0]['zoom']
+        deltas = list(spec['deltas'])
+        for d in args.extra:
+            ext = json.loads((Path(d)/'plan.json').read_text())['zoom']
+            if any(ext[k] != spec[k] for k in ('domain', 'bases', 'seed', 'unresolved_interval', 'max_updates')):
+                raise ValueError('Extension run does not share the parent bases')
+            deltas += [x for x in ext['deltas'] if x not in deltas]
+            bindings[str(Path(d)/'manifest.json')] = sha(Path(d)/'manifest.json')
+        records += load_zoom(args.extra)
+        deltas = sorted(deltas, reverse=True)
+        add_tau(records, U, centre, left)
         base = {r['base']: r for r in records if r['role'] == 'base'}
         reps = [r for r in records if r['role'] == 'replicate']
         same = [all(r.get(k) == base[r['base']].get(k) for k in ('kind', 'updates', 'next_q')) for r in reps]
@@ -237,8 +246,8 @@ def main():
                  'terminal_fraction_whole_domain': sum(r['kind'] in TERMINAL for r in everywhere)/len(everywhere),
                  'bases_inside_M': len(inside), 'bases': len(everywhere), 'censored_bases': censored,
                  'outcome_kinds': {k: sum(r['kind'] == k for r in records) for k in {r['kind'] for r in records}},
-                 'uncertainty_time': uncertainty(records, spec['deltas'], 'time'),
-                 'uncertainty_tau': uncertainty(records, spec['deltas'], 'tau')}
+                 'uncertainty_time': uncertainty(records, deltas, 'time'),
+                 'uncertainty_tau': uncertainty(records, deltas, 'tau')}
         save_all(args.out, args.backup, {'audit.json': audit, 'records-with-tau.json': records})
         print(json.dumps(audit, indent=1))
     else:
