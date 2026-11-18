@@ -34381,3 +34381,9 @@ Blog (uncommitted): the same in the Research Note's growth section and both figu
 sentence on the derivative computation; provenance extension `fold-transient-figures-20261114` (21 bound numbers),
 verifier `verify_fold_transient.py` added to the Makefile; all site checks pass. Generators and backups:
 `neural-shrimp-data/blog-generator/nov14-transient/`, `blog-bundle-backup/*.before-nov14-transient`.
+
+## 2026-11-18 Final scientific review for Chaos
+
+One approved review of selected manuscript excerpts led to three changes in the abstract, results and cover letter. Recounting the 48 measured fold passages gave 23/24 within one iterate for the first stage's primary forecast and 18/24 for the second. Both stages had required 24/24. The long-run matrix escape probability was 0.0130 per departure. Across 48 fresh histories, 42 endings were observed in 2,417 departures with known outcomes, a pooled fraction of 0.0174. Six trajectories were unresolved at the time limit. Those measurements support a population-level comparison. The frozen individual predictor identified eight of 14 captures and gave 13 false alarms. The 26 complete tangent-growth windows came from 15 trajectories, 13 of which subsequently approached period three. This supports finite expansion before periodic capture and leaves the existence of a chaotic invariant set open.
+
+The final journal commit is `20b9875a7dbebdcef145f1681f3f4df7b1e0d807`. The [review record](consults/2026-11-18-chaos-presubmission/adjudication.md) documents the scoring rules, figure corrections, source rebuild and separate-disk verification of the submission files.

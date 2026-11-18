@@ -1,4 +1,4 @@
-"""Three-panel figure for the Chaos article: unwrapped return, zoom ladder, frozen survival test (reads receipts)."""
+"""Plot return times, sensitivity of the next event and survival by departure for the Chaos article."""
 import argparse
 import json
 from pathlib import Path
@@ -44,7 +44,8 @@ def main():
     if ctrl:
         y.axhline(ctrl[0]['fraction'], color=RED, ls=':', lw=1)
     y.set(xscale='log', yscale='log', ylim=(1e-3, 1.3))
-    y.set_xlabel(r'Neighbor distance $\delta$', fontsize=7); y.set_ylabel('Share with different outcome', fontsize=7)
+    y.set_xlabel(r'Neighbor distance $\delta$', fontsize=7)
+    y.set_ylabel('Fraction differing in time or outcome', fontsize=7)
     y.set_title(fr'(b) Inside M: $\delta^{{{s:.2f}}}$', fontsize=7.5)
     km = np.array(rob['kaplan_meier_departures']); lo, _, hi = pred['kappa_bootstrap_95']
     k = np.arange(0, km[:, 0].max()+5)
@@ -53,7 +54,7 @@ def main():
     z.step(km[:, 0], km[:, 1], where='post', color=ORANGE, lw=1.3)
     z.set(xlim=(0, k.max()), ylim=(0, 1.02))
     z.set_xlabel('Departures', fontsize=7); z.set_ylabel('Not yet ended', fontsize=7)
-    z.set_title('(c) Frozen survival test', fontsize=7.5)
+    z.set_title('(c) Survival by departure', fontsize=7.5)
     for ax in (x, y, z):
         ax.tick_params(labelsize=6.5); ax.spines[['top', 'right']].set_visible(False)
     out = Path(a.out)

@@ -426,3 +426,16 @@ skill, section 7A). Spend is recorded only in the gitignored `cost-ledger.md`
 - Consult 24 executed 20 Oct 2026 02:01-02:07 UTC (one call, as approved; brief at c533a12a, dry-001 checked first):
   completed, 56,400 tokens. Review and adjudication: docs/consults/2026-10-20-sync-section/adjudication.md (artifacts in
   neural-shrimp-data/consults/2026-10-20-sync-section/execute-001).
+
+## Pre-submission review of the fold and escape claims (18 November 2026)
+
+The author approved one OpenAI Responses API call after inspecting the proposed scope, receiving a cost estimate
+and being asked for a specific budget. The requested model is GPT-6.2 Astra in Pro mode with high reasoning effort.
+The exact packet selects the abstract, the two prospective fold tests, the individual and ensemble capture tests,
+the scope of the interval proofs and the conclusion from journal commit
+`628890cb2d4815775c2d641c6f916c750ccb9035`. Its SHA-256 is
+`bd743bf441dd0cb505c689353df90e5eb4225ccd3fec764f6348779a2fc60f0a`. The decision is whether these claims
+need a correction before submission to *Chaos*. The authorization covers one generating request with API storage
+disabled. The private ledger records the approved amount, estimate and prior recorded spend.
+
+The one approved request completed on 18 November. The [scientific adjudication](2026-11-18-chaos-presubmission/adjudication.md) records the recommendation, the checks against the measurements and the changes in the final manuscript.
