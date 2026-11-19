@@ -34387,3 +34387,23 @@ verifier `verify_fold_transient.py` added to the Makefile; all site checks pass.
 One approved review of selected manuscript excerpts led to three changes in the abstract, results and cover letter. Recounting the 48 measured fold passages gave 23/24 within one iterate for the first stage's primary forecast and 18/24 for the second. Both stages had required 24/24. The long-run matrix escape probability was 0.0130 per departure. Across 48 fresh histories, 42 endings were observed in 2,417 departures with known outcomes, a pooled fraction of 0.0174. Six trajectories were unresolved at the time limit. Those measurements support a population-level comparison. The frozen individual predictor identified eight of 14 captures and gave 13 false alarms. The 26 complete tangent-growth windows came from 15 trajectories, 13 of which subsequently approached period three. This supports finite expansion before periodic capture and leaves the existence of a chaotic invariant set open.
 
 The final journal commit is `20b9875a7dbebdcef145f1681f3f4df7b1e0d807`. The [review record](consults/2026-11-18-chaos-presubmission/adjudication.md) documents the scoring rules, figure corrections, source rebuild and separate-disk verification of the submission files.
+
+## 2026-11-19 20:02 UTC: Run card, months pilot (exploratory)
+
+At the author's request, a first test of how Karkada et al. (2026, arXiv:2602.15029, "Symmetry in language
+statistics shapes the geometry of model representations") relates to the soft-token loop. Tool
+`tools/months_loop.py`; local CPU, unsteered Qwen2.5-0.5B-Instruct, no claim beyond this prompt.
+
+- **Design probe (before this card, recorded here).** Prefix: system "You are a helpful assistant.", user "Write the
+  names of the months in order, separated by single spaces, and keep repeating them without stopping." With window 1
+  the float64 loop writes "January February," and returns to January after each comma; with window 2 it counts with
+  commas but skipped March (log10 T = -1.0, -0.5) and also January at -0.5. All month names are single tokens.
+- **Static (A, B).** Share of the centered input embeddings of the 12 months in their first cyclic harmonic, with a
+  20,000-permutation null and 5000 random 12-word sets; weekdays (period 7) and the numbers one to twelve as
+  controls; the same share for hidden states at the word in a fixed sentence, layer by layer (float32: geometry only).
+- **Sweep.** Window 2, 48 temperatures log10 T in [-1.5, 0.3], 1200 transient and 720 recorded updates, twin
+  exponent with relative offset 1e-8, float64 with the norm and rotary patch gate. Records states, the 64 most
+  probable tokens and the exact trace of the readout covariance at every recorded update.
+- **Questions.** (1) Do the month embeddings form the circle the paper predicts? (2) Does the loop cycle through the
+  months, and where do its month states lie in that circle's plane? (3) Damping: is the readout covariance of the
+  loop's actual competitors smaller than for the same probabilities on random tokens?
