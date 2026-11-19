@@ -34412,3 +34412,31 @@ statistics shapes the geometry of model representations") relates to the soft-to
 jobs raised the load to 33 on 32 cores and the oversubscribed run slowed severalfold (200 transient updates in 232 s,
 none further in the next 460 s). Kept as an incomplete attempt (`explore/months-loop/sweep-01`, meta only).
 Relaunched unchanged except `--threads 8` as `sweep-02`.
+
+## 2026-11-19 21:36 UTC: Months pilot results (exploratory)
+
+Outputs under `explore/months-loop/`: `static-02/static.json` (sha256 08431dcd…), `sweep-02` (sweep.npz e3ebb39d…,
+4643 s, 8 threads), `analysis-03/analysis.json` (b48b3d8e…), figure `figures-03/fig-months-loop.png` (17085fa7…).
+Analysis `analysis-02` was superseded: it detected periods from one comparison only and so reported period 2 where
+all comma states coincide; `analysis-03` requires every one of the last states to recur.
+
+- **Embedding geometry (Karkada et al. 2026 test).** The 12 month input embeddings wind once around a closed loop in
+  calendar order on their first two principal axes; December lies 0.93 median neighbor distances from January, and no
+  non-neighbor pair is closer. The numbers one to twelve form an open curve (twelve is 1.90 neighbor distances from
+  one; 98 % of non-neighbor pairs are closer). Weekdays are intermediate (1.23). The share of variance in the first
+  cyclic harmonic is 0.35 for months (permutation p = 5e-5, random 12-word sets at most 0.22) but also 0.36 for the
+  numbers, so that statistic alone does not separate a circle from a curve. The closure persists at every layer for
+  months (0.93 to 1.31) and numbers stay open (1.72 to 2.55).
+- **Loop.** Window 2, unsteered. The loop cycles through the months with commas: an 11-month cycle skipping March
+  (state period 22) for log10 T up to -0.54 (twin collapsed, superstable, up to -0.89; exponents -5.97 to -2.03
+  above), 10 months (period 20) from -0.50 to -0.16, then 9 and 8 months (periods 18, 16), chaotic cells at log10 T =
+  -0.121, -0.006 and +0.032 (exponents +0.051, +0.026, +0.058) while still writing months, periods 26 and 12 at
+  +0.070 and +0.109, and above +0.147 the loop leaves the months for end-of-turn tokens. At low temperature the
+  month states sit on the month embeddings' loop; at higher temperature the polygon shrinks inward.
+- **Damping.** At updates whose leading token is a month, the trace of the readout covariance of the 64 most probable
+  tokens is 0.24 to 0.42 times what the same probabilities give over random ordinary words (median over updates,
+  every cell with 360 month updates). Adjacent months are 0.27 apart in embedding space against 0.58 for random word
+  pairs ((0.27/0.58)^2 = 0.22). Not tested: whether this smaller gain changes where the loop becomes chaotic; that
+  needs a counterfactual map.
+- Limits: one prompt, one window, no steering, one run per temperature; the 64-token truncation and the null set of
+  words are choices.
