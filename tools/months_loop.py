@@ -209,46 +209,61 @@ def analyze(args):
     lt = z['log10_temperature']; S = z['states']; tid = z['top_id']; tp = z['top_p']
     R, n, d = S.shape
     rng = np.random.default_rng(1)
+    words = [i for i, t in enumerate(tok.convert_ids_to_tokens(list(range(E.shape[0]))))
+             if t is not None and t.startswith('Ġ') and t[1:].isalpha() and len(t) > 3 and i not in mid_set]
     cells = []
     for j in range(n):
         lead = tid[:, j, 0]
         months = [mid_set.get(int(t)) for t in lead]
         seq = [m for m in months if m is not None]
-        # state period (relative 1e-9) over the record
+        # state period (relative 1e-9): every one of the last L states must equal the state q updates earlier
+        # (one comparison is not enough: at low temperature all comma states coincide)
         per = 0
-        for q in range(1, min(args.max_period, R-1)+1):
-            if np.linalg.norm(S[-1, j]-S[-1-q, j]) < 1e-9*np.linalg.norm(S[-1, j]):
+        for q in range(1, min(args.max_period, R//3)+1):
+            L = min(R-q, 3*args.max_period)
+            a, b = S[R-L:, j], S[R-L-q:R-q, j]
+            if np.all(np.linalg.norm(a-b, axis=1) < 1e-9*np.linalg.norm(a, axis=1)):
                 per = q; break
         visited = sorted(set(seq))
-        # readout covariance of the top-64 competitors against the same probabilities on random tokens
+        # readout covariance of the top-64 competitors against the same probabilities on random ordinary words, at
+        # the updates whose most probable token is a month
         act, sh = [], []
         for k in range(R):
+            if months[k] is None:
+                continue
             p = tp[k, j]/tp[k, j].sum(); ids = tid[k, j]
             Ek = E[ids]; act.append(float(p@(Ek**2).sum(1)-np.sum((p@Ek)**2)))
-            rid = rng.integers(0, E.shape[0], TOPK); Er = E[rid]
+            Er = E[rng.choice(words, TOPK, replace=False)]
             sh.append(float(p@(Er**2).sum(1)-np.sum((p@Er)**2)))
+        act = act or [float('nan')]; sh = sh or [float('nan')]
+        lam = float(z['lyapunov'][j])
         month_steps = [k for k in range(R) if months[k] is not None]
         proj = ((S[month_steps, j]-c)@plane.T).tolist() if month_steps else []
-        cells.append({'log10_temperature': float(lt[j]), 'lyapunov': float(z['lyapunov'][j]), 'state_period': per,
+        cells.append({'log10_temperature': float(lt[j]), 'lyapunov': lam if np.isfinite(lam) else None,
+                      'twin_collapsed': bool(not np.isfinite(lam)), 'state_period': per,
                       'months_visited': [MONTHS[m] for m in visited], 'month_count': len(visited),
                       'month_sequence_tail': [MONTHS[m] for m in seq[-24:]],
                       'text_tail': ''.join(tok.decode([int(t)]) for t in lead[-48:]),
                       'cov_trace_top64_actual_median': float(np.median(act)),
                       'cov_trace_top64_random_median': float(np.median(sh)),
+                      'cov_trace_ratio_median': float(np.median(np.array(act)/np.array(sh))),
+                      'month_steps': len(month_steps),
                       'entropy_median': float(np.median(z['entropy'][:, j])),
                       'cov_trace_exact_median': float(np.median(z['cov_trace'][:, j])),
                       'month_plane_projection': proj[-48:]})
     adj = [float(np.linalg.norm(E[mids[k]]-E[mids[(k+1) % 12]])) for k in range(12)]
-    pairs = [float(np.linalg.norm(E[a]-E[b])) for a, b in rng.integers(0, E.shape[0], (5000, 2))]
+    pairs = [float(np.linalg.norm(E[a]-E[b])) for a, b in rng.choice(words, (5000, 2))]
     res = {'run': str(run), 'sweep_sha256': sha(run/'sweep.npz'), 'cells': cells,
            'adjacent_month_distances': adj, 'random_pair_distance_median': float(np.median(pairs)),
            'month_plane_basis': 'top two principal axes of the 12 centered month embeddings (leading space)'}
     (Path(args.out)).mkdir(parents=True, exist_ok=False)
     (Path(args.out)/'analysis.json').write_text(json.dumps(res, indent=1))
     for cdict in cells:
-        print(f"{cdict['log10_temperature']:+.3f} lam {cdict['lyapunov']:+.4f} per {cdict['state_period']:3d} "
-              f"months {cdict['month_count']:2d} trace act/rand {cdict['cov_trace_top64_actual_median']:.4f}/"
-              f"{cdict['cov_trace_top64_random_median']:.4f}  {cdict['text_tail'][-60:]!r}")
+        lam = 'collapsed' if cdict['twin_collapsed'] else f"{cdict['lyapunov']:+.4f}"
+        print(f"{cdict['log10_temperature']:+.3f} lam {lam:>9s} per {cdict['state_period']:3d} "
+              f"months {cdict['month_count']:2d} trace ratio {cdict['cov_trace_ratio_median']:.3f} "
+              f"(act {cdict['cov_trace_top64_actual_median']:.2e})  {cdict['text_tail'][-44:]!r}")
+    print('adjacent month distance median', np.median(adj), ' random word pair median', np.median(pairs))
 
 
 if __name__ == '__main__':
