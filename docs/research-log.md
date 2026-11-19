@@ -34407,3 +34407,8 @@ statistics shapes the geometry of model representations") relates to the soft-to
 - **Questions.** (1) Do the month embeddings form the circle the paper predicts? (2) Does the loop cycle through the
   months, and where do its month states lie in that circle's plane? (3) Damping: is the readout covariance of the
   loop's actual competitors smaller than for the same probabilities on random tokens?
+
+2026-11-19 20:14 UTC: months sweep attempt `sweep-01` (16 threads) stopped by me after about 12 minutes: other sessions'
+jobs raised the load to 33 on 32 cores and the oversubscribed run slowed severalfold (200 transient updates in 232 s,
+none further in the next 460 s). Kept as an incomplete attempt (`explore/months-loop/sweep-01`, meta only).
+Relaunched unchanged except `--threads 8` as `sweep-02`.
