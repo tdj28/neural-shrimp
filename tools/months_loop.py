@@ -47,6 +47,17 @@ def harmonic_share(X, n_period=None):
     return float(np.sum((Q.T@Xc)**2)/np.sum(Xc**2))
 
 
+def closure_stats(X):
+    """Is the ordered set closed (last item next to the first) or open? Distances in the full space."""
+    n = len(X)
+    D = np.linalg.norm(X[:, None]-X[None], axis=2)
+    adj = [D[k, k+1] for k in range(n-1)]
+    wrap = D[n-1, 0]
+    others = [D[i, j] for i in range(n) for j in range(i+2, n) if not (i == 0 and j == n-1)]
+    return {'wrap_over_median_adjacent': float(wrap/np.median(adj)),
+            'share_of_nonadjacent_pairs_closer_than_wrap': float(np.mean(np.array(others) < wrap))}
+
+
 def circle_stats(X, rng, perms=20000):
     share = harmonic_share(X)
     null = np.array([harmonic_share(X[rng.permutation(len(X))]) for _ in range(perms)])
@@ -85,7 +96,7 @@ def static(args):
     out = {'model_revision': getattr(model.config, '_commit_hash', None), 'sets': {}}
     sets = {'months': token_ids(tok, MONTHS), 'weekdays': token_ids(tok, WEEKDAYS), 'numbers': token_ids(tok, NUMBERS)}
     for name, ids in sets.items():
-        out['sets'][name] = {'token_ids': ids, 'embeddings': circle_stats(E[ids], rng)}
+        out['sets'][name] = {'token_ids': ids, 'embeddings': {**circle_stats(E[ids], rng), **closure_stats(E[ids])}}
     # random sets of 12 single-token words with a leading space, in arbitrary order
     vocab = [i for i, s in enumerate(tok.convert_ids_to_tokens(list(range(E.shape[0]))))
              if s is not None and s.startswith('Ġ') and s[1:].isalpha() and len(s) > 3]
@@ -106,7 +117,7 @@ def static(args):
         H = np.array(H)                                   # (words, layers+1, d)
         layers = []
         for L in range(H.shape[1]):
-            st = circle_stats(H[:, L], rng, perms=5000)
+            st = {**circle_stats(H[:, L], rng, perms=5000), **closure_stats(H[:, L])}
             st.pop('pc12_coordinates')
             layers.append({'layer': L, **st})
         out['sets'][name]['hidden_states'] = layers
