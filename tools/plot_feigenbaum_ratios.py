@@ -12,8 +12,8 @@
 - Qwen2.5-1.5B (philosophy, layer 14) along log10 T at alpha 0.100: flips (cascade/q15-a0.100-p4, edges/q15-a0.100-p16,
   edges/q15-a0.100-p32).
 
-A flip ratio (lambda_n - lambda_{n-1}) / (lambda_{n+1} - lambda_n) is plotted at level n - 1 (the band of its first
-interval), a superstable ratio half a level later. Usage: python tools/plot_feigenbaum_ratios.py [--out PNG]
+A flip ratio (lambda_n - lambda_{n-1}) / (lambda_{n+1} - lambda_n) is plotted at n when --first-flip-index is 2
+(journal Table V), or at n - 1 to number bands as in the full report. Superstable ratios retain their half-level offset.
 """
 import argparse
 import itertools
@@ -112,7 +112,10 @@ def superstable_156():
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--out", default=str(ROOT / "paper/llm/figures/fig-feigenbaum-ratios.png"))
+    ap.add_argument("--first-flip-index", type=int, choices=(1, 2), default=1,
+                    help="1 for band numbering in the full report, 2 for the ratio index in journal Table V")
     args = ap.parse_args()
+    first = args.first_flip_index
 
     ss = superstable()
     s148 = ratios([r[1] for r in ss])
@@ -124,24 +127,25 @@ def main():
 
     fig, ax = plt.subplots(figsize=(4.2, 2.9), dpi=300)
     ax.axhline(DELTA, color="0.3", ls=":", lw=1)
-    ax.text(1.45, DELTA + 0.04, r"$\delta=4.669$", ha="left", va="bottom", fontsize=7)
+    ax.text(first + 0.45, DELTA + 0.04, r"$\delta=4.669$", ha="left", va="bottom", fontsize=7)
     blue, green, red = "#0072B2", "#D55E00", "#009E73"   # Okabe-Ito: safe under color-vision deficiency
-    ax.plot(range(1, len(f148) + 1), f148, "o-", color=blue, label=r"0.5B, $\log_{10}T=-0.148$, flips")
-    xs = [n + 1.5 for n in range(1, len(s148) + 1)]
+    ax.plot(range(first, first + len(f148)), f148, "o-", color=blue, label=r"0.5B, $\log_{10}T=-0.148$, flips")
+    xs = first + 1.5 + np.arange(len(s148))  # the measured superstable series starts at period 12
     lo, hi = zip(*(worst_case(ss, i) for i in range(1, len(ss) - 1)))
     err = [[max(v - a, 0) for v, a in zip(s148, lo)], [max(b - v, 0) for v, b in zip(s148, hi)]]
     ax.errorbar(xs, s148, yerr=err, fmt="s--", color=blue, mfc="white", capsize=3,
                 label=r"0.5B, $\log_{10}T=-0.148$, superstable")
     top = 5.0
-    inside = [(n, v) for n, v in enumerate(f156, start=1) if v <= top]
+    inside = [(n, v) for n, v in enumerate(f156, start=first) if v <= top]
     ax.plot(*zip(*inside), "D-", color=green, ms=5,
             label=r"0.5B, $\log_{10}T=-0.156$, flips")
-    for n, v in enumerate(f156, start=1):         # off-scale ratios: an arrow at the top edge, joined by a dotted line
+    for i, v in enumerate(f156):         # off-scale ratios: an arrow at the top edge, joined by a dotted line
         if v > top:
+            n = first + i
             ax.plot([n], [top - 0.06], marker="^", color=green, ms=7, clip_on=False)
             ax.text(n + 0.1, top + 0.01, "%.1f" % v, color=green, fontsize=7, va="bottom", ha="left", clip_on=False)
-            if n < len(f156):
-                ax.plot([n, n + 1], [top - 0.06, f156[n]], ":", color=green, lw=1.2)
+            if i + 1 < len(f156):
+                ax.plot([n, n + 1], [top - 0.06, f156[i + 1]], ":", color=green, lw=1.2)
     ss6 = superstable_156()
     s156 = ratios([r[1] for r in ss6])
     if s156:
@@ -149,10 +153,10 @@ def main():
         wide = [b - a > 1.0 for a, b in zip(lo6, hi6)]    # ranges set by the wide s12, s24 brackets: in the caption
         err6 = [[0 if w else max(v - a, 0) for v, a, w in zip(s156, lo6, wide)],
                 [0 if w else max(b - v, 0) for v, b, w in zip(s156, hi6, wide)]]
-        ax.errorbar([n + 1.5 for n in range(1, len(s156) + 1)], s156, yerr=err6, fmt="D--", color=green, mfc="white",
+        ax.errorbar(first + 1.5 + np.arange(len(s156)), s156, yerr=err6, fmt="D--", color=green, mfc="white",
                     ms=5, capsize=3, label=r"0.5B, $\log_{10}T=-0.156$, superstable")
-    ax.plot(range(1, len(q15) + 1), q15, "^-", color=red, label="1.5B, flips")
-    ax.set_xlim(0.6, 6.0 if len(f156) < 6 else len(f156) + 0.4)
+    ax.plot(range(first, first + len(q15)), q15, "^-", color=red, label="1.5B, flips")
+    ax.set_xlim(first - 0.4, first + (5 if len(f156) < 6 else len(f156) - 0.6))
     ax.set_ylim(2.6, top)
     ax.set_xlabel(r"doubling level $n$", fontsize=8)
     ax.set_ylabel(r"interval ratio $\delta_n$", fontsize=8)

@@ -1,6 +1,6 @@
-"""Figure: the strange attractor of the soft-token loop (portrait runs of tools/attractor_portrait.py).
+"""Phase portraits of the soft-token loop (portrait runs of tools/attractor_portrait.py).
 
-(a) The attractor at one chaotic cell on its first two principal axes: every recorded state of all trajectories, colored
+(a) Recorded states of trajectories without a detected period on their first two principal axes, colored
 by the most probable next token (the text the loop writes). (b), (c) Two successive zooms into a dense part, showing
 its layered fine structure. (d) The return map of the first principal coordinate, s_(n+1) against s_n: stretching and
 folding. (e) Correlation sum C(r) on the leading principal coordinates, with the slope (correlation dimension) over the
@@ -73,6 +73,8 @@ def main():
     ap.add_argument("--manifold", default=None)
     ap.add_argument("--out", required=True)
     ap.add_argument("--json")
+    ap.add_argument("--chaotic-transient", action="store_true",
+                    help="identify the primary portrait as a chaotic transient when longer runs document escape")
     ap.add_argument("--ky", type=float, default=None, help="Kaplan-Yorke dimension of the cell, drawn for comparison")
     ap.add_argument("--layout", choices=("grid", "row"), default="grid",
                     help="grid: all six panels; row: (a) the projection, (b) the first zoom and (c) the band with the manifold")
@@ -87,8 +89,8 @@ def main():
     tok = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-0.5B-Instruct", revision="7ae557604adf67be50417f59c2c2f167def9a775",
                                         cache_dir=str(DATA / "models/hf/hub"))
     z, rec = load(args.main)
-    aper = z["periods"] == 0                         # the chaotic attractor only: starts that reached a periodic orbit
-    C = z["coords"][aper]                            # (starts, record, pcs) would pile up at its few points
+    aper = z["periods"] == 0                         # exclude trajectories classified as periodic in this record
+    C = z["coords"][aper]                            # (starts, record, pcs)
     T = z["tokens"][aper]
     P = C.reshape(-1, C.shape[-1])
     toks = T.reshape(-1)
@@ -114,11 +116,12 @@ def main():
     lo1, hi1, c1 = zoom_box(P[:, :2], 0.08)
     ax.add_patch(plt.Rectangle(lo1, *(hi1 - lo1), fill=False, ec="k", lw=0.8))
     a = rec["args"]
+    title = "states during the chaotic transient" if args.chaotic_transient else "sampled trajectory states"
+    setting = f"$\\alpha={a['alpha']}$, $\\log_{{10}}T={a['log_t']}$"
     if row:
-        ax.set_title(f"(a) the attractor at $\\alpha={a['alpha']}$, $\\log_{{10}}T={a['log_t']}$", fontsize=9)
+        ax.set_title(f"(a) {title}\n{setting}", fontsize=9)
     else:
-        ax.set_title(f"(a) projection of the attractor at $\\alpha={a['alpha']}$, $\\log_{{10}}T={a['log_t']}$ ({len(P):,} states)",
-                     fontsize=9)
+        ax.set_title(f"(a) {title} at {setting} ({len(P):,} states)", fontsize=9)
     ax.set_xlabel("first principal coordinate")
     ax.set_ylabel("second principal coordinate")
     zooms = ((0.08, "(b) zoom"),) if row else ((0.08, "(b) zoom"), (0.008, "(c) zoom, ten times closer"))
@@ -175,7 +178,7 @@ def main():
             pad = 0.08 * (hi - lo).max()
             sel = np.all((P2[:, :2] >= lo - pad) & (P2[:, :2] <= hi + pad), axis=1)
             ax.scatter(P2[sel, 0], P2[sel, 1], s=2.0, c="tab:purple", alpha=0.5, linewidths=0, rasterized=True,
-                       label="attractor states")
+                       label="sampled trajectory states")
             ax.scatter(M[:, 0], M[:, 1], s=0.2, c="k", alpha=0.8, linewidths=0, rasterized=True,
                        label="unstable manifold of the period-3 saddle")
             ax.set_xlim(lo[0] - pad, hi[0] + pad)
